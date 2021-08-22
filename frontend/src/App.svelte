@@ -1,0 +1,42 @@
+<script>
+	import Router from 'svelte-spa-router';
+	import { wrap } from 'svelte-spa-router/wrap';
+	import Footer from './components/Footer.svelte';
+
+	import Nav from "./components/Nav.svelte";
+
+	import Home from "./screens/Home.svelte";
+
+	const routes = {
+		'/': wrap({ component: Home})
+	}
+
+</script>
+
+<svelte:head>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+</svelte:head>
+
+<header>
+	<Nav />
+</header>
+
+<main>
+	<Router { routes }/>
+</main>
+
+<footer>
+	<Footer />
+</footer>
+
+
+<style>
+	:global(body) {
+		/* this will apply to <body> */
+		padding: 0;
+	}
+	main {
+		margin-top: 15vh;
+		min-height: 80vh;
+	}
+</style>
