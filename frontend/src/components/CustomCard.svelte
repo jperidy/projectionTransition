@@ -2,8 +2,9 @@
     import { Card, CardBody, CardFooter, CardHeader, CardSubtitle, CardText, CardTitle, Col, Icon, Row } from "sveltestrap";
     import CustomText from "./CustomText.svelte";
     import { fly, fade } from 'svelte/transition';
+    import MovingContent from "./MovingContent.svelte";
 
-    export let cards = {};
+    export let cards = [];
     export let updateContent;
     export let admin = false;
 
@@ -12,11 +13,17 @@
     } else if (cards.length === 2) {
         cards = [cards[0], null, cards[1]];
     }
+
+    const updateMovedArray = (array) => {
+        cards = array;
+    }
+
 </script>
 
 <Row class='text-center'>
-    {#each cards as card}
+    {#each cards as card, position}
         <Col sm={12} md={4} >
+        <MovingContent array={cards} position={position} admin={admin} updateMovedArray={updateMovedArray}>
         <div in:fly="{{ y: 200, duration: 2000 }}" out:fade>        
             {#if card}
                 <Card class='my-3' color='dark' inverse>
@@ -73,6 +80,7 @@
                 </Card>
             {/if}
         </div>
+        </MovingContent>
         </Col>
     {/each}
 </Row>

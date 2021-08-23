@@ -1,4 +1,4 @@
-export const homeContent = [
+export let homeContent = [
     {section: 'Carousel', type: 'carousel', value: [
         {url: '/images/500x250/img1.jpeg', title: 'titre1', subTitle: 'sous-titre1' },
         {url: '/images/500x250/img2.jpeg', title: 'titre2', subTitle: 'sous-titre2' },

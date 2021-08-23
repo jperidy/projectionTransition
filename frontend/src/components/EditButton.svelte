@@ -16,7 +16,7 @@
 
 {#if admin}
     <Row class='text-end'>
-        <Col class='border-top border-secondary'>
+        <Col>
             <Button 
                 color='dark'
                 on:click={() => modifyEdit()}
