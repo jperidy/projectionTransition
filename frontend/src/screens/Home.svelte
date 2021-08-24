@@ -1,20 +1,47 @@
 <script>
     import CustomContainer from '../components/CustomContainer.svelte';
-    import { homeContent as input } from '../dataDesign/homeContent';
+    //import { homeContent as input } from '../dataDesign/homeContent';
     import CustomCarousel from '../components/CustomCarousel.svelte';
     import CustomCard from '../components/CustomCard.svelte';
     import CustomText from '../components/CustomText.svelte';
     import { Col, Row } from 'sveltestrap';
     import AdminButton from '../components/AdminButton.svelte';
     import MovingContent from '../components/MovingContent.svelte';
+    import AddContent from '../components/AddContent.svelte';
 
-    let homeContent = input;
-    const updateContent = () => {
-        console.log(homeContent);
+    import { getContent, updateOrCreateContent } from '../actions/pagesActions'
+    import { onMount } from 'svelte';
+
+    //let homeContent = input;
+
+    const pageName = 'homeContent';
+    let pageContent = {};
+    let pageContentMessage = '';
+
+    onMount( async() => {
+
+        const pageContentResult = await getContent(pageName);
+        console.log(pageContentResult);
+
+        if (pageContentResult.status === 'Ok') {
+            pageContent = pageContentResult.data;
+            pageContentMessage = '';
+        } else {
+            pageContent = {};
+            pageContentMessage = pageContentResult.data;
+        }
+
+    });
+
+    const updateContent = async() => {
+        console.log('updateContent', pageContent);
+        await updateOrCreateContent(pageContent);
     }
 
-    const updateMovedArray = (array) => {
-        homeContent = array;
+    const updateMovedArray = async(array) => {
+        console.log('updateMovedArray', pageContent);
+        pageContent.content = array;
+        await updateOrCreateContent(pageContent);
     }
 
     let isAuthenticate = true;
@@ -29,9 +56,12 @@
     />
     <Row class='text-center'>
         <Col>
-            {#if homeContent}
-                {#each homeContent as section, position}
-                    <MovingContent array={homeContent} position={position} admin={admin} updateMovedArray={updateMovedArray}>
+            {#if admin}
+                <AddContent />
+            {/if}
+            {#if pageContent && pageContent.content}
+                {#each pageContent.content as section, position}
+                    <MovingContent array={pageContent.content} position={position} admin={admin} updateMovedArray={updateMovedArray}>
                         {#if section.type === 'text'}
                             <CustomText 
                                 bind:text={section.value} 
@@ -42,14 +72,14 @@
 
                         {#if section.type === 'card'}
                             <CustomCard 
-                                bind:cards={section.value}
+                                bind:cards={section.values}
                                 updateContent={updateContent}
                                 admin={admin}
                             />
                         {/if}
                         
                         {#if section.type === 'carousel'}
-                            <CustomCarousel bind:items={section.value} />
+                            <CustomCarousel bind:items={section.values} />
                         {/if}
                     </MovingContent>
                 {/each}

@@ -2,10 +2,9 @@ const express = require('express');
 const morgan = require('morgan');
 const path = require('path');
 
-// const homeContentRoutes = require('./routes/homeContentRoute');
+const pageRoutes = require('./routes/pagesRoutes');
 
-//const bodyParser = require('body-parser');
-//const connectDB = require('./config/db');
+const connectDB = require('./config/db');
 
 const app = express();
 
@@ -15,7 +14,7 @@ if (process.env.NODE_ENV === 'dev' ) {
     app.use(morgan('common'));
 }
 
-//connectDB();
+connectDB();
 
 app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Origin', '*');
@@ -26,7 +25,7 @@ app.use((req, res, next) => {
 
 app.use(express.json());
 
-// app.use('/api/homecontent', homeContentRoutes);
+app.use('/api/page', pageRoutes);
 
 
 // static route for developpement access to build repository

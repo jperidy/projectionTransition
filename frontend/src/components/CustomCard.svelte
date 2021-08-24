@@ -39,8 +39,8 @@
                     <CardBody>
                         <Row class='text-start'>
                             <Col xs={3}>
-                                {#if card.src}
-                                    <img src={card.src} alt='illustration' />
+                                {#if card.url}
+                                    <img src={card.url} alt='illustration' />
                                 {:else}
                                     <Icon name='card-image' />
                                 {/if}
@@ -48,7 +48,7 @@
                             <Col xs={9}>
                                 <CardSubtitle>
                                     <CustomText 
-                                        bind:text={card.subtitle}
+                                        bind:text={card.subTitle}
                                         admin={admin}
                                         updateContent={updateContent}
                                     />

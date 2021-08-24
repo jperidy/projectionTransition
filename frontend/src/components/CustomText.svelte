@@ -20,11 +20,11 @@
 {/if}
 
 <Row>
-    <Col>
-        {#if edit}
-            <textarea bind:value={text} />
-        {:else}
+    <Col>  
+            {#if edit}
+                <textarea bind:value={text} />
+            {:else}
             <SvelteMarkdown source={text} />
-        {/if}
+            {/if}
     </Col>
 </Row>
