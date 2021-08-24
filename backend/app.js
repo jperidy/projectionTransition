@@ -3,6 +3,7 @@ const morgan = require('morgan');
 const path = require('path');
 
 const pageRoutes = require('./routes/pagesRoutes');
+const uploadRoutes = require('./routes/uploadRoutes');
 
 const connectDB = require('./config/db');
 
@@ -26,10 +27,12 @@ app.use((req, res, next) => {
 app.use(express.json());
 
 app.use('/api/page', pageRoutes);
+app.use('/api/upload', uploadRoutes);
 
 
 // static route for developpement access to build repository
 const __dir = path.resolve();
+app.use('/uploads', express.static(path.join(__dir, '/uploads')));
 
 // test the build
 // app.use(express.static(path.join(__dir, '/frontend/build')));

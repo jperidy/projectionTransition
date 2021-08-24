@@ -1,12 +1,16 @@
 <script>
-    import { Card, CardBody, CardFooter, CardHeader, CardSubtitle, CardText, CardTitle, Col, Icon, Row } from "sveltestrap";
+    import { Button, Card, CardBody, CardFooter, CardHeader, CardSubtitle, CardText, CardTitle, Col, Icon, Row } from "sveltestrap";
     import CustomText from "./CustomText.svelte";
     import { fly, fade } from 'svelte/transition';
     import MovingContent from "./MovingContent.svelte";
+    import EditButton from "./EditButton.svelte";
 
     export let cards = [];
     export let updateContent;
     export let admin = false;
+    export let edit = false;
+
+    let editCards = false;
 
     if (cards.length === 1) {
         cards = [null, ...cards, null]
@@ -18,14 +22,39 @@
         cards = array;
     }
 
+    const addACard = () => {
+        cards = [...cards, {
+            title: '',
+            subTitle: '',
+            text: '',
+            url: '',
+            footer: '',
+        }];
+    }
+
+    const removeACard = (index) => {
+        cards.splice(index,1);
+        cards = cards;
+    }
+
 </script>
 
 <Row class='text-center'>
+    {#if admin && updateContent}
+        <EditButton
+            admin={admin}
+            updateContent={updateContent}
+            bind:edit={editCards}
+        />
+    {/if}
     {#each cards as card, position}
         <Col sm={12} md={4} >
         <MovingContent array={cards} position={position} admin={admin} updateMovedArray={updateMovedArray}>
         <div in:fly="{{ y: 200, duration: 2000 }}" out:fade>        
             {#if card}
+                {#if editCards}
+                    <Button on:click={() => removeACard(position)}>Delete</Button>
+                {/if}
                 <Card class='my-3' color='dark' inverse>
                     <CardHeader>
                         <CardTitle>
@@ -33,6 +62,7 @@
                                 bind:text={card.title}
                                 admin={admin}
                                 updateContent={updateContent}
+                                edit={edit}
                             />
                         </CardTitle>
                     </CardHeader>
@@ -51,6 +81,7 @@
                                         bind:text={card.subTitle}
                                         admin={admin}
                                         updateContent={updateContent}
+                                        edit={edit}
                                     />
                                 </CardSubtitle>
                                 <CardText>
@@ -58,6 +89,7 @@
                                         bind:text={card.text}
                                         admin={admin}
                                         updateContent={updateContent}
+                                        edit={edit}
                                     />
                                 </CardText>
                             </Col>
@@ -73,14 +105,20 @@
                                         bind:text={card.footer}
                                         admin={admin}
                                         updateContent={updateContent}
+                                        edit={edit}
                                 />
                             </Col>
                         </Row>
                     </CardFooter>
-                </Card>
+                </Card>                
             {/if}
         </div>
         </MovingContent>
         </Col>
     {/each}
+    
+    {#if editCards}
+        <Button on:click={() => addACard()}>Add a card</Button>
+    {/if}
+
 </Row>

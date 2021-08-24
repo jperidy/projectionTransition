@@ -11,6 +11,7 @@
 
     import { getContent, updateOrCreateContent } from '../actions/pagesActions'
     import { onMount } from 'svelte';
+    import DisplayCustomComponent from '../components/DisplayCustomComponent.svelte';
 
     //let homeContent = input;
 
@@ -21,7 +22,7 @@
     onMount( async() => {
 
         const pageContentResult = await getContent(pageName);
-        console.log(pageContentResult);
+        //console.log(pageContentResult);
 
         if (pageContentResult.status === 'Ok') {
             pageContent = pageContentResult.data;
@@ -34,13 +35,18 @@
     });
 
     const updateContent = async() => {
-        console.log('updateContent', pageContent);
+        //console.log('updateContent', pageContent);
         await updateOrCreateContent(pageContent);
     }
 
     const updateMovedArray = async(array) => {
         console.log('updateMovedArray', pageContent);
         pageContent.content = array;
+        await updateOrCreateContent(pageContent);
+    }
+
+    const addContent = async(item) => {
+        pageContent.content = [item, ...pageContent.content];
         await updateOrCreateContent(pageContent);
     }
 
@@ -57,12 +63,23 @@
     <Row class='text-center'>
         <Col>
             {#if admin}
-                <AddContent />
+                <AddContent admin={admin} addContent={addContent}/>
             {/if}
             {#if pageContent && pageContent.content}
                 {#each pageContent.content as section, position}
                     <MovingContent array={pageContent.content} position={position} admin={admin} updateMovedArray={updateMovedArray}>
-                        {#if section.type === 'text'}
+                        
+                        <DisplayCustomComponent 
+                            bind:value={section.value}
+                            bind:values={section.values}
+                            type={section.type}
+                            updateContent={updateContent && updateContent}
+                            admin={admin}
+                            edit={false}
+                        />
+                        
+                        
+                        <!-- {#if section.type === 'text'}
                             <CustomText 
                                 bind:text={section.value} 
                                 updateContent={updateContent}
@@ -80,7 +97,7 @@
                         
                         {#if section.type === 'carousel'}
                             <CustomCarousel bind:items={section.values} />
-                        {/if}
+                        {/if} -->
                     </MovingContent>
                 {/each}
             {/if}

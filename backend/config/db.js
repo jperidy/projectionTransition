@@ -5,7 +5,9 @@ const connectDB = async () => {
     let uri = '';
     
     if (['dev'].includes(process.env.NODE_ENV)) {
-        uri = process.env.MONGO_URI_DEV
+        uri = process.env.MONGO_URI_DEV;
+    } else if (['production'].includes(process.env.NODE_ENV)) {
+        uri = process.env.MONGO_URI_PROD;
     }
 
     mongoose.connect(uri, {
