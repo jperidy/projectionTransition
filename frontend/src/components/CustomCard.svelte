@@ -12,11 +12,11 @@
 
     let editCards = false;
 
-    if (cards.length === 1) {
-        cards = [null, ...cards, null]
-    } else if (cards.length === 2) {
-        cards = [cards[0], null, cards[1]];
-    }
+    // if (cards.length === 1) {
+    //     cards = [null, ...cards, null]
+    // } else if (cards.length === 2) {
+    //     cards = [cards[0], null, cards[1]];
+    // }
 
     const updateMovedArray = (array) => {
         cards = array;

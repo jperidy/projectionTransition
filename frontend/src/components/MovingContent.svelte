@@ -25,20 +25,25 @@
             array = arrayMove(array, position, position + 1);
         }
         updateMovedArray(array); 
-    }
+    };
 
     const deleteAction = () => {
         array.splice(position, 1);
         updateMovedArray(array);
-    }
+    };
 
 </script>
 
 {#if admin}
     <div class='border border-secondary my-3 pt-3'>
-        <Button on:click={() => upAction()}>UP<Icon name='caret-up'/></Button>
-        <Button on:click={() => downAction()}>DOWN<Icon name='caret-down'/></Button>
-        <Button on:click={() => deleteAction()}>DELETE<Icon name='trash'/></Button>
+        <Row>
+            <Col>
+                <Button class='mx-3' color='secondary' on:click={() => upAction()}><Icon name='caret-up'/>  UP</Button>
+                <Button class='mx-3' color='secondary' on:click={() => downAction()}><Icon name='caret-down'/>  DOWN</Button>
+                <Button class='mx-3' color='danger' on:click={() => deleteAction()}><Icon name='trash'/>  DELETE</Button>
+            </Col>
+        </Row>
+        
         <slot></slot>
     </div>
 {:else}

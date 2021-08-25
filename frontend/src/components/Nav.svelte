@@ -44,9 +44,9 @@ Icon
             <Dropdown nav inNavbar class="mx-3">
                 <DropdownToggle nav caret><Icon name='camera-reels'></Icon>  LE FESTIVAL</DropdownToggle>
                 <DropdownMenu end>
-                  <DropdownItem>Edito</DropdownItem>
-                  <DropdownItem>Partenaires</DropdownItem>
-                  <DropdownItem>Publications</DropdownItem>
+                  <DropdownItem><NavItem><NavLink href="/#/edito">Edito</NavLink></NavItem></DropdownItem>
+                  <DropdownItem><NavItem><NavLink href="/#/partenaires">Partenaires</NavLink></NavItem></DropdownItem>
+                  <DropdownItem><NavItem><NavLink href="/#/publications">Publications</NavLink></NavItem></DropdownItem>
                 </DropdownMenu>
             </Dropdown>
             

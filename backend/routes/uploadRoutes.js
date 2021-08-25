@@ -2,6 +2,7 @@ const path = require('path');
 const express = require('express');
 const multer = require('multer');
 const { checkAndCreateImage1000x250Folder, deleteImage1000x250 } = require('../controllers/uploadControllers');
+const { protect } = require('../middleware/authMiddleware');
 //const { protect } = require('../middleware/authMiddleware');
 //const { checkAndCreatePxxFolder, checkAndCreateConsultantsFolder } = require('../controllers/uploadControllers');
 
@@ -37,10 +38,10 @@ const uploadImage1000x250 = multer({
     }
 });
 
-router.post('/images/1000x250', checkAndCreateImage1000x250Folder, uploadImage1000x250.single('file'), (req, res) => {
+router.post('/images/1000x250', protect, checkAndCreateImage1000x250Folder, uploadImage1000x250.single('file'), (req, res) => {
     res.status(200).json({path:`/${req.file.path}`});
 });
-router.delete('/images/1000x250/:name', deleteImage1000x250);
+router.delete('/images/1000x250/:name', protect, deleteImage1000x250);
 
 
 module.exports = router;

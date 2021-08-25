@@ -1,27 +1,28 @@
 import axios from 'axios';
 import { API_URL } from '../config/backend_api';
+import { get } from 'svelte/store';
+import { userInfo } from '../store';
 
 export const uploadImage = async(file, imageToDelete) => {
+
+    imageToDelete = imageToDelete ? imageToDelete : 'isEmpty';
+
     try {
+        const userInfoStored = get(userInfo);
         
-        // const config = {
-        //     headers: {
-        //         'Content-type': 'application/json'
-        //         //Authorization: `Bearer ${userInfo.token}`
-        //     }
-        // };
-
+        const config = {
+            headers: {
+                Authorization: `Bearer ${userInfoStored.token}`
+            }
+        };
         
-        await axios.delete(`${API_URL}/api/upload/images/1000x250/${imageToDelete}`);
+        await axios.delete(`${API_URL}/api/upload/images/1000x250/${imageToDelete}`, config);
 
-        const { data } = await axios.post(`${API_URL}/api/upload/images/1000x250`, file);
+        const { data } = await axios.post(`${API_URL}/api/upload/images/1000x250`, file, config);
 
-        console.log(`${API_URL}${data.path}`);
         return { status: 'Ok', data: `${API_URL}${data.path}` };
         
     } catch (error) {
-        console.log(error);
-
         return { status: 'Error', data: error.response && error.response.data.message
             ? error.response.data.message
             : error.message

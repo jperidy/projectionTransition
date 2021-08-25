@@ -4,6 +4,7 @@ const path = require('path');
 
 const pageRoutes = require('./routes/pagesRoutes');
 const uploadRoutes = require('./routes/uploadRoutes');
+const userRoutes = require('./routes/userRoutes');
 
 const connectDB = require('./config/db');
 
@@ -26,6 +27,7 @@ app.use((req, res, next) => {
 
 app.use(express.json());
 
+app.use('/api/users', userRoutes);
 app.use('/api/page', pageRoutes);
 app.use('/api/upload', uploadRoutes);
 

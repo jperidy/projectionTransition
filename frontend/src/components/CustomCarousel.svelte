@@ -8,8 +8,6 @@
     export let admin = false;
     export let edit = false;
 
-    let editContent = false;
-
     let activeIndex = 0;
 
     const addAnItem = () => {
@@ -26,26 +24,20 @@
     };
 
     const onChangeHandler = async(index, e) => {
-        console.log('onChangeHandler start');
         const data = new FormData();
 
-        console.log(e.target.files)
         data.append('file', e.target.files[0]);
 
         const imageToDelete = items[index].url.split('/');
-        console.log(imageToDelete[imageToDelete.length - 1]);
 
         const result = await uploadImage(data, imageToDelete[imageToDelete.length - 1]);
 
         if (result.status === 'Ok') {
-            //console.log('image uploaded', result.data);
             items[index].url = result.data;
             items = items;
         } else {
             console.log('error', result.data);
         }
-
-        //dispatch(uploadConsultantWk(data));
     };
 
 </script>
@@ -56,7 +48,7 @@
             <EditButton
                 admin={admin}
                 updateContent={updateContent}
-                bind:edit={editContent}
+                bind:edit={edit}
             />
         {/if}
 
@@ -67,20 +59,27 @@
             {#each items as item, index}
                 
                 <CarouselItem bind:activeIndex itemIndex={index}>
-                    {#if editContent}
+                    {#if edit}
                         <!-- <Input type='text' bind:value={item.url} placeholder="URL de l'image"/> -->
-                        <Input type='file' name='image-carousel' on:change={(e) => onChangeHandler (index, e)} />
-                        <Input type='text' bind:value={item.title} placeholder='Titre'/>
-                        <Input type='text' bind:value={item.subTitle} placeholder='Sous-titre'/>
-                        <Button on:click={() => addAnItem()}>Add an item</Button>
-                        <Button on:click={() => removeAnItem(index)}>Delete</Button>
-                        
+                        <Row class='mt-3'>
+                            <Col><Input type='file' name='image-carousel' on:change={(e) => onChangeHandler (index, e)} /></Col>
+                        </Row>
+                        <Row class='mt-3'>
+                            <Col><Input type='text' bind:value={item.title} placeholder='Titre'/></Col>
+                            <Col><Input type='text' bind:value={item.subTitle} placeholder='Sous-titre'/></Col>
+                        </Row>
+                        <Row class='my-3'>
+                            <Col><Button block on:click={() => addAnItem()}>Add an item</Button></Col>
+                            <Col><Button block on:click={() => removeAnItem(index)}>Delete</Button></Col>
+                        </Row>  
                     {/if}
+                    <Row>
                     <img src={item.url} alt={item.title} />
                     <CarouselCaption
                         captionHeader={item.title}
                         captionText={item.subTitle}
                     />
+                    </Row>
                 </CarouselItem>
             {/each}
             </div>

@@ -22,10 +22,7 @@ const getPageContent = asyncHandler(async(req,res) =>{
 // @access  Public
 const updatePageContent = asyncHandler(async(req,res) =>{
     
-    //console.log('route is ok', req.params.name);
-    
     const newContent = req.body;
-    //console.log('newContent', newContent);
     
     let content = {};
 
@@ -35,7 +32,8 @@ const updatePageContent = asyncHandler(async(req,res) =>{
     //console.log('content', content);
 
     if (!content) {
-        //console.log('create content');
+        console.log('create content');
+        console.log(newContent);
         const contentCreated = await Page.create(newContent);
 
         if (contentCreated) {

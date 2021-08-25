@@ -4,11 +4,14 @@
 	import Footer from './components/Footer.svelte';
 
 	import Nav from "./components/Nav.svelte";
+	import Login from './screens/Login.svelte';
 
-	import Home from "./screens/Home.svelte";
+	import Page from "./screens/Page.svelte";
 
 	const routes = {
-		'/': wrap({ component: Home})
+		'/login': wrap({ component: Login}),
+		'/:name': wrap({ component: Page}),
+		'/': wrap({ component: Page}),
 	}
 
 </script>

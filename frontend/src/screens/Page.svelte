@@ -1,35 +1,37 @@
 <script>
     import CustomContainer from '../components/CustomContainer.svelte';
-    //import { homeContent as input } from '../dataDesign/homeContent';
-    import CustomCarousel from '../components/CustomCarousel.svelte';
-    import CustomCard from '../components/CustomCard.svelte';
-    import CustomText from '../components/CustomText.svelte';
     import { Col, Row } from 'sveltestrap';
     import AdminButton from '../components/AdminButton.svelte';
     import MovingContent from '../components/MovingContent.svelte';
     import AddContent from '../components/AddContent.svelte';
 
+    import { userInfo } from '../store';
+    
     import { getContent, updateOrCreateContent } from '../actions/pagesActions'
     import { onMount } from 'svelte';
     import DisplayCustomComponent from '../components/DisplayCustomComponent.svelte';
+    import Message from '../components/Message.svelte';
+    
+    export let params = { name:'homeContent'};
+    const pageName = params.name;
 
-    //let homeContent = input;
+    // let isAuthenticate = false;
+    $: isAuthenticate = $userInfo && $userInfo.profil === 'admin' ? true : false;
+    let admin = false;
 
-    const pageName = 'homeContent';
     let pageContent = {};
-    let pageContentMessage = '';
+    let pageContentMessage = {};
 
     onMount( async() => {
-
+        
         const pageContentResult = await getContent(pageName);
-        //console.log(pageContentResult);
 
         if (pageContentResult.status === 'Ok') {
             pageContent = pageContentResult.data;
-            pageContentMessage = '';
+            pageContentMessage = {};
         } else {
-            pageContent = {};
-            pageContentMessage = pageContentResult.data;
+            pageContent = {name: pageName, content: [] };
+            pageContentMessage = { color: 'danger', value:pageContentResult.data };
         }
 
     });
@@ -46,20 +48,24 @@
     }
 
     const addContent = async(item) => {
+        //console.log('addContent', item);
         pageContent.content = [item, ...pageContent.content];
         await updateOrCreateContent(pageContent);
     }
 
-    let isAuthenticate = true;
-    let admin = false;
-
 </script>
 
+{#if pageContentMessage.value}
+    <Message color={pageContentMessage.color}>{pageContentMessage.value}</Message>
+{/if}
+
 <CustomContainer>
-    <AdminButton 
-        bind:admin={admin}
-        isAuthenticate={isAuthenticate}
-    />
+    {#if isAuthenticate}
+        <AdminButton 
+            bind:admin={admin}
+            isAuthenticate={isAuthenticate}
+        />
+    {/if}
     <Row class='text-center'>
         <Col>
             {#if admin}
@@ -67,7 +73,12 @@
             {/if}
             {#if pageContent && pageContent.content}
                 {#each pageContent.content as section, position}
-                    <MovingContent array={pageContent.content} position={position} admin={admin} updateMovedArray={updateMovedArray}>
+                    <MovingContent 
+                        array={pageContent.content} 
+                        position={position} 
+                        admin={admin} 
+                        updateMovedArray={updateMovedArray}
+                    >
                         
                         <DisplayCustomComponent 
                             bind:value={section.value}
@@ -76,8 +87,7 @@
                             updateContent={updateContent && updateContent}
                             admin={admin}
                             edit={false}
-                        />
-                        
+                        />                        
                         
                         <!-- {#if section.type === 'text'}
                             <CustomText 
