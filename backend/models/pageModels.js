@@ -4,6 +4,7 @@ const pageSchema = mongoose.Schema({
     content: [{
         section: {type: String, required: false},
         type: {type: String, required: true},
+        styles: [{ name: { type: String }, value: { type: String} }],
         value: {type: String},
         values: [{
             url: {type: String},

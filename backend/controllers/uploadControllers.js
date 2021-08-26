@@ -26,50 +26,27 @@ const checkAndCreateImage1000x250Folder = asyncHandler(async (req, res, next) =>
 
 });
 
-
 // @desc    Delte image 
-// @route   DELETE /api/upload/images/1000x250/:name
+// @route   DELETE /api/upload/images?url=url
 // @access  Private
-const deleteImage1000x250 = asyncHandler(async (req, res, next) => {
+const deleteImage = asyncHandler(async (req, res, next) => {
 
-    console.log('start delteImage1000x250');
+    console.log('start delteImage');
     try {
-        const name = req.params.name;
-        const directory = path.resolve() + '/uploads/images/1000x250';
+        const name = req.query.url.split('/uploads')[1];
+        const directory = path.resolve() + '/uploads';
 
-        console.log('file to delete', name);
+        console.log('file to delete', name, 'in directory', directory);
 
-        fs.readdir(directory, (err, files) => {
-            if (err) {
-                res.status(500).json({message: 'Unable to scan directory: ' + err});
-                return;
-            }
+        fs.unlinkSync(directory + name);
 
-            files.map(file => {
-
-                const fileName = path.basename(file);
-                console.log(fileName);
-
-                console.log(fileName, name);
-                if (fileName === name) {
-                    fs.unlink(directory + '/' + file, (err) => {
-                        if (err) {
-                            console.error('Error removing file ' + file + 'from ' + directory);
-                        } else {
-                            console.log(file + ' has been removed from: ' + directory);
-                        }
-                    });
-                }
-            });
-        });
-
-        res.status(200).json({ message: 'process to delte done', value: name });
+        res.status(200).json({ message: 'Image deleted', value: directory + name });
 
     } catch (error) {
-        res.status(500).json({message: `Error deleting file: ${req.params.name}`});
+        res.status(500).json({message: `Error deleting image: ${req.params.name}`});
         throw new Error(`Error deleting file: ${req.params.name}`);
     }
 
 });
 
-module.exports = { checkAndCreateImage1000x250Folder, deleteImage1000x250 };
+module.exports = { checkAndCreateImage1000x250Folder, deleteImage };

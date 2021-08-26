@@ -22,8 +22,6 @@ export const updateOrCreateContent = async (content) => {
         return { status: 'Ok', data: data};
 
     } catch (error) {
-        console.log(error);
-
         return { status: 'Error', data: error.response && error.response.data.message
             ? error.response.data.message
             : error.message

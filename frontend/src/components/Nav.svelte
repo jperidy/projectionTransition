@@ -30,60 +30,61 @@ Icon
 </style>
   
 <Navbar 
-    color="dark"
-    dark
+    color="white"
+    light
     expand="md" 
     class='mb-3 fixed-top py-3'
 >
-    <NavbarBrand href="/" class='color-light'><img src='/images/50x50/logo_entete.png' alt='logo' />  PROJECTION TRANSITION</NavbarBrand>
+    <NavbarBrand href="/"><img src='/images/50x50/logo_entete.png' alt='logo' />  PROJECTION TRANSITION</NavbarBrand>
     <NavbarToggler on:click={() => (isOpen = !isOpen)} />
 
     <Collapse {isOpen} navbar expand="md" on:update={handleUpdate}>
         <Nav class="ms-auto" navbar>
             
             <Dropdown nav inNavbar class="mx-3">
-                <DropdownToggle nav caret><Icon name='camera-reels'></Icon>  LE FESTIVAL</DropdownToggle>
-                <DropdownMenu end>
-                  <DropdownItem><NavItem><NavLink href="/#/edito">Edito</NavLink></NavItem></DropdownItem>
-                  <DropdownItem><NavItem><NavLink href="/#/partenaires">Partenaires</NavLink></NavItem></DropdownItem>
-                  <DropdownItem><NavItem><NavLink href="/#/publications">Publications</NavLink></NavItem></DropdownItem>
+                <DropdownToggle class='text-dark' nav caret>LE FESTIVAL</DropdownToggle>
+                <DropdownMenu end class='bg-white'>
+                  <DropdownItem><NavItem><NavLink href="#/edito">Edito</NavLink></NavItem></DropdownItem>
+                  <DropdownItem><NavItem><NavLink href="#/partenaires">Partenaires</NavLink></NavItem></DropdownItem>
+                  <DropdownItem><NavItem><NavLink href="#/equipe">L'équipe</NavLink></NavItem></DropdownItem>
+                  <DropdownItem><NavItem><NavLink href="#/publications">Publications</NavLink></NavItem></DropdownItem>
                 </DropdownMenu>
             </Dropdown>
             
             <Dropdown nav inNavbar class="mx-3">
-                <DropdownToggle nav caret><Icon name='calendar-date'></Icon>  PROGRAMMATION</DropdownToggle>
-                <DropdownMenu end>
-                  <DropdownItem>Paris</DropdownItem>
-                  <DropdownItem>Nantes</DropdownItem>
-                  <DropdownItem>Toulouse</DropdownItem>
+                <DropdownToggle class='text-dark' nav caret>PROGRAMMATION</DropdownToggle>
+                <DropdownMenu end class='bg-white'>
+                  <DropdownItem><NavItem><NavLink href="#/programmation/paris">Paris</NavLink></NavItem></DropdownItem>
+                  <DropdownItem><NavItem><NavLink href="#/programmation/nantes">Nantes</NavLink></NavItem></DropdownItem>
+                  <DropdownItem><NavItem><NavLink href="#/programmation/toulouse">Toulouse</NavLink></NavItem></DropdownItem>
                 </DropdownMenu>
             </Dropdown>
 
             <Dropdown nav inNavbar class="mx-3">
-                <DropdownToggle nav caret><Icon name='bounding-box'></Icon>  PROJET PEDAGOGIQUE</DropdownToggle>
-                <DropdownMenu end>
-                  <DropdownItem>Présentation</DropdownItem>
-                  <DropdownItem>Mots de professeurs</DropdownItem>
-                  <DropdownItem>Elèves</DropdownItem>
+                <DropdownToggle class='text-dark' nav caret>PROJET PEDAGOGIQUE</DropdownToggle>
+                <DropdownMenu end class='bg-white'>
+                  <DropdownItem><NavItem><NavLink href="#/presentation">Présentation</NavLink></NavItem></DropdownItem>
+                  <DropdownItem><NavItem><NavLink href="#/projesseurs">Mots des professeurs</NavLink></NavItem></DropdownItem>
+                  <DropdownItem><NavItem><NavLink href="#/eleves">Elèves</NavLink></NavItem></DropdownItem>
                 </DropdownMenu>
             </Dropdown>
 
             <Dropdown nav inNavbar class="mx-3">
-                <DropdownToggle nav caret><Icon name='card-list'></Icon>  INFORMATIONS PRATIQUES</DropdownToggle>
-                <DropdownMenu end>
-                  <DropdownItem>Les lieux</DropdownItem>
-                  <DropdownItem>Tarif</DropdownItem>
-                  <DropdownItem>Situation sanitaire</DropdownItem>
-                  <DropdownItem>Formulaire de contact</DropdownItem>
+                <DropdownToggle class='text-dark' nav caret>INFORMATIONS PRATIQUES</DropdownToggle>
+                <DropdownMenu end class='bg-white'>
+                  <DropdownItem><NavItem><NavLink href="#/lieux">Les lieux</NavLink></NavItem></DropdownItem>
+                  <DropdownItem><NavItem><NavLink href="#/tarifs">Tarifs</NavLink></NavItem></DropdownItem>
+                  <DropdownItem><NavItem><NavLink href="#/situation-sanitaire">Situation sanitaire</NavLink></NavItem></DropdownItem>
+                  <DropdownItem><NavItem><NavLink href="#/contacts">Formulaire de contact</NavLink></NavItem></DropdownItem>
                 </DropdownMenu>
             </Dropdown>
 
             <Dropdown nav inNavbar class="mx-3">
-                <DropdownToggle nav caret>(€) BILLETERIE</DropdownToggle>
-                <DropdownMenu end>
-                  <DropdownItem><NavItem><NavLink href="/#/billeterie/paris">Paris</NavLink></NavItem></DropdownItem>
-                  <DropdownItem>Nantes</DropdownItem>
-                  <DropdownItem>Toulouse</DropdownItem>
+                <DropdownToggle class='text-dark' nav caret>(€) BILLETERIE</DropdownToggle>
+                <DropdownMenu end class='bg-white'>
+                  <DropdownItem><NavItem><NavLink href="#/billeterie/paris">Paris</NavLink></NavItem></DropdownItem>
+                  <DropdownItem><NavItem><NavLink href="#/billeterie/nantes">Nantes</NavLink></NavItem></DropdownItem>
+                  <DropdownItem><NavItem><NavLink href="#/billeterie/toulouse">Toulouse</NavLink></NavItem></DropdownItem>
                 </DropdownMenu>
             </Dropdown>
 

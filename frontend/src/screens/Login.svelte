@@ -13,13 +13,11 @@
 
     const submitHandler = async(e) => {
         const form = e.currentTarget;
-        console.log(form.checkValidity());
         // Verification of validity of data
         if (form.checkValidity() === false) {
             message = { color: 'danger', value: 'Please check your information'};
         } else {
             e.preventDefault(); // to avoid page to refresh
-            console.log('login in');
             const result = await login({email, password});
             if (result.status === 'Ok') {
                 $userInfo = result.data;

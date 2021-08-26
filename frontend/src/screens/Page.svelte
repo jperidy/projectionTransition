@@ -37,36 +37,35 @@
     });
 
     const updateContent = async() => {
-        //console.log('updateContent', pageContent);
         await updateOrCreateContent(pageContent);
     }
 
     const updateMovedArray = async(array) => {
-        console.log('updateMovedArray', pageContent);
         pageContent.content = array;
         await updateOrCreateContent(pageContent);
     }
 
     const addContent = async(item) => {
-        //console.log('addContent', item);
         pageContent.content = [item, ...pageContent.content];
         await updateOrCreateContent(pageContent);
     }
 
 </script>
 
+{#if isAuthenticate}
+    <AdminButton 
+        bind:admin={admin}
+        isAuthenticate={isAuthenticate}
+    />
+{/if}
+
 {#if pageContentMessage.value}
     <Message color={pageContentMessage.color}>{pageContentMessage.value}</Message>
 {/if}
 
+
 <CustomContainer>
-    {#if isAuthenticate}
-        <AdminButton 
-            bind:admin={admin}
-            isAuthenticate={isAuthenticate}
-        />
-    {/if}
-    <Row class='text-center'>
+    <Row>
         <Col>
             {#if admin}
                 <AddContent admin={admin} addContent={addContent}/>
@@ -83,6 +82,7 @@
                         <DisplayCustomComponent 
                             bind:value={section.value}
                             bind:values={section.values}
+                            bind:styles={section.styles}
                             type={section.type}
                             updateContent={updateContent && updateContent}
                             admin={admin}

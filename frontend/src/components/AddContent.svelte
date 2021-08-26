@@ -8,20 +8,15 @@
   let section = '';
   let type = '';
   let value = '';
-  let values = [{
-            url: '',
-            title: '',
-            subTitle: '',
-            text: '',
-            footer: '',
-  }];
+  let values = [{ url: '', title: '', subTitle: '', text: '', footer: ''}];
+  let styles = [];
 
   let open = false;
 
   const toggle = () => (open = !open);
 
   const validateModal = () => {
-    addContent({section, type, value, values });
+    addContent({section, type, value, values, styles });
     toggle();
   };
 
@@ -48,6 +43,7 @@
                     <option value='card' selected={type === 'card'}>type CARD</option>
                     <option value='carousel' selected={type === 'carousel'}>type CAROUSEL</option>
                     <option value='video' selected={type === 'video'}>type VIDEO</option>
+                    <option value='image' selected={type === 'image'}>type IMAGE</option>
                   </select>
                 </FormGroup> 
           </Col>
@@ -58,6 +54,7 @@
             <DisplayCustomComponent 
               bind:value={value}
               bind:values={values}
+              bind:styles={styles}
               type={type}
               updateContent={null}
               admin={admin}

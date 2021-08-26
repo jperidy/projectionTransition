@@ -1,5 +1,5 @@
 <script>
-    import { Button, Carousel, CarouselCaption, CarouselControl, CarouselIndicators, CarouselItem, Col, Input, Row } from "sveltestrap";
+    import { Button, Carousel, CarouselCaption, CarouselControl, CarouselIndicators, CarouselItem, Col, Image, Input, Row } from "sveltestrap";
     import EditButton from "./EditButton.svelte";
     import { uploadImage } from '../actions/imagesActions';
 
@@ -28,9 +28,11 @@
 
         data.append('file', e.target.files[0]);
 
-        const imageToDelete = items[index].url.split('/');
-
-        const result = await uploadImage(data, imageToDelete[imageToDelete.length - 1]);
+        const imageToDelete = items[index].url;
+        
+        //const imageToDelete = items[index].url.split('/');
+        //const result = await uploadImage(data, imageToDelete[imageToDelete.length - 1]);
+        const result = await uploadImage(data, imageToDelete);
 
         if (result.status === 'Ok') {
             items[index].url = result.data;
@@ -73,13 +75,14 @@
                             <Col><Button block on:click={() => removeAnItem(index)}>Delete</Button></Col>
                         </Row>  
                     {/if}
-                    <Row>
-                    <img src={item.url} alt={item.title} />
-                    <CarouselCaption
-                        captionHeader={item.title}
-                        captionText={item.subTitle}
-                    />
-                    </Row>
+                    <!-- <Row> -->
+                        <!-- <img src={item.url} alt={item.title} /> -->
+                        <Image fluid src={item.url} alt={item.title} />
+                        <CarouselCaption
+                            captionHeader={item.title}
+                            captionText={item.subTitle}
+                        />
+                    <!-- </Row> -->
                 </CarouselItem>
             {/each}
             </div>

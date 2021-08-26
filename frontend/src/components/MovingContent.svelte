@@ -1,5 +1,6 @@
 <script>
     import { Button, Col, Icon, Row } from "sveltestrap";
+import { deleteImage } from "../actions/imagesActions";
     
     export let array = [];
     export let position = 0;
@@ -27,7 +28,16 @@
         updateMovedArray(array); 
     };
 
-    const deleteAction = () => {
+    const deleteAction = async() => {
+        
+        // clean images in database
+        const imageToDelete = array[position].values && array[position].values.map(x => x.url);
+        for (let index = 0; index < imageToDelete.length; index++) {
+            const pathToDelete = imageToDelete[index];
+            if (pathToDelete.length) {
+                const result = await deleteImage();
+            }
+        }
         array.splice(position, 1);
         updateMovedArray(array);
     };
