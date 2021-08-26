@@ -1,5 +1,5 @@
 <script>
-    import { Button, Carousel, CarouselCaption, CarouselControl, CarouselIndicators, CarouselItem, Col, Image, Input, Row } from "sveltestrap";
+    import { Button, Carousel, CarouselCaption, CarouselControl, CarouselIndicators, CarouselItem, Col, Image, Input, Label, Row } from "sveltestrap";
     import EditButton from "./EditButton.svelte";
     import { uploadImage } from '../actions/imagesActions';
 
@@ -30,8 +30,6 @@
 
         const imageToDelete = items[index].url;
         
-        //const imageToDelete = items[index].url.split('/');
-        //const result = await uploadImage(data, imageToDelete[imageToDelete.length - 1]);
         const result = await uploadImage(data, imageToDelete);
 
         if (result.status === 'Ok') {
@@ -44,16 +42,16 @@
 
 </script>
 
+{#if admin && updateContent}
+    <EditButton
+        admin={admin}
+        updateContent={updateContent}
+        bind:edit={edit}
+    />
+{/if}
+
 <Row class="my-5 text-center">
     <Col>
-        {#if admin && updateContent}
-            <EditButton
-                admin={admin}
-                updateContent={updateContent}
-                bind:edit={edit}
-            />
-        {/if}
-
         <Carousel items={items} bind:activeIndex ride interval={2000}>
             <CarouselIndicators bind:activeIndex items={items} />
 
@@ -64,7 +62,10 @@
                     {#if edit}
                         <!-- <Input type='text' bind:value={item.url} placeholder="URL de l'image"/> -->
                         <Row class='mt-3'>
-                            <Col><Input type='file' name='image-carousel' on:change={(e) => onChangeHandler (index, e)} /></Col>
+                            <Col>
+                                <Label for='upload'>Télécharger l'image (1000x250)</Label>
+                                <Input id='upload' type='file' name='image-carousel' on:change={(e) => onChangeHandler (index, e)} />
+                            </Col>
                         </Row>
                         <Row class='mt-3'>
                             <Col><Input type='text' bind:value={item.title} placeholder='Titre'/></Col>

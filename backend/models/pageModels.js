@@ -12,6 +12,7 @@ const pageSchema = mongoose.Schema({
             subTitle: {type: String},
             text: {type: String},
             footer: {type: String},
+            image: {type: Buffer}
         }]
     }]
 

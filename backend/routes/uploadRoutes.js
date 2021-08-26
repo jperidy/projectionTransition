@@ -3,9 +3,6 @@ const express = require('express');
 const multer = require('multer');
 const { checkAndCreateImage1000x250Folder, deleteImage } = require('../controllers/uploadControllers');
 const { protect } = require('../middleware/authMiddleware');
-//const { protect } = require('../middleware/authMiddleware');
-//const { checkAndCreatePxxFolder, checkAndCreateConsultantsFolder } = require('../controllers/uploadControllers');
-
 
 const router = express.Router();
 
@@ -39,6 +36,7 @@ const uploadImage1000x250 = multer({
 });
 
 router.post('/images/1000x250', protect, checkAndCreateImage1000x250Folder, uploadImage1000x250.single('file'), (req, res) => {
+    console.log('body', req.body);
     res.status(200).json({path:`/${req.file.path}`});
 });
 router.delete('/images', protect, deleteImage);

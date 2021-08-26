@@ -40,10 +40,11 @@
                   <select class='form-select' type="select" name="select" id="exampleSelect" bind:value={type}>
                     <option value='' selected={type === ''}>--- select ---</option>
                     <option value='text' selected={type === 'text'}>type TEXT</option>
-                    <option value='card' selected={type === 'card'}>type CARD</option>
                     <option value='carousel' selected={type === 'carousel'}>type CAROUSEL</option>
                     <option value='video' selected={type === 'video'}>type VIDEO</option>
                     <option value='image' selected={type === 'image'}>type IMAGE</option>
+                    <option value='edito' selected={type === 'edito'}>type EDITO</option>
+                    <option value='card' selected={type === 'card'}>type CARD</option>
                   </select>
                 </FormGroup> 
           </Col>

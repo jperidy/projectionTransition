@@ -1,7 +1,8 @@
 <script>
     import CustomCard from "./CustomCard.svelte";
     import CustomCarousel from "./CustomCarousel.svelte";
-import CustomImage from "./CustomImage.svelte";
+import CustomEdito from "./CustomEdito.svelte";
+    import CustomImage from "./CustomImage.svelte";
     import CustomText from "./CustomText.svelte";
     import CustomVideo from "./CustomVideo.svelte";
 
@@ -18,14 +19,6 @@ import CustomImage from "./CustomImage.svelte";
     <CustomText 
         bind:text={value}
         bind:styles={styles}
-        updateContent={updateContent}
-        admin={admin}
-        edit={edit}
-    />
-{/if}
-{#if type === 'card'}
-    <CustomCard 
-        bind:cards={values}
         updateContent={updateContent}
         admin={admin}
         edit={edit}
@@ -51,9 +44,28 @@ import CustomImage from "./CustomImage.svelte";
     />
 {/if}
 
+{#if type === 'edito'}
+    <CustomEdito
+        bind:items={values}
+        bind:styles={styles}
+        updateContent={updateContent}
+        admin={admin}
+        edit={edit}
+    />
+{/if}
+
 {#if type === 'carousel'}
     <CustomCarousel 
         bind:items={values}
+        updateContent={updateContent}
+        admin={admin}
+        edit={edit}
+    />
+{/if}
+
+{#if type === 'card'}
+    <CustomCard 
+        bind:cards={values}
         updateContent={updateContent}
         admin={admin}
         edit={edit}

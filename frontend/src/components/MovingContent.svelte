@@ -35,7 +35,7 @@ import { deleteImage } from "../actions/imagesActions";
         for (let index = 0; index < imageToDelete.length; index++) {
             const pathToDelete = imageToDelete[index];
             if (pathToDelete.length) {
-                const result = await deleteImage();
+                const result = await deleteImage(pathToDelete);
             }
         }
         array.splice(position, 1);
