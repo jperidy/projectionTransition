@@ -1,10 +1,17 @@
 <script>
+    import CardComponent from "./TestComponent.svelte";
+
     import CustomCard from "./CustomCard.svelte";
     import CustomCarousel from "./CustomCarousel.svelte";
     import CustomEdito from "./CustomEdito.svelte";
     import CustomImage from "./CustomImage.svelte";
     import CustomText from "./CustomText.svelte";
     import CustomVideo from "./CustomVideo.svelte";
+    
+    import TextComponent from "./TextComponent.svelte";
+    import TestComponent from "./TestComponent.svelte";
+    import ImageComponent from "./ImageComponent.svelte";
+    import CarouselComponent from "./CarouselComponent.svelte";
 
     export let type = '';
     export let updateContent = null;
@@ -14,6 +21,46 @@
     export let values = [];
     export let edit = false;
 </script>
+
+{#if type === 'textComponent'}
+    <TextComponent 
+        bind:values={values}
+        bind:styles={styles}
+        updateContent={updateContent}
+        admin={admin}
+        edit={edit}
+    />
+{/if}
+
+{#if type === 'imageComponent'}
+    <ImageComponent
+        bind:values={values}
+        bind:styles={styles}
+        updateContent={updateContent}
+        admin={admin}
+        edit={edit}
+    />
+{/if}
+
+{#if type === 'carouselComponent'}
+    <CarouselComponent
+        bind:values={values}
+        bind:styles={styles}
+        updateContent={updateContent}
+        admin={admin}
+        edit={edit}
+    />
+{/if}
+
+{#if type === 'test'}
+    <TestComponent 
+        bind:values={values}
+        bind:styles={styles}
+        updateContent={updateContent}
+        admin={admin}
+        edit={edit}
+    />
+{/if}
 
 {#if type === 'text'}
     <CustomText 

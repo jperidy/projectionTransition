@@ -1,6 +1,6 @@
 <script>
     import { Button, Col, Icon, Row } from "sveltestrap";
-import { deleteImage } from "../actions/imagesActions";
+    import { deleteImage } from "../actions/imagesActions";
     
     export let array = [];
     export let position = 0;
@@ -28,16 +28,42 @@ import { deleteImage } from "../actions/imagesActions";
         updateMovedArray(array); 
     };
 
-    const deleteAction = async() => {
-        
-        // clean images in database
-        const imageToDelete = array[position].values && array[position].values.map(x => x.url);
-        for (let index = 0; index < imageToDelete.length; index++) {
-            const pathToDelete = imageToDelete[index];
-            if (pathToDelete.length) {
-                const result = await deleteImage(pathToDelete);
+    const recursiveDeleteAction = async (array) => {
+
+        console.log("array", array)
+
+        for (let ind = 0 ; ind < array.length ; ind++) {
+            if (array[ind].url && array[ind].url.length) {
+                await deleteImage(array[ind].url);
+            }
+            if (array[ind].component && array[ind].component.values && array[ind].component.values.length) {
+                recursiveDeleteAction(array[ind].component.values);
+            }
+            if (array[ind].values && array[ind].values.length) {
+                recursiveDeleteAction(array[ind].values);
             }
         }
+        return;
+    }
+
+    const deleteAction = async() => {
+
+        // delete component images from backend
+        const values = array[position].values;
+        console.log('array[position]', values);
+        await recursiveDeleteAction(values);
+
+        
+        // clean images in database
+        // const imageToDelete = array[position].values && array[position].values.map(x => x.url && x.url);
+        //console.log(imageToDelete);
+        // for (let index = 0; index < imageToDelete.length; index++) {
+        //     const pathToDelete = imageToDelete[index];
+        //     if (pathToDelete && pathToDelete.length) {
+        //         const result = await deleteImage(pathToDelete);
+        //     }
+        // }
+
         array.splice(position, 1);
         updateMovedArray(array);
     };

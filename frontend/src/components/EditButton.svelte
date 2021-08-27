@@ -1,4 +1,5 @@
 <script>
+
     import { Button, Col, Icon, Row } from "sveltestrap";
 
     export let updateContent;
@@ -6,7 +7,7 @@
     export let edit = false;
 
     const modifyEdit = () => {
-        if (edit) {
+        if (edit && updateContent) {
             updateContent();
         }
         edit = !edit;
