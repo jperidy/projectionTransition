@@ -1,7 +1,7 @@
 <script>
     import CustomCard from "./CustomCard.svelte";
     import CustomCarousel from "./CustomCarousel.svelte";
-import CustomEdito from "./CustomEdito.svelte";
+    import CustomEdito from "./CustomEdito.svelte";
     import CustomImage from "./CustomImage.svelte";
     import CustomText from "./CustomText.svelte";
     import CustomVideo from "./CustomVideo.svelte";
