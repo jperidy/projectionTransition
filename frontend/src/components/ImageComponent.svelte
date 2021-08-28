@@ -4,8 +4,6 @@ import { uploadImage } from "../actions/imagesActions";
 
 import EditButton from "./EditButton.svelte";
 
-
-
     export let values=[];
     export let styles=[];
     export let admin='false';

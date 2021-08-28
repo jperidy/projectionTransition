@@ -44,7 +44,10 @@
                     <option value='' selected={type === ''}>--- select ---</option>
                     <option value='textComponent' selected={type === 'textComponent'}>type TEXT [NEW]</option>
                     <option value='imageComponent' selected={type === 'imageComponent'}>type IMAGE [NEW]</option>
+                    <option value='videoComponent' selected={type === 'videoComponent'}>type VIDEO [NEW]</option>
                     <option value='carouselComponent' selected={type === 'carouselComponent'}>type CAROUSEL [NEW]</option>
+
+
                     <option value='text' selected={type === 'text'}>type TEXT</option>
                     <option value='carousel' selected={type === 'carousel'}>type CAROUSEL</option>
                     <option value='video' selected={type === 'video'}>type VIDEO</option>
