@@ -50,11 +50,10 @@
 </script>
 
 <style>
-    .image-container{
+    .content-container{
         position: relative;
     }
-    .image {
-        transition: .5s ease;
+    .content {
         opacity: 1;
         width: 100%;
         height: 100%;
@@ -70,16 +69,13 @@
         -ms-transform: translate(-50%, -50%);
         text-align: center;
     }
-    .image-container:hover .image {
-        opacity: 0.3;
-    }
-    .image-container:hover .middle {
+    .content-container:hover .middle {
         opacity: 1;
     }
     
 </style>
 
-<div class='image-container'>
+<div class='content-container'>
 
 <Row>
     <Col>  
@@ -143,7 +139,7 @@
             </ModalFooter>
       
         </Modal>
-        <div class='image'>
+        <div class='content' >
             <Row>
                 <Col>
                     <p class={`${textColor} ${bgColor}`} style={`text-align: ${textAlign};font-weight: ${fontWeight};font-style: ${fontStyle};`}>

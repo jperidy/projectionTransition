@@ -19,10 +19,10 @@
     <Row class='text-end m-3'>
         <Col>
             <Button 
-                color='dark'
+                color='primary'
                 on:click={() => modifyEdit()}
             ><Icon name={edit ? 'arrow-counterclockwise' : 'box-arrow-up-left'}/>
-                {edit ? 'Sauvegarder' : 'Modifier'}
+                {edit ? 'Save' : 'Edit'}
             </Button>
         </Col>
     </Row>

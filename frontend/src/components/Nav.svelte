@@ -11,7 +11,6 @@ Dropdown,
 DropdownToggle,
 DropdownMenu,
 DropdownItem,
-Icon
     } from 'sveltestrap';
   
     let isOpen = false;
@@ -35,7 +34,7 @@ Icon
     expand="md" 
     class='mb-3 fixed-top py-3'
 >
-    <NavbarBrand href="/"><img src='/images/50x50/logo_entete.png' alt='logo' />  PROJECTION TRANSITION</NavbarBrand>
+    <NavbarBrand href="#/"><img src='/images/50x50/logo_entete.png' alt='logo' />  PROJECTION TRANSITION</NavbarBrand>
     <NavbarToggler on:click={() => (isOpen = !isOpen)} />
 
     <Collapse {isOpen} navbar expand="md" on:update={handleUpdate}>

@@ -56,19 +56,46 @@ import EditButton from "./EditButton.svelte";
 
 </script>
 
-{#if admin}
+<style>
+    .content-container{
+        position: relative;
+    }
+    .content {
+        transition: .5s ease;
+        opacity: 1;
+        width: 100%;
+        height: 100%;
+        backface-visibility: hidden;
+    }
+    .middle {
+        transition: .5s ease;
+        opacity: 0.5;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        -ms-transform: translate(-50%, -50%);
+        text-align: center;
+    }
+    .content-container:hover .middle {
+        opacity: 1;
+    }
+    .video-container {
+        position: relative;
+        padding-bottom: 56.25%; /* 16:9 */
+        height: 0;
+    }
+    .video-container iframe {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+    }
+    
+</style>
 
-<Row>
-    <Col class='text-center'>
-        <EditButton
-            admin={admin}
-            updateContent={updateContent}
-            bind:edit={edit}
-        />
-    </Col>
-</Row>
-{/if}
-
+<div class='content-container'>
 <Row>
     <Col>  
         <Modal isOpen={edit} {toggle}>
@@ -110,6 +137,7 @@ import EditButton from "./EditButton.svelte";
       
         </Modal>
         
+        <div class='content'>
         <Row class='my-5'>
             <Col>
                 <div class='video-dimension' style={`max-width:${styles.filter(x => x.name === 'maxWidth')[0].value};margin-left: auto;margin-right: auto;`}>
@@ -127,26 +155,19 @@ import EditButton from "./EditButton.svelte";
                 </div>
             </Col>
         </Row>
+        </div>
 
     </Col>
 </Row>
 
-<style>
-    .video-container {
-        position: relative;
-        padding-bottom: 56.25%; /* 16:9 */
-        height: 0;
-    }
-    .video-container iframe {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-    }
-    /* .video-dimension {
-        max-width: 500px;
-        margin-left: auto;
-        margin-right: auto;
-    } */
-</style>
+{#if admin}
+    <div class='middle'>
+        <EditButton
+            admin={admin}
+            updateContent={updateContent}
+            bind:edit={edit}
+        />
+    </div>
+{/if}
+
+</div>

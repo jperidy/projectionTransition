@@ -33,7 +33,7 @@
 
 <Row>
     <Col> 
-        <Row class='mt-5'>
+        <Row class='my-3'>
             <Col>
                 <Row class='align-items-center'>
                     <Col sm={12} md={8}>
@@ -46,7 +46,7 @@
                         />
                         <div class='ligne-titre border-top border-5 border-primary'></div>
                     </Col>
-                    <Col sm={12} md={4}>
+                    <Col sm={12} md={4} class='px-5'>
                         <ImageComponent 
                             bind:values={values[1].values}
                             bind:styles={values[1].styles}

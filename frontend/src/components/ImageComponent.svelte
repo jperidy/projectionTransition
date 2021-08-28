@@ -49,10 +49,10 @@ import EditButton from "./EditButton.svelte";
 </script>
 
 <style>
-    .image-container{
+    .content-container{
         position: relative;
     }
-    .image {
+    .content {
         transition: .5s ease;
         opacity: 1;
         width: 100%;
@@ -69,16 +69,13 @@ import EditButton from "./EditButton.svelte";
         -ms-transform: translate(-50%, -50%);
         text-align: center;
     }
-    .image-container:hover .image {
-        opacity: 0.3;
-    }
-    .image-container:hover .middle {
+    .content-container:hover .middle {
         opacity: 1;
     }
     
 </style>
 
-<div class='image-container'>
+<div class='content-container'>
     
 <Row>
     <Col>  
@@ -111,7 +108,7 @@ import EditButton from "./EditButton.svelte";
       
         </Modal>
         
-        <div class='image'>
+        <div class='content'>
         <Row>
             <Col>
                 <Figure caption={values[0].caption}>
@@ -122,17 +119,14 @@ import EditButton from "./EditButton.svelte";
         </div>
     </Col>
 </Row>
+
 {#if admin}
     <div class='middle'>
-    <Row>
-        <Col class='text-center'>
-            <EditButton
-                admin={admin}
-                updateContent={updateContent}
-                bind:edit={edit}
-            />
-        </Col>
-    </Row>
+        <EditButton
+            admin={admin}
+            updateContent={updateContent}
+            bind:edit={edit}
+        />
     </div>
 {/if}
 </div>

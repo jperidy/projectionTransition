@@ -41,23 +41,45 @@ import ImageComponent from "./ImageComponent.svelte";
 
 </script>
 
-{#if admin}
-    <EditButton
-        admin={admin}
-        updateContent={updateContent}
-        bind:edit={edit}
-    />
-{/if}
+<style>
+    .content-container{
+        position: relative;
+    }
+    .content {
+        transition: .5s ease;
+        opacity: 1;
+        width: 100%;
+        height: 100%;
+        backface-visibility: hidden;
+    }
+    .middle {
+        transition: .5s ease;
+        opacity: 0.5;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        -ms-transform: translate(-50%, -50%);
+        text-align: center;
+    }
+    .content-container:hover .middle {
+        opacity: 1;
+    }
+    
+</style>
 
-<Row>
-    <Col>  
+
+<div class='content-container'>
+
+<Row class='text-center py-5'>
+    <Col>
+        <div class='content'>
         <Carousel items={values} bind:activeIndex ride interval={2000}>
             <CarouselIndicators bind:activeIndex items={values} />
 
             <div class="carousel-inner">
             {#each values as item, index}
 
-            
                 <CarouselItem bind:activeIndex itemIndex={index}>
                 
                 {#if edit}
@@ -103,5 +125,17 @@ import ImageComponent from "./ImageComponent.svelte";
                 <CarouselControl direction="next" bind:activeIndex items={values} />
             {/if}
         </Carousel>
+        </div>
     </Col>
 </Row>
+
+{#if admin}
+    <div class='middle'>
+        <EditButton
+            admin={admin}
+            updateContent={updateContent}
+            bind:edit={edit}
+        />
+    </div>
+{/if}
+</div>
