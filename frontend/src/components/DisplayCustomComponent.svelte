@@ -13,6 +13,7 @@
     import ImageComponent from "./ImageComponent.svelte";
     import CarouselComponent from "./CarouselComponent.svelte";
 import VideoComponent from "./VideoComponent.svelte";
+import EditoComponent from "./EditoComponent.svelte";
 
     export let type = '';
     export let updateContent = null;
@@ -55,6 +56,16 @@ import VideoComponent from "./VideoComponent.svelte";
 
 {#if type === 'carouselComponent'}
     <CarouselComponent
+        bind:values={values}
+        bind:styles={styles}
+        updateContent={updateContent}
+        admin={admin}
+        edit={edit}
+    />
+{/if}
+
+{#if type === 'editoComponent'}
+    <EditoComponent
         bind:values={values}
         bind:styles={styles}
         updateContent={updateContent}

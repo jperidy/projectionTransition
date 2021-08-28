@@ -17,9 +17,7 @@
   const toggle = () => (open = !open);
 
   const validateModal = () => {
-    console.log({type, value, values, styles});
     addContent({type, values, styles });
-    // addContent({section, type, value, values, styles });
     toggle();
   };
 
@@ -46,6 +44,7 @@
                     <option value='imageComponent' selected={type === 'imageComponent'}>type IMAGE [NEW]</option>
                     <option value='videoComponent' selected={type === 'videoComponent'}>type VIDEO [NEW]</option>
                     <option value='carouselComponent' selected={type === 'carouselComponent'}>type CAROUSEL [NEW]</option>
+                    <option value='editoComponent' selected={type === 'editoComponent'}>type EDITO [NEW]</option>
 
 
                     <option value='text' selected={type === 'text'}>type TEXT</option>

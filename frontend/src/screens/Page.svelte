@@ -46,8 +46,6 @@
     }
 
     const addContent = async(item) => {
-        console.log("item", item);
-        
         pageContent.content = [item, ...pageContent.content];
         await updateOrCreateContent(pageContent);
     }

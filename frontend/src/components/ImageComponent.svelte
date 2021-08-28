@@ -29,9 +29,6 @@ import EditButton from "./EditButton.svelte";
         
         const result = await uploadImage(data, imageToReplace);
 
-        console.log("result", result);
-        console.log("index", index)
-
         if (result.status === 'Ok') {
             values[index].url = result.data;
             values = values;
@@ -51,18 +48,38 @@ import EditButton from "./EditButton.svelte";
 
 </script>
 
-{#if admin}
-<Row>
-    <Col class='text-center'>
-        <EditButton
-            admin={admin}
-            updateContent={updateContent}
-            bind:edit={edit}
-        />
-    </Col>
-</Row>
-{/if}
+<style>
+    .image-container{
+        position: relative;
+    }
+    .image {
+        transition: .5s ease;
+        opacity: 1;
+        width: 100%;
+        height: 100%;
+        backface-visibility: hidden;
+    }
+    .middle {
+        transition: .5s ease;
+        opacity: 0.5;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        -ms-transform: translate(-50%, -50%);
+        text-align: center;
+    }
+    .image-container:hover .image {
+        opacity: 0.3;
+    }
+    .image-container:hover .middle {
+        opacity: 1;
+    }
+    
+</style>
 
+<div class='image-container'>
+    
 <Row>
     <Col>  
         <Modal isOpen={edit} {toggle}>
@@ -94,6 +111,7 @@ import EditButton from "./EditButton.svelte";
       
         </Modal>
         
+        <div class='image'>
         <Row>
             <Col>
                 <Figure caption={values[0].caption}>
@@ -101,6 +119,20 @@ import EditButton from "./EditButton.svelte";
                 </Figure>
             </Col>
         </Row>
-
+        </div>
     </Col>
 </Row>
+{#if admin}
+    <div class='middle'>
+    <Row>
+        <Col class='text-center'>
+            <EditButton
+                admin={admin}
+                updateContent={updateContent}
+                bind:edit={edit}
+            />
+        </Col>
+    </Row>
+    </div>
+{/if}
+</div>

@@ -1,6 +1,7 @@
 <script>
 	export let name = 'ProjectionTransition';
 	name;
+	
 	import Router from 'svelte-spa-router';
 	import { wrap } from 'svelte-spa-router/wrap';
 	import Footer from './components/Footer.svelte';
