@@ -8,46 +8,76 @@
     import { userInfo } from '../store';
     
     import { getContent, updateOrCreateContent } from '../actions/pagesActions'
-    import { onMount } from 'svelte';
     import DisplayCustomComponent from '../components/DisplayCustomComponent.svelte';
     import Message from '../components/Message.svelte';
+    import Loading from '../components/Loading.svelte';
     
-    export let params = { name:'homeContent'};
-    const pageName = params.name;
+    export let params = { name: 'homeContent'};
+    $: pageName = params.name;
+    //$: console.log(pageName);
 
     // let isAuthenticate = false;
     $: isAuthenticate = $userInfo && $userInfo.profil === 'admin' ? true : false;
     let admin = false;
 
-    let pageContent = {};
-    let pageContentMessage = {};
+    //let pageContent = {};
+    //let pageContentMessage = {};
+    let pageResult = {};
 
-    onMount( async() => {
-        
+    let update = false;
+
+    const getPage = async (pageName) => {
+
+        let pageContent, pageContentMessage = {};
         const pageContentResult = await getContent(pageName);
 
         if (pageContentResult.status === 'Ok') {
             pageContent = pageContentResult.data;
             pageContentMessage = {};
+            
         } else {
             pageContent = {name: pageName, content: [] };
             pageContentMessage = { color: 'danger', value:pageContentResult.data };
         }
 
-    });
+        return { pageContent, pageContentMessage }
+    }
+
+    $: {
+        pageResult = getPage(pageName);
+    }
+    $: {
+        if (update === true) {
+            pageResult = getPage(pageName);
+        }
+    }
 
     const updateContent = async() => {
-        await updateOrCreateContent(pageContent);
+        pageResult.then( async (result) => {
+            update = false;
+            await updateOrCreateContent(result.pageContent);
+            //await updateOrCreateContent(pageResult.pageContent);
+            update = true;
+        })
     }
 
     const updateMovedArray = async(array) => {
-        pageContent.content = array;
-        await updateOrCreateContent(pageContent);
+        pageResult.then(async(result) => {
+            //result.pageContent.content = array;
+            update = false;
+            //await updateOrCreateContent(array);
+            await updateOrCreateContent(result.pageContent);
+            update = true;
+        })
     }
 
     const addContent = async(item) => {
-        pageContent.content = [item, ...pageContent.content];
-        await updateOrCreateContent(pageContent);
+        pageResult.then(async(result) => {
+            update = false;
+            result.pageContent.content = [item, ...result.pageContent.content];
+            await updateOrCreateContent(result.pageContent);
+            update = true;
+        })
     }
 
 </script>
@@ -59,9 +89,12 @@
     />
 {/if}
 
-{#if pageContentMessage.value}
-    <Message color={pageContentMessage.color}>{pageContentMessage.value}</Message>
-{/if}
+
+{#await pageResult then pageContentMessage}
+    {#if pageContentMessage.pageContentMessage.value}
+        <Message color={pageContentMessage.pageContentMessage.color}>{pageContentMessage.pageContentMessage.value}</Message>
+    {/if}
+{/await}
 
 
 <CustomContainer>
@@ -70,47 +103,39 @@
             {#if admin}
                 <AddContent admin={admin} addContent={addContent}/>
             {/if}
-            {#if pageContent && pageContent.content}
-                {#each pageContent.content as section, position}
-                    <MovingContent 
-                        array={pageContent.content} 
-                        position={position} 
-                        admin={admin} 
-                        updateMovedArray={updateMovedArray}
-                    >
-                        
-                        <DisplayCustomComponent 
-                            bind:value={section.value}
-                            bind:values={section.values}
-                            bind:styles={section.styles}
-                            type={section.type}
-                            updateContent={updateContent && updateContent}
-                            admin={admin}
-                            edit={false}
-                        />                        
-                        
-                        <!-- {#if section.type === 'text'}
-                            <CustomText 
-                                bind:text={section.value} 
-                                updateContent={updateContent}
-                                admin={admin}
-                            />
-                        {/if}
 
-                        {#if section.type === 'card'}
-                            <CustomCard 
-                                bind:cards={section.values}
-                                updateContent={updateContent}
+            {#await pageResult}
+                <Row class='text-center'>
+                    <Col>
+                        <Loading color='primary' number={3} />
+                    </Col>
+                </Row>
+            {:then pageContent} 
+                {#if pageContent.pageContent && pageContent.pageContent.content}
+                    {#each pageContent.pageContent.content as section, position}
+
+                        <MovingContent 
+                            array={pageContent.pageContent.content} 
+                            position={position} 
+                            admin={admin} 
+                            updateMovedArray={updateMovedArray}
+                        >
+                            
+                            <DisplayCustomComponent 
+                                bind:value={section.value}
+                                bind:values={section.values}
+                                bind:styles={section.styles}
+                                type={section.type}
+                                updateContent={updateContent && updateContent}
                                 admin={admin}
-                            />
-                        {/if}
-                        
-                        {#if section.type === 'carousel'}
-                            <CustomCarousel bind:items={section.values} />
-                        {/if} -->
-                    </MovingContent>
-                {/each}
-            {/if}
+                                edit={false}
+                            />   
+
+                        </MovingContent>
+                    {/each}
+                {/if}
+                
+            {/await}
         </Col>
     </Row>
 </CustomContainer>

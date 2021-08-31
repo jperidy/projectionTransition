@@ -1,4 +1,6 @@
 <script>
+import { push } from 'svelte-spa-router';
+
     import {
       Collapse,
       Navbar,
@@ -43,10 +45,10 @@ DropdownItem,
             <Dropdown nav inNavbar class="mx-3">
                 <DropdownToggle class='text-dark' nav caret>LE FESTIVAL</DropdownToggle>
                 <DropdownMenu end class='bg-white'>
-                  <DropdownItem><NavItem><NavLink href="#/edito">Edito</NavLink></NavItem></DropdownItem>
-                  <DropdownItem><NavItem><NavLink href="#/partenaires">Partenaires</NavLink></NavItem></DropdownItem>
-                  <DropdownItem><NavItem><NavLink href="#/equipe">L'équipe</NavLink></NavItem></DropdownItem>
-                  <DropdownItem><NavItem><NavLink href="#/publications">Publications</NavLink></NavItem></DropdownItem>
+                  <DropdownItem><NavItem><NavLink on:click={() => push('#/edito')}>Edito</NavLink></NavItem></DropdownItem>
+                  <DropdownItem><NavItem><NavLink on:click={() => push('#/partenaires')}>Partenaires</NavLink></NavItem></DropdownItem>
+                  <DropdownItem><NavItem><NavLink on:click={() => push('#/equipe')}>L'équipe</NavLink></NavItem></DropdownItem>
+                  <DropdownItem><NavItem><NavLink on:click={() => push('#/publications')}>Publications</NavLink></NavItem></DropdownItem>
                 </DropdownMenu>
             </Dropdown>
             

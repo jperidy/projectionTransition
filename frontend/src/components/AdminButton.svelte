@@ -19,10 +19,10 @@ import { push } from "svelte-spa-router";
 </script>
 
 {#if isAuthenticate}
-    <Alert class='text-center m-1' color='warning'>
+    <Alert class='text-center py-2' color='warning'>
         <Row>
-            <Col sm={4} md={8} class='my-auto'>You are in admin mode ! Be careful</Col>
-            <Col sm={4} md={2}>
+            <Col sm={4} md={10} class='my-auto'>You are in admin mode ! Be careful</Col>
+            <Col sm={4} md={1}>
                 <Button 
                     color='light'
                     on:click={() => modifyAdmin()}
@@ -31,7 +31,7 @@ import { push } from "svelte-spa-router";
                 {admin ? 'Sauvegarder' : 'Editer'}
                 </Button>
             </Col>
-            <Col sm={4} md={2}>
+            <Col sm={4} md={1}>
                 <Button
                     color='light'
                     on:click={() => logoutHandler()}
