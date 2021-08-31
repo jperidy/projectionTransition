@@ -45,4 +45,7 @@
 		margin-top: 15vh;
 		min-height: 80vh;
 	}
+	footer {
+		margin-top: 10vh;
+	}
 </style>

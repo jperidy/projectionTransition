@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { API_URL } from '../config/backend_api';
 import { get } from 'svelte/store';
-import { userInfo } from '../store';
+import { userInfo, pageContent, pageContentMessage } from '../store';
 
 
 export const updateOrCreateContent = async (content) => {
@@ -19,14 +19,21 @@ export const updateOrCreateContent = async (content) => {
 
         //const { data } = await axios.post(`${API_URL}/api/page/${content.name}`, content, config);
         const { data } = await axios.post(`${API_URL}/api/pageNew/${content.name}`, content, config);
+        
+        pageContent.set(data.value);
+        pageContentMessage.set(null);
 
-        return { status: 'Ok', data: data};
+        //return { status: 'Ok', data: data};
 
     } catch (error) {
-        return { status: 'Error', data: error.response && error.response.data.message
+        pageContent.set([]);
+        pageContentMessage.set({color: 'danger', value: error.response && error.response.data.message
             ? error.response.data.message
-            : error.message
-        }
+            : error.message});
+        // return { status: 'Error', data: error.response && error.response.data.message
+        //     ? error.response.data.message
+        //     : error.message
+        // }
     }
 
 };
@@ -43,15 +50,22 @@ export const getContent = async (pageName) => {
 
         // const { data } = await axios.get(`${API_URL}/api/page/${pageName}`, config);
         const { data } = await axios.get(`${API_URL}/api/pageNew/${pageName}`, config);
+        pageContent.set(data.value);
+        pageContentMessage.set(null);
 
-        return { status: 'Ok', data: data.value};
+        //return { status: 'Ok', data: data.value};
 
     } catch (error) {
         //console.log(error);
-        return { status: 'Error', data: error.response && error.response.data.message
+        pageContent.set([]);
+        pageContentMessage.set({color: 'danger', value: error.response && error.response.data.message
             ? error.response.data.message
-            : error.message
-        }
+            : error.message});
+
+        // return { status: 'Error', data: error.response && error.response.data.message
+        //     ? error.response.data.message
+        //     : error.message
+        // }
     }
 
 };

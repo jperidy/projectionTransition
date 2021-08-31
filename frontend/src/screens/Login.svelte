@@ -34,7 +34,7 @@
 </script>
 
 <CustomContainer>
-    <Row>
+    <Row class='my-5'>
         <Col>
             <h3>Login</h3>
             <Form on:submit={submitHandler}>

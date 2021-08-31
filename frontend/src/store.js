@@ -8,3 +8,6 @@ const getInitialUserInfo = () => {
 };
 
 export const userInfo = writable(getInitialUserInfo());
+export const pageName = writable('homePage');
+export const pageContent = writable([]);
+export const pageContentMessage = writable(null);

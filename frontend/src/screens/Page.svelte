@@ -5,7 +5,7 @@
     import MovingContent from '../components/MovingContent.svelte';
     import AddContent from '../components/AddContent.svelte';
 
-    import { userInfo } from '../store';
+    import { userInfo, pageName, pageContent, pageContentMessage } from '../store';
     
     import { getContent, updateOrCreateContent } from '../actions/pagesActions'
     import DisplayCustomComponent from '../components/DisplayCustomComponent.svelte';
@@ -13,71 +13,44 @@
     import Loading from '../components/Loading.svelte';
     
     export let params = { name: 'homeContent'};
-    $: pageName = params.name;
-    //$: console.log(pageName);
+    $: pageName.set(params.name);
+    // $: console.log($pageName);
+    // $: console.log($pageContent);
+    // $: console.log($pageContentMessage);
 
     // let isAuthenticate = false;
     $: isAuthenticate = $userInfo && $userInfo.profil === 'admin' ? true : false;
+
     let admin = false;
 
-    //let pageContent = {};
-    //let pageContentMessage = {};
-    let pageResult = {};
-
-    let update = false;
-
-    const getPage = async (pageName) => {
-
-        let pageContent, pageContentMessage = {};
-        const pageContentResult = await getContent(pageName);
-
-        if (pageContentResult.status === 'Ok') {
-            pageContent = pageContentResult.data;
-            pageContentMessage = {};
-            
-        } else {
-            pageContent = {name: pageName, content: [] };
-            pageContentMessage = { color: 'danger', value:pageContentResult.data };
-        }
-
-        return { pageContent, pageContentMessage }
-    }
-
     $: {
-        pageResult = getPage(pageName);
-    }
-    $: {
-        if (update === true) {
-            pageResult = getPage(pageName);
-        }
+        getContent($pageName);
     }
 
     const updateContent = async() => {
-        pageResult.then( async (result) => {
-            update = false;
-            await updateOrCreateContent(result.pageContent);
-            //await updateOrCreateContent(pageResult.pageContent);
-            update = true;
-        })
+        await updateOrCreateContent($pageContent);
+
+
+        // pageResult.then( async (result) => {
+        //     update = false;
+        //     await updateOrCreateContent(result.pageContent);
+        //     //await updateOrCreateContent(pageResult.pageContent);
+        //     update = true;
+        // })
     }
 
     const updateMovedArray = async(array) => {
-        pageResult.then(async(result) => {
-            //result.pageContent.content = array;
-            update = false;
-            //await updateOrCreateContent(array);
-            await updateOrCreateContent(result.pageContent);
-            update = true;
-        })
+        const tempPageContent = $pageContent;
+        tempPageContent.content = array;
+        pageContent.set(tempPageContent);
+        await updateOrCreateContent($pageContent);
     }
 
     const addContent = async(item) => {
-        pageResult.then(async(result) => {
-            update = false;
-            result.pageContent.content = [item, ...result.pageContent.content];
-            await updateOrCreateContent(result.pageContent);
-            update = true;
-        })
+        const tempPageContent = $pageContent;
+        tempPageContent.content = [item, ...tempPageContent.content]
+        pageContent.set(tempPageContent);
+        await updateOrCreateContent($pageContent);
     }
 
 </script>
@@ -89,12 +62,9 @@
     />
 {/if}
 
-
-{#await pageResult then pageContentMessage}
-    {#if pageContentMessage.pageContentMessage.value}
-        <Message color={pageContentMessage.pageContentMessage.color}>{pageContentMessage.pageContentMessage.value}</Message>
-    {/if}
-{/await}
+{#if $pageContentMessage && $pageContentMessage.value}
+    <Message color={$pageContentMessage.color}>{$pageContentMessage.value}</Message>
+{/if}
 
 
 <CustomContainer>
@@ -104,38 +74,34 @@
                 <AddContent admin={admin} addContent={addContent}/>
             {/if}
 
-            {#await pageResult}
-                <Row class='text-center'>
-                    <Col>
-                        <Loading color='primary' number={3} />
-                    </Col>
-                </Row>
-            {:then pageContent} 
-                {#if pageContent.pageContent && pageContent.pageContent.content}
-                    {#each pageContent.pageContent.content as section, position}
-
-                        <MovingContent 
-                            array={pageContent.pageContent.content} 
-                            position={position} 
-                            admin={admin} 
-                            updateMovedArray={updateMovedArray}
-                        >
-                            
-                            <DisplayCustomComponent 
-                                bind:value={section.value}
-                                bind:values={section.values}
-                                bind:styles={section.styles}
-                                type={section.type}
-                                updateContent={updateContent && updateContent}
-                                admin={admin}
-                                edit={false}
-                            />   
-
-                        </MovingContent>
-                    {/each}
+            {#if $pageContent && $pageContent.content}
+                {#each $pageContent.content as section, position}
+                    <MovingContent 
+                        array={$pageContent.content} 
+                        position={position} 
+                        admin={admin} 
+                        updateMovedArray={updateMovedArray}
+                    >
+                        <DisplayCustomComponent 
+                            bind:value={section.value}
+                            bind:values={section.values}
+                            bind:styles={section.styles}
+                            type={section.type}
+                            updateContent={updateContent && updateContent}
+                            admin={admin}
+                            edit={false}
+                        />   
+                    </MovingContent>
+                {/each}
+            {:else}
+                {#if !pageContentMessage}
+                    <Row class='text-center'>
+                        <Col>
+                            <Loading color='primary' number={3} />
+                        </Col>
+                    </Row>
                 {/if}
-                
-            {/await}
+            {/if}
         </Col>
     </Row>
 </CustomContainer>

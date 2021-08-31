@@ -6,6 +6,7 @@
     import CarouselComponent from "./CarouselComponent.svelte";
     import VideoComponent from "./VideoComponent.svelte";
     import EditoComponent from "./EditoComponent.svelte";
+import ArticlesComponent from "./ArticlesComponent.svelte";
 
     export let type = '';
     export let updateContent = null;
@@ -16,7 +17,7 @@
 </script>
 
 {#if type === 'textComponent'}
-    <TextComponent 
+    <TextComponent
         bind:values={values}
         bind:styles={styles}
         updateContent={updateContent}
@@ -57,6 +58,16 @@
 
 {#if type === 'editoComponent'}
     <EditoComponent
+        bind:values={values}
+        bind:styles={styles}
+        updateContent={updateContent}
+        admin={admin}
+        edit={edit}
+    />
+{/if}
+
+{#if type === 'articlesComponent'}
+    <ArticlesComponent
         bind:values={values}
         bind:styles={styles}
         updateContent={updateContent}

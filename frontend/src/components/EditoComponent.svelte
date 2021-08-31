@@ -31,7 +31,7 @@
     />
 {/if} -->
 
-<Row>
+<Row class='my-5'>
     <Col> 
         <Row class='my-3'>
             <Col>

@@ -43,8 +43,10 @@ const deleteImage = asyncHandler(async (req, res, next) => {
         res.status(200).json({ message: 'Image deleted', value: directory + name });
 
     } catch (error) {
-        res.status(500).json({message: `Error deleting image: ${req.params.name}`});
+
+        res.status(200).json({message: `Error deleting image or no image to delte: ${req.params.name}`});
         throw new Error(`Error deleting file: ${req.params.name}`);
+    
     }
 
 });

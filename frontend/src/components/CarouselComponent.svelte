@@ -71,7 +71,7 @@ import ImageComponent from "./ImageComponent.svelte";
 
 <div class='content-container'>
 
-<Row class='text-center py-5'>
+<Row class='text-center my-5'>
     <Col>
         <div class='content'>
         <Carousel items={values} bind:activeIndex ride interval={2000}>
