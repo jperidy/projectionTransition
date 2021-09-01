@@ -29,14 +29,6 @@
 
     const updateContent = async() => {
         await updateOrCreateContent($pageContent);
-
-
-        // pageResult.then( async (result) => {
-        //     update = false;
-        //     await updateOrCreateContent(result.pageContent);
-        //     //await updateOrCreateContent(pageResult.pageContent);
-        //     update = true;
-        // })
     }
 
     const updateMovedArray = async(array) => {

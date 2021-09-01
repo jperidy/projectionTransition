@@ -6,13 +6,16 @@ const PageNew = require('../models/PageNewModels');
 // @access  Public
 const getPageContent = asyncHandler(async(req,res) =>{
     
-    console.log('route is ok', req.params.name)
+    //console.log('route is ok', req.params.name)
     const content = await PageNew.findOne({name: req.params.name});
 
     if(content) {
         res.status(200).json({message: 'get content', value: content});
     } else {
-        res.status(404).json({message: `Page content not found. Page name requested: ${req.params.name}`});
+        res.status(404).json({
+            message: `Page content not found. Page name requested: ${req.params.name}`,
+            value: {name: req.params.name, content:[]}
+        });
         throw new Error(`Page content not found. Page name requested: ${req.params.name}`);
     }
 });
@@ -33,8 +36,8 @@ const updatePageContent = asyncHandler(async(req,res) =>{
     //console.log('content', content);
 
     if (!content) {
-        console.log('create content');
-        console.log(newContent);
+        //console.log('create content');
+        //console.log(newContent);
         const contentCreated = await PageNew.create(newContent);
 
         if (contentCreated) {

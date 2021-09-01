@@ -7,7 +7,6 @@
 
     export let values=[];
     export let styles=[];
-    //export let components=[];
     export let admin='false';
     export let edit='false';
     export let updateContent;
@@ -22,6 +21,8 @@
         }
         edit = !edit;
     };
+
+    //$: console.log('TextComponent', values);
 
     $: textAlign = styles.filter(x => x.name === 'text-align')[0] && styles.filter(x => x.name === 'text-align')[0].value;
     $: textColor = styles.filter(x => x.name === 'text-color')[0] && styles.filter(x => x.name === 'text-color')[0].value;
@@ -43,7 +44,7 @@
     };
 
     if (values.length === 0) {
-        values.push({type:'text', value:''});
+        values.push({type:'text', value:'#Edit your text here'});
     }
 
 </script>

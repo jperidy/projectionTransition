@@ -7,11 +7,13 @@
 	import Footer from './components/Footer.svelte';
 
 	import Nav from "./components/Nav.svelte";
+	import Article from './screens/Article.svelte';
 	import Login from './screens/Login.svelte';
 
 	import Page from "./screens/Page.svelte";
 
 	const routes = {
+		'/article/:category/:id': wrap({ component: Article}),
 		'/login': wrap({ component: Login}),
 		'/:name': wrap({ component: Page}),
 		'/': wrap({ component: Page}),

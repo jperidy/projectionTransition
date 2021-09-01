@@ -57,7 +57,7 @@ export const getContent = async (pageName) => {
 
     } catch (error) {
         //console.log(error);
-        pageContent.set([]);
+        pageContent.set({name:pageName, content:[]});
         pageContentMessage.set({color: 'danger', value: error.response && error.response.data.message
             ? error.response.data.message
             : error.message});

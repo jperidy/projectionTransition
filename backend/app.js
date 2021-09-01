@@ -6,6 +6,7 @@ const pageRoutes = require('./routes/pagesRoutes');
 const pageNewRoutes = require('./routes/pagesNewRoutes');
 const uploadRoutes = require('./routes/uploadRoutes');
 const userRoutes = require('./routes/userRoutes');
+const articleRoutes = require('./routes/articleRoutes');
 
 const connectDB = require('./config/db');
 
@@ -32,6 +33,7 @@ app.use('/api/users', userRoutes);
 app.use('/api/page', pageRoutes);
 app.use('/api/pageNew', pageNewRoutes);
 app.use('/api/upload', uploadRoutes);
+app.use('/api/article', articleRoutes);
 
 
 // static route for developpement access to build repository

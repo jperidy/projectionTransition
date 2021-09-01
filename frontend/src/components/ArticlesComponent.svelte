@@ -1,8 +1,11 @@
 <script>
-import { Button, Card, CardBody, CardFooter, CardHeader, CardSubtitle, CardText, CardTitle, Col, Input, ModalBody, ModalFooter, ModalHeader, Row } from "sveltestrap";
-import EditButton from "./EditButton.svelte";
-import TextComponent from "./TextComponent.svelte";
-
+    import { onMount } from "svelte";
+    import { Button, Card, CardBody, CardFooter, CardHeader, CardSubtitle, CardText, CardTitle, Col, Input, Label, Modal, ModalBody, ModalFooter, ModalHeader, Row } from "sveltestrap";
+    import EditButton from "./EditButton.svelte";
+    import TextComponent from "./TextComponent.svelte";
+    import { articles } from '../store';
+    import ImageComponent from "./ImageComponent.svelte";
+    import { push } from "svelte-spa-router";
 
     export let values=[];
     export let styles=[];
@@ -10,8 +13,30 @@ import TextComponent from "./TextComponent.svelte";
     export let edit='false';
     export let updateContent;
 
+    let articlesToDisplay = [];
+    let selectedArticle = 0;
+    let write = false;
+
+    //$: console.log('selectedArticle', selectedArticle);
+    
+    // onMount(() => {
+    //     articlesToDisplay = $articles;
+    //     console.log('articlesToDisplay', articlesToDisplay);
+    // });
+
+    if (articlesToDisplay.length === 0) {
+        articlesToDisplay.push({
+            title: {values:[], styles:[]},
+            image: {values:[], styles:[]},
+            contenu: {values:[], styles:[]},
+            date: (new Date(Date.now())).toISOString().substring(0,10),
+        });
+    }
+
+    //$:console.log('articles', $articles);
+
     if (values.length === 0) {
-        values.push([]);
+        values.push({ category:'', label:[], maxSize:'' });
     }
     if (styles.length === 0) {
         styles.push([]);
@@ -24,164 +49,141 @@ import TextComponent from "./TextComponent.svelte";
         edit = !edit;
     };
 
+    const addArticle = () => {
+
+        const newArticle = {
+            title: {values:[], styles:[]},
+            image: {values:[], styles:[]},
+            contenu: {values:[], styles:[]},
+            date: (new Date(Date.now())).toISOString().substring(0,10),
+        }
+        articlesToDisplay = [ ...articlesToDisplay, newArticle ];
+        console.log('articlesToDisplay', articlesToDisplay)
+    };
+
 </script>
 
-<style>
-    .content-container{
-        position: relative;
-    }
-    .content {
-        opacity: 1;
-        width: 100%;
-        height: 100%;
-        backface-visibility: hidden;
-    }
-    .middle {
-        transition: .5s ease;
-        opacity: 0.5;
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        -ms-transform: translate(-50%, -50%);
-        text-align: center;
-    }
-    .content-container:hover .middle {
-        opacity: 1;
-    }
+<div>
+    <div class='row'>
+        <div class='col'>
 
-    .card {
+            <!-- {#if write}
+                <TextComponent
+                    bind:values={articlesToDisplay[selectedArticle].contenu.values}
+                    bind:styles={articlesToDisplay[selectedArticle].contenu.styles}
+                    edit={true}
+                    admin={true}
+                />
+            {/if} -->
 
-    }
-    
-</style>
+            {#if admin}
+                <div class='row'>
+                    <h3 class='pt-3'>Global configurations:</h3>
+                    <div class='col'>
+                        <Label for="category">Category: </Label>
+                        <Input 
+                            type='text' 
+                            name='category' 
+                            id='category' 
+                            class='my-3' 
+                            bind:value={values[0].category}
+                        />
+                    </div>
 
-<div class='content-container'>
+                    <div class='col'>
+                        <Label for="maxSize">Max display articles </Label>
+                        <Input 
+                            type='number'
+                            min={0}
+                            step={1}
+                            name='maxSize' 
+                            id='maxSize' 
+                            class='my-3' 
+                            bind:value={values[0].maxSize}
+                        />
+                    </div>                        
+                </div>
 
-    <Row>
-        <Col>
-            <!-- <Modal isOpen={edit} {toggle}>
-                <ModalHeader {toggle}>Ajouter un lecteur d'articles</ModalHeader>
-                <ModalBody>
-                    <Row>
-                        <Col>
-                            <Input
-                                type='text' 
-                                name='text' 
-                                id='article-name' 
-                                class='my-3' 
-                                bind:value={values[0].value}
-                            />
-                            
-                            <p class='my-3'><strong>Prévisualisation</strong></p>
+                <div class='row'>
+                    <div class='col'>
+                        <h3>Manage the articles</h3>
+                        <button class='btn btn-primary' variant='primary' on:click={addArticle}>New Article</button>
+                        <button class='btn btn-danger' variant='danger'>Remove Article</button>
+                    </div>
+                </div> 
 
-                            <Row>
-                                <Col>
-                                    <p class={`${textColor} ${bgColor}`} style={`text-align: ${textAlign};font-weight: ${fontWeight};font-style: ${fontStyle};`}>
-                                        <SvelteMarkdown source={values[0] && values[0].value ? values[0].value : ''} />
-                                    </p>
-                                </Col>
-                            </Row>
-                            
-                        </Col>
-                    </Row>
-                </ModalBody>
-        
-                <ModalFooter>
-                    <Button color="primary" on:click={toggle}>Enregistrer</Button>
-                    <Button color="secondary" on:click={toggle}>Cancel</Button>
-                </ModalFooter>
-        
-            </Modal> -->
+                <div class='row'>
+                    <div class='col'>
+                        <h3 class='my-3'>Preview: </h3>
+                    </div>
+                </div>
+            {/if}
+
             <div class='row mt-5 mb-3'>
                 <div class='col'>
                     <TextComponent
-                        bind:values={values[0]}
+                        bind:values={values[0].label}
                         bind:styles={styles[0]}
                         admin={admin}
                         edit={false}
                     />
                 </div>
+
                 <div class='col text-center'>
                     <input type='text' class='bg-secondary boder-none' placeholder="Rechercher un article">
                 </div>
             </div>
 
             <div class='row mt-3'>
-                <div class='col-12 col-md-4 py-3'>
-                    <div class="card bg-light border-light align-middle shadow-sm" style="border-radius: 10%;">
-                        <div class="card-header border-0 bg-transparent" style="height: 5rem;">
-                            <h3 class='text-center text-primary'>
-                                Cette semaine nous avons rencontré XXX
-                            </h3>
-                        </div>
-                        <div class="card-body text-center" style="height: 15rem">
-                            <p>Image here</p>
-                        </div>
-                        <div class="card-footer border-0 bg-transparent m-auto d-grid gap-1" style="height: 5rem;">
-                            <button type='button' class='btn btn-light text-secondary'>
-                                <i class="bi bi-eyeglasses"></i>
-                                Lire l'article
-                            </button> 
-                        </div>
-                    </div>
-                </div>
+                {#each articlesToDisplay as article, index}
+                    {#if article.title.values && article.image.values}
+                        <div class='col-12 col-md-4 py-3'>
+                            <div class="card bg-light border-light align-middle shadow-sm" style="border-radius: 10%;">
+                                <div class="card-header border-0 bg-transparent" style="height: 5rem;">
+                                    <h3 class='text-center text-primary'>
+                                        <TextComponent 
+                                            values={article.title.values}
+                                            styles={article.title.styles}
+                                            edit={false}
+                                            admin={false}
+                                        />
+                                    </h3>
+                                </div>
+                                <div class="card-body text-center" style="height: 15rem">
+                                    <p>Body</p>
+                                    <ImageComponent
+                                        values={article.image.values}
+                                        styles={article.image.styles}
+                                        edit={false}
+                                        admin={false}
+                                    />
+                                </div>
+                                <p class='mx-auto'>
+                                    {article.date}
+                                </p>
 
-                <div class='col-12 col-md-4 py-3'>
-                    <div class="card bg-light border-light align-middle shadow-sm" style="border-radius: 10%;">
-                        <div class="card-header border-0 bg-transparent" style="height: 5rem;">
-                            <h3 class='text-center text-primary'>
-                                Cette semaine nous avons rencontré XXX
-                            </h3>
+                                <div class="card-footer border-0 bg-transparent m-auto d-grid gap-1">
+                                    <button 
+                                        type='button' 
+                                        class='btn btn-light text-secondary'
+                                        on:click={() => push(`#/articles/${values[0].category}`)}
+                                    ><i class="bi bi-eyeglasses"></i>
+                                        {admin ? 'Editer' : "Lire l'article"}
+                                    </button> 
+                                </div>
+                            </div>
                         </div>
-                        <div class="card-body text-center" style="height: 15rem">
-                            <p>Image here</p>
-                        </div>
-                        <div class="card-footer border-0 bg-transparent m-auto d-grid gap-1" style="height: 5rem;">
-                            <button type='button' class='btn btn-light text-secondary'>
-                                <i class="bi bi-eyeglasses"></i>
-                                Lire l'article
-                            </button> 
-                        </div>
-                    </div>
-                </div>
-
-                <div class='col-12 col-md-4 py-3'>
-                    <div class="card bg-light border-light align-middle shadow-sm" style="border-radius: 10%;">
-                        <div class="card-header border-0 bg-transparent" style="height: 5rem;">
-                            <h3 class='text-center text-primary'>
-                                Cette semaine nous avons rencontré XXX
-                            </h3>
-                        </div>
-                        <div class="card-body text-center" style="height: 15rem">
-                            <p>Image here</p>
-                        </div>
-                        <div class="card-footer border-0 bg-transparent m-auto d-grid gap-1" style="height: 5rem;">
-                            <button type='button' class='btn btn-light text-secondary'>
-                                <i class="bi bi-eyeglasses"></i>
-                                Lire l'article
-                            </button> 
-                        </div>
-                    </div>
-                </div>
+                    {/if} 
+                {/each}
             </div>
 
-            
-
-            
-
-            
-        </Col>
-    </Row>
-
-    {#if admin}
-        <div class='middle'>
-        <EditButton
-            admin={admin}
-            updateContent={updateContent}
-            bind:edit={edit}
-        />
+            {#if admin}                
+                <EditButton
+                    admin={admin}
+                    updateContent={updateContent}
+                    bind:edit={edit}
+                />  
+            {/if}
         </div>
-    {/if}
-
+    </div>
 </div>

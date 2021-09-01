@@ -9,17 +9,17 @@ const checkAndCreateImage1000x250Folder = asyncHandler(async (req, res, next) =>
 
     const __dir = path.resolve();
     const pathImages = __dir + '/uploads/images/1000x250/';
-    console.log(pathImages);
+    //console.log(pathImages);
 
     if (fs.existsSync(pathImages)) {
         next();
     } else {
         try {
             fs.mkdirSync(pathImages, { recursive: true })
-            console.log('Directory created successfully /uploads/images/1000x250: ' + pathImages);
+            //console.log('Directory created successfully /uploads/images/1000x250: ' + pathImages);
             next();
         } catch (error) {
-            console.error('Error creating folder to upload Pxx: ' + pathImages);
+            //console.error('Error creating folder to upload Pxx: ' + pathImages);
             res.status(500).json({ message: 'Error creating folder to upload Pxx: ' + pathImages });
         }
     }
@@ -31,12 +31,12 @@ const checkAndCreateImage1000x250Folder = asyncHandler(async (req, res, next) =>
 // @access  Private
 const deleteImage = asyncHandler(async (req, res, next) => {
 
-    console.log('start delteImage');
+    //console.log('start delteImage');
     try {
         const name = req.query.url.split('/uploads')[1];
         const directory = path.resolve() + '/uploads';
 
-        console.log('file to delete', name, 'in directory', directory);
+        //console.log('file to delete', name, 'in directory', directory);
 
         fs.unlinkSync(directory + name);
 

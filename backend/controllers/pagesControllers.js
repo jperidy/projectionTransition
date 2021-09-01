@@ -6,7 +6,7 @@ const Page = require('../models/pageModels');
 // @access  Public
 const getPageContent = asyncHandler(async(req,res) =>{
     
-    console.log('route is ok', req.params.name)
+    //console.log('route is ok', req.params.name)
     const content = await Page.findOne({name: req.params.name});
 
     if(content) {
@@ -32,8 +32,8 @@ const updatePageContent = asyncHandler(async(req,res) =>{
     //console.log('content', content);
 
     if (!content) {
-        console.log('create content');
-        console.log(newContent);
+        //console.log('create content');
+        //console.log(newContent);
         const contentCreated = await Page.create(newContent);
 
         if (contentCreated) {

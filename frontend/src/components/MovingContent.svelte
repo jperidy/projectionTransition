@@ -30,8 +30,6 @@
 
     const recursiveDeleteAction = async (array) => {
 
-        console.log("array", array)
-
         for (let ind = 0 ; ind < array.length ; ind++) {
             if (array[ind].url && array[ind].url.length) {
                 await deleteImage(array[ind].url);
@@ -50,19 +48,7 @@
 
         // delete component images from backend
         const values = array[position].values;
-        console.log('array[position]', values);
         await recursiveDeleteAction(values);
-
-        
-        // clean images in database
-        // const imageToDelete = array[position].values && array[position].values.map(x => x.url && x.url);
-        //console.log(imageToDelete);
-        // for (let index = 0; index < imageToDelete.length; index++) {
-        //     const pathToDelete = imageToDelete[index];
-        //     if (pathToDelete && pathToDelete.length) {
-        //         const result = await deleteImage(pathToDelete);
-        //     }
-        // }
 
         array.splice(position, 1);
         updateMovedArray(array);
