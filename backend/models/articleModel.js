@@ -8,11 +8,16 @@ const articleSchema = mongoose.Schema({
         values: [],
         styles: []
     },
-    src: {
+    url: {
         values: [],
         styles: []
     },
     content: {
+        values: [],
+        styles: []
+    },
+    category: { type: String, required: true},
+    author: {
         values: [],
         styles: []
     },

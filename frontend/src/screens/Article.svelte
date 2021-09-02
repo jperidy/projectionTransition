@@ -3,8 +3,12 @@
     import AdminButton from '../components/AdminButton.svelte';
     import ImageComponent from '../components/ImageComponent.svelte';
     import TextComponent from '../components/TextComponent.svelte';
+    import { getArticle, updateArticleRequest } from '../actions/articleActions'
 
-    import { userInfo } from '../store';
+    import { userInfo, articleRequest, articleUpdateRequest } from '../store';
+    import Message from '../components/Message.svelte';
+    import Loading from '../components/Loading.svelte';
+    import CustomContainer from '../components/CustomContainer.svelte';
 
     export let params = { category: 'actualite', id: null};
     $: category = params.category;
@@ -13,25 +17,18 @@
     
     let admin = false;
     let edit = false;
-    let updateContent;
-
-    const articleContent = {
-        _id: id,
-        title: {values:[], styles:[]},
-        subTitle: {values:[], styles:[]},
-        src: {values:[], styles:[]},
-        content: {values:[], styles:[]},
-    }
 
     $: {
-        console.log('create function to get the document', category, id);
-        
-        
+        //console.log('create function to get the document', category, id);
+        getArticle(id);
     }
 
-    const updateArticle = async() => {
+    const updateArticle = () => {
         console.log('create here function to create or update the article');
+        updateArticleRequest(id, $articleRequest.article);
     }
+
+    //$: console.log($articleRequest.article);
 
 </script>
 
@@ -40,52 +37,82 @@
         bind:admin={admin}
         isAuthenticate={isAuthenticate}
     />
+
+    {#if $articleRequest.message}
+        <Message color='warning'>{$articleRequest.message}</Message>
+    {/if}
+    
+    {#if $articleRequest.loading}
+        <Loading color='secondary' number={3} />
+    {/if}
+
+    {#if $articleUpdateRequest.message}
+        <Message color={$articleUpdateRequest.success ? 'success' : 'error'}>{$articleUpdateRequest.message}</Message>
+    {/if}
+
+    {#if $articleUpdateRequest.loading}
+        <Loading color='secondary' number={3} />
+    {/if}
+
 {/if}
 
-<div class='row'>
+{#if $articleRequest.article}
+    <CustomContainer>
+        <div class='row align-items-center'>
+            <div class='col-md-3 col-sm-12'>
+                <ImageComponent
+                    bind:values={$articleRequest.article.url.values}
+                    bind:styles={$articleRequest.article.url.styles}
+                    admin={admin}
+                    edit={edit}
+                    updateContent={updateArticle}
+                />
+            </div>
 
-    <div class='col-md-3 col-sm-12'>
-        <ImageComponent
-            bind:values={articleContent.src.values}
-            bind:styles={articleContent.src.styles}
-            admin={admin}
-            edit={edit}
-            updateContent={updateContent}
-        />
-    </div>
+            <h1 class='col-md-9 col-sm-12'>
+                <TextComponent
+                    bind:values={$articleRequest.article.title.values}
+                    bind:styles={$articleRequest.article.title.styles}
+                    admin={admin}
+                    edit={edit}
+                    updateContent={updateArticle}
+                />
+            </h1>
+            <p>
+                Rédigé par: 
+                <TextComponent
+                    bind:values={$articleRequest.article.author.values}
+                    bind:styles={$articleRequest.article.author.styles}
+                    admin={admin}
+                    edit={edit}
+                    updateContent={updateArticle}
+                />
+            </p>
 
-    <div class='col-md-9 col-sm-12'>
-        <TextComponent
-            bind:values={articleContent.title.values}
-            bind:styles={articleContent.title.styles}
-            admin={admin}
-            edit={edit}
-            updateContent={updateContent}
-        />
-    </div>
+        </div>
 
-</div>
+        <div class='row'>
+            <div class='col mx-5'>
+                <TextComponent 
+                    bind:values={$articleRequest.article.subTitle.values}
+                    bind:styles={$articleRequest.article.subTitle.styles}
+                    admin={admin}
+                    edit={edit}
+                    updateContent={updateArticle}
+                />
+            </div>
+        </div>
 
-<div class='row'>
-    <div class='col'>
-        <TextComponent 
-            bind:values={articleContent.subTitle.values}
-            bind:styles={articleContent.subTitle.styles}
-            admin={admin}
-            edit={edit}
-            updateContent={updateContent}
-        />
-    </div>
-</div>
-
-<div class='row'>
-    <div class='col'>
-        <TextComponent 
-            bind:values={articleContent.content.values}
-            bind:styles={articleContent.content.styles}
-            admin={admin}
-            edit={edit}
-            updateContent={updateContent}
-        />
-    </div>
-</div>
+        <div class='row'>
+            <div class='col'>
+                <TextComponent 
+                    bind:values={$articleRequest.article.content.values}
+                    bind:styles={$articleRequest.article.content.styles}
+                    admin={admin}
+                    edit={edit}
+                    updateContent={updateArticle}
+                />
+            </div>
+        </div>
+    </CustomContainer>
+{/if}

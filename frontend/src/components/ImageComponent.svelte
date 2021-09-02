@@ -38,12 +38,14 @@ import EditButton from "./EditButton.svelte";
     };
 
     // Build the first component
-    if (values.length === 0) {
-        values.push({
-            caption: '',
-            substitution: '',
-            url: ''
-        })
+    $:{
+        if (values.length === 0) {
+            values.push({
+                caption: '',
+                substitution: '',
+                url: ''
+            })
+        }
     }
 
 </script>

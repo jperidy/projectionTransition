@@ -11,8 +11,9 @@ export const userInfo = writable(getInitialUserInfo());
 export const pageName = writable('homePage');
 export const pageContent = writable([]);
 export const pageContentMessage = writable(null);
-export const articles = writable([{
-    title: {values:[], styles:[]},
-    image: {values:[], styles:[]},
-    date: (new Date(Date.now())).toISOString().substring(0,10),
-}]);
+
+export const articleAllRequest = writable({articles:null, loading:false, message:''});
+export const articleRequest = writable({article:null, loading:false, message:''});
+export const articleCreateRequest = writable({success:false, loading:false, message:''});
+export const articleUpdateRequest = writable({success:false, loading:false, message:''});
+export const articleDeleteRequest = writable({success:false, loading:false, message:''});

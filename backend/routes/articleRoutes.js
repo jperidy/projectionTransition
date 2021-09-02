@@ -1,5 +1,5 @@
 const express = require('express');
-const { getArticleContent, updateArticleContent, createArticle } = require('../controllers/articleControllers');
+const { getArticleContent, updateArticleContent, createArticle, getAllArticlesContent, deleteArticleContent } = require('../controllers/articleControllers');
 const { protect } = require('../middleware/authMiddleware');
 
 const router = express.Router();
@@ -7,7 +7,10 @@ const router = express.Router();
 router.route('/:id')
     .get(getArticleContent)
     .put(protect, updateArticleContent)
+    .delete(protect, deleteArticleContent)
 
-router.route('/').post(protect, createArticle);
+router.route('/')
+    .get(getAllArticlesContent)
+    .post(protect, createArticle);
 
 module.exports = router;
