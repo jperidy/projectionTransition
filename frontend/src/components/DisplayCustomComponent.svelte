@@ -6,7 +6,8 @@
     import CarouselComponent from "./CarouselComponent.svelte";
     import VideoComponent from "./VideoComponent.svelte";
     import EditoComponent from "./EditoComponent.svelte";
-import ArticlesComponent from "./ArticlesComponent.svelte";
+    import ArticlesComponent from "./ArticlesComponent.svelte";
+    import PartenairesComponent from "./PartenairesComponent.svelte";
 
     export let type = '';
     export let updateContent = null;
@@ -68,6 +69,16 @@ import ArticlesComponent from "./ArticlesComponent.svelte";
 
 {#if type === 'articlesComponent'}
     <ArticlesComponent
+        bind:values={values}
+        bind:styles={styles}
+        updateContent={updateContent}
+        admin={admin}
+        edit={edit}
+    />
+{/if}
+
+{#if type === 'partenairesComponent'}
+    <PartenairesComponent
         bind:values={values}
         bind:styles={styles}
         updateContent={updateContent}

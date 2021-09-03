@@ -48,7 +48,10 @@
     const deleteAction = async() => {
 
         // delete component images from backend
-        const values = array[position].values;
+        // const values = array[position].values;
+        const values = array[position];
+        //values.push(array[position].url);
+
         await recursiveDeleteAction(values);
 
         array.splice(position, 1);
@@ -63,7 +66,7 @@
             <Col>
                 <Button class='mx-3' color='secondary' on:click={() => upAction()}><Icon name='caret-up'/>  UP</Button>
                 <Button class='mx-3' color='secondary' on:click={() => downAction()}><Icon name='caret-down'/>  DOWN</Button>
-                <Button class='mx-3' color='danger' on:click={() => deleteAction()}><Icon name='trash'/>  DELETE</Button>
+                <Button class='mx-3' color='danger' on:click={async() => await deleteAction()}><Icon name='trash'/>  DELETE</Button>
             </Col>
         </Row>
         

@@ -9,6 +9,7 @@
     import Message from '../components/Message.svelte';
     import Loading from '../components/Loading.svelte';
     import CustomContainer from '../components/CustomContainer.svelte';
+    import { Input } from 'sveltestrap';
 
     export let params = { category: 'actualite', id: null};
     $: category = params.category;
@@ -19,7 +20,6 @@
     let edit = false;
 
     $: {
-        //console.log('create function to get the document', category, id);
         getArticle(id);
     }
 
@@ -27,8 +27,6 @@
         console.log('create here function to create or update the article');
         updateArticleRequest(id, $articleRequest.article);
     }
-
-    //$: console.log($articleRequest.article);
 
 </script>
 
@@ -69,26 +67,41 @@
                 />
             </div>
 
-            <h1 class='col-md-9 col-sm-12'>
-                <TextComponent
-                    bind:values={$articleRequest.article.title.values}
-                    bind:styles={$articleRequest.article.title.styles}
-                    admin={admin}
-                    edit={edit}
-                    updateContent={updateArticle}
-                />
-            </h1>
-            <p>
-                Rédigé par: 
-                <TextComponent
-                    bind:values={$articleRequest.article.author.values}
-                    bind:styles={$articleRequest.article.author.styles}
-                    admin={admin}
-                    edit={edit}
-                    updateContent={updateArticle}
-                />
-            </p>
-
+            <div class='col-md-9 col-sm-12'>
+                <h1>
+                    <TextComponent
+                        bind:values={$articleRequest.article.title.values}
+                        bind:styles={$articleRequest.article.title.styles}
+                        admin={admin}
+                        edit={edit}
+                        updateContent={updateArticle}
+                    />
+                </h1>
+                <div class='row'>
+                    <div class='col text-end'>
+                        Rédigé par : 
+                    </div>
+                    <div class='col text-start'>
+                        <TextComponent
+                            bind:values={$articleRequest.article.author.values}
+                            bind:styles={$articleRequest.article.author.styles}
+                            admin={admin}
+                            edit={edit}
+                            updateContent={updateArticle}
+                        />
+                    </div>
+                    <div class='col text-end'>
+                        Publié le : 
+                    </div>
+                    <div class='col text-start'>
+                        {#if admin}
+                            <Input type='date' bind:value={$articleRequest.article.createdAt} on:change={updateArticle} />
+                        {:else}
+                            <p>{$articleRequest.article.createdAt.toString().substring(0,10)}</p>
+                        {/if}
+                    </div>
+                </div>
+            </div>
         </div>
 
         <div class='row'>

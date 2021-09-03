@@ -29,23 +29,26 @@ const getAllArticlesContent = asyncHandler(async(req,res) =>{
     const keyword = req.query.keyword ? req.query.keyword : null;
     const limit = req.query.size ? Number(req.query.size) : null;
 
-    //console.log({...category, ...keyword});
-
     let articles = await Article.find({ ...category })
-                            .sort({'updatedAt': -1})
-                            .limit(limit);
+                            .sort({'createdAt': -1})
+                            //.limit(limit);
 
+    // TOTO : optimize. But not worry array will stay small
     if (keyword) {
         const filteredArticles = []
         for (let x = 0; x < articles.length; x++) {
             const article = articles[x];
             console.log(article.title)
-            const titre = article.title.values && article.title.values[0].value
-            if (titre && titre.match(keyword)) {
+            const titre = article.title.values && article.title.values[0].value;
+            //const regex = new RegExp('/' + keyword + '/i');
+            if (titre && titre.toLowerCase().match(keyword.toLowerCase())) {
                 filteredArticles.push(article);
             }
         }
         articles = filteredArticles;
+    }
+    if (limit) {
+        articles = articles.slice(0, limit);
     }
 
     if(articles) {
@@ -95,6 +98,7 @@ const updateArticleContent = asyncHandler(async(req,res) =>{
         article.content = updatedArticle.content;
         article.author = updatedArticle.author;
         article.category = updatedArticle.category;
+        article.createdAt = updatedArticle.createdAt;
         await article.save();
 
         res.status(200).json({message: 'article updated', value: article});

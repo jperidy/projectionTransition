@@ -17,20 +17,6 @@
 
     let keyword = "";
 
-    // let articlesToDisplay = [];
-
-    // if (articlesToDisplay.length === 0) {
-    //     articlesToDisplay.push({
-    //         title: {values:[], styles:[]},
-    //         image: {values:[], styles:[]},
-    //         contenu: {values:[], styles:[]},
-    //         date: (new Date(Date.now())).toISOString().substring(0,10),
-    //     });
-    // }
-
-    //$:console.log('values', values);
-    //$:console.log('articles', $articleAllRequest.articles);
-
     if (values.length === 0) {
         values.push({ category:'', label:[], maxSize:'' });
     }
@@ -39,7 +25,6 @@
     }
 
     $: {
-        //console.log('getArticle')
         getAllArticles(values[0].category, values[0].maxSize, '', keyword);
     }
     $: {
@@ -169,7 +154,7 @@
                         <div class='col-12 col-md-4 py-3'>
                             <div class="card bg-light border-light align-middle shadow-sm" style="border-radius: 10%;">
                                 <div class="card-header border-0 bg-transparent" style="height: 5rem;">
-                                    <h4 class='text-center text-primary'>
+                                    <h4 class='text-center text-primary my-auto'>
                                         <TextComponent 
                                             values={article.title.values}
                                             styles={article.title.styles}

@@ -77,8 +77,8 @@
 
 <div class='content-container'>
 
-    <Row>
-        <Col>  
+    <!-- <Row>
+        <Col>   -->
             <Modal isOpen={edit} {toggle}>
                 <ModalHeader {toggle}>Ajouter un contenu</ModalHeader>
                 
@@ -140,16 +140,16 @@
         
             </Modal>
             <div class='content' >
-                <Row>
-                    <Col>
-                        <p class={`${textColor} ${bgColor}`} style={`text-align: ${textAlign};font-weight: ${fontWeight};font-style: ${fontStyle};`}>
+                <!-- <Row>
+                    <Col> -->
+                        <div class={`${textColor} ${bgColor}`} style={`text-align: ${textAlign};font-weight: ${fontWeight};font-style: ${fontStyle};`}>
                             <SvelteMarkdown source={values[0] && values[0].value ? values[0].value : ''} />
-                        </p>
-                    </Col>
-                </Row>
+                        </div>
+                    <!-- </Col>
+                </Row> -->
             </div>
-        </Col>
-    </Row>
+        <!-- </Col>
+    </Row> -->
 
     {#if admin}
         <div class='middle'>

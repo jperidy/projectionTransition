@@ -1,7 +1,6 @@
 <script>
     import { Col, Row } from "sveltestrap";
 
-    import EditButton from "./EditButton.svelte";
     import ImageComponent from "./ImageComponent.svelte";
     import TextComponent from "./TextComponent.svelte";
 
@@ -17,26 +16,65 @@
     if (values.length === 0) {
         values.push({name:'title', values:[], styles:[]});
         values.push({name:'image', values:[], styles:[]});
-        values.push({name:'introduction', values:[], styles:[]});
-        values.push({name:'text', values:[], styles:[]});
+        values.push({name:'colonne-1', values:[], styles:[]});
+        values.push({name:'colonne-2', values:[], styles:[]});
     }
 
 </script>
 
-<!-- {#if admin}
-    <EditButton
-        admin={admin}
-        updateContent={updateContent}
-        bind:edit={edit}
-    />
-{/if} -->
+<!-- section titre -->
+<div class='row mt-5'>
+    <div class='col'>
+        <TextComponent 
+            bind:values={values[0].values}
+            bind:styles={values[0].styles}
+            admin={admin}
+            edit={false}
+            updateContent={updateContent}
+        />
+        <div class='ligne-titre border-top border-5 border-primary'></div>
+    </div>
+</div>
 
-<Row class='my-5'>
-    <Col> 
-        <Row class='my-3'>
+<!-- section contenu -->
+<div class='row my-5'>
+    <!-- illustration de l'édito -->
+    <div class='col-sm-12 col-md-4'>
+        <ImageComponent 
+            bind:values={values[1].values}
+            bind:styles={values[1].styles}
+            admin={admin}
+            edit={false}
+            updateContent={updateContent}
+        />
+    </div>
+
+    <!-- première colonne -->
+    <div class='col-sm-12 col-md-4'> 
+        <TextComponent 
+            bind:values={values[2].values}
+            bind:styles={values[2].styles}
+            admin={admin}
+            edit={false}
+            updateContent={updateContent}
+        />
+    </div>
+
+    <!-- deuxième colonne -->
+    <div class='col-sm-12 col-md-4'> 
+        <TextComponent 
+            bind:values={values[3].values}
+            bind:styles={values[3].styles}
+            admin={admin}
+            edit={false}
+            updateContent={updateContent}
+        />
+    </div>
+
+        <div class='col my-3'>
             <Col>
                 <Row class='align-items-center'>
-                    <Col sm={12} md={8}>
+                    <!-- <Col sm={12} md={8}>
                         <TextComponent 
                             bind:values={values[0].values}
                             bind:styles={values[0].styles}
@@ -45,19 +83,19 @@
                             updateContent={updateContent}
                         />
                         <div class='ligne-titre border-top border-5 border-primary'></div>
-                    </Col>
-                    <Col sm={12} md={4} class='px-5'>
+                    </Col> -->
+                    <!-- <Col sm={12} md={4} class='px-5'>
                         <ImageComponent 
                             bind:values={values[1].values}
                             bind:styles={values[1].styles}
                             admin={admin}
                             edit={false}
                         />
-                    </Col>
+                    </Col> -->
                 </Row>
             </Col>
-        </Row>
-        <Row class='px-5 text-primary font-italic'>
+        </div>
+        <!-- <Row class='px-5 text-primary font-italic'>
             <TextComponent 
                 bind:values={values[2].values}
                 bind:styles={values[2].styles}
@@ -65,8 +103,8 @@
                 edit={false}
                 updateContent={updateContent}
             />
-        </Row>
-        <Row class='my-3'>
+        </Row> -->
+        <!-- <Row class='my-3'>
             <TextComponent 
                 bind:values={values[3].values}
                 bind:styles={values[3].styles}
@@ -74,10 +112,10 @@
                 edit={false}
                 updateContent={updateContent}
             />
-        </Row>
+        </Row> -->
 
-    </Col>
-</Row>
+    
+</div>
 
 <style>
     .ligne-titre {
