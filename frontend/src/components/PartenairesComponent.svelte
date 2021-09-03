@@ -1,6 +1,6 @@
 <script>
     import ImageComponent from "./ImageComponent.svelte";
-import MovingContent from "./MovingContent.svelte";
+    import MovingContent from "./MovingContent.svelte";
     import TextComponent from "./TextComponent.svelte";
 
     export let values=[];
@@ -30,7 +30,6 @@ const addPartnerHandler = () => {
 };
 
 const updateMovedArray = async(array) => {
-    //console.log(array);
     values[1].values = array;
     values = values;
     updateContent();
@@ -59,8 +58,7 @@ const updateMovedArray = async(array) => {
 </div>
 
 <!-- affichage des partenaire -->
-<div class='row'>
-    
+<div class='row pt-3'>
     {#each values[1].values as partenaire, position}
         <div class='col-sm-6 col-md-3'>
             <MovingContent 
@@ -84,7 +82,6 @@ const updateMovedArray = async(array) => {
                     updateContent={updateContent}
                 />        
             </MovingContent>
-        </div>
-            
+        </div>   
     {/each}
 </div>

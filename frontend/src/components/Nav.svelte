@@ -70,7 +70,8 @@ DropdownItem,
                 </DropdownMenu>
             </Dropdown>
 
-            <Dropdown nav inNavbar class="mx-3">
+            <NavItem><NavLink class='text-dark' href="#/informationsPratiques">INFORMATIONS PRATIQUES</NavLink></NavItem>
+            <!-- <Dropdown nav inNavbar class="mx-3">
                 <DropdownToggle class='text-dark' nav caret>INFORMATIONS PRATIQUES</DropdownToggle>
                 <DropdownMenu end class='bg-white'>
                   <DropdownItem><NavItem><NavLink href="#/lieux">Les lieux</NavLink></NavItem></DropdownItem>
@@ -78,7 +79,7 @@ DropdownItem,
                   <DropdownItem><NavItem><NavLink href="#/situation-sanitaire">Situation sanitaire</NavLink></NavItem></DropdownItem>
                   <DropdownItem><NavItem><NavLink href="#/contacts">Formulaire de contact</NavLink></NavItem></DropdownItem>
                 </DropdownMenu>
-            </Dropdown>
+            </Dropdown> -->
 
             <Dropdown nav inNavbar class="mx-3">
                 <DropdownToggle class='text-dark' nav caret>(€) BILLETERIE</DropdownToggle>

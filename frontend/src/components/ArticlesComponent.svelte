@@ -15,6 +15,8 @@
     export let edit='false';
     export let updateContent;
 
+    edit;
+
     let keyword = "";
 
     if (values.length === 0) {

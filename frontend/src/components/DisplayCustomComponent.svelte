@@ -8,6 +8,7 @@
     import EditoComponent from "./EditoComponent.svelte";
     import ArticlesComponent from "./ArticlesComponent.svelte";
     import PartenairesComponent from "./PartenairesComponent.svelte";
+import LieuxComponent from "./LieuxComponent.svelte";
 
     export let type = '';
     export let updateContent = null;
@@ -79,6 +80,16 @@
 
 {#if type === 'partenairesComponent'}
     <PartenairesComponent
+        bind:values={values}
+        bind:styles={styles}
+        updateContent={updateContent}
+        admin={admin}
+        edit={edit}
+    />
+{/if}
+
+{#if type === 'infoComponent'}
+    <LieuxComponent
         bind:values={values}
         bind:styles={styles}
         updateContent={updateContent}

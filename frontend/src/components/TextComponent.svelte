@@ -4,6 +4,7 @@
     import { Button, Col, Icon, Input, Modal, ModalBody, ModalFooter, ModalHeader, Row } from "sveltestrap";
 
     import EditButton from "./EditButton.svelte";
+    import ParagrapheMarkdown from "./markdown/paragrapheMarkdown.svelte";
 
     export let values=[];
     export let styles=[];
@@ -119,19 +120,19 @@
                     <div class='row py-1 align-items-center'>
                         <div class='col-4'>Rotate : </div>
                         <div class='col-8'>
-                            <Input type='number' class='px-1' bind:value={transformR} on:change={(e) => updateStyle({name:'transformR', value:e.target.value})}>-</Input>
+                            <Input type='number' class='px-1' value={transformR} on:change={(e) => updateStyle({name:'transformR', value:e.target.value})}>-</Input>
                         </div>
                     </div>
                     <div class='row py-1 align-items-center'>
                         <div class='col-4'>Translate X : </div>
                         <div class='col-8'>
-                            <Input type='number' class='px-1' bind:value={transformX} on:change={(e) => updateStyle({name:'transformX', value:e.target.value})}>-</Input>
+                            <Input type='number' class='px-1' value={transformX} on:change={(e) => updateStyle({name:'transformX', value:e.target.value})}>-</Input>
                         </div>
                     </div>
                     <div class='row py-1 align-items-center'>
                         <div class='col-4'>Translate Y : </div>
                         <div class='col-8'>
-                            <Input type='number' class='px-1' bind:value={transformY} on:change={(e) => updateStyle({name:'transformY', value:e.target.value})}>-</Input>
+                            <Input type='number' class='px-1' value={transformY} on:change={(e) => updateStyle({name:'transformY', value:e.target.value})}>-</Input>
                         </div>
                     </div>
                     <p class='my-3'><strong>Prévisualisation</strong></p>
@@ -153,7 +154,7 @@
     </Modal>
     <div class='content' >
         <div class={`${textColor} ${bgColor}`} style={`text-align: ${textAlign};font-weight: ${fontWeight};font-style: ${fontStyle};transform: rotate(${transformR}deg) translateX(${transformX}vh) translateY(${transformY}vh);`}>
-            <SvelteMarkdown source={values[0] && values[0].value ? values[0].value : ''} />
+            <SvelteMarkdown source={values[0] && values[0].value ? values[0].value : ''} renderers={{paragraph: ParagrapheMarkdown}} />
         </div>
     </div>
 

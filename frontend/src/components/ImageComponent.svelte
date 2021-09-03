@@ -56,6 +56,7 @@
     $: transformR = styles.filter(x => x.name === 'transformR')[0] ? styles.filter(x => x.name === 'transformR')[0].value : 0;
     $: transformX = styles.filter(x => x.name === 'transformX')[0] ? styles.filter(x => x.name === 'transformX')[0].value : 0;
     $: transformY = styles.filter(x => x.name === 'transformY')[0] ? styles.filter(x => x.name === 'transformY')[0].value : 0;
+    $: scaleXY = styles.filter(x => x.name === 'scaleXY')[0] ? styles.filter(x => x.name === 'scaleXY')[0].value : 1;
 
     $: console.log('transformR', transformR);
 
@@ -110,7 +111,7 @@
                     <Input type='text' name='text' id='input-alt' class='my-3' bind:value={values[0].substitution} placeholder='Substitution text'/>
                     <p class='my-3'><strong>Prévisualisation</strong></p>
 
-                    <figure class='figure' style={`transform: rotate(${transformR}deg) translateX(${transformX}vh) translateY(${transformY}vh);`}>
+                    <figure class='figure' style={`transform: rotate(${transformR}deg) translateX(${transformX}vh) translateY(${transformY}vh) scale(${scaleXY, scaleXY});`}>
                         <img class={`figure-img img-fluid ${rounded} ${shadow}`} src={values[0].url} alt={values[0].substitution}>
                         <figcaption class='figure-caption'>{values[0].caption}</figcaption>
                     </figure>
@@ -145,6 +146,12 @@
                             <Input type='number' class='px-1' value={transformY} on:change={(e) => updateStyle({name:'transformY', value:e.target.value})} />
                         </div>
                     </div>
+                    <div class='row py-1 align-items-center'>
+                        <div class='col-4'>Scale XY : </div>
+                        <div class='col-8'>
+                            <Input type='number' class='px-1' value={scaleXY} on:change={(e) => updateStyle({name:'scaleXY', value:e.target.value})} step={0.05} />
+                        </div>
+                    </div>
                 </Col>
               </Row>
             </ModalBody>
@@ -156,7 +163,7 @@
       
         </Modal>
         
-        <figure class='figure' style={`transform: rotate(${transformR}deg) translateX(${transformX}vh) translateY(${transformY}vh);`}>
+        <figure class='figure' style={`transform: rotate(${transformR}deg) translateX(${transformX}vh) translateY(${transformY}vh) scale(${scaleXY, scaleXY});`}>
             <img class={`figure-img img-fluid ${rounded} ${shadow}`} src={values[0].url} alt={values[0].substitution}>
             <figcaption class='figure-caption'>{values[0].caption}</figcaption>
         </figure>
