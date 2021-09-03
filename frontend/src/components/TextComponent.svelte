@@ -30,6 +30,10 @@
     $: fontWeight = styles.filter(x => x.name === 'font-weight')[0] && styles.filter(x => x.name === 'font-weight')[0].value;
     $: fontStyle = styles.filter(x => x.name === 'font-style')[0] && styles.filter(x => x.name === 'font-style')[0].value;
 
+    $: transformR = styles.filter(x => x.name === 'transformR')[0] ? styles.filter(x => x.name === 'transformR')[0].value : 0;
+    $: transformX = styles.filter(x => x.name === 'transformX')[0] ? styles.filter(x => x.name === 'transformX')[0].value : 0;
+    $: transformY = styles.filter(x => x.name === 'transformY')[0] ? styles.filter(x => x.name === 'transformY')[0].value : 0;
+
     const updateStyle = ({name, value}) => {
         const curentStyleItem = styles.filter(x => x.name === name);
         if (curentStyleItem.length) {
@@ -77,79 +81,81 @@
 
 <div class='content-container'>
 
-    <!-- <Row>
-        <Col>   -->
-            <Modal isOpen={edit} {toggle}>
-                <ModalHeader {toggle}>Ajouter un contenu</ModalHeader>
-                
-                <ModalBody>
+    <Modal isOpen={edit} {toggle}>
+        <ModalHeader {toggle}>Ajouter un contenu</ModalHeader>
+        <ModalBody>
+            <Row>
+                <Col>
+                    <Input 
+                        type='textarea' 
+                        name='textarea' 
+                        id='input-textarea' 
+                        class='my-3' 
+                        bind:value={values[0].value}
+                    />
+                    <Row class='py-1'><Col>
+                        <Button class='px-1' on:click={() => updateStyle({name:'text-align', value:'start'})}><Icon name='text-left' /></Button>
+                        <Button class='px-1' on:click={() => updateStyle({name:'text-align', value:'center'})}><Icon name='text-center' /></Button>
+                        <Button class='px-1' on:click={() => updateStyle({name:'text-align', value:'justify'})}><Icon name='justify-left' /></Button>
+                        <Button class='px-1' on:click={() => updateStyle({name:'text-align', value:'end'})}><Icon name='text-right' /></Button>
+                    </Col></Row>
+                    <Row class='py-1'><Col>
+                        {#each colors as color}
+                            <Button class='px-1' on:click={() => updateStyle({name:'text-color', value:`text-${color}`})}><Icon name='fonts' class={`text-${color}`} /></Button>
+                        {/each}
+                    </Col></Row>
+                    <Row class='py-1'><Col>
+                        {#each colors as color}
+                            <Button class='px-1' on:click={() => updateStyle({name:'backgroud-color', value:`bg-${color}`})}><Icon name='file-font-fill' class={`text-${color}`} /></Button>
+                        {/each}
+                        <Button class='px-1' on:click={() => updateStyle({name:'backgroud-color', value:``})}>Transparent</Button>
+                    </Col></Row>
+                    <Row class='py-1'><Col>
+                        <Button class='px-1' on:click={() => updateStyle({name:'font-weight', value:'normal'})}>B</Button>
+                        <Button class='px-1' on:click={() => updateStyle({name:'font-weight', value:'bold'})}><Icon name='type-bold' /></Button>
+                        <Button class='px-1' on:click={() => updateStyle({name:'font-style', value:'normal'})}>I</Button>
+                        <Button class='px-1' on:click={() => updateStyle({name:'font-style', value:'italic'})}><Icon name='type-italic' /></Button>
+                    </Col></Row>
+                    <div class='row py-1 align-items-center'>
+                        <div class='col-4'>Rotate : </div>
+                        <div class='col-8'>
+                            <Input type='number' class='px-1' bind:value={transformR} on:change={(e) => updateStyle({name:'transformR', value:e.target.value})}>-</Input>
+                        </div>
+                    </div>
+                    <div class='row py-1 align-items-center'>
+                        <div class='col-4'>Translate X : </div>
+                        <div class='col-8'>
+                            <Input type='number' class='px-1' bind:value={transformX} on:change={(e) => updateStyle({name:'transformX', value:e.target.value})}>-</Input>
+                        </div>
+                    </div>
+                    <div class='row py-1 align-items-center'>
+                        <div class='col-4'>Translate Y : </div>
+                        <div class='col-8'>
+                            <Input type='number' class='px-1' bind:value={transformY} on:change={(e) => updateStyle({name:'transformY', value:e.target.value})}>-</Input>
+                        </div>
+                    </div>
+                    <p class='my-3'><strong>Prévisualisation</strong></p>
                     <Row>
                         <Col>
-                            <Input 
-                                type='textarea' 
-                                name='textarea' 
-                                id='input-textarea' 
-                                class='my-3' 
-                                bind:value={values[0].value}
-                            />
-                            <Row class='py-1'><Col>
-                                <Button class='px-1' on:click={() => updateStyle({name:'text-align', value:'start'})}><Icon name='text-left' /></Button>
-                                <Button class='px-1' on:click={() => updateStyle({name:'text-align', value:'center'})}><Icon name='text-center' /></Button>
-                                <Button class='px-1' on:click={() => updateStyle({name:'text-align', value:'justify'})}><Icon name='justify-left' /></Button>
-                                <Button class='px-1' on:click={() => updateStyle({name:'text-align', value:'end'})}><Icon name='text-right' /></Button>
-                            </Col></Row>
-                            
-                            <Row class='py-1'><Col>
-                                {#each colors as color}
-                                    <Button class='px-1' on:click={() => updateStyle({name:'text-color', value:`text-${color}`})}><Icon name='fonts' class={`text-${color}`} /></Button>
-                                {/each}
-                            </Col></Row>
-                            
-                            <Row class='py-1'><Col>
-                                {#each colors as color}
-                                    <Button class='px-1' on:click={() => updateStyle({name:'backgroud-color', value:`bg-${color}`})}><Icon name='file-font-fill' class={`text-${color}`} /></Button>
-                                {/each}
-                                <Button class='px-1' on:click={() => updateStyle({name:'backgroud-color', value:``})}>Transparent</Button>
-                            </Col></Row>
-
-                            <Row class='py-1'><Col>
-                                <Button class='px-1' on:click={() => updateStyle({name:'font-weight', value:'normal'})}>B</Button>
-                                <Button class='px-1' on:click={() => updateStyle({name:'font-weight', value:'bold'})}><Icon name='type-bold' /></Button>
-                                <Button class='px-1' on:click={() => updateStyle({name:'font-style', value:'normal'})}>I</Button>
-                                <Button class='px-1' on:click={() => updateStyle({name:'font-style', value:'italic'})}><Icon name='type-italic' /></Button>
-                            </Col></Row>
-                            
-                            <p class='my-3'><strong>Prévisualisation</strong></p>
-
-                            <Row>
-                                <Col>
-                                    <p class={`${textColor} ${bgColor}`} style={`text-align: ${textAlign};font-weight: ${fontWeight};font-style: ${fontStyle};`}>
-                                        <SvelteMarkdown source={values[0] && values[0].value ? values[0].value : ''} />
-                                    </p>
-                                </Col>
-                            </Row>
-                            
+                            <div class={`${textColor} ${bgColor}`} style={`text-align: ${textAlign};font-weight: ${fontWeight};font-style: ${fontStyle};transform: rotate(${transformR}deg) translateX(${transformX}vh) translateY(${transformY}vh);`}>
+                                <SvelteMarkdown source={values[0] && values[0].value ? values[0].value : ''} />
+                            </div>
                         </Col>
                     </Row>
-                </ModalBody>
-        
-                <ModalFooter>
-                <Button color="primary" on:click={toggle}>Enregistrer</Button>
-                <Button color="secondary" on:click={toggle}>Cancel</Button>
-                </ModalFooter>
-        
-            </Modal>
-            <div class='content' >
-                <!-- <Row>
-                    <Col> -->
-                        <div class={`${textColor} ${bgColor}`} style={`text-align: ${textAlign};font-weight: ${fontWeight};font-style: ${fontStyle};`}>
-                            <SvelteMarkdown source={values[0] && values[0].value ? values[0].value : ''} />
-                        </div>
-                    <!-- </Col>
-                </Row> -->
-            </div>
-        <!-- </Col>
-    </Row> -->
+                    
+                </Col>
+            </Row>
+        </ModalBody>
+        <ModalFooter>
+            <Button color="primary" on:click={toggle}>Enregistrer</Button>
+            <Button color="secondary" on:click={toggle}>Cancel</Button>
+        </ModalFooter>
+    </Modal>
+    <div class='content' >
+        <div class={`${textColor} ${bgColor}`} style={`text-align: ${textAlign};font-weight: ${fontWeight};font-style: ${fontStyle};transform: rotate(${transformR}deg) translateX(${transformX}vh) translateY(${transformY}vh);`}>
+            <SvelteMarkdown source={values[0] && values[0].value ? values[0].value : ''} />
+        </div>
+    </div>
 
     {#if admin}
         <div class='middle'>

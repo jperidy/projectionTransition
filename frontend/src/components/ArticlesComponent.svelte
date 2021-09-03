@@ -163,7 +163,7 @@
                                         />
                                     </h4>
                                 </div>
-                                <div class="card-body text-center" style="height: 15rem">
+                                <div class="card-body" style="height: 15rem">
                                     <ImageComponent
                                         values={article.url.values}
                                         styles={article.url.styles}

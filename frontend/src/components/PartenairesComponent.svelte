@@ -63,7 +63,6 @@ const updateMovedArray = async(array) => {
     
     {#each values[1].values as partenaire, position}
         <div class='col-sm-6 col-md-3'>
-
             <MovingContent 
                 array={values[1].values} 
                 position={position} 
