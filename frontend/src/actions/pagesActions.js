@@ -18,7 +18,7 @@ export const updateOrCreateContent = async (content) => {
         };
 
         //const { data } = await axios.post(`${API_URL}/api/page/${content.name}`, content, config);
-        const { data } = await axios.post(`${API_URL}/api/pageNew/${content.name}`, content, config);
+        const { data } = await axios.post(`${API_URL}/api/page/${content.name}`, content, config);
         
         pageContent.set(data.value);
         pageContentMessage.set(null);
@@ -49,7 +49,7 @@ export const getContent = async (pageName) => {
         }
 
         // const { data } = await axios.get(`${API_URL}/api/page/${pageName}`, config);
-        const { data } = await axios.get(`${API_URL}/api/pageNew/${pageName}`, config);
+        const { data } = await axios.get(`${API_URL}/api/page/${pageName}`, config);
         pageContent.set(data.value);
         pageContentMessage.set(null);
 

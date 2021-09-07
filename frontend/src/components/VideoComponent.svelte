@@ -39,19 +39,23 @@ import EditButton from "./EditButton.svelte";
         edit = !edit;
     };
 
-    if (values.length === 0) {
-        values.push({
-            url: '',
-        })
+    $: {
+        if (values.length === 0) {
+            values.push({
+                url: '',
+            })
+        }
     }
 
-    if (styles.length === 0) {
-        styles.push({
-            name: 'maxWidth', size: 'normal', value: '500px',
-        });
-        size = 'normal'
-    } else {
-        size = styles.filter( x => x.name === 'maxWidth')[0].size;
+    $: {
+        if (styles.length === 0) {
+            styles.push({
+                name: 'maxWidth', size: 'normal', value: '500px',
+            });
+            size = 'normal'
+        } else {
+            size = styles.filter( x => x.name === 'maxWidth')[0].size;
+        }
     }
 
 </script>

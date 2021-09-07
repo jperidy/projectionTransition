@@ -1,5 +1,5 @@
 const asyncHandler = require('express-async-handler');
-const PageNew = require('../models/PageNewModels');
+const Page = require('../models/pageModels');
 
 // @desc    get content for a specific page name
 // @route   GET /api/page/:name
@@ -7,7 +7,7 @@ const PageNew = require('../models/PageNewModels');
 const getPageContent = asyncHandler(async(req,res) =>{
     
     //console.log('route is ok', req.params.name)
-    const content = await PageNew.findOne({name: req.params.name});
+    const content = await Page.findOne({name: req.params.name});
 
     if(content) {
         res.status(200).json({message: 'get content', value: content});
@@ -31,14 +31,14 @@ const updatePageContent = asyncHandler(async(req,res) =>{
 
     // verify if page already exist
     // content = await Page.findOne({name: req.params.name});
-    content = await PageNew.findOne({name: req.params.name});
+    content = await Page.findOne({name: req.params.name});
 
     //console.log('content', content);
 
     if (!content) {
         //console.log('create content');
         //console.log(newContent);
-        const contentCreated = await PageNew.create(newContent);
+        const contentCreated = await Page.create(newContent);
 
         if (contentCreated) {
             res.status(200).json({ message: 'contentCreated', value: contentCreated});

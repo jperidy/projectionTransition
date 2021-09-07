@@ -14,9 +14,16 @@ import ImageComponent from "./ImageComponent.svelte";
 
     let activeIndex = 0;
 
-    if (values.length === 0) {
-        // do something
-        values.push({title: '', subTitle: '', component: {values: [], styles: []}});
+    $:{
+        if (values.length === 0) {
+            // do something
+            values.push({title: '', subTitle: '', component: {values: [], styles: []}});
+        }
+    }
+    $:{
+        if (values.length && !values[0].component) {
+            values[0].component = {values: [], styles: []};
+        }
     }
 
     const addAnItem = () => {

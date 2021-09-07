@@ -41,11 +41,7 @@
     // Build the first component
     $:{
         if (values.length === 0) {
-            values.push({
-                caption: '',
-                substitution: '',
-                url: ''
-            })
+            values.push({caption: '',substitution: '',url: ''});
         }
     }
     

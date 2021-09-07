@@ -12,7 +12,7 @@
     styles;
 
 $: {
-    if (values.length === 0) {
+    if (values.length < 2) {
         values.push({name:'category', values:[], styles:[]});
         values.push({name:'partenaires', values:[{ 
             name: {name:'Partenaire name', values:[], styles:[]},

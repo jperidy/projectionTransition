@@ -103,7 +103,8 @@ const registerUser = asyncHandler(async(req,res) => {
         name,
         email,
         password,
-        status: 'Waiting approval'
+        status: 'Waiting approval',
+        profil:'unknown'
     });
 
     if (user) {

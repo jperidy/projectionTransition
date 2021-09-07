@@ -19,11 +19,15 @@
 
     let keyword = "";
 
-    if (values.length === 0) {
-        values.push({ category:'', label:[], maxSize:'' });
+    $:{
+        if (values.length === 0) {
+            values.push({ category:'', label:[], maxSize:'' });
+        }
     }
-    if (styles.length === 0) {
-        styles.push([]);
+    $:{
+        if (styles.length === 0) {
+            styles.push([]);
+        }
     }
 
     $: {

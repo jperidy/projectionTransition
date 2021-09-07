@@ -13,11 +13,13 @@
     styles;
     edit;
 
-    if (values.length === 0) {
-        values.push({name:'title', values:[], styles:[]});
-        values.push({name:'image', values:[], styles:[]});
-        values.push({name:'colonne-1', values:[], styles:[]});
-        values.push({name:'colonne-2', values:[], styles:[]});
+    $: {
+        if (values.length < 4) {
+            values.push({name:'title', values:[], styles:[]});
+            values.push({name:'image', values:[], styles:[]});
+            values.push({name:'colonne-1', values:[], styles:[]});
+            values.push({name:'colonne-2', values:[], styles:[]});
+        }
     }
 
 </script>

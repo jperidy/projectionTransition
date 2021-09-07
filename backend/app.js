@@ -3,7 +3,7 @@ const morgan = require('morgan');
 const path = require('path');
 
 const pageRoutes = require('./routes/pagesRoutes');
-const pageNewRoutes = require('./routes/pagesNewRoutes');
+//const pageNewRoutes = require('./routes/pagesNewRoutes');
 const uploadRoutes = require('./routes/uploadRoutes');
 const userRoutes = require('./routes/userRoutes');
 const articleRoutes = require('./routes/articleRoutes');
@@ -31,7 +31,7 @@ app.use(express.json());
 
 app.use('/api/users', userRoutes);
 app.use('/api/page', pageRoutes);
-app.use('/api/pageNew', pageNewRoutes);
+//app.use('/api/pageNew', pageNewRoutes);
 app.use('/api/upload', uploadRoutes);
 app.use('/api/article', articleRoutes);
 

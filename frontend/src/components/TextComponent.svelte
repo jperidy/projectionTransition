@@ -48,8 +48,15 @@
         }
     };
 
-    if (values.length === 0) {
-        values.push({type:'text', value:'#Edit your text here'});
+    $:{
+        if (values.length === 0) {
+            values.push({type:'text', value:'#Edit your text here'});
+        }
+    }
+    $:{
+        if (!styles.length) {
+            styles = [];
+        }
     }
 
 </script>

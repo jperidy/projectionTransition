@@ -17,6 +17,11 @@
     toggle();
   };
 
+  const onChangeHandler = () => {
+    values=[];
+    styles=[];
+  }
+
 </script>
 
 <Row class='my-3 pt-3'>
@@ -32,7 +37,7 @@
           <Col>
               <FormGroup>
                   <Label for="exampleSelect">Select</Label>
-                  <select class='form-select' type="select" name="select" id="exampleSelect" bind:value={type}>
+                  <select class='form-select' type="select" name="select" id="exampleSelect" bind:value={type} on:change={onChangeHandler}>
                     <option value='' selected={type === ''}>--- select ---</option>
                     <option value='textComponent' selected={type === 'textComponent'}>type TEXT [NEW]</option>
                     <option value='imageComponent' selected={type === 'imageComponent'}>type IMAGE [NEW]</option>
