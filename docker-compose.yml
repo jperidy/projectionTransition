@@ -1,0 +1,43 @@
+version: '3.7'
+services:
+  projection-transition-backend:
+    image: jbperidy/projection-transition-backend:LATEST
+    container_name: projection-transition-backend
+    ports:
+      - "5004:5000"
+    environment: 
+      - NODE_ENV=${NODE_ENV}
+      - MONGO_URI_DEV=${MONGO_URI_DEV}
+      - MONGO_URI_PROD=${MONGO_URI_PROD}
+      - JWT_SECRET=${JWT_SECRET}
+    deploy:
+      resources:
+        limits:
+          cpus: '0.3'
+          memory: 250M
+    restart: always
+    networks:
+      - projection-transition-network
+    volumes:
+       - projection-transition-data:/app/uploads
+
+  projection-transition-frontend:
+    image: jbperidy/projection-transition-frontend:LATEST
+    container_name: projection-transition-frontend
+    ports:
+      - "5005:80"
+    deploy:
+      resources:
+        limits:
+          cpus: '0.3'
+          memory: 250M
+    restart: always
+    networks:
+      - projection-transition-network
+    
+networks:
+  projection-transition-network:
+    name: projection-transition-network
+
+volumes:
+  projection-transition-data:

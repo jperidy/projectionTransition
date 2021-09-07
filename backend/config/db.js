@@ -8,6 +8,8 @@ const connectDB = async () => {
         uri = process.env.MONGO_URI_DEV;
     } else if (['production'].includes(process.env.NODE_ENV)) {
         uri = process.env.MONGO_URI_PROD;
+    } else {
+        console.log('Unknow environment: ' + process.env.NODE_ENV);
     }
 
     mongoose.connect(uri, {

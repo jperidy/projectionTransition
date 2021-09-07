@@ -2,3 +2,4 @@ design
 node_modules
 frontend/public/build/
 .env
+uploads

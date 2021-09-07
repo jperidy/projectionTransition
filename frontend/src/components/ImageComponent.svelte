@@ -58,7 +58,7 @@
     $: transformY = styles.filter(x => x.name === 'transformY')[0] ? styles.filter(x => x.name === 'transformY')[0].value : 0;
     $: scaleXY = styles.filter(x => x.name === 'scaleXY')[0] ? styles.filter(x => x.name === 'scaleXY')[0].value : 1;
 
-    $: console.log('transformR', transformR);
+    //$: console.log('transformR', transformR);
 
     const updateStyle = ({name, value}) => {
         console.log('updatesstyle', {name, value});
