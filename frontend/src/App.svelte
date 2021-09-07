@@ -8,12 +8,14 @@
 
 	import Nav from "./components/Nav.svelte";
 	import Article from './screens/Article.svelte';
+	import Film from './screens/Film.svelte';
 	import Login from './screens/Login.svelte';
 
 	import Page from "./screens/Page.svelte";
 
 	const routes = {
 		'/article/:category/:id': wrap({ component: Article}),
+		'/film/:id': wrap({ component: Film}),
 		'/login': wrap({ component: Login}),
 		'/:name': wrap({ component: Page}),
 		'/': wrap({ component: Page}),

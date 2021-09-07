@@ -7,6 +7,7 @@ const pageRoutes = require('./routes/pagesRoutes');
 const uploadRoutes = require('./routes/uploadRoutes');
 const userRoutes = require('./routes/userRoutes');
 const articleRoutes = require('./routes/articleRoutes');
+const filmRoutes = require('./routes/filmRoutes');
 
 const connectDB = require('./config/db');
 
@@ -31,9 +32,9 @@ app.use(express.json());
 
 app.use('/api/users', userRoutes);
 app.use('/api/page', pageRoutes);
-//app.use('/api/pageNew', pageNewRoutes);
 app.use('/api/upload', uploadRoutes);
 app.use('/api/article', articleRoutes);
+app.use('/api/film', filmRoutes);
 
 
 // static route for developpement access to build repository

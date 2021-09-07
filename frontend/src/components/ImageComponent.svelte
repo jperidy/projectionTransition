@@ -158,7 +158,9 @@
             </ModalFooter>
       
         </Modal>
-        
+        {#if !values[0].url}
+            <div class='bg-secondary text-center text-white' style='min-height:max-content;'>Image</div>
+        {/if}
         <figure class='figure' style={`transform: rotate(${transformR}deg) translateX(${transformX}vh) translateY(${transformY}vh) scale(${scaleXY, scaleXY});`}>
             <img class={`figure-img img-fluid ${rounded} ${shadow}`} src={values[0].url} alt={values[0].substitution}>
             <figcaption class='figure-caption'>{values[0].caption}</figcaption>
