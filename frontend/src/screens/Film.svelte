@@ -143,17 +143,12 @@ import { push } from 'svelte-spa-router';
                 {#if admin}
                     <button class='btn btn-primary text-center' on:click={addActionHandler}>Add an action</button>
                 {/if}
-                <div class='row mt-3'>
-                    <div class='col text-center'>
-                        <span class='p-2 border border-primary text-wrap text-break text-center text-primary'>RESERVER</span>
-                    </div>
-                </div>
             </div>
 
             <!-- content for film -->
             <div class='col-sm-12 col-md-6'>
                 <div class='row'>
-                    <div class='col-6'>
+                    <div class='col-sm-12 col-md-6 text-center mt-5'>
                         <ImageComponent
                             bind:values={$filmRequest.film.url.values}
                             bind:styles={$filmRequest.film.url.styles}
@@ -162,7 +157,7 @@ import { push } from 'svelte-spa-router';
                             updateContent={updateFilm}
                         />
                     </div>
-                    <div class='col-6'>
+                    <div class='col-sm-12 col-md-6 mt-5'>
                         <div class='row'>
                             <div class='col'>
                                 <TextComponent
@@ -202,11 +197,20 @@ import { push } from 'svelte-spa-router';
                 </div>
             </div>
         </div>
-        <div class='my-1'>
-            <button on:click={() => push(`#/programmation/${$filmRequest.film.location}`)}>
-                <i class="bi bi-box-arrow-in-left"></i>
-                Retour à la programmation
-            </button>
+        <div class='row mt-3'>
+            <div class='col text-center'>
+                <!-- <span class='p-2 border border-primary text-wrap text-break text-center text-primary'> -->
+                    <button class="btn btn-light border border-primary text-wrap text-break text-center text-primary bg-transparent">RESERVER MA PLACE</button>
+                <!-- </span> -->
+            </div>
+        </div>
+        <div class='row mt-5'>
+            <div class='col text-center'>
+                <button on:click={() => push(`#/programmation/${$filmRequest.film.location}`)}>
+                    <i class="bi bi-box-arrow-in-left"></i>
+                    Retour à la programmation
+                </button>
+            </div>
         </div>
     </CustomContainer>
 {/if}
