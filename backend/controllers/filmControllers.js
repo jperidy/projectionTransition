@@ -69,19 +69,13 @@ const updateFilmContent = asyncHandler(async(req,res) =>{
     const film = await Film.findById(filmId);
 
     if(film) {
-        film.title = updatedFilm.title;
         film.location = updatedFilm.location;
-        film.real = updatedFilm.real;
-        film.releaseDate = updatedFilm.releaseDate;
-        film.duration = updatedFilm.duration;
+        film.title = updatedFilm.title;
         film.url = updatedFilm.url;
+        film.real = updatedFilm.real;
         film.summury = updatedFilm.summury;
-        film.debateTitle = updatedFilm.debateTitle;
-        film.date = updatedFilm.date;
-        film.debatePitch = updatedFilm.debatePitch;
-        film.whyThisFilm = updatedFilm.whyThisFilm;
-        film.presentator = updatedFilm.presentator;
-        film.participants = updatedFilm.participants;
+        film.infosGenerales = updatedFilm.infosGenerales;
+        film.actions = updatedFilm.actions;
         await film.save();
 
         res.status(200).json({message: 'film updated', value: film});

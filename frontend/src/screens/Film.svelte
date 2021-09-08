@@ -8,7 +8,9 @@
     import Message from '../components/Message.svelte';
     import Loading from '../components/Loading.svelte';
     import CustomContainer from '../components/CustomContainer.svelte';
-import TextComponent from '../components/TextComponent.svelte';
+    import TextComponent from '../components/TextComponent.svelte';
+import MovingContent from '../components/MovingContent.svelte';
+import { push } from 'svelte-spa-router';
 
     export let params = { id: null};
     $: id = params.id;
@@ -22,9 +24,28 @@ import TextComponent from '../components/TextComponent.svelte';
     }
 
     const updateFilm = () => {
-        console.log('create here function to create or update the film');
+        //console.log('create here function to create or update the film');
         updateFilmRequest(id, $filmRequest.film);
-    }
+    };
+
+    const addActionHandler = () => {
+        const tempFilmRequest = $filmRequest;
+        tempFilmRequest.film.actions = [ ...tempFilmRequest.film.actions, {
+            heure: {values:[], styles:[]},
+            titre: {values:[], styles:[]},
+            description: {values:[], styles:[]},
+            complement:{values:[], styles:[]}
+        }];
+        filmRequest.set(tempFilmRequest);
+        updateFilm();
+    };
+
+    const updateMovedArray = async(array) => {
+        const tempFilmRequest = $filmRequest;
+        tempFilmRequest.film.actions = array;
+        filmRequest.set(tempFilmRequest);
+        updateFilm();
+    };
 
 </script>
 
@@ -58,43 +79,79 @@ import TextComponent from '../components/TextComponent.svelte';
             <!-- contents for conference -->
             <div class='col-sm-12 col-md-6'>
                 <div class='row align-items-center'>
-                    <div class='col-3'>
-                        <div class='border border-primary text-wrap text-break text-center text-primary'>RESERVER</div>
+                    <div class='col-2'>
                     </div>
                     <div class='col-6'>
-                        <h3 ><span class='text-white bg-primary'>PROGRAMME</span></h3>
-                        <h5 class='text-secondary'>A l'hotel de ville !</h5>
+                        <h3 class='mb-3'><span class='text-white bg-primary'>PROGRAMME</span></h3>
+                        <TextComponent
+                            bind:values={$filmRequest.film.infosGenerales.values}
+                            bind:styles={$filmRequest.film.infosGenerales.styles}
+                            admin={admin}
+                            edit={edit}
+                            updateContent={updateFilm}
+                        />
                     </div>
-                    <div class='col-3'></div>
+                    <div class='col-4'></div>
                 </div>
+                {#each $filmRequest.film.actions as action, position}
+                    <MovingContent
+                        array={$filmRequest.film.actions} 
+                        position={position} 
+                        admin={admin} 
+                        updateMovedArray={updateMovedArray}
+                    >
+                    <div class='row mt-3'>
+                        <div class='col-2'>
+                            <div class='text-center'>
+                                <TextComponent
+                                    bind:values={action.heure.values}
+                                    bind:styles={action.heure.styles}
+                                    admin={admin}
+                                    edit={edit}
+                                    updateContent={updateFilm}
+                                />
+                            </div>
+                        </div>
+                        <div class='col-6'>
+                            <TextComponent
+                                bind:values={action.titre.values}
+                                bind:styles={action.titre.styles}
+                                admin={admin}
+                                edit={edit}
+                                updateContent={updateFilm}
+                            />
+                            <TextComponent
+                                bind:values={action.description.values}
+                                bind:styles={action.description.styles}
+                                admin={admin}
+                                edit={edit}
+                                updateContent={updateFilm}
+                            />
+                        </div>
+                        <div class='col-4'>
+                            <TextComponent
+                                bind:values={action.complement.values}
+                                bind:styles={action.complement.styles}
+                                admin={admin}
+                                edit={edit}
+                                updateContent={updateFilm}
+                            />
+                        </div>
+                    </div>
+                    </MovingContent>
+                {/each}
+                {#if admin}
+                    <button class='btn btn-primary text-center' on:click={addActionHandler}>Add an action</button>
+                {/if}
                 <div class='row mt-3'>
-                    <div class='col-3'>
-                        <div class='text-center'>8h30</div>
-                    </div>
-                    <div class='col-6'>
-                        <h5>Ouverture de la salle</h5>
-                        <p>Nous vous demandons d'arriver avec 15 minutes d'avance, etc.</p>
-                    </div>
-                    <div class='col-3'>
-                        <p>Animateur 1 (chercheur en XXX)</p>
-                    </div>
-                </div>
-                <div class='row mt-3'>
-                    <div class='col-3'>
-                        <div class='text-center'>8h30</div>
-                    </div>
-                    <div class='col-6'>
-                        <h5>Ouverture de la salle</h5>
-                        <p>Nous vous demandons d'arriver avec 15 minutes d'avance, etc.</p>
-                    </div>
-                    <div class='col-3'>
-                        <p>Animateur 1 (chercheur en XXX)</p>
+                    <div class='col text-center'>
+                        <span class='p-2 border border-primary text-wrap text-break text-center text-primary'>RESERVER</span>
                     </div>
                 </div>
             </div>
 
             <!-- content for film -->
-            <div class='col-sm-12 col-md-6 border-start border-secondary'>
+            <div class='col-sm-12 col-md-6'>
                 <div class='row'>
                     <div class='col-6'>
                         <ImageComponent
@@ -144,6 +201,12 @@ import TextComponent from '../components/TextComponent.svelte';
                     </div>
                 </div>
             </div>
+        </div>
+        <div class='my-1'>
+            <button on:click={() => push(`#/programmation/${$filmRequest.film.location}`)}>
+                <i class="bi bi-box-arrow-in-left"></i>
+                Retour à la programmation
+            </button>
         </div>
     </CustomContainer>
 {/if}

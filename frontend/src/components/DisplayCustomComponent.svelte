@@ -8,7 +8,8 @@
     import EditoComponent from "./EditoComponent.svelte";
     import ArticlesComponent from "./ArticlesComponent.svelte";
     import PartenairesComponent from "./PartenairesComponent.svelte";
-import LieuxComponent from "./LieuxComponent.svelte";
+    import LieuxComponent from "./LieuxComponent.svelte";
+    import ProgrammationComponent from "./ProgrammationComponent.svelte";
 
     export let type = '';
     export let updateContent = null;
@@ -16,6 +17,7 @@ import LieuxComponent from "./LieuxComponent.svelte";
     export let styles = [];
     export let values = [];
     export let edit = false;
+    export let city = '';
 </script>
 
 {#if type === 'textComponent'}
@@ -95,6 +97,17 @@ import LieuxComponent from "./LieuxComponent.svelte";
         updateContent={updateContent}
         admin={admin}
         edit={edit}
+    />
+{/if}
+
+{#if type === 'programmationComponent'}
+    <ProgrammationComponent
+        bind:values={values}
+        bind:styles={styles}
+        updateContent={updateContent}
+        admin={admin}
+        edit={edit}
+        city={city}
     />
 {/if}
 

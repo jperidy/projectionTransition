@@ -17,6 +17,7 @@
 		'/article/:category/:id': wrap({ component: Article}),
 		'/film/:id': wrap({ component: Film}),
 		'/login': wrap({ component: Login}),
+		'/:name/:city': wrap({ component: Page}),
 		'/:name': wrap({ component: Page}),
 		'/': wrap({ component: Page}),
 	}

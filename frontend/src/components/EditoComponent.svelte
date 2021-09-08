@@ -72,50 +72,6 @@
             updateContent={updateContent}
         />
     </div>
-
-        <div class='col my-3'>
-            <Col>
-                <Row class='align-items-center'>
-                    <!-- <Col sm={12} md={8}>
-                        <TextComponent 
-                            bind:values={values[0].values}
-                            bind:styles={values[0].styles}
-                            admin={admin}
-                            edit={false}
-                            updateContent={updateContent}
-                        />
-                        <div class='ligne-titre border-top border-5 border-primary'></div>
-                    </Col> -->
-                    <!-- <Col sm={12} md={4} class='px-5'>
-                        <ImageComponent 
-                            bind:values={values[1].values}
-                            bind:styles={values[1].styles}
-                            admin={admin}
-                            edit={false}
-                        />
-                    </Col> -->
-                </Row>
-            </Col>
-        </div>
-        <!-- <Row class='px-5 text-primary font-italic'>
-            <TextComponent 
-                bind:values={values[2].values}
-                bind:styles={values[2].styles}
-                admin={admin}
-                edit={false}
-                updateContent={updateContent}
-            />
-        </Row> -->
-        <!-- <Row class='my-3'>
-            <TextComponent 
-                bind:values={values[3].values}
-                bind:styles={values[3].styles}
-                admin={admin}
-                edit={false}
-                updateContent={updateContent}
-            />
-        </Row> -->
-
     
 </div>
 

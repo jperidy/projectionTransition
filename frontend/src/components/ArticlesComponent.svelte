@@ -166,6 +166,8 @@
                                             styles={article.title.styles}
                                             edit={false}
                                             admin={false}
+                                            updateContent={null}
+
                                         />
                                     </h4>
                                 </div>
@@ -175,6 +177,7 @@
                                         styles={article.url.styles}
                                         edit={false}
                                         admin={false}
+                                        updateContent={null}
                                     />
                                 </div>
 

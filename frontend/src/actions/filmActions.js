@@ -72,7 +72,17 @@ export const updateFilmRequest = async (id, film) => {
     }
 };
 
-export const createFilmRequest = async (film) => {
+export const createFilmRequest = async (city) => {
+
+    const film= {
+        "title": {},
+        "location": city,
+        "real": {},
+        "url":{},
+        "summury": {},
+        "infosGenerales": {},
+        "actions": []
+    };
 
     filmCreateRequest.set({success:false, loading:true, message:''});
     const userInfoStored = get(userInfo);
@@ -89,6 +99,8 @@ export const createFilmRequest = async (film) => {
         const { data } = await axios.post(`${API_URL}/api/film`, film, config);
         
         filmCreateRequest.set({success:true, loading:false, message:'film updated'});
+
+        return data.value._id;
 
     } catch (error) {
         filmCreateRequest.set({success:false, loading:false, message:'Error updating film ' + error});

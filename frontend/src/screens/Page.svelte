@@ -12,8 +12,16 @@
     import Message from '../components/Message.svelte';
     import Loading from '../components/Loading.svelte';
     
-    export let params = { name: 'homeContent'};
-    $: pageName.set(params.name);
+    export let params = { name: 'homeContent', city:''};
+    $: {
+        let city = params.city;
+        let name = params.name;
+        if (city) {
+            pageName.set(`${name}-${city}`);
+        } else {
+            pageName.set(`${name}`);
+        }
+    } 
     // $: console.log($pageName);
     // $: console.log($pageContent);
     // $: console.log($pageContentMessage);
@@ -47,15 +55,16 @@
 
 </script>
 
+
 {#if isAuthenticate}
-    <AdminButton 
-        bind:admin={admin}
-        isAuthenticate={isAuthenticate}
-    />
+<AdminButton 
+bind:admin={admin}
+isAuthenticate={isAuthenticate}
+/>
 {/if}
 
 {#if $pageContentMessage && $pageContentMessage.value}
-    <Message color={$pageContentMessage.color}>{$pageContentMessage.value}</Message>
+<Message color={$pageContentMessage.color}>{$pageContentMessage.value}</Message>
 {/if}
 
 
@@ -63,9 +72,9 @@
     <Row>
         <Col>
             {#if admin}
-                <AddContent admin={admin} addContent={addContent}/>
+            <AddContent admin={admin} addContent={addContent}/>
             {/if}
-
+            
             {#if $pageContent && $pageContent.content}
                 {#each $pageContent.content as section, position}
                     <MovingContent 
@@ -82,6 +91,7 @@
                             updateContent={updateContent && updateContent}
                             admin={admin}
                             edit={false}
+                            city={params.city}
                         />   
                     </MovingContent>
                 {/each}

@@ -107,6 +107,7 @@ import ImageComponent from "./ImageComponent.svelte";
                                 bind:styles={item.component.styles}
                                 admin={admin}
                                 edit={false}
+                                updateContent={null}
                             />
                         </Col>
                     </Row>
@@ -117,6 +118,7 @@ import ImageComponent from "./ImageComponent.svelte";
                         bind:styles={item.component.styles}
                         admin={false}
                         edit={false}
+                        updateContent={null}
                     />
                     <CarouselCaption
                         captionHeader={item.title}
