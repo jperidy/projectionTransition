@@ -1,4 +1,5 @@
 <script>
+    import MapComponent from "./MapComponent.svelte";
     import MovingContent from "./MovingContent.svelte";
 
     import TextComponent from "./TextComponent.svelte";
@@ -115,15 +116,12 @@
                     </div>
                 </div>
                 <div class='row align-items-center my-2'>
-                    <div class='col-2 text-end'>
-                        <i class="bi bi-map"></i>
-                    </div>
-                    <div class='col-10 text-start'>
-                        Map to integrate    
+                    <div class='col text-center p-5'>
+                        <MapComponent mapid={`mapid${position}`}/>
                     </div>
                 </div>
             </div>
             </MovingContent>
         </div>
     {/each}
-</div>
+</div>  
