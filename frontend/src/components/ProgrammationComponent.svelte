@@ -39,7 +39,10 @@ import { createFilmRequest } from "../actions/filmActions";
         values[1].values.push({ 
             date: {name:'date', values:[], styles:[]},
             url: {name: 'image', values:[], styles:[]},
-            description: {name: 'description', values:[], styles:[]},
+            film: {name: 'film', values:[], styles:[]},
+            debat: {name: 'debat', values:[], styles:[]},
+            horaire: {name: 'horaire', values:[], styles:[]},
+            // description: {name: 'description', values:[], styles:[]},
             filmId: filmCreatedId,
         });
         values = values;
@@ -65,14 +68,14 @@ import { createFilmRequest } from "../actions/filmActions";
 <div class='row mt-5'>
     {#if values[1] && values[1].values}
         {#each values[1].values as evenement, position }
-            <div class='col-sm-12 col-md-4 mt-1'>
+            <div class='col-sm-12 col-md-4 mt-1 px-3'>
                 <MovingContent
                     array={values[1].values} 
                     position={position} 
                     admin={admin} 
                     updateMovedArray={updateMovedArray}
                 >
-                    <div class='mb-3'>
+                    <div class='mb-4'>
                         <TextComponent
                             bind:values={evenement.date.values}
                             bind:styles={evenement.date.styles}
@@ -99,14 +102,33 @@ import { createFilmRequest } from "../actions/filmActions";
                     </div>
 
                     <div class='ligne-titre border-top border-2 border-primary my-2'></div>
-                    <TextComponent
-                        bind:values={evenement.description.values}
-                        bind:styles={evenement.description.styles}
-                        admin={admin}
-                        edit={edit}
-                        updateContent={updateContent}
-                    />
-                    <div class="text-center">
+
+                    <div class='film mt-3'>
+                        <TextComponent
+                            bind:values={evenement.film.values}
+                            bind:styles={evenement.film.styles}
+                            admin={admin}
+                            edit={edit}
+                            updateContent={updateContent}
+                        />
+                    </div>
+                    <div class='debat my-3'>
+                        <TextComponent
+                            bind:values={evenement.debat.values}
+                            bind:styles={evenement.debat.styles}
+                            admin={admin}
+                            edit={edit}
+                            updateContent={updateContent}
+                        />
+                    </div>
+                    <div class='horaire'>
+                        <TextComponent
+                            bind:values={evenement.horaire.values}
+                            bind:styles={evenement.horaire.styles}
+                            admin={admin}
+                            edit={edit}
+                            updateContent={updateContent}
+                        />
                     </div>
                 </MovingContent>
             </div>

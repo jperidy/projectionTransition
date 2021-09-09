@@ -1,5 +1,7 @@
 <script>
-    import MapComponent from "./MapComponent.svelte";
+    import { LineUtil } from "leaflet";
+import { bind } from "svelte/internal";
+import MapComponent from "./MapComponent.svelte";
     import MovingContent from "./MovingContent.svelte";
 
     import TextComponent from "./TextComponent.svelte";
@@ -19,7 +21,15 @@
                 telephone: {name: 'telephone', values:[], styles:[]},
                 tarifs: {name: 'tarifs', values:[], styles:[]},
                 maps: {name: 'maps', values:[], styles:[]},
+                latitude:'',
+                longitude:''
             }]});
+        }
+        if (values.length === 1) {
+            values.push({
+                infoCovid: {values:[], styles: []},
+                contact: {email: '', telephone:''}
+            })
         }
     }
 
@@ -30,6 +40,8 @@
             telephone: {name: 'telephone', values:[], styles:[]},
             tarifs: {name: 'tarifs', values:[], styles:[]},
             maps: {name: 'maps', values:[], styles:[]},
+            latitude:'',
+            longitude:''
         });
         values = values;
     };
@@ -51,7 +63,7 @@
     </div>
 {/if}
 
-<div class='row'>
+<div class='row mt-3'>   
     {#each values[0].values as lieu, position}
         <!-- block pour chaque ville -->
         <div class='col-sm-12 col-md-4'>
@@ -62,7 +74,7 @@
                 updateMovedArray={updateMovedArray}
             >
             <!-- nom du groupe de la ville -->
-            <div class='text-center mt-5 py-3' style="border-bottom:1px dotted white">
+            <div class='text-center mt-5 py-1 d-inline bg-secondary'>
                 <TextComponent 
                     bind:values={lieu.name.values}
                     bind:styles={lieu.name.styles}
@@ -71,53 +83,77 @@
                     updateContent={updateContent}
                 />
             </div>
+            <!-- line -->
+            <div class='mb-2'>
+                <span class="border border-top border-primary d-block" style="max-width:100%;"></span>
+                <!-- <span class="border border-top border-primary d-block mx-auto" style="max-width:5vh;"></span> -->
+            </div>
             <!-- Informations pratiques sur la ville -->
-            <div class='text-center bg-none mt-3'>
+            <div class='text-center bg-none mt-3' >
                 <div class='row align-items-center my-2'>
-                    <div class='col-2 text-end'>
-                        <i class="bi bi-geo-alt"></i>
-                    </div>
-                    <div class='col-10 text-start'>
-                        <TextComponent 
-                            bind:values={lieu.adresse.values}
-                            bind:styles={lieu.adresse.styles}
-                            edit={edit}
-                            admin={admin}
-                            updateContent={updateContent}
+                    {#if admin}
+                        <div class='row'>
+                            <div class='col'>
+                                <p >Latitude : </p>
+                                <input type='number' bind:value={lieu.latitude} step={0.00001} on:change={updateContent}/>
+                            </div>
+                            <div class='col'>
+                                <p >Longitude : </p>
+                                <input type='number' bind:value={lieu.longitude} step={0.00001} on:change={updateContent}/>
+                            </div>
+                        </div>
+                    {/if}
+                    <div class='col text-center p-3'>
+                        <MapComponent 
+                            mapid={`mapid${position}`}
+                            latitude={lieu.latitude}
+                            longitude={lieu.longitude}
+                            adresse={lieu.adresse.values[0].value}
                         />
                     </div>
                 </div>
-                <div class='row align-items-center my-2'>
-                    <div class='col-2 text-end'>
-                        <i class="bi bi-telephone"></i>
+                <div class='informations'>
+                    <div class='row align-items-center my-2'>
+                        <div class='col-2 text-end'>
+                            <i class="bi bi-geo-alt"></i>
+                        </div>
+                        <div class='col-10 text-start'>
+                            <TextComponent 
+                                bind:values={lieu.adresse.values}
+                                bind:styles={lieu.adresse.styles}
+                                edit={edit}
+                                admin={admin}
+                                updateContent={updateContent}
+                            />
+                        </div>
                     </div>
-                    <div class='col-10 text-start'>
-                        <TextComponent 
-                            bind:values={lieu.telephone.values}
-                            bind:styles={lieu.telephone.styles}
-                            edit={edit}
-                            admin={admin}
-                            updateContent={updateContent}
-                        />
+                    <div class='row align-items-center my-2'>
+                        <div class='col-2 text-end'>
+                            <i class="bi bi-telephone"></i>
+                        </div>
+                        <div class='col-10 text-start'>
+                            <TextComponent 
+                                bind:values={lieu.telephone.values}
+                                bind:styles={lieu.telephone.styles}
+                                edit={edit}
+                                admin={admin}
+                                updateContent={updateContent}
+                            />
+                        </div>
                     </div>
-                </div>
-                <div class='row align-items-center my-2'>
-                    <div class='col-2 text-end'>
-                        <i class="bi bi-currency-euro"></i>
-                    </div>
-                    <div class='col-10 text-start'>
-                        <TextComponent 
-                            bind:values={lieu.tarifs.values}
-                            bind:styles={lieu.tarifs.styles}
-                            edit={edit}
-                            admin={admin}
-                            updateContent={updateContent}
-                        />
-                    </div>
-                </div>
-                <div class='row align-items-center my-2'>
-                    <div class='col text-center p-5'>
-                        <MapComponent mapid={`mapid${position}`}/>
+                    <div class='row align-items-center my-2'>
+                        <div class='col-2 text-end'>
+                            <i class="bi bi-currency-euro"></i>
+                        </div>
+                        <div class='col-10 text-start'>
+                            <TextComponent 
+                                bind:values={lieu.tarifs.values}
+                                bind:styles={lieu.tarifs.styles}
+                                edit={edit}
+                                admin={admin}
+                                updateContent={updateContent}
+                            />
+                        </div>
                     </div>
                 </div>
             </div>
@@ -125,3 +161,34 @@
         </div>
     {/each}
 </div>  
+<div class='row mt-5'>
+    <div class='col border border-warning text-center'>
+        <TextComponent 
+            bind:values={values[1].infoCovid.values}
+            bind:styles={values[1].infoCovid.styles}
+            edit={edit}
+            admin={admin}
+            updateContent={updateContent}
+        />
+    </div>
+</div>
+{#if admin}
+<div class="row">
+    <div class="col">
+        <p>Email de contact</p>
+        <input type="mail" bind:value={values[1].contact.email} on:change={updateContent}/>
+    </div>
+    <div class="col">
+        <p>Téléphone de contact</p>
+        <input type="phone" bind:value={values[1].contact.telephone} on:change={updateContent}/>
+    </div>
+</div>
+    
+{/if}
+<div class='row mt-5'>
+    <div class="col text-center">
+        <span>Nous contacter : </span>
+        <a href ={`mailto: ${values[1].contact.email}`} class='py-3'><i class="bi bi-envelope-fill"></i><span class='py-2'>Email</span></a>
+        <span class='py-3'>Téléphone: {values[1].contact.telephone}</span>
+    </div>
+</div>

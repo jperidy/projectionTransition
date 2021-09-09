@@ -66,21 +66,23 @@ const updateMovedArray = async(array) => {
                 position={position} 
                 admin={admin} 
                 updateMovedArray={updateMovedArray}
-            > 
-                <ImageComponent 
-                    bind:values={partenaire.url.values}
-                    bind:styles={partenaire.url.styles}
-                    edit={edit}
-                    admin={admin}
-                    updateContent={updateContent}
-                />
-                <TextComponent
-                    bind:values={partenaire.name.values}
-                    bind:styles={partenaire.name.styles}
-                    edit={edit}
-                    admin={admin}
-                    updateContent={updateContent}
-                />        
+            >
+                <div class='my-2'>
+                    <ImageComponent 
+                        bind:values={partenaire.url.values}
+                        bind:styles={partenaire.url.styles}
+                        edit={edit}
+                        admin={admin}
+                        updateContent={updateContent}
+                    />
+                    <TextComponent
+                        bind:values={partenaire.name.values}
+                        bind:styles={partenaire.name.styles}
+                        edit={edit}
+                        admin={admin}
+                        updateContent={updateContent}
+                    />    
+                </div>    
             </MovingContent>
         </div>   
     {/each}

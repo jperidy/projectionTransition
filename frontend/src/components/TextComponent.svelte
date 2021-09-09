@@ -4,7 +4,11 @@
     import { Button, Col, Icon, Input, Modal, ModalBody, ModalFooter, ModalHeader, Row } from "sveltestrap";
 
     import EditButton from "./EditButton.svelte";
-    import ParagrapheMarkdown from "./markdown/paragrapheMarkdown.svelte";
+    import ParagrapheMarkdown from "./markdown/ParagrapheMarkdown.svelte";
+    import TableMarkdown from "./markdown/TableMarkdown.svelte";
+    import TdMarkdown from "./markdown/TdMarkdown.svelte";
+    import TheadMarkdown from "./markdown/TheadMarkdown.svelte";
+    import TrMarkdown from "./markdown/TrMarkdown.svelte";
 
     export let values=[];
     export let styles=[];
@@ -146,7 +150,12 @@
                     <Row>
                         <Col>
                             <div class={`${textColor} ${bgColor}`} style={`text-align: ${textAlign};font-weight: ${fontWeight};font-style: ${fontStyle};transform: rotate(${transformR}deg) translateX(${transformX}vh) translateY(${transformY}vh);`}>
-                                <SvelteMarkdown source={values[0] && values[0].value ? values[0].value : ''} />
+                                <SvelteMarkdown source={values[0] && values[0].value ? values[0].value : ''} renderers={{
+                                    paragraph: ParagrapheMarkdown, 
+                                    table: TableMarkdown, 
+                                    tablehead: TheadMarkdown,
+                                    tablecell: TdMarkdown,
+                                    tablerow: TrMarkdown}}/>
                             </div>
                         </Col>
                     </Row>
@@ -161,7 +170,12 @@
     </Modal>
     <div class='content' >
         <div class={`${textColor} ${bgColor}`} style={`text-align: ${textAlign};font-weight: ${fontWeight};font-style: ${fontStyle};transform: rotate(${transformR}deg) translateX(${transformX}vh) translateY(${transformY}vh);`}>
-            <SvelteMarkdown source={values[0] && values[0].value ? values[0].value : ''} renderers={{paragraph: ParagrapheMarkdown}} />
+            <SvelteMarkdown source={values[0] && values[0].value ? values[0].value : ''} renderers={{
+                paragraph: ParagrapheMarkdown, 
+                table: TableMarkdown, 
+                tablehead: TheadMarkdown,
+                tablecell: TdMarkdown,
+                tablerow: TrMarkdown}} />
         </div>
     </div>
 

@@ -27,21 +27,23 @@
 <!-- section titre -->
 <div class='row mt-5'>
     <div class='col'>
-        <TextComponent 
-            bind:values={values[0].values}
-            bind:styles={values[0].styles}
-            admin={admin}
-            edit={false}
-            updateContent={updateContent}
-        />
-        <div class='ligne-titre border-top border-5 border-primary'></div>
+        <div style='padding-left: 5vh;'>
+            <TextComponent 
+                bind:values={values[0].values}
+                bind:styles={values[0].styles}
+                admin={admin}
+                edit={false}
+                updateContent={updateContent}
+            />
+            <div class='ligne-titre border-top border-5 border-primary'></div>
+        </div>
     </div>
 </div>
 
 <!-- section contenu -->
 <div class='row my-5'>
     <!-- illustration de l'édito -->
-    <div class='col-sm-12 col-md-4'>
+    <div class='col-sm-12 col-md-4 text-center' style="margin-top:5vh;">
         <ImageComponent 
             bind:values={values[1].values}
             bind:styles={values[1].styles}
