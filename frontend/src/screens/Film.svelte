@@ -81,7 +81,7 @@ import { push } from 'svelte-spa-router';
                 <div class='row align-items-center'>
                     <div class='col-2'>
                     </div>
-                    <div class='col-6'>
+                    <div class='col-10'>
                         <h3 class='mb-3'><span class='text-white bg-primary'>PROGRAMME</span></h3>
                         <TextComponent
                             bind:values={$filmRequest.film.infosGenerales.values}
@@ -91,7 +91,6 @@ import { push } from 'svelte-spa-router';
                             updateContent={updateFilm}
                         />
                     </div>
-                    <div class='col-4'></div>
                 </div>
                 {#each $filmRequest.film.actions as action, position}
                     <MovingContent

@@ -8,16 +8,19 @@ const createFilm = asyncHandler(async(req,res) =>{
     
     const filmToCreate = req.body;
 
-    const film = await Film.create(filmToCreate);
+    Film.create(filmToCreate)
+        .then((film) => {
+            if(film) {
+                res.status(200).json({message: 'film created', value: film});
+            } else {
+                res.status(404).json({
+                    message: `film not created`,
+                    value: null
+                });
+            }
+        })
+        .catch((error) => res.status(500).json({message: `Error creating film in database: ${error}`}));
 
-    if(film) {
-        res.status(200).json({message: 'film created', value: film});
-    } else {
-        res.status(404).json({
-            message: `film not created`,
-            value: null
-        });
-    }
 });
 
 // @desc    get all films
@@ -27,17 +30,19 @@ const getAllFilmsContent = asyncHandler(async(req,res) =>{
     
     const location = req.query.location ? { location: req.query.location } : {};
 
-    let films = await Film.find({ ...location })
-                            .sort({'date': 1});
+    Film.find({ ...location }).sort({'date': 1})
+        .then((films) => {
+            if(films) {
+                res.status(200).json({message: 'get all films', value: films});
+            } else {
+                res.status(404).json({
+                    message: `Error geting all films. location: ${location}`,
+                    value: null
+                });
+            }
+        })
+        .catch((error) => res.status(500).json({message: `Error finding films in database: ${error}`}));
 
-    if(films) {
-        res.status(200).json({message: 'get all films', value: films});
-    } else {
-        res.status(404).json({
-            message: `Error geting all films. location: ${location}`,
-            value: null
-        });
-    }
 });
 
 // @desc    get content for a specific film
@@ -46,16 +51,19 @@ const getAllFilmsContent = asyncHandler(async(req,res) =>{
 const getFilmContent = asyncHandler(async(req,res) =>{
     
     const filmId = req.params.id
-    const film = await Film.findById(filmId);
+    Film.findById(filmId)
+        .then((film) => {
+            if(film) {
+                res.status(200).json({message: 'get film', value: film});
+            } else {
+                res.status(404).json({
+                    message: `film content not found. film id requested : ${filmId}`,
+                    value: null
+                });
+            }
+        })
+        .catch((error) => res.status(500).json({message: `Error finding film in database: ${error}`}));
 
-    if(film) {
-        res.status(200).json({message: 'get film', value: film});
-    } else {
-        res.status(404).json({
-            message: `film content not found. film id requested : ${filmId}`,
-            value: null
-        });
-    }
 });
 
 // @desc    update content for a specific film
@@ -66,25 +74,28 @@ const updateFilmContent = asyncHandler(async(req,res) =>{
     const filmId = req.params.id
     const updatedFilm = req.body
 
-    const film = await Film.findById(filmId);
+    Film.findById(filmId)
+        .then((film) => {
+            if(film) {
+                film.location = updatedFilm.location;
+                film.title = updatedFilm.title;
+                film.url = updatedFilm.url;
+                film.real = updatedFilm.real;
+                film.summury = updatedFilm.summury;
+                film.infosGenerales = updatedFilm.infosGenerales;
+                film.actions = updatedFilm.actions;
+                film.save()
+                    .then(() => res.status(200).json({message: 'film updated', value: film}))
+                    .catch((error) => res.status(500).json({message: `Error saving film in database: ${error}`}));
+            } else {
+                res.status(404).json({
+                    message: `film content not found. film id requested : ${filmId}`,
+                    value: null
+                });
+            }
+        })
+        .catch((error) => res.status(500).json({message: `Error finding film in database: ${error}`}));
 
-    if(film) {
-        film.location = updatedFilm.location;
-        film.title = updatedFilm.title;
-        film.url = updatedFilm.url;
-        film.real = updatedFilm.real;
-        film.summury = updatedFilm.summury;
-        film.infosGenerales = updatedFilm.infosGenerales;
-        film.actions = updatedFilm.actions;
-        await film.save();
-
-        res.status(200).json({message: 'film updated', value: film});
-    } else {
-        res.status(404).json({
-            message: `film content not found. film id requested : ${filmId}`,
-            value: null
-        });
-    }
 });
 
 // @desc    delete a film
@@ -94,16 +105,19 @@ const deleteFilmContent = asyncHandler(async(req,res) =>{
     
     const filmId = req.params.id
 
-    const film = await Film.deleteOne({_id: filmId});
+    Film.deleteOne({_id: filmId})
+        .then((film) => {
+            if(film) {
+                res.status(200).json({message: 'film deleted', value: null});
+            } else {
+                res.status(404).json({
+                    message: `Error deleting film : ${filmId}`,
+                    value: null
+                });
+            }
+        })
+        .catch((error) => res.status(500).json({message: `Error deleting film in database: ${error}`}));
 
-    if(film) {
-        res.status(200).json({message: 'film deleted', value: null});
-    } else {
-        res.status(404).json({
-            message: `Error deleting film : ${filmId}`,
-            value: null
-        });
-    }
 });
 
 module.exports = { getFilmContent, updateFilmContent, createFilm, getAllFilmsContent, deleteFilmContent };
