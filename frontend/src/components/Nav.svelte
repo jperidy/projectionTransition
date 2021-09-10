@@ -41,7 +41,7 @@
 
     <!-- <Collapse {isOpen} navbar expand="md" on:update={handleUpdate}> -->
     <Collapse {isOpen} navbar expand={expand}>
-        <Nav class="ms-auto" navbar>
+        <Nav class="ms-auto align-items-center" navbar>
             <Dropdown nav inNavbar class="mx-3">
                 <DropdownToggle class='text-dark' nav caret>LE FESTIVAL</DropdownToggle>
                 <DropdownMenu end class='bg-white'>

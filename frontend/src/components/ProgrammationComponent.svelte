@@ -17,7 +17,8 @@ import { createFilmRequest } from "../actions/filmActions";
 
     $:{
         if (values.length === 0 ) {
-            values.push({title: {values:[], styles:[]}});
+            //values.push({title: {values:[], styles:[]}});
+            values.push({date: ''});
         }
     }
 
@@ -37,12 +38,11 @@ import { createFilmRequest } from "../actions/filmActions";
         const filmCreatedId = await createFilmRequest(city);
 
         values[1].values.push({ 
-            date: {name:'date', values:[], styles:[]},
+            //date: {name:'date', values:[], styles:[]},
             url: {name: 'image', values:[], styles:[]},
             film: {name: 'film', values:[], styles:[]},
             debat: {name: 'debat', values:[], styles:[]},
             horaire: {name: 'horaire', values:[], styles:[]},
-            // description: {name: 'description', values:[], styles:[]},
             filmId: filmCreatedId,
         });
         values = values;
@@ -51,104 +51,98 @@ import { createFilmRequest } from "../actions/filmActions";
 
 </script>
 
-<div class="row align-items-center">
-    <div class="col-8">
-        <TextComponent
-            bind:values={values[0].title.values}
-            bind:styles={values[0].title.styles}
-            admin={admin}
-            edit={edit}
-            updateContent={updateContent}
-        />
+<div class="row align-items-center mt-3">
+    <!-- date des événements -->
+    <div class='col text-start'>
+        {#if admin}
+            <input type='texte' bind:value={values[0].date} on:change={updateContent} placeholder="Date de l'événement"/>
+        {:else}
+            <h4><span class='text-white bg-primary text-center'>
+                {values[0].date ? values[0].date.toUpperCase() : 'Journée ?' }
+            </span></h4>
+        {/if}
     </div>
-    <div class="col-4 text-end">
-        <h3><span class="bg-primary text-white px-2">{city.toUpperCase()}</span></h3>
+    <!-- name of the city -->
+    <div class="col text-end">
+        <h3><span class="text-primary">({city.toUpperCase()})</span></h3>
     </div>
 </div>
-<div class='row mt-5'>
-    {#if values[1] && values[1].values}
-        {#each values[1].values as evenement, position }
-            <div class='col-sm-12 col-md-4 mt-1 px-3'>
-                <MovingContent
-                    array={values[1].values} 
-                    position={position} 
-                    admin={admin} 
-                    updateMovedArray={updateMovedArray}
-                >
-                    <div class='mb-4'>
-                        <TextComponent
-                            bind:values={evenement.date.values}
-                            bind:styles={evenement.date.styles}
-                            admin={admin}
-                            edit={edit}
-                            updateContent={updateContent}
-                        />
-                    </div>
-                    <div class='image-container'>
-                        <div class="image my-auto">
-                            <ImageComponent
-                                bind:values={evenement.url.values}
-                                bind:styles={evenement.url.styles}
-                                admin={admin}
-                                edit={edit}
-                                updateContent={updateContent}
-                            />
-                        </div>
-                        {#if !admin}
-                            <div class="middle">
-                                <button class='btn btn-secondary mt-3' on:click={() => push(`#/film/${evenement.filmId}`)}>Voir l'événement</button>
+<div class='row mt-2'>
+        {#if values[1] && values[1].values}
+            {#each values[1].values as evenement, position }
+                    <div class='col-sm-12 col-md-6 my-4'>
+                        <MovingContent
+                        array={values[1].values} 
+                        position={position} 
+                        admin={admin} 
+                        updateMovedArray={updateMovedArray}
+                        >
+                        <div class='p-3 bg-white rounded-3 event-container'>
+                            <div class='image-container'>
+                                <div class="image my-auto">
+                                    <ImageComponent
+                                        bind:values={evenement.url.values}
+                                        bind:styles={evenement.url.styles}
+                                        admin={admin}
+                                        edit={edit}
+                                        updateContent={updateContent}
+                                    />
+                                </div>
+                                {#if !admin}
+                                    <div class="middle">
+                                        <button class='btn btn-secondary mt-3' on:click={() => push(`#/film/${evenement.filmId}`)}>Voir l'événement</button>
+                                    </div>
+                                {/if}
                             </div>
-                        {/if}
+                
+                            <div class='film mt-1'>
+                                <TextComponent
+                                    bind:values={evenement.film.values}
+                                    bind:styles={evenement.film.styles}
+                                    admin={admin}
+                                    edit={edit}
+                                    updateContent={updateContent}
+                                />
+                            </div>
+                            <div class='debat my-1'>
+                                <TextComponent
+                                    bind:values={evenement.debat.values}
+                                    bind:styles={evenement.debat.styles}
+                                    admin={admin}
+                                    edit={edit}
+                                    updateContent={updateContent}
+                                />
+                            </div>
+                            <div class='horaire'>
+                                <TextComponent
+                                    bind:values={evenement.horaire.values}
+                                    bind:styles={evenement.horaire.styles}
+                                    admin={admin}
+                                    edit={edit}
+                                    updateContent={updateContent}
+                                />
+                            </div>
+                        </div>
+                        </MovingContent>
                     </div>
-
-                    <div class='ligne-titre border-top border-2 border-primary my-2'></div>
-
-                    <div class='film mt-3'>
-                        <TextComponent
-                            bind:values={evenement.film.values}
-                            bind:styles={evenement.film.styles}
-                            admin={admin}
-                            edit={edit}
-                            updateContent={updateContent}
-                        />
-                    </div>
-                    <div class='debat my-3'>
-                        <TextComponent
-                            bind:values={evenement.debat.values}
-                            bind:styles={evenement.debat.styles}
-                            admin={admin}
-                            edit={edit}
-                            updateContent={updateContent}
-                        />
-                    </div>
-                    <div class='horaire'>
-                        <TextComponent
-                            bind:values={evenement.horaire.values}
-                            bind:styles={evenement.horaire.styles}
-                            admin={admin}
-                            edit={edit}
-                            updateContent={updateContent}
-                        />
-                    </div>
-                </MovingContent>
+            {/each}
+        {/if}
+        {#if admin}
+            <div class='row'>
+                <div class='col text-center'>
+                    <button class='btn btn-primary text-center' on:click={addEventHandler}>Add Event</button>
+                </div>
             </div>
-        {/each}
-    {/if}
-    {#if admin}
-        <div class='row'>
-            <div class='col text-center'>
-                <button class='btn btn-primary text-center' on:click={addEventHandler}>Add Event</button>
-            </div>
-        </div>
-    {/if}
+        {/if}
+
+
 </div>
 
 <style>
-    .image-container{
+    .image-container {
         position: relative;
     }
     .image {
-        transition: .5s ease;
         opacity: 1;
         backface-visibility: hidden;
     }
@@ -162,12 +156,18 @@ import { createFilmRequest } from "../actions/filmActions";
         -ms-transform: translate(-50%, -50%);
         text-align: center;
     }
-    .image-container:hover .image {
-        -webkit-transform: scale(1.2);
-	    transform: scale(1.2);
+    .event-container {
+        -webkit-transform: scale(1);
+	    transform: scale(1);
+        transition: .5s ease;
     }
-    .image-container:hover .middle {
+    .event-container:hover .middle {
         opacity: 1;
+    }
+    .event-container:hover {
+        -webkit-transform: scale(1.13);
+	    transform: scale(1.13);
+        transition: .5s ease;
     }
     
 </style>

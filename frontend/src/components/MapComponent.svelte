@@ -1,7 +1,5 @@
 <script>
     import L from 'leaflet';
-    import { onDestroy, onMount } from 'svelte';
-    export let mapid = '';
     export let adresse = '';
     export let latitude = 0;
     export let longitude = 0;
