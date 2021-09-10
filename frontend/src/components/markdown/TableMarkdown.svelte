@@ -1,2 +1,2 @@
 <script></script>
-<table class=''><slot></slot></table>
+<table class='table table-striped table-hover'><slot></slot></table>

@@ -1,7 +1,5 @@
 <script>
-    import { LineUtil } from "leaflet";
-import { bind } from "svelte/internal";
-import MapComponent from "./MapComponent.svelte";
+    import MapComponent from "./MapComponent.svelte";
     import MovingContent from "./MovingContent.svelte";
 
     import TextComponent from "./TextComponent.svelte";

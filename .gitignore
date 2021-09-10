@@ -4,4 +4,3 @@ frontend/public/build/
 .env
 uploads
 adminAccount
-MapComponent.svelte

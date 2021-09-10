@@ -3,7 +3,6 @@ const morgan = require('morgan');
 const path = require('path');
 
 const pageRoutes = require('./routes/pagesRoutes');
-//const pageNewRoutes = require('./routes/pagesNewRoutes');
 const uploadRoutes = require('./routes/uploadRoutes');
 const userRoutes = require('./routes/userRoutes');
 const articleRoutes = require('./routes/articleRoutes');

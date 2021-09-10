@@ -111,30 +111,34 @@ import { push } from 'svelte-spa-router';
                                 />
                             </div>
                         </div>
-                        <div class='col-6'>
-                            <TextComponent
-                                bind:values={action.titre.values}
-                                bind:styles={action.titre.styles}
-                                admin={admin}
-                                edit={edit}
-                                updateContent={updateFilm}
-                            />
-                            <TextComponent
-                                bind:values={action.description.values}
-                                bind:styles={action.description.styles}
-                                admin={admin}
-                                edit={edit}
-                                updateContent={updateFilm}
-                            />
-                        </div>
-                        <div class='col-4'>
-                            <TextComponent
-                                bind:values={action.complement.values}
-                                bind:styles={action.complement.styles}
-                                admin={admin}
-                                edit={edit}
-                                updateContent={updateFilm}
-                            />
+                        <div class='col-10'>
+                            <div class='row'>
+                                <div class='col-sm-12 col-md-8'>
+                                    <TextComponent
+                                        bind:values={action.titre.values}
+                                        bind:styles={action.titre.styles}
+                                        admin={admin}
+                                        edit={edit}
+                                        updateContent={updateFilm}
+                                    />
+                                    <TextComponent
+                                        bind:values={action.description.values}
+                                        bind:styles={action.description.styles}
+                                        admin={admin}
+                                        edit={edit}
+                                        updateContent={updateFilm}
+                                    />
+                                </div>
+                                <div class='col-sm-12 col-md-4'>
+                                    <TextComponent
+                                        bind:values={action.complement.values}
+                                        bind:styles={action.complement.styles}
+                                        admin={admin}
+                                        edit={edit}
+                                        updateContent={updateFilm}
+                                    />
+                                </div>
+                            </div>
                         </div>
                     </div>
                     </MovingContent>

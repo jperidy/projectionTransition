@@ -7,8 +7,6 @@
     import ParagrapheMarkdown from "./markdown/ParagrapheMarkdown.svelte";
     import TableMarkdown from "./markdown/TableMarkdown.svelte";
     import TdMarkdown from "./markdown/TdMarkdown.svelte";
-    import TheadMarkdown from "./markdown/TheadMarkdown.svelte";
-    import TrMarkdown from "./markdown/TrMarkdown.svelte";
 
     export let values=[];
     export let styles=[];
@@ -153,9 +151,8 @@
                                 <SvelteMarkdown source={values[0] && values[0].value ? values[0].value : ''} renderers={{
                                     paragraph: ParagrapheMarkdown, 
                                     table: TableMarkdown, 
-                                    tablehead: TheadMarkdown,
-                                    tablecell: TdMarkdown,
-                                    tablerow: TrMarkdown}}/>
+                                    tablecell: TdMarkdown
+                                    }}/>
                             </div>
                         </Col>
                     </Row>
@@ -173,9 +170,8 @@
             <SvelteMarkdown source={values[0] && values[0].value ? values[0].value : ''} renderers={{
                 paragraph: ParagrapheMarkdown, 
                 table: TableMarkdown, 
-                tablehead: TheadMarkdown,
                 tablecell: TdMarkdown,
-                tablerow: TrMarkdown}} />
+                }} />
         </div>
     </div>
 
