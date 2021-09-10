@@ -64,9 +64,7 @@ export const getContent = async (pageName) => {
 
     } catch (error) {
 
-        pageRequest.set({content:null, loading:false, message:'Error loading page '+ pageName + ' ' +  error.response && error.response.data.message
-            ? error.response.data.message
-            : error.message});
+        pageRequest.set({content:null, loading:false, message:'Error loading page '+ pageName });
 
         //console.log(error);
         // pageContent.set({name:pageName, content:[]});
