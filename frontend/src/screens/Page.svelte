@@ -5,12 +5,13 @@
     import MovingContent from '../components/MovingContent.svelte';
     import AddContent from '../components/AddContent.svelte';
 
-    import { userInfo, pageName, pageContent, pageContentMessage } from '../store';
+    import { userInfo, pageName, pageRequest, pageContent, pageContentMessage } from '../store';
     
     import { getContent, updateOrCreateContent } from '../actions/pagesActions'
     import DisplayCustomComponent from '../components/DisplayCustomComponent.svelte';
     import Message from '../components/Message.svelte';
     import Loading from '../components/Loading.svelte';
+import { push } from 'svelte-spa-router';
     
     export let params = { name: 'homeContent', city:''};
     $: {
@@ -22,13 +23,19 @@
             pageName.set(`${name}`);
         }
     } 
-    // $: console.log($pageName);
+
+    //$: console.log($pageRequest);
     // $: console.log($pageContent);
     // $: console.log($pageContentMessage);
-
+    
     // let isAuthenticate = false;
     $: isAuthenticate = $userInfo && $userInfo.profil === 'admin' ? true : false;
-
+    $: {
+        if ($pageRequest.message && !isAuthenticate) {
+            push('/');
+        }
+    }
+    
     let admin = false;
 
     $: {
@@ -63,6 +70,14 @@ isAuthenticate={isAuthenticate}
 />
 {/if}
 
+{#if $pageRequest.message}
+    <Message color='warning'>{$pageRequest.message}</Message>
+{/if}
+
+{#if $pageRequest.loading}
+    <Loading color='secondary' number={3} />
+{/if}
+
 {#if $pageContentMessage && $pageContentMessage.value}
 <Message color={$pageContentMessage.color}>{$pageContentMessage.value}</Message>
 {/if}
@@ -75,10 +90,10 @@ isAuthenticate={isAuthenticate}
             <AddContent admin={admin} addContent={addContent}/>
             {/if}
             
-            {#if $pageContent && $pageContent.content}
-                {#each $pageContent.content as section, position}
+            {#if $pageRequest.content && $pageRequest.content.content}
+                {#each $pageRequest.content.content as section, position}
                     <MovingContent 
-                        array={$pageContent.content} 
+                        array={$pageRequest.content.content} 
                         position={position} 
                         admin={admin} 
                         updateMovedArray={updateMovedArray}
@@ -95,14 +110,14 @@ isAuthenticate={isAuthenticate}
                         />   
                     </MovingContent>
                 {/each}
-            {:else}
+            <!-- {:else}
                 {#if !pageContentMessage}
                     <Row class='text-center'>
                         <Col>
                             <Loading color='primary' number={3} />
                         </Col>
                     </Row>
-                {/if}
+                {/if} -->
             {/if}
         </Col>
     </Row>

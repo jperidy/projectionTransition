@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { API_URL } from '../config/backend_api';
 import { get } from 'svelte/store';
-import { userInfo, pageContent, pageContentMessage } from '../store';
+import { userInfo, pageContent, pageContentMessage, articleAllRequest, pageRequest } from '../store';
 
 
 export const updateOrCreateContent = async (content) => {
@@ -41,6 +41,11 @@ export const updateOrCreateContent = async (content) => {
 export const getContent = async (pageName) => {
 
     try {
+
+        pageRequest.set({content:null, loading:true, message:''});
+        
+        //pageContent.set(null);
+        //pageContentMessage.set(null);
         
         const config = {
             headers: {
@@ -50,17 +55,24 @@ export const getContent = async (pageName) => {
 
         // const { data } = await axios.get(`${API_URL}/api/page/${pageName}`, config);
         const { data } = await axios.get(`${API_URL}/api/page/${pageName}`, config);
-        pageContent.set(data.value);
-        pageContentMessage.set(null);
+        
+        pageRequest.set({content:data.value, loading:false, message:''});
+        //pageContent.set(data.value);
+        //pageContentMessage.set(null);
 
         //return { status: 'Ok', data: data.value};
 
     } catch (error) {
-        //console.log(error);
-        pageContent.set({name:pageName, content:[]});
-        pageContentMessage.set({color: 'danger', value: error.response && error.response.data.message
+
+        pageRequest.set({content:null, loading:false, message:'Error loading page '+ pageName + ' ' +  error.response && error.response.data.message
             ? error.response.data.message
             : error.message});
+
+        //console.log(error);
+        // pageContent.set({name:pageName, content:[]});
+        // pageContentMessage.set({color: 'danger', value: error.response && error.response.data.message
+        //     ? error.response.data.message
+        //     : error.message});
 
         // return { status: 'Error', data: error.response && error.response.data.message
         //     ? error.response.data.message
