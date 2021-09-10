@@ -3,9 +3,9 @@ https://dev.projtran.jprdev.ovh/
 
 # Installation locale (dev)
 ***
-$ git clone https://github.com/jperidy/projectionTransition
-$ npm install
-$ cd frontend npm install
+- $ git clone https://github.com/jperidy/projectionTransition
+- $ npm install
+- $ cd frontend npm install
 
 ## Créer les variables d'environnement
 Créer à la racine un fichier .env et ajouter les variables suivantes :
@@ -22,27 +22,30 @@ ouvrir le fichier : frontend/source/config/backend_api.js
 
 ## Lancer l'application
 A la racine :
-$ npm run start >> pour lancer le backend
-$ npm run server >> pour lancer le backend avec nodemon
-$ npm run client >> pour lancer le frontend
-$ npm run dev >> pour lancer simultanément le frontend et le backend avec nodemon
+- $ npm run start >> pour lancer le backend
+- $ npm run server >> pour lancer le backend avec nodemon
+- $ npm run client >> pour lancer le frontend
+- $ npm run dev >> pour lancer simultanément le frontend et le backend avec nodemon
 
 # Déployer l'application avec docker
 
 ## Générer le docker pour le backend
 Ouvrir le fichier docker-build.bash et changer le nom du repo dockerhub
-$ . docker-build <version>
+- $ . docker-build <version>
 Par défaut le backend sera exposé sur le port 5000.
 
 ## Générer le docker pour le frontend
 Ouvrir le fichier frontend/docker-build.bash et changer le nom du repo dockerhub
+
 Ouvrir le fichier frontend/source/config/backend_api.js et modifier l'url à laquelle sera joignable votre backend
-$ . docker-build <version>
+- $ . docker-build <version>
 Par défaut le frontend sera exposé sur le port 80 (servi par un nginx dont la configuration est disponible dans frontend/nginx)
 
 ## Préparer votre serveur (cas d'un VPS)
 - Installer nginx et le configurer
+
 - Configurer un proxy backend sur le nginx > $ . create-proxy-backend.bash <domain> <port>
+
 - Configurer un proxy frontend sur le nginx > $ . create-proxy-frontend.bash <domain> <port>
 
 ## Créer les variables d'environnement
