@@ -1,12 +1,15 @@
 import axios from 'axios';
 import { API_URL } from '../config/backend_api';
 import { get } from 'svelte/store';
-import { userInfo, pageContent, pageContentMessage, articleAllRequest, pageRequest } from '../store';
+import { userInfo, pageRequest } from '../store';
 
 
 export const updateOrCreateContent = async (content) => {
 
     const userInfoStored = get(userInfo);
+
+
+    pageRequest.set({content:{content:[], name:content.name}, loading:false, message:''});
 
     try {
         
@@ -20,16 +23,20 @@ export const updateOrCreateContent = async (content) => {
         //const { data } = await axios.post(`${API_URL}/api/page/${content.name}`, content, config);
         const { data } = await axios.post(`${API_URL}/api/page/${content.name}`, content, config);
         
-        pageContent.set(data.value);
-        pageContentMessage.set(null);
+        pageRequest.set({content:data.value, loading:false, message:''});
+        //pageContent.set(data.value);
+        //pageContentMessage.set(null);
 
         //return { status: 'Ok', data: data};
 
     } catch (error) {
-        pageContent.set([]);
-        pageContentMessage.set({color: 'danger', value: error.response && error.response.data.message
-            ? error.response.data.message
-            : error.message});
+
+        pageRequest.set({content:{content:[], name:content.name}, loading:false, message:'Error updating page'});
+        
+        // pageContent.set([]);
+        // pageContentMessage.set({color: 'danger', value: error.response && error.response.data.message
+        //     ? error.response.data.message
+        //     : error.message});
         // return { status: 'Error', data: error.response && error.response.data.message
         //     ? error.response.data.message
         //     : error.message
@@ -42,7 +49,7 @@ export const getContent = async (pageName) => {
 
     try {
 
-        pageRequest.set({content:null, loading:true, message:''});
+        pageRequest.set({content:{content:[], name:pageName}, loading:true, message:''});
         
         //pageContent.set(null);
         //pageContentMessage.set(null);
@@ -64,7 +71,7 @@ export const getContent = async (pageName) => {
 
     } catch (error) {
 
-        pageRequest.set({content:null, loading:false, message:'Error loading page '+ pageName });
+        pageRequest.set({content:{content:[], name:pageName}, loading:false, message:'Error loading page '+ pageName });
 
         //console.log(error);
         // pageContent.set({name:pageName, content:[]});

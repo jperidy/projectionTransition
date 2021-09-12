@@ -5,13 +5,13 @@
     import MovingContent from '../components/MovingContent.svelte';
     import AddContent from '../components/AddContent.svelte';
 
-    import { userInfo, pageName, pageRequest, pageContent, pageContentMessage } from '../store';
+    import { userInfo, pageName, pageRequest } from '../store';
     
     import { getContent, updateOrCreateContent } from '../actions/pagesActions'
     import DisplayCustomComponent from '../components/DisplayCustomComponent.svelte';
     import Message from '../components/Message.svelte';
     import Loading from '../components/Loading.svelte';
-import { push } from 'svelte-spa-router';
+    import { push } from 'svelte-spa-router';
     
     export let params = { name: 'homeContent', city:''};
     $: {
@@ -24,7 +24,7 @@ import { push } from 'svelte-spa-router';
         }
     } 
 
-    //$: console.log($pageRequest);
+    // $: console.log('pageRequest', $pageRequest.content);
     // $: console.log($pageContent);
     // $: console.log($pageContentMessage);
     
@@ -43,21 +43,32 @@ import { push } from 'svelte-spa-router';
     }
 
     const updateContent = async() => {
-        await updateOrCreateContent($pageContent);
+        await updateOrCreateContent($pageRequest.content);
     }
 
     const updateMovedArray = async(array) => {
-        const tempPageContent = $pageContent;
-        tempPageContent.content = array;
-        pageContent.set(tempPageContent);
-        await updateOrCreateContent($pageContent);
+        const tempPageRequest = $pageRequest
+        tempPageRequest.content.content = array;
+        pageRequest.set(tempPageRequest);
+        await updateOrCreateContent($pageRequest.content);
+
+        //const tempPageContent = $pageContent;
+        //tempPageContent.content = array;
+        //pageContent.set(tempPageContent);
+        //await updateOrCreateContent($pageContent);
     }
 
     const addContent = async(item) => {
-        const tempPageContent = $pageContent;
-        tempPageContent.content = [item, ...tempPageContent.content]
-        pageContent.set(tempPageContent);
-        await updateOrCreateContent($pageContent);
+
+        const tempPageRequest = $pageRequest;
+        tempPageRequest.content.content = [item, ...tempPageRequest.content.content];
+        pageRequest.set(tempPageRequest);
+        await updateOrCreateContent($pageRequest.content);
+
+        // const tempPageContent = $pageContent;
+        // tempPageContent.content = [item, ...tempPageContent.content]
+        // pageContent.set(tempPageContent);
+        // await updateOrCreateContent($pageContent);
     }
 
 </script>
@@ -78,9 +89,9 @@ isAuthenticate={isAuthenticate}
     <Loading color='secondary' number={3} />
 {/if}
 
-{#if $pageContentMessage && $pageContentMessage.value}
+<!-- {#if $pageContentMessage && $pageContentMessage.value}
 <Message color={$pageContentMessage.color}>{$pageContentMessage.value}</Message>
-{/if}
+{/if} -->
 
 
 <CustomContainer>
@@ -110,14 +121,6 @@ isAuthenticate={isAuthenticate}
                         />   
                     </MovingContent>
                 {/each}
-            <!-- {:else}
-                {#if !pageContentMessage}
-                    <Row class='text-center'>
-                        <Col>
-                            <Loading color='primary' number={3} />
-                        </Col>
-                    </Row>
-                {/if} -->
             {/if}
         </Col>
     </Row>

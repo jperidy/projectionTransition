@@ -1,10 +1,13 @@
 <script>
+import { push } from "svelte-spa-router";
+
+
     
 </script>
 
 
 <div class="row text-secondary align-items-center px-5 py-2 border-top border-secondary" style='min-height:5vh;'>
-    <div class='col-sm-12 col-md-6'><span class='fw-bold' style="font-size:1.3rem;">MENTIONS LEGALES</span></div>
+    <div class='col-sm-12 col-md-6'><span class='fw-bold' style="font-size:1.3rem; cursor:pointer;" on:click={() => push('#/mentions-legales')}>MENTIONS LEGALES</span></div>
     <div class='col-sm-12 col-md-6'>
         <div class='row my-1'>
             <div class="col" style='font-size:1.3rem'><i class="bi bi-facebook"></i><span class='fw-bold' style="margin-left: 5px;"><a class="text-secondary" href="https://www.facebook.com/FestivalProjectionTransition/">Facebook</a></span></div>
