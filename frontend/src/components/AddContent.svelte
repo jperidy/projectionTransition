@@ -39,15 +39,16 @@
                   <Label for="exampleSelect">Select</Label>
                   <select class='form-select' type="select" name="select" id="exampleSelect" bind:value={type} on:change={onChangeHandler}>
                     <option value='' selected={type === ''}>--- select ---</option>
-                    <option value='textComponent' selected={type === 'textComponent'}>type TEXT [NEW]</option>
-                    <option value='imageComponent' selected={type === 'imageComponent'}>type IMAGE [NEW]</option>
-                    <option value='videoComponent' selected={type === 'videoComponent'}>type VIDEO [NEW]</option>
-                    <option value='carouselComponent' selected={type === 'carouselComponent'}>type CAROUSEL [NEW]</option>
-                    <option value='editoComponent' selected={type === 'editoComponent'}>type EDITO [NEW]</option>
-                    <option value='articlesComponent' selected={type === 'articlesComponent'}>type ARTICLES [NEW]</option>
-                    <option value='partenairesComponent' selected={type === 'partenairesComponent'}>type PARTENAIRES [NEW]</option>
-                    <option value='infoComponent' selected={type === 'infoComponent'}>type INFO VILLE [NEW]</option>
-                    <option value='programmationComponent' selected={type === 'infoComponent'}>type PROGRAMMATION VILLE [NEW]</option>
+                    <option value='textComponent' selected={type === 'textComponent'}>type TEXT</option>
+                    <option value='imageComponent' selected={type === 'imageComponent'}>type IMAGE</option>
+                    <option value='videoComponent' selected={type === 'videoComponent'}>type VIDEO</option>
+                    <option value='carouselComponent' selected={type === 'carouselComponent'}>type CAROUSEL</option>
+                    <option value='editoComponent' selected={type === 'editoComponent'}>type EDITO</option>
+                    <option value='articlesComponent' selected={type === 'articlesComponent'}>type ARTICLES</option>
+                    <option value='partenairesComponent' selected={type === 'partenairesComponent'}>type PARTENAIRES</option>
+                    <option value='infoComponent' selected={type === 'infoComponent'}>type INFO VILLE</option>
+                    <option value='programmationComponent' selected={type === 'programmationComponent'}>type PROGRAMMATION VILLE</option>
+                    <option value='equipeComponent' selected={type === 'equipeComponent'}>type EQUIPE</option>
                     
                     <option value='test' selected={type === 'test'}>type TEST</option>
                   </select>

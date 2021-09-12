@@ -25,7 +25,7 @@
 </script>
 
 <!-- section titre -->
-<div class='row mt-5'>
+<div class='row'>
     <div class='col'>
         <div style='padding-left: 5vh;'>
             <TextComponent 

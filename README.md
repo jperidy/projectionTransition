@@ -58,3 +58,6 @@ Créer le fichier .env avec les variables d'environnement suivantes :
 ## Deployer et lancer vos dockers sur le serveur
 $ . docker-start.bash
 Editer le fichier docker-compose.yml pour tout besoin de modification du paramétrage
+
+# Dimensions à privilégier pour les images
+- EquipeComponent : 400 x 300 px

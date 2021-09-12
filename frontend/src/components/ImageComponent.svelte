@@ -1,6 +1,6 @@
 <script>
 
-    import { Button, Col, Figure, Icon, Image, Input, Modal, ModalBody, ModalFooter, ModalHeader, Row } from "sveltestrap";
+    import { Button, Col, Figure, Icon, Input, Modal, ModalBody, ModalFooter, ModalHeader, Row } from "sveltestrap";
     import { uploadImage } from "../actions/imagesActions";
 
     import EditButton from "./EditButton.svelte";

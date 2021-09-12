@@ -45,13 +45,13 @@ import { createFilmRequest } from "../actions/filmActions";
             horaire: {name: 'horaire', values:[], styles:[]},
             filmId: filmCreatedId,
         });
-        values = values;
+        //values = values;
         updateContent();
     };
 
 </script>
 
-<div class="row align-items-center mt-3">
+<div class="row align-items-center">
     <!-- date des événements -->
     <div class='col text-start'>
         {#if admin}

@@ -14,19 +14,14 @@
     import { push } from 'svelte-spa-router';
     
     export let params = { name: 'homeContent', city:''};
+    
     $: {
-        let city = params.city;
-        let name = params.name;
-        if (city) {
-            pageName.set(`${name}-${city}`);
+        if (params.city) {
+            pageName.set(`${params.name}-${params.city}`);
         } else {
-            pageName.set(`${name}`);
+            pageName.set(`${params.name}`);
         }
     } 
-
-    // $: console.log('pageRequest', $pageRequest.content);
-    // $: console.log($pageContent);
-    // $: console.log($pageContentMessage);
     
     // let isAuthenticate = false;
     $: isAuthenticate = $userInfo && $userInfo.profil === 'admin' ? true : false;
@@ -51,11 +46,6 @@
         tempPageRequest.content.content = array;
         pageRequest.set(tempPageRequest);
         await updateOrCreateContent($pageRequest.content);
-
-        //const tempPageContent = $pageContent;
-        //tempPageContent.content = array;
-        //pageContent.set(tempPageContent);
-        //await updateOrCreateContent($pageContent);
     }
 
     const addContent = async(item) => {
@@ -64,11 +54,6 @@
         tempPageRequest.content.content = [item, ...tempPageRequest.content.content];
         pageRequest.set(tempPageRequest);
         await updateOrCreateContent($pageRequest.content);
-
-        // const tempPageContent = $pageContent;
-        // tempPageContent.content = [item, ...tempPageContent.content]
-        // pageContent.set(tempPageContent);
-        // await updateOrCreateContent($pageContent);
     }
 
 </script>
@@ -87,44 +72,38 @@ isAuthenticate={isAuthenticate}
 
 {#if $pageRequest.loading}
     <Loading color='secondary' number={3} />
+{:else}
+    <CustomContainer>
+        <Row class='mt-3'>
+            <Col>
+                {#if admin}
+                <AddContent admin={admin} addContent={addContent}/>
+                {/if}
+                {#if $pageRequest.content && $pageRequest.content.content}
+                    {#each $pageRequest.content.content as section, position}
+                        <MovingContent 
+                            array={$pageRequest.content.content} 
+                            position={position} 
+                            admin={admin} 
+                            updateMovedArray={updateMovedArray}
+                        >
+                            <DisplayCustomComponent 
+                                bind:value={section.value}
+                                bind:values={section.values}
+                                bind:styles={section.styles}
+                                type={section.type}
+                                updateContent={updateContent && updateContent}
+                                admin={admin}
+                                edit={false}
+                                city={params.city}
+                            />   
+                        </MovingContent>
+                    {/each}
+                {/if}
+            </Col>
+        </Row>
+    </CustomContainer>
 {/if}
-
-<!-- {#if $pageContentMessage && $pageContentMessage.value}
-<Message color={$pageContentMessage.color}>{$pageContentMessage.value}</Message>
-{/if} -->
-
-
-<CustomContainer>
-    <Row>
-        <Col>
-            {#if admin}
-            <AddContent admin={admin} addContent={addContent}/>
-            {/if}
-            
-            {#if $pageRequest.content && $pageRequest.content.content}
-                {#each $pageRequest.content.content as section, position}
-                    <MovingContent 
-                        array={$pageRequest.content.content} 
-                        position={position} 
-                        admin={admin} 
-                        updateMovedArray={updateMovedArray}
-                    >
-                        <DisplayCustomComponent 
-                            bind:value={section.value}
-                            bind:values={section.values}
-                            bind:styles={section.styles}
-                            type={section.type}
-                            updateContent={updateContent && updateContent}
-                            admin={admin}
-                            edit={false}
-                            city={params.city}
-                        />   
-                    </MovingContent>
-                {/each}
-            {/if}
-        </Col>
-    </Row>
-</CustomContainer>
 
 <style>
    

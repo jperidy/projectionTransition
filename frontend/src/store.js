@@ -9,7 +9,7 @@ const getInitialUserInfo = () => {
 
 export const userInfo = writable(getInitialUserInfo());
 
-export const pageRequest = writable({content:{content:[]}, loading: false, message: ''});
+export const pageRequest = writable({content:{content:[], name:''}, loading: false, message: ''});
 
 export const pageName = writable('homePage');
 //export const pageContent = writable([]);

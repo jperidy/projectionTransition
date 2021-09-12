@@ -47,7 +47,7 @@
 		padding: 0;
 	}
 	main {
-		margin-top: 15vh;
+		margin-top: 20vh;
 		min-height: 80vh;
 	}
 	footer {

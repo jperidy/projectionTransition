@@ -7,6 +7,8 @@
     import ParagrapheMarkdown from "./markdown/ParagrapheMarkdown.svelte";
     import TableMarkdown from "./markdown/TableMarkdown.svelte";
     import TdMarkdown from "./markdown/TdMarkdown.svelte";
+    import TextBgFillPrimaryMarkdown from "./markdown/TextBgFillPrimaryMarkdown.svelte";
+import TextMarkdown from "./markdown/TextMarkdown.svelte";
 
     export let values=[];
     export let styles=[];
@@ -32,6 +34,8 @@
     $: bgColor = styles.filter(x => x.name === 'backgroud-color')[0] && styles.filter(x => x.name === 'backgroud-color')[0].value;
     $: fontWeight = styles.filter(x => x.name === 'font-weight')[0] && styles.filter(x => x.name === 'font-weight')[0].value;
     $: fontStyle = styles.filter(x => x.name === 'font-style')[0] && styles.filter(x => x.name === 'font-style')[0].value;
+
+    $: bgPrimaryText = styles.filter(x => x.name === 'bgPrimaryText')[0] && styles.filter(x => x.name === 'bgPrimaryText')[0].value;
 
     $: transformR = styles.filter(x => x.name === 'transformR')[0] ? styles.filter(x => x.name === 'transformR')[0].value : 0;
     $: transformX = styles.filter(x => x.name === 'transformX')[0] ? styles.filter(x => x.name === 'transformX')[0].value : 0;
@@ -126,6 +130,12 @@
                         <Button class='px-1' on:click={() => updateStyle({name:'font-style', value:'normal'})}>I</Button>
                         <Button class='px-1' on:click={() => updateStyle({name:'font-style', value:'italic'})}><Icon name='type-italic' /></Button>
                     </Col></Row>
+                    <Row>
+                        <Col>
+                            <Button class='px-1' on:click={() => updateStyle({name:'bgPrimaryText', value:true})}><span class='bg-primary'>Background</span></Button>
+                            <Button class='px-1' on:click={() => updateStyle({name:'bgPrimaryText', value:false})}><span class='bg-transparent'>No Background</span></Button>
+                        </Col>
+                    </Row>
                     <div class='row py-1 align-items-center'>
                         <div class='col-4'>Rotate : </div>
                         <div class='col-8'>
@@ -151,7 +161,8 @@
                                 <SvelteMarkdown source={values[0] && values[0].value ? values[0].value : ''} renderers={{
                                     paragraph: ParagrapheMarkdown, 
                                     table: TableMarkdown, 
-                                    tablecell: TdMarkdown
+                                    tablecell: TdMarkdown,
+                                    text: bgPrimaryText ? TextBgFillPrimaryMarkdown : TextMarkdown,
                                     }}/>
                             </div>
                         </Col>
@@ -171,6 +182,7 @@
                 paragraph: ParagrapheMarkdown, 
                 table: TableMarkdown, 
                 tablecell: TdMarkdown,
+                text: bgPrimaryText ? TextBgFillPrimaryMarkdown : TextMarkdown,
                 }} />
         </div>
     </div>

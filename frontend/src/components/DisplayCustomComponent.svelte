@@ -10,6 +10,7 @@
     import PartenairesComponent from "./PartenairesComponent.svelte";
     import LieuxComponent from "./LieuxComponent.svelte";
     import ProgrammationComponent from "./ProgrammationComponent.svelte";
+import EquipeComponent from "./EquipeComponent.svelte";
 
     export let type = '';
     export let updateContent = null;
@@ -108,6 +109,16 @@
         admin={admin}
         edit={edit}
         city={city}
+    />
+{/if}
+
+{#if type === 'equipeComponent'}
+    <EquipeComponent
+        bind:values={values}
+        bind:styles={styles}
+        updateContent={updateContent}
+        admin={admin}
+        edit={edit}
     />
 {/if}
 

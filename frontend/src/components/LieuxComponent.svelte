@@ -61,7 +61,7 @@
     </div>
 {/if}
 
-<div class='row my-3'>   
+<div class='row'>   
     {#each values[0].values as lieu, position}
         <!-- block pour chaque ville -->
         <div class='col-sm-12 col-md-4 p-3'>
