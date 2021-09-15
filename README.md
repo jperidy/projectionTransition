@@ -14,6 +14,11 @@ Créer à la racine un fichier .env et ajouter les variables suivantes :
 - JWT_SECRET='******' #configurez votre secret pour JWT (n'importe qu'elle chaine tant que celle ci reste complexe)
 - MONGO_URI_DEV='uri_vers_mongodb' #configurez votre uri de connexion à mongodb pour le dev (NODE_ENV='developpement')
 - MONGO_URI_PROD='uri_vers_mongodb' #configurez votre uri de connexion à mongodb pour la prod (NODE_ENV='production')
+- CONTACT_EMAIL='contact@mail.com' #adresse de messagerie qui recevra les messages de contact
+- MAIL_HOST='smtp.gmail.com' #si vous utilisez un service GMAIL
+- MAIL_PORT='587' #si vous utilisez un service GMAIL
+- MAIL_USER='username@gmail.com' #adresse du compte qui émettra les mails
+- MAIL_PASS='****' #mot de passe que l'application pourra utiliser pour s'authentifier
 
 ## Configurer le proxy du frontend pour appeler le backend
 ouvrir le fichier : frontend/source/config/backend_api.js
@@ -54,6 +59,11 @@ Créer le fichier .env avec les variables d'environnement suivantes :
 - NODE_ENV='production'
 - JWT_SECRET='******' #configurez votre secret pour JWT (n'importe qu'elle chaine tant que celle ci reste complexe)
 - MONGO_URI_PROD='uri_vers_mongodb' #configurez votre uri de connexion à mongodb pour la prod
+- CONTACT_EMAIL='contact@mail.com' #adresse de messagerie qui recevra les messages de contact
+- MAIL_HOST='smtp.gmail.com' #si vous utilisez un service GMAIL
+- MAIL_PORT='587' #si vous utilisez un service GMAIL
+- MAIL_USER='username@gmail.com' #adresse du compte qui émettra les mails
+- MAIL_PASS='****' #mot de passe que l'application pourra utiliser pour s'authentifier
 
 ## Deployer et lancer vos dockers sur le serveur
 $ . docker-start.bash
