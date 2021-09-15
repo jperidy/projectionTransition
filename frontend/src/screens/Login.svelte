@@ -21,7 +21,7 @@
             const result = await login({email, password});
             if (result.status === 'Ok') {
                 $userInfo = result.data;
-                message = { color: 'success', value: 'Sucess'};
+                message = { color: 'success', value: 'Success'};
                 push('/');
             } else {
                 message = { color: 'danger', value: result.data};

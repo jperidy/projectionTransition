@@ -85,7 +85,7 @@
     </form>
 
     {#if $emailSendRequest.message}
-        {#if $emailSendRequest.sucess}
+        {#if $emailSendRequest.success}
             <Message color='success'>{$emailSendRequest.message}</Message>
         {:else}
             <Message color='warning'>{$emailSendRequest.message}</Message>

@@ -28,13 +28,17 @@ const sendContactFormEmail = asyncHandler(async (req, res) => {
         to: process.env.CONTACT_EMAIL,
         subject: 'Contact web // ' + email.subject,
         template: "contactEmail",
-        context: email
+        context: {
+            email: email.email,
+            body: email.body.split('\n'),
+            subject: email.subject
+        }
     };
     const mailService = new MailService();
     mailService.sendMail(mailInfo)
         .then(() => res.status(200).json({ message: 'Mail envoyé' }))
         .catch((error) => {
-            //console.log(error);
+            console.log(error);
             res.status(500).json({ message: error });
         });
 });

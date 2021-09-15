@@ -48,19 +48,21 @@ const updateMovedArray = async(array) => {
 
 <!-- categorie de partenaire -->
 <div class='row mt-5'>
-    <TextComponent
-        bind:values={values[0].values}
-        bind:styles={values[0].styles}
-        admin={admin}
-        edit={edit}
-        updateContent={updateContent}
-    />
+    <div class="col">
+        <TextComponent
+            bind:values={values[0].values}
+            bind:styles={values[0].styles}
+            admin={admin}
+            edit={edit}
+            updateContent={updateContent}
+        />
+    </div>
 </div>
 
 <!-- affichage des partenaire -->
-<div class='row pt-3'>
+<div class='row pt-3 gx-3'>
     {#each values[1].values as partenaire, position}
-        <div class='col-sm-6 col-md-3'>
+        <div class='col-sm-6 col-md-3 text-center'>
             <MovingContent 
                 array={values[1].values} 
                 position={position} 

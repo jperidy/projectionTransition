@@ -60,4 +60,5 @@ $ . docker-start.bash
 Editer le fichier docker-compose.yml pour tout besoin de modification du paramétrage
 
 # Dimensions à privilégier pour les images
-- EquipeComponent : 400 x 300 px
+- Photos équipe : 400 x 300 px
+- Images partenaires : 400 x 400 px

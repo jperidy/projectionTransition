@@ -1,10 +1,11 @@
 <div>
     <p>
-        <span>Email du contact :</span>
+        <span><strong>Email du contact :</strong></span>
         {{email}}
     </p>
-    <p>Message envoyé</p>
-    <p>
-        {{body}}
-    </p>
+    <p><strong>Message envoyé</strong></p>
+    {{#each body}}
+        <p>{{this}}</p>
+    {{/each}}
+
 </div>
