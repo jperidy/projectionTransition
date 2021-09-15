@@ -26,8 +26,6 @@
             } else {
                 message = { color: 'danger', value: result.data};
             }
-            // Dispatch Login
-            //dispatch(login('LOCAL', {email:email, password:password}));
         }
     };
 

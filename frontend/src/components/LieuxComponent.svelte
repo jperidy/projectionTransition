@@ -20,15 +20,16 @@
                 tarifs: {name: 'tarifs', values:[], styles:[]},
                 maps: {name: 'maps', values:[], styles:[]},
                 latitude:'',
-                longitude:''
+                longitude:'',
+                gmapsLink: '',
             }]});
         }
-        if (values.length === 1) {
-            values.push({
-                infoCovid: {values:[], styles: []},
-                contact: {email: '', telephone:''}
-            })
-        }
+        // if (values.length === 1) {
+        //     values.push({
+        //         infoCovid: {values:[], styles: []},
+        //         contact: {email: '', telephone:''}
+        //     })
+        // }
     }
 
     const addLieuHandler = () => {
@@ -61,10 +62,10 @@
     </div>
 {/if}
 
-<div class='row'>   
+<div class='row my-3 gx-5'>   
     {#each values[0].values as lieu, position}
         <!-- block pour chaque ville -->
-        <div class='col-sm-12 col-md-4 p-3'>
+        <div class='col-sm-12 col-md-6 my-3'>
             <MovingContent
                 array={values[0].values} 
                 position={position} 
@@ -84,40 +85,21 @@
                 </div>
                 <!-- Informations pratiques sur la ville -->
                 <div class='text-center' >
-                    <div class='row align-items-center'>
-                        {#if admin}
-                            <div class='row'>
-                                <div class='col'>
-                                    <p >Latitude : </p>
-                                    <input type='number' bind:value={lieu.latitude} step={0.00001} on:change={updateContent}/>
-                                </div>
-                                <div class='col'>
-                                    <p >Longitude : </p>
-                                    <input type='number' bind:value={lieu.longitude} step={0.00001} on:change={updateContent}/>
-                                </div>
-                            </div>
-                        {/if}
-                        <div class='col text-center px-3 '>
-                            <MapComponent 
-                                latitude={lieu.latitude}
-                                longitude={lieu.longitude}
-                                adresse={lieu.adresse.values[0].value}
-                            />
-                        </div>
-                    </div>
                     <div class='informations'>
                         <div class='row align-items-center mt-1'>
                             <div class='col-2 text-end'>
                                 <i class="bi bi-geo-alt"></i>
                             </div>
                             <div class='col-10 text-start'>
-                                <TextComponent 
-                                    bind:values={lieu.adresse.values}
-                                    bind:styles={lieu.adresse.styles}
-                                    edit={edit}
-                                    admin={admin}
-                                    updateContent={updateContent}
-                                />
+                                <a href={lieu.gmapsLink ? lieu.gmapsLink : (lieu.gmapsLink = '')} target="_blank">
+                                    <TextComponent 
+                                        bind:values={lieu.adresse.values}
+                                        bind:styles={lieu.adresse.styles}
+                                        edit={edit}
+                                        admin={admin}
+                                        updateContent={updateContent}
+                                    />
+                                </a>
                             </div>
                         </div>
                         <div class='row align-items-center mt-1'>
@@ -131,6 +113,35 @@
                                     edit={edit}
                                     admin={admin}
                                     updateContent={updateContent}
+                                />
+                            </div>
+                        </div>
+                        <div class='row align-items-center'>
+                            {#if admin}
+                                <div class='row'>
+                                    <div class='col'>
+                                        <span>Lien Google Maps :</span>
+                                        <input type='text' bind:value={lieu.gmapsLink} on:change={updateContent}/>
+                                    </div>
+                                </div>
+                                <div class='row'>
+                                    <div class='col'>
+                                        <span>Latitude : </span>
+                                        <input type='number' bind:value={lieu.latitude} step={0.00001} on:change={updateContent}/>
+                                    </div>
+                                </div>
+                                <div class='row'>
+                                    <div class='col'>
+                                        <span>Longitude : </span>
+                                        <input type='number' bind:value={lieu.longitude} step={0.00001} on:change={updateContent}/>
+                                    </div>
+                                </div>
+                            {/if}
+                            <div class='col text-center m-3'>
+                                <MapComponent 
+                                    latitude={lieu.latitude}
+                                    longitude={lieu.longitude}
+                                    adresse={lieu.adresse.values[0].value}
                                 />
                             </div>
                         </div>
@@ -152,7 +163,7 @@
         </div>
     {/each}
 </div>  
-<div class='row mt-5'>
+<!-- <div class='row mt-5'>
     <div class='col bg-secondary text-center rounded-3 p-3'>
         <TextComponent 
             bind:values={values[1].infoCovid.values}
@@ -182,7 +193,7 @@
         <a href ={`mailto: ${values[1].contact.email}`} class='py-3'><i class="bi bi-envelope-fill"></i><span class='py-2'>Email</span></a>
         <span class='py-3'>Téléphone: {values[1].contact.telephone}</span>
     </div>
-</div>
+</div> -->
 
 <style>
     .lieu-content {

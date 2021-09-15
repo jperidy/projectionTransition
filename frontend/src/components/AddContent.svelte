@@ -49,6 +49,7 @@
                     <option value='infoComponent' selected={type === 'infoComponent'}>type INFO VILLE</option>
                     <option value='programmationComponent' selected={type === 'programmationComponent'}>type PROGRAMMATION VILLE</option>
                     <option value='equipeComponent' selected={type === 'equipeComponent'}>type EQUIPE</option>
+                    <option value='contactComponent' selected={type === 'contactComponent'}>type CONTACT</option>
                     
                     <option value='test' selected={type === 'test'}>type TEST</option>
                   </select>

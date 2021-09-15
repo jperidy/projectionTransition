@@ -7,6 +7,7 @@ const uploadRoutes = require('./routes/uploadRoutes');
 const userRoutes = require('./routes/userRoutes');
 const articleRoutes = require('./routes/articleRoutes');
 const filmRoutes = require('./routes/filmRoutes');
+const emailRoutes = require('./routes/emailRoutes');
 
 const connectDB = require('./config/db');
 
@@ -34,6 +35,7 @@ app.use('/api/page', pageRoutes);
 app.use('/api/upload', uploadRoutes);
 app.use('/api/article', articleRoutes);
 app.use('/api/film', filmRoutes);
+app.use('/api/emails', emailRoutes);
 
 
 // static route for developpement access to build repository

@@ -11,6 +11,7 @@
     import LieuxComponent from "./LieuxComponent.svelte";
     import ProgrammationComponent from "./ProgrammationComponent.svelte";
 import EquipeComponent from "./EquipeComponent.svelte";
+import ContactForm from "./ContactForm.svelte";
 
     export let type = '';
     export let updateContent = null;
@@ -114,6 +115,16 @@ import EquipeComponent from "./EquipeComponent.svelte";
 
 {#if type === 'equipeComponent'}
     <EquipeComponent
+        bind:values={values}
+        bind:styles={styles}
+        updateContent={updateContent}
+        admin={admin}
+        edit={edit}
+    />
+{/if}
+
+{#if type === 'contactComponent'}
+    <ContactForm
         bind:values={values}
         bind:styles={styles}
         updateContent={updateContent}

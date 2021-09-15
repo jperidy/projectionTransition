@@ -8,7 +8,7 @@
     import TableMarkdown from "./markdown/TableMarkdown.svelte";
     import TdMarkdown from "./markdown/TdMarkdown.svelte";
     import TextBgFillPrimaryMarkdown from "./markdown/TextBgFillPrimaryMarkdown.svelte";
-import TextMarkdown from "./markdown/TextMarkdown.svelte";
+    import TextMarkdown from "./markdown/TextMarkdown.svelte";
 
     export let values=[];
     export let styles=[];
@@ -36,6 +36,9 @@ import TextMarkdown from "./markdown/TextMarkdown.svelte";
     $: fontStyle = styles.filter(x => x.name === 'font-style')[0] && styles.filter(x => x.name === 'font-style')[0].value;
 
     $: bgPrimaryText = styles.filter(x => x.name === 'bgPrimaryText')[0] && styles.filter(x => x.name === 'bgPrimaryText')[0].value;
+    $: padding = styles.filter(x => x.name === 'padding')[0] && styles.filter(x => x.name === 'padding')[0].value;
+    
+    $: rounded = styles.filter(x => x.name === 'rounded')[0] && styles.filter(x => x.name === 'rounded')[0].value;
 
     $: transformR = styles.filter(x => x.name === 'transformR')[0] ? styles.filter(x => x.name === 'transformR')[0].value : 0;
     $: transformX = styles.filter(x => x.name === 'transformX')[0] ? styles.filter(x => x.name === 'transformX')[0].value : 0;
@@ -52,6 +55,7 @@ import TextMarkdown from "./markdown/TextMarkdown.svelte";
         } else {
             styles = [...styles, {name, value}];
         }
+        styles = styles;
     };
 
     $:{
@@ -130,10 +134,27 @@ import TextMarkdown from "./markdown/TextMarkdown.svelte";
                         <Button class='px-1' on:click={() => updateStyle({name:'font-style', value:'normal'})}>I</Button>
                         <Button class='px-1' on:click={() => updateStyle({name:'font-style', value:'italic'})}><Icon name='type-italic' /></Button>
                     </Col></Row>
-                    <Row>
+                    <Row class='py-1'>
                         <Col>
                             <Button class='px-1' on:click={() => updateStyle({name:'bgPrimaryText', value:true})}><span class='bg-primary'>Background</span></Button>
                             <Button class='px-1' on:click={() => updateStyle({name:'bgPrimaryText', value:false})}><span class='bg-transparent'>No Background</span></Button>
+                        </Col>
+                    </Row>
+                    <Row class='py-1'>
+                        <Col>
+                            <Button class='p-1' on:click={() => updateStyle({name:'padding', value:'p-1'})}><span>p-1</span></Button>
+                            <Button class='p-2' on:click={() => updateStyle({name:'padding', value:'p-2'})}><span>p-2</span></Button>
+                            <Button class='p-3' on:click={() => updateStyle({name:'padding', value:'p-3'})}><span>p-3</span></Button>
+                            <Button class='p-4' on:click={() => updateStyle({name:'padding', value:'p-4'})}><span>p-4</span></Button>
+                            <Button class='p-5' on:click={() => updateStyle({name:'padding', value:'p-5'})}><span>p-5</span></Button>
+                        </Col>
+                    </Row>
+                    <Row class='py-1'>
+                        <Col>
+                            <Button class='px-1 rounded-0' on:click={() => updateStyle({name:'rounded', value:'rounded-0'})}><span>r-0</span></Button>
+                            <Button class='px-1 rounded-1' on:click={() => updateStyle({name:'rounded', value:'rounded-1'})}><span>r-1</span></Button>
+                            <Button class='px-1 rounded-2' on:click={() => updateStyle({name:'rounded', value:'rounded-2'})}><span>r-2</span></Button>
+                            <Button class='px-1 rounded-2' on:click={() => updateStyle({name:'rounded', value:'rounded-3'})}><span>r-3</span></Button>
                         </Col>
                     </Row>
                     <div class='row py-1 align-items-center'>
@@ -157,7 +178,7 @@ import TextMarkdown from "./markdown/TextMarkdown.svelte";
                     <p class='my-3'><strong>Prévisualisation</strong></p>
                     <Row>
                         <Col>
-                            <div class={`${textColor} ${bgColor}`} style={`text-align: ${textAlign};font-weight: ${fontWeight};font-style: ${fontStyle};transform: rotate(${transformR}deg) translateX(${transformX}vh) translateY(${transformY}vh);`}>
+                            <div class={`${textColor} ${bgColor} ${padding} ${rounded}`} style={`text-align: ${textAlign};font-weight: ${fontWeight};font-style: ${fontStyle};transform: rotate(${transformR}deg) translateX(${transformX}vh) translateY(${transformY}vh);`}>
                                 <SvelteMarkdown source={values[0] && values[0].value ? values[0].value : ''} renderers={{
                                     paragraph: ParagrapheMarkdown, 
                                     table: TableMarkdown, 
@@ -177,7 +198,7 @@ import TextMarkdown from "./markdown/TextMarkdown.svelte";
         </ModalFooter>
     </Modal>
     <div class='content' >
-        <div class={`${textColor} ${bgColor}`} style={`text-align: ${textAlign};font-weight: ${fontWeight};font-style: ${fontStyle};transform: rotate(${transformR}deg) translateX(${transformX}vh) translateY(${transformY}vh);`}>
+        <div class={`${textColor} ${bgColor} ${padding} ${rounded}`} style={`text-align: ${textAlign};font-weight: ${fontWeight};font-style: ${fontStyle};transform: rotate(${transformR}deg) translateX(${transformX}vh) translateY(${transformY}vh);`}>
             <SvelteMarkdown source={values[0] && values[0].value ? values[0].value : ''} renderers={{
                 paragraph: ParagrapheMarkdown, 
                 table: TableMarkdown, 

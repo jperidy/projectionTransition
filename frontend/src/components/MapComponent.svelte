@@ -63,7 +63,7 @@
 />
 
 <!-- <div id={mapid} class='mapid'></div> -->
-<div class='mapid' use:mapAction></div>
+<div class='mapid m-0 p-0 rounded-3' use:mapAction></div>
 
 
 <style>

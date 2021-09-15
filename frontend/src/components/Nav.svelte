@@ -36,7 +36,9 @@
     expand={expand}
     class='mb-3 fixed-top py-3'
 >
-    <NavbarBrand on:click={() => navigateHandler('/')}><img class='img-fluid' style="max-width: 125px;" src='/images/logo-projection-transition.png' alt='logo'/><spans>PROJECTION TRANSITION</spans></NavbarBrand>
+    <NavbarBrand on:click={() => navigateHandler('/')}><img class='img-fluid mx-3' style="max-width: 130px;" src='/images/logo-projection-transition.png' alt='logo'/>
+        <!-- <spans>PROJECTION TRANSITION</spans> -->
+    </NavbarBrand>
     <NavbarToggler on:click={() => (isOpen = !isOpen)} />
 
     <!-- <Collapse {isOpen} navbar expand="md" on:update={handleUpdate}> -->

@@ -26,3 +26,5 @@ export const filmUpdateRequest = writable({success:false, loading:false, message
 export const filmAllRequest = writable({films:null, loading:false, message:''});
 export const filmCreateRequest = writable({success:false, loading:false, message:''});
 export const filmDeleteRequest = writable({success:false, loading:false, message:''});
+
+export const emailSendRequest = writable({success:false, loading:false, message:''});
