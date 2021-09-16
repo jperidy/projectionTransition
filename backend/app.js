@@ -9,11 +9,13 @@ const articleRoutes = require('./routes/articleRoutes');
 const filmRoutes = require('./routes/filmRoutes');
 const emailRoutes = require('./routes/emailRoutes');
 
+const config = require('../config.json');
+
 const connectDB = require('./config/db');
 
 const app = express();
 
-if (process.env.NODE_ENV === 'dev' ) {
+if (config.NODE_ENV === 'dev' ) {
     app.use(morgan('dev'));
 } else {
     app.use(morgan('common'));
@@ -49,7 +51,7 @@ app.use('/uploads', express.static(path.join(__dir, '/uploads')));
 
 app.get('/', (req, res) => res.send(`API is running...`));
 
-// if (['production'].includes(process.env.NODE_ENV)) {
+// if (['production'].includes(config.NODE_ENV)) {
 //     app.use(express.static(path.join(__dir, '/frontend/public')));
 //     app.get('*', (req, res) => res.sendFile(path.resolve(__dir, 'frontend', 'public', 'build', 'index.html')))
 // } else {

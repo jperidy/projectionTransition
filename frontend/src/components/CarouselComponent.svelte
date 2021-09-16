@@ -82,7 +82,7 @@ import ImageComponent from "./ImageComponent.svelte";
     <Col>
         <div class='content'>
         <Carousel items={values} bind:activeIndex ride interval={2000}>
-            <CarouselIndicators bind:activeIndex items={values} />
+            <!-- <CarouselIndicators bind:activeIndex items={values} /> -->
 
             <div class="carousel-inner">
             {#each values as item, index}

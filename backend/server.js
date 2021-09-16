@@ -1,10 +1,11 @@
-const dotenv = require('dotenv');
-dotenv.config();
+//const dotenv = require('dotenv');
+//dotenv.config();
+const config = require('../config.json');
 
 const http = require('http');
 const app = require('./app');
 
-const ENVIRONMENT = process.env.NODE_ENV;
+const ENVIRONMENT = config.NODE_ENV;
 
 const normalizePort = val => {
     const port = parseInt(val, 10);
@@ -17,7 +18,7 @@ const normalizePort = val => {
     }
     return false;
 };
-const PORT = normalizePort(process.env.PORT || 5000);
+const PORT = normalizePort(config.PORT || 5000);
 app.set('port', PORT);
 
 

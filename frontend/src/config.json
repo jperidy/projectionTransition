@@ -1,0 +1,6 @@
+{
+    "SVELTE_ENV": "dev",
+    "API_URL_DEV": "http://localhost:5000",
+    "API_URL_PREPROD": "https://dev.projtranapi.jprdev.ovh",
+    "API_URL_PROD": "https://dev.projtranapi.jprdev.ovh"
+}

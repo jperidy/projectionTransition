@@ -4,3 +4,5 @@ frontend/public/build/
 .env
 uploads
 adminAccount
+_images
+/config.json

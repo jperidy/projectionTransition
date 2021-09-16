@@ -1,4 +1,5 @@
 const jwt = require('jsonwebtoken');
+const config = require('../../config.json');
 
 const asyncHandler = require('express-async-handler');
 const User = require('../models/userModels');
@@ -7,7 +8,7 @@ const User = require('../models/userModels');
 const verifyJWTLocal = (token) => {
 
     try {
-        const decoded = jwt.verify(token, process.env.JWT_SECRET);
+        const decoded = jwt.verify(token, config.JWT_SECRET);
         return decoded;
     } catch (error) {
         return false;

@@ -16,12 +16,6 @@
   
     const expand = 'xl';
     let isOpen = false;
-  
-    // function handleUpdate(event) {
-    //     //console.log('updage event', event.detail)
-    //     // isOpen = event.detail.isOpen;
-    //     isOpen = event.detail;
-    // }
 
     const navigateHandler = (url) => {
         isOpen = false;
@@ -43,8 +37,8 @@
 
     <!-- <Collapse {isOpen} navbar expand="md" on:update={handleUpdate}> -->
     <Collapse {isOpen} navbar expand={expand}>
-        <Nav class="ms-auto align-items-center" navbar>
-            <Dropdown nav inNavbar class="mx-3">
+        <Nav class="ml-auto align-items-center" navbar>
+            <Dropdown nav inNavbar>
                 <DropdownToggle class='text-dark' nav caret>LE FESTIVAL</DropdownToggle>
                 <DropdownMenu end class='bg-white'>
                   <DropdownItem class='bg-white'><NavItem><NavLink on:click={() => navigateHandler('#/edito')}>Edito</NavLink></NavItem></DropdownItem>
@@ -54,7 +48,7 @@
                 </DropdownMenu>
             </Dropdown>
             
-            <Dropdown nav inNavbar class="mx-3">
+            <Dropdown nav inNavbar>
                 <DropdownToggle class='text-dark' nav caret>PROGRAMMATION</DropdownToggle>
                 <DropdownMenu end class='bg-white'>
                   <DropdownItem class='bg-white'><NavItem><NavLink on:click={() => navigateHandler('#/programmation/paris')} >Paris</NavLink></NavItem></DropdownItem>
@@ -63,7 +57,7 @@
                 </DropdownMenu>
             </Dropdown>
 
-            <Dropdown nav inNavbar class="mx-3">
+            <Dropdown nav inNavbar>
                 <DropdownToggle class='text-dark' nav caret>PROJET PEDAGOGIQUE</DropdownToggle>
                 <DropdownMenu end class='bg-white'>
                   <DropdownItem class='bg-white'><NavItem><NavLink on:click={() => navigateHandler('#/presentation')}>Présentation</NavLink></NavItem></DropdownItem>
@@ -72,11 +66,11 @@
                 </DropdownMenu>
             </Dropdown>
 
-            <Dropdown nav inNavbar class="mx-3">
+            <Dropdown nav inNavbar>
                 <NavItem><NavLink class='text-dark' on:click={() => navigateHandler('#/informationsPratiques')}>INFORMATIONS PRATIQUES</NavLink></NavItem>
             </Dropdown>
 
-            <Dropdown nav inNavbar class="mx-3">
+            <Dropdown nav inNavbar>
                 <DropdownToggle class='text-dark' nav caret>(€) BILLETERIE</DropdownToggle>
                 <DropdownMenu end class='bg-white'>
                   <DropdownItem class='bg-white'><NavItem><NavLink on:click={() => navigateHandler('#/billeterie/paris')}>Paris</NavLink></NavItem></DropdownItem>

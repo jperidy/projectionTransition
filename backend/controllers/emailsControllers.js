@@ -1,6 +1,7 @@
 const asyncHandler = require('express-async-handler');
 const MailService = require("../config/MailService");
 const { multipleMongooseToObj } = require("../utils/emailsFunctions");
+const config = require('../../config.json');
 
 
 const flatArrayTwo = (initialArray) => {
@@ -25,7 +26,7 @@ const sendContactFormEmail = asyncHandler(async (req, res) => {
     const email = req.body;
     //const emailToSend = test ? "jprdevapp@gmail.com" : user.email; // to add others use ","
     const mailInfo = {
-        to: process.env.CONTACT_EMAIL,
+        to: config.CONTACT_EMAIL,
         subject: 'Contact web // ' + email.subject,
         template: "contactEmail",
         context: {

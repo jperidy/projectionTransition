@@ -1,6 +1,7 @@
 const nodemailer = require("nodemailer");
 const hbs = require("nodemailer-express-handlebars");
 const path = require('path');
+const config = require('../../config.json');
 
 const __dir = path.resolve();
 
@@ -17,11 +18,11 @@ class MailService {
         };
 
         this._transporter = nodemailer.createTransport({
-            host: process.env.MAIL_HOST,
-            port: process.env.MAIL_PORT,
+            host: config.MAIL_HOST,
+            port: config.MAIL_PORT,
             auth: {
-                user: process.env.MAIL_USER,
-                pass: process.env.MAIL_PASS
+                user: config.MAIL_USER,
+                pass: config.MAIL_PASS
             }
         });
 
@@ -31,7 +32,7 @@ class MailService {
         //console.log(__dir);
         return this._transporter.sendMail({
             to,
-            from: process.env.MAIL_USER,
+            from: config.MAIL_USER,
             subject,
             template,
             context,
