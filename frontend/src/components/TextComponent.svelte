@@ -154,7 +154,7 @@
                             <Button class='px-1 rounded-0' on:click={() => updateStyle({name:'rounded', value:'rounded-0'})}><span>r-0</span></Button>
                             <Button class='px-1 rounded-1' on:click={() => updateStyle({name:'rounded', value:'rounded-1'})}><span>r-1</span></Button>
                             <Button class='px-1 rounded-2' on:click={() => updateStyle({name:'rounded', value:'rounded-2'})}><span>r-2</span></Button>
-                            <Button class='px-1 rounded-2' on:click={() => updateStyle({name:'rounded', value:'rounded-3'})}><span>r-3</span></Button>
+                            <Button class='px-1 rounded-3' on:click={() => updateStyle({name:'rounded', value:'rounded-3'})}><span>r-3</span></Button>
                         </Col>
                     </Row>
                     <div class='row py-1 align-items-center'>

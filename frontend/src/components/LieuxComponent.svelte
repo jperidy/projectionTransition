@@ -71,7 +71,7 @@
                 admin={admin} 
                 updateMovedArray={updateMovedArray}
             >
-            <div class='p-3 bg-white rounded-3 lieu-content'>
+            <div class='p-3 bg-white rounded lieu-content'>
                 <div class='row'>
                     <!-- nom du groupe de la ville -->
                     <div class='text-center my-1'>
@@ -116,20 +116,7 @@
                                 />
                             </div>
                         </div>
-                        <div class='row align-items-center mt-1'>
-                            <div class='col-12 text-center'>
-                                <TextComponent 
-                                    bind:values={lieu.access.values}
-                                    bind:styles={lieu.access.styles}
-                                    edit={edit}
-                                    admin={admin}
-                                    updateContent={updateContent}
-                                />
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class='col-sm-12 col-md-6'>
+                        
                         <div class='row align-items-center mt-1'>
                             <div class='col-2 text-end'>
                                 <i class="bi bi-geo-alt"></i>
@@ -174,16 +161,29 @@
                             {:else}
                                 <div class='col-10 text-start'>
                                     <a href={lieu.internet ? lieu.internet : (lieu.internet = '')} target="_blank">Accéder directement au site web du cinéma</a>
-                                    <!-- <TextComponent 
-                                        bind:values={lieu.internet}
-                                        bind:styles={lieu.internet}
-                                        edit={edit}
-                                        admin={admin}
-                                        updateContent={updateContent}
-                                    /> -->
                                 </div>
                             {/if}
                         </div>
+
+
+                    </div>
+
+                    <div class='col-sm-12 col-md-6'>                        
+
+                        <div class='row align-items-center mt-1'>
+                            <div class='col-12 text-center'>
+                                <TextComponent 
+                                    bind:values={lieu.access.values}
+                                    bind:styles={lieu.access.styles}
+                                    edit={edit}
+                                    admin={admin}
+                                    updateContent={updateContent}
+                                />
+                            </div>
+                        </div>
+
+
+
                         <!-- Informations pratiques sur la ville -->
                         <div class='row align-items-center mt-5'>
                             <div class='col-12 text-center'>

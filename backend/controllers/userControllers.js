@@ -11,8 +11,11 @@ const authUser = asyncHandler(async (req, res) => {
     const maxTry = 3;
     const { email, password } = req.body;
 
+    //console.log('email', email);
+
     User.findOne({ email })
         .then((user) => {
+            //console.log(user);
             if (user) {
                 user.matchPassword(password)
                     .then((matchResult) => {

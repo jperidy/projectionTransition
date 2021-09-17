@@ -11,7 +11,7 @@ export const updateOrCreateContent = async (content) => {
     const userInfoStored = get(userInfo);
 
 
-    pageRequest.set({ content: { content: [], name: content.name }, loading: false, message: '' });
+    pageRequest.set({ content: { content: [], name: content.name }, loading: true, message: '' });
 
     try {
 
