@@ -1,7 +1,6 @@
 <script>
-import { push } from "svelte-spa-router";
+    import { push } from "svelte-spa-router";
 
-    import { Alert, Button, Col, Icon, Row } from "sveltestrap";
     import { logout } from "../actions/userActions";
 
     export let admin = false;
@@ -19,25 +18,25 @@ import { push } from "svelte-spa-router";
 </script>
 
 {#if isAuthenticate}
-    <Alert class='text-center py-2' color='warning'>
-        <Row>
-            <Col sm={4} md={10} class='my-auto'>You are in admin mode ! Be careful</Col>
-            <Col sm={4} md={1}>
-                <Button 
-                    color='light'
+    <div class='alert alert-warning text-center py-2'>
+        <div class="row align-items-center">
+            <div class='col my-auto' sm={4} md={10}>You are in admin mode ! Be careful</div>
+            <div class='col text-end' sm={4} md={1}>
+                <button
+                    class='btn btn-light'
                     on:click={() => modifyAdmin()}
                     block
-                ><Icon name={admin ? 'arrow-counterclockwise' : 'box-arrow-up-left'}/>
+                ><i class={admin ? 'bi bi-arrow-counterclockwise' : 'bi bi-box-arrow-up-left'}></i>
                 {admin ? 'Sauvegarder' : 'Editer'}
-                </Button>
-            </Col>
-            <Col sm={4} md={1}>
-                <Button
-                    color='light'
+                </button>
+            </div>
+            <div class='col' sm={4} md={1}>
+                <button
+                    class='btn btn-light'
                     on:click={() => logoutHandler()}
                     block
-                ><Icon name='door-open' />Logout</Button>
-            </Col>
-        </Row>
-    </Alert>
+                ><i class="bi bi-door-open"></i>Logout</button>
+            </div>
+        </div>
+    </div>
 {/if}

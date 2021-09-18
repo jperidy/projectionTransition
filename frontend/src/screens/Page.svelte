@@ -54,7 +54,9 @@
         tempPageRequest.content.content = [item, ...tempPageRequest.content.content];
         pageRequest.set(tempPageRequest);
         await updateOrCreateContent($pageRequest.content);
-    }
+    };
+
+    //$: console.log('request', $pageRequest);
 
 </script>
 

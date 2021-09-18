@@ -1,5 +1,4 @@
 <script>
-import { Spinner } from "sveltestrap";
 
     export let number = 1;
     export let color = 'primary'
@@ -7,5 +6,7 @@ import { Spinner } from "sveltestrap";
 </script>
 
 {#each [...Array(number).keys()] as item}
-    <Spinner {color} type='grow' keys={item} class='my-2'/>
+    <div class={`spinner-grow my-2 text-${color}`} role='status' keys={item}>
+        <span class="visually-hidden">Loading...</span>
+    </div>
 {/each}

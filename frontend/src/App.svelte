@@ -44,7 +44,7 @@
 <style>
 	:global(body) {
 		/* this will apply to <body> */
-		padding: 0;
+		padding: 2vh;
 	}
 	main {
 		margin-top: 20vh;
