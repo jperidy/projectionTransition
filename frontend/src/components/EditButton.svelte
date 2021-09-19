@@ -1,7 +1,6 @@
 <script>
 
     import { Button, Col, Icon, Row } from "sveltestrap";
-
     export let updateContent;
     export let admin = false;
     export let edit = false;

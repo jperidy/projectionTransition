@@ -73,45 +73,56 @@
       <img class='img-fluid mx-3' style="max-width: 130px;" src='/images/logo-projection-transition.png' alt='logo'/>
     </NavbarBrand>
     <NavbarToggler on:click={() => (isOpen = !isOpen)} />
-    <Collapse {isOpen} navbar expand={expand}>
+    <Collapse {isOpen} navbar expand={expand} style="margin-right:10vh;">
         <Nav class="ms-auto align-items-center" navbar>
             <Dropdown nav inNavbar>
-                <DropdownToggle class='text-dark' nav caret>LE FESTIVAL</DropdownToggle>
+                <DropdownToggle class='text-dark mx-2' nav caret><span class='titre'>LE FESTIVAL</span></DropdownToggle>
                 <DropdownMenu end class='bg-white'>
-                  <DropdownItem class='bg-white'><NavItem><NavLink on:click={() => navigateHandler('#/edito')}>Edito</NavLink></NavItem></DropdownItem>
-                  <DropdownItem class='bg-white'><NavItem><NavLink on:click={() => navigateHandler('#/partenaires')}>Partenaires</NavLink></NavItem></DropdownItem>
-                  <DropdownItem class='bg-white'><NavItem><NavLink on:click={() => navigateHandler('#/equipe')}>L'équipe</NavLink></NavItem></DropdownItem>
-                  <DropdownItem class='bg-white'><NavItem><NavLink on:click={() => navigateHandler('#/publications')}>Publications</NavLink></NavItem></DropdownItem>
+                  <DropdownItem class='bg-white'><NavItem><NavLink on:click={() => navigateHandler('#/edito')}><span class='item'>Edito</span></NavLink></NavItem></DropdownItem>
+                  <DropdownItem class='bg-white'><NavItem><NavLink on:click={() => navigateHandler('#/partenaires')}><span class='item'>Partenaires</span></NavLink></NavItem></DropdownItem>
+                  <DropdownItem class='bg-white'><NavItem><NavLink on:click={() => navigateHandler('#/equipe')}><span class='item'>L'équipe</span></NavLink></NavItem></DropdownItem>
+                  <DropdownItem class='bg-white'><NavItem><NavLink on:click={() => navigateHandler('#/publications')}><span class='item'>Publications</span></NavLink></NavItem></DropdownItem>
                 </DropdownMenu>
             </Dropdown>       
             <Dropdown nav inNavbar>
-                <DropdownToggle class='text-dark' nav caret>PROGRAMMATION</DropdownToggle>
+                <DropdownToggle class='text-dark mx-2' nav caret><span class='titre'>LA PROGRAMMATION 2021</span></DropdownToggle>
                 <DropdownMenu end class='bg-white'>
-                  <DropdownItem class='bg-white'><NavItem><NavLink on:click={() => navigateHandler('#/programmation/paris')} >Paris</NavLink></NavItem></DropdownItem>
-                  <DropdownItem class='bg-white'><NavItem><NavLink on:click={() => navigateHandler('#/programmation/nantes')} >Nantes</NavLink></NavItem></DropdownItem>
-                  <DropdownItem class='bg-white'><NavItem><NavLink on:click={() => navigateHandler('#/programmation/toulouse')} >Toulouse</NavLink></NavItem></DropdownItem>
+                  <DropdownItem class='bg-white'><NavItem><NavLink on:click={() => navigateHandler('#/programmation/paris')} ><span class='item'>Paris</span></NavLink></NavItem></DropdownItem>
+                  <DropdownItem class='bg-white'><NavItem><NavLink on:click={() => navigateHandler('#/programmation/nantes')} ><span class='item'>Nantes</span></NavLink></NavItem></DropdownItem>
+                  <DropdownItem class='bg-white'><NavItem><NavLink on:click={() => navigateHandler('#/programmation/toulouse')} ><span class='item'>Toulouse</span></NavLink></NavItem></DropdownItem>
                 </DropdownMenu>
             </Dropdown>
             <Dropdown nav inNavbar>
-                <DropdownToggle class='text-dark' nav caret>PROJET PEDAGOGIQUE</DropdownToggle>
+                <DropdownToggle class='text-dark mx-2' nav caret><span class='titre'>PROJET PEDAGOGIQUE</span></DropdownToggle>
                 <DropdownMenu end class='bg-white'>
-                  <DropdownItem class='bg-white'><NavItem><NavLink on:click={() => navigateHandler('#/presentation')}>Présentation</NavLink></NavItem></DropdownItem>
-                  <DropdownItem class='bg-white'><NavItem><NavLink on:click={() => navigateHandler('#/projesseurs')}>Mots des professeurs</NavLink></NavItem></DropdownItem>
-                  <DropdownItem class='bg-white'><NavItem><NavLink on:click={() => navigateHandler('#/eleves')}>Elèves</NavLink></NavItem></DropdownItem>
+                  <DropdownItem class='bg-white'><NavItem><NavLink on:click={() => navigateHandler('#/presentation')}><span class='item'>Présentation</span></NavLink></NavItem></DropdownItem>
+                  <DropdownItem class='bg-white'><NavItem><NavLink on:click={() => navigateHandler('#/projesseurs')}><span class='item'>Mots des professeurs</span></NavLink></NavItem></DropdownItem>
+                  <DropdownItem class='bg-white'><NavItem><NavLink on:click={() => navigateHandler('#/eleves')}><span class='item'>Elèves</span></NavLink></NavItem></DropdownItem>
                 </DropdownMenu>
             </Dropdown>
             <Dropdown nav inNavbar>
-                <NavItem><NavLink class='text-dark' on:click={() => navigateHandler('#/informationsPratiques')}>INFORMATIONS PRATIQUES</NavLink></NavItem>
+                <NavItem><NavLink class='text-dark mx-2' on:click={() => navigateHandler('#/informationsPratiques')}><span class='titre'>INFORMATIONS PRATIQUES</span></NavLink></NavItem>
             </Dropdown>
             <Dropdown nav inNavbar>
-                <DropdownToggle class='text-dark' nav caret>(€) BILLETERIE</DropdownToggle>
+                <DropdownToggle class='text-dark mx-2' nav caret><span class='titre'>BILLETERIE</span></DropdownToggle>
                 <DropdownMenu end class='bg-white'>
-                  <DropdownItem class='bg-white'><NavItem><NavLink on:click={() => navigateHandler('#/billeterie/paris')}>Paris</NavLink></NavItem></DropdownItem>
-                  <DropdownItem class='bg-white'><NavItem><NavLink on:click={() => navigateHandler('#/billeterie/nantes')}>Nantes</NavLink></NavItem></DropdownItem>
-                  <DropdownItem class='bg-white'><NavItem><NavLink on:click={() => navigateHandler('#/billeterie/toulouse')}>Toulouse</NavLink></NavItem></DropdownItem>
+                  <DropdownItem class='bg-white'><NavItem><NavLink on:click={() => navigateHandler('#/billeterie/paris')}><span class='item'>Paris</span></NavLink></NavItem></DropdownItem>
+                  <DropdownItem class='bg-white'><NavItem><NavLink on:click={() => navigateHandler('#/billeterie/nantes')}><span class='item'>Nantes</span></NavLink></NavItem></DropdownItem>
+                  <DropdownItem class='bg-white'><NavItem><NavLink on:click={() => navigateHandler('#/billeterie/toulouse')}><span class='item'>Toulouse</span></NavLink></NavItem></DropdownItem>
                 </DropdownMenu>
             </Dropdown>
       </Nav>
     </Collapse>
 </Navbar>
-  
+
+<style>
+  .titre {
+    font-family: 'omotenashi_2regular';
+    font-size: 1.5rem;
+  }
+  .item {
+    font-family: 'Roboto-Regular';
+    font-size:1.1rem;
+    font-weight: bold;
+  }
+</style>

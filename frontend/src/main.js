@@ -1,6 +1,6 @@
 import App from './App.svelte';
-//import './bootstrap.min.css';
 import '../css/mains.min.css';
+//import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 
 const app = new App({
 	target: document.body,

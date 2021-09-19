@@ -1,6 +1,6 @@
 <script>
 
-    import { Button, Col, Figure, Icon, Input, Modal, ModalBody, ModalFooter, ModalHeader, Row } from "sveltestrap";
+    import { Button, Col, Icon, Input, Modal, ModalBody, ModalFooter, ModalHeader, Row } from "sveltestrap";
     import { uploadImage } from "../actions/imagesActions";
 
     import EditButton from "./EditButton.svelte";
@@ -12,10 +12,11 @@
     export let updateContent;
 
     styles;
+    //$: console.log('edit', edit);
 
-    const toggle = () => {
+    const toggle = async () => {
         if (edit && updateContent) {
-            updateContent();
+            await updateContent();
         }
         edit = !edit;
     };
@@ -78,7 +79,7 @@
     }
     .middle {
         transition: .5s ease;
-        opacity: 0.5;
+        opacity: 0.7;
         position: absolute;
         top: 50%;
         left: 50%;
@@ -89,91 +90,86 @@
     .content-container:hover .middle {
         opacity: 1;
     }
-    
 </style>
 
+<Modal isOpen={edit} {toggle}>
+    <ModalHeader {toggle}>Editer l'image</ModalHeader>
+    <ModalBody>
+    <Row>
+        <Col>
+            <Input type='file' name='image-url' on:change={(e) => onChangeHandler (0, e)} />
+            <Input type='text' name='text' class='my-3' bind:value={values[0].caption} placeholder='Caption'/>
+            <Input type='text' name='text' class='my-3' bind:value={values[0].substitution} placeholder='Substitution text'/>
+            <p class='my-3'><strong>Prévisualisation</strong></p>
+            <figure class='figure' style={`transform: rotate(${transformR}deg) translateX(${transformX}vh) translateY(${transformY}vh) scale(${scaleXY, scaleXY});`}>
+                <img class={`figure-img img-fluid ${rounded} ${shadow}`} src={values[0].url} alt={values[0].substitution}>
+                <figcaption class='figure-caption'>{values[0].caption}</figcaption>
+            </figure>
+            <div class='row py-1'>
+                <div class='col'>
+                    <Button class='px-1' on:click={() => updateStyle({name:'shadow', value:'shadow'})}><Icon name='back' /></Button>
+                    <Button class='px-1' on:click={() => updateStyle({name:'shadow', value:''})}>No shadow</Button>
+                </div>
+            </div>
+            <div class='row py-1'>
+                <div class='col'>
+                    <Button class='px-1' on:click={() => updateStyle({name:'rounded', value:'rounded-3'})}><Icon name='app' /></Button>
+                    <Button class='px-1' on:click={() => updateStyle({name:'rounded', value:''})}>No rounded</Button>
+                </div>
+            </div>
+            <div class='row py-1 align-items-center'>
+                <div class='col-4'>Rotate : </div>
+                <div class='col-8'>
+                    <Input type='number' class='px-1' value={transformR} on:change={(e) => updateStyle({name:'transformR', value: e.target.value})} />
+                </div>
+            </div>
+            <div class='row py-1 align-items-center'>
+                <div class='col-4'>Translate X : </div>
+                <div class='col-8'>
+                    <Input type='number' class='px-1' value={transformX} on:change={(e) => updateStyle({name:'transformX', value:e.target.value})} />
+                </div>
+            </div>
+            <div class='row py-1 align-items-center'>
+                <div class='col-4'>Translate Y : </div>
+                <div class='col-8'>
+                    <Input type='number' class='px-1' value={transformY} on:change={(e) => updateStyle({name:'transformY', value:e.target.value})} />
+                </div>
+            </div>
+            <div class='row py-1 align-items-center'>
+                <div class='col-4'>Scale XY : </div>
+                <div class='col-8'>
+                    <Input type='number' class='px-1' value={scaleXY} on:change={(e) => updateStyle({name:'scaleXY', value:e.target.value})} step={0.05} />
+                </div>
+            </div>
+        </Col>
+    </Row>
+    </ModalBody>
+    <ModalFooter>
+        <Button color="primary" on:click={toggle}>Enregistrer</Button>
+        <Button color="secondary" on:click={toggle}>Cancel</Button>
+    </ModalFooter>
+</Modal>
+
 <div class='content-container'>
-    
-<div class='row'>
-    <div class='col'>
-        <Modal isOpen={edit} {toggle}>
-            <ModalHeader {toggle}>Editer le contenu de la Card</ModalHeader>
-            <ModalBody>
-              <Row>
-                <Col>
-                    <Input type='file' name='image-url' on:change={(e) => onChangeHandler (0, e)} />
-                    <Input type='text' name='text' id='input-caption' class='my-3' bind:value={values[0].caption} placeholder='Caption'/>
-                    <Input type='text' name='text' id='input-alt' class='my-3' bind:value={values[0].substitution} placeholder='Substitution text'/>
-                    <p class='my-3'><strong>Prévisualisation</strong></p>
-
-                    <figure class='figure' style={`transform: rotate(${transformR}deg) translateX(${transformX}vh) translateY(${transformY}vh) scale(${scaleXY, scaleXY});`}>
-                        <img class={`figure-img img-fluid ${rounded} ${shadow}`} src={values[0].url} alt={values[0].substitution}>
-                        <figcaption class='figure-caption'>{values[0].caption}</figcaption>
-                    </figure>
-                    
-                    <div class='row py-1'>
-                        <div class='col'>
-                            <Button class='px-1' on:click={() => updateStyle({name:'shadow', value:'shadow'})}><Icon name='back' /></Button>
-                            <Button class='px-1' on:click={() => updateStyle({name:'shadow', value:''})}>No shadow</Button>
-                        </div>
-                    </div>
-                    <div class='row py-1'>
-                        <div class='col'>
-                            <Button class='px-1' on:click={() => updateStyle({name:'rounded', value:'rounded-3'})}><Icon name='app' /></Button>
-                            <Button class='px-1' on:click={() => updateStyle({name:'rounded', value:''})}>No rounded</Button>
-                        </div>
-                    </div>
-                    <div class='row py-1 align-items-center'>
-                        <div class='col-4'>Rotate : </div>
-                        <div class='col-8'>
-                            <Input type='number' class='px-1' value={transformR} on:change={(e) => updateStyle({name:'transformR', value: e.target.value})} />
-                        </div>
-                    </div>
-                    <div class='row py-1 align-items-center'>
-                        <div class='col-4'>Translate X : </div>
-                        <div class='col-8'>
-                            <Input type='number' class='px-1' value={transformX} on:change={(e) => updateStyle({name:'transformX', value:e.target.value})} />
-                        </div>
-                    </div>
-                    <div class='row py-1 align-items-center'>
-                        <div class='col-4'>Translate Y : </div>
-                        <div class='col-8'>
-                            <Input type='number' class='px-1' value={transformY} on:change={(e) => updateStyle({name:'transformY', value:e.target.value})} />
-                        </div>
-                    </div>
-                    <div class='row py-1 align-items-center'>
-                        <div class='col-4'>Scale XY : </div>
-                        <div class='col-8'>
-                            <Input type='number' class='px-1' value={scaleXY} on:change={(e) => updateStyle({name:'scaleXY', value:e.target.value})} step={0.05} />
-                        </div>
-                    </div>
-                </Col>
-              </Row>
-            </ModalBody>
-      
-            <ModalFooter>
-              <Button color="primary" on:click={toggle}>Enregistrer</Button>
-              <Button color="secondary" on:click={toggle}>Cancel</Button>
-            </ModalFooter>
-      
-        </Modal>
-        {#if !values[0].url}
-            <div class='bg-secondary text-center text-white' style='min-height:max-content;'>Image</div>
-        {/if}
-        <figure class='figure' style={`transform: rotate(${transformR}deg) translateX(${transformX}vh) translateY(${transformY}vh) scale(${scaleXY, scaleXY});`}>
-            <img class={`figure-img img-fluid ${rounded} ${shadow}`} src={values[0].url} alt={values[0].substitution}>
-            <figcaption class='figure-caption'>{values[0].caption}</figcaption>
-        </figure>
+    <div class='row'>
+        <div class='col'>   
+            {#if !values[0].url}
+                <div class='bg-secondary text-center text-white' style='min-height:100px;'>Image</div>
+            {/if}
+            <figure class='figure' style={`transform: rotate(${transformR}deg) translateX(${transformX}vh) translateY(${transformY}vh) scale(${scaleXY, scaleXY});`}>
+                <img class={`figure-img img-fluid ${rounded} ${shadow}`} src={values[0].url} alt={values[0].substitution}>
+                <figcaption class='figure-caption'>{values[0].caption}</figcaption>
+            </figure>
+        </div>
     </div>
-</div>
 
-{#if admin}
-    <div class='middle'>
-        <EditButton
-            admin={admin}
-            updateContent={updateContent}
-            bind:edit={edit}
-        />
-    </div>
-{/if}
+    {#if admin}
+        <div class='middle'>
+            <EditButton
+                admin={admin}
+                updateContent={updateContent}
+                bind:edit={edit}
+            />
+        </div>
+    {/if}
 </div>

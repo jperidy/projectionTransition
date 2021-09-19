@@ -9,9 +9,10 @@ const API_URL = config.SVELTE_ENV === 'dev' ? config.API_URL_DEV : config.SVELTE
 export const updateOrCreateContent = async (content) => {
 
     const userInfoStored = get(userInfo);
+    const currentPageRequest = get(pageRequest);
 
-
-    pageRequest.set({ content: { content: [], name: content.name }, loading: true, message: '' });
+    //pageRequest.set({ content: { content: [], name: content.name }, loading: true, message: '' });
+    pageRequest.set({ ...currentPageRequest, loading: true, message: '' });
 
     try {
 
@@ -28,8 +29,8 @@ export const updateOrCreateContent = async (content) => {
 
     } catch (error) {
 
-        pageRequest.set({ content: { content: [], name: content.name }, loading: false, message: 'Error updating page ' + error });
-
+        //pageRequest.set({ content: { content: [], name: content.name }, loading: false, message: 'Error updating page ' + error });
+        pageRequest.set({ ...currentPageRequest, loading: false, message: 'Error updating page ' + error });
     }
 
 };

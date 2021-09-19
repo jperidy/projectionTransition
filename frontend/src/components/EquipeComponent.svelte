@@ -10,6 +10,7 @@
     export let admin = false;
 
     styles;
+    edit;
 
     $:{
         if (values.length === 0 ) {
@@ -63,7 +64,7 @@
             bind:styles = {values[0].intro.styles}
             updateContent={updateContent}
             admin={admin}
-            edit={edit}
+            edit={false}
         />
     </div>
 </div>
@@ -84,21 +85,21 @@
                     bind:values={personne.url.values}
                     bind:styles={personne.url.styles}
                     admin={admin}
-                    edit={edit}
+                    edit={false}
                     updateContent={updateContent}
                 />
                 <TextComponent
                     bind:values={personne.nomPrenom.values}
                     bind:styles={personne.nomPrenom.styles}
                     admin={admin}
-                    edit={edit}
+                    edit={false}
                     updateContent={updateContent}
                 />
                 <TextComponent
                     bind:values={personne.role.values}
                     bind:styles={personne.role.styles}
                     admin={admin}
-                    edit={edit}
+                    edit={false}
                     updateContent={updateContent}
                 />
             </MovingContent>

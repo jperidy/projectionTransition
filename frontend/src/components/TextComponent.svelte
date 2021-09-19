@@ -20,9 +20,9 @@
 
     const colors = ['primary', 'secondary', 'success', 'danger', 'warning', 'info', 'light', 'dark'];
 
-    const toggle = () => {
+    const toggle = async() => {
         if (edit && updateContent) {
-            updateContent();
+            await updateContent();
         }
         edit = !edit;
     };

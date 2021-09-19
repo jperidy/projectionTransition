@@ -56,7 +56,7 @@
         await updateOrCreateContent($pageRequest.content);
     };
 
-    //$: console.log('request', $pageRequest);
+    $: console.log('request', $pageRequest);
 
 </script>
 
@@ -94,7 +94,7 @@ isAuthenticate={isAuthenticate}
                                 bind:values={section.values}
                                 bind:styles={section.styles}
                                 type={section.type}
-                                updateContent={updateContent && updateContent}
+                                updateContent={updateContent}
                                 admin={admin}
                                 edit={false}
                                 city={params.city}

@@ -10,8 +10,8 @@
     import PartenairesComponent from "./PartenairesComponent.svelte";
     import LieuxComponent from "./LieuxComponent.svelte";
     import ProgrammationComponent from "./ProgrammationComponent.svelte";
-import EquipeComponent from "./EquipeComponent.svelte";
-import ContactForm from "./ContactForm.svelte";
+    import EquipeComponent from "./EquipeComponent.svelte";
+    import ContactForm from "./ContactForm.svelte";
 
     export let type = '';
     export let updateContent = null;
