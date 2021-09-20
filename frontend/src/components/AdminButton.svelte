@@ -20,7 +20,7 @@
 {#if isAuthenticate}
     <div class='alert alert-warning text-center py-2'>
         <div class="row align-items-center">
-            <div class='col my-auto' sm={4} md={10}>You are in admin mode ! Be careful</div>
+            <div class='col my-auto' sm={4} md={10}>You are in admin mode. Be careful!</div>
             <div class='col text-end' sm={4} md={1}>
                 <button
                     class='btn btn-light'
@@ -30,7 +30,7 @@
                 {admin ? 'Sauvegarder' : 'Editer'}
                 </button>
             </div>
-            <div class='col' sm={4} md={1}>
+            <div class='col text-start' sm={4} md={1}>
                 <button
                     class='btn btn-light'
                     on:click={() => logoutHandler()}

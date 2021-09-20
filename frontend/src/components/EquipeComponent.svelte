@@ -43,7 +43,6 @@
 </script>
 
 <style>
-
     .event-container {
         -webkit-transform: scale(1);
 	    transform: scale(1);

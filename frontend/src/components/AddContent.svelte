@@ -10,10 +10,17 @@
   let styles = [];
 
   let open = false;
-  const toggle = () => (open = !open);
+  //const toggle = () => (open = !open);
 
-  const validateModal = () => {
-    addContent({type, values, styles });
+  const toggle = async(save) => {
+        if (open && addContent && save) {
+            await addContent({type, values, styles });
+        }
+        open = !open;
+  };
+
+  const validateModal = async() => {
+    await addContent({type, values, styles });
     toggle();
   };
 
@@ -72,8 +79,8 @@
       </ModalBody>
 
       <ModalFooter>
-        <Button color="primary" on:click={validateModal}>Enregistrer</Button>
-        <Button color="secondary" on:click={toggle}>Cancel</Button>
+        <Button color="primary" on:click={() => toggle(true)}>Enregistrer</Button>
+        <Button color="secondary" on:click={() => toggle(false)}>Cancel</Button>
       </ModalFooter>
 
     </Modal>

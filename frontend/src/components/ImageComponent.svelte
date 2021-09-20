@@ -113,7 +113,8 @@
             </div>
             <div class='row py-1'>
                 <div class='col'>
-                    <Button class='px-1' on:click={() => updateStyle({name:'rounded', value:'rounded-3'})}><Icon name='app' /></Button>
+                    <Button class='px-1 rounded-3' on:click={() => updateStyle({name:'rounded', value:'rounded-3'})}><Icon name='app' /></Button>
+                    <Button class='px-1 rounded-circle' on:click={() => updateStyle({name:'rounded', value:'rounded-circle'})}>Circle</Button>
                     <Button class='px-1' on:click={() => updateStyle({name:'rounded', value:''})}>No rounded</Button>
                 </div>
             </div>

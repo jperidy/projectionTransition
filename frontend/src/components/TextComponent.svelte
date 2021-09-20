@@ -18,7 +18,8 @@
 
     //components;
 
-    const colors = ['primary', 'secondary', 'success', 'danger', 'warning', 'info', 'light', 'dark'];
+    //const colors = ['primary', 'secondary', 'success', 'danger', 'warning', 'info', 'light', 'dark'];
+    const colors = ['pomme', 'outremer', 'lavande', 'caraibe', 'tangerine', 'ambre', 'light', 'white', 'dark', 'transparent'];
 
     const toggle = async() => {
         if (edit && updateContent) {
@@ -102,82 +103,81 @@
     <Modal isOpen={edit} {toggle}>
         <ModalHeader {toggle}>Ajouter un contenu</ModalHeader>
         <ModalBody>
-            <Row>
-                <Col>
-                    <Input 
-                        type='textarea' 
+            <div class='row'>
+                <div class='col'>
+                    <textarea 
                         name='textarea' 
                         id='input-textarea' 
-                        class='my-3' 
+                        class='my-3 form-control' 
                         bind:value={values[0].value}
                     />
-                    <Row class='py-1'><Col>
-                        <Button class='px-1' on:click={() => updateStyle({name:'text-align', value:'start'})}><Icon name='text-left' /></Button>
-                        <Button class='px-1' on:click={() => updateStyle({name:'text-align', value:'center'})}><Icon name='text-center' /></Button>
-                        <Button class='px-1' on:click={() => updateStyle({name:'text-align', value:'justify'})}><Icon name='justify-left' /></Button>
-                        <Button class='px-1' on:click={() => updateStyle({name:'text-align', value:'end'})}><Icon name='text-right' /></Button>
-                    </Col></Row>
-                    <Row class='py-1'><Col>
+                    <div class='row py-1'><div class='col'>
+                        <button class='px-1 btn btn-light' on:click={() => updateStyle({name:'text-align', value:'start'})}><Icon name='text-left' /></button>
+                        <button class='px-1 btn btn-light' on:click={() => updateStyle({name:'text-align', value:'center'})}><Icon name='text-center' /></button>
+                        <button class='px-1 btn btn-light' on:click={() => updateStyle({name:'text-align', value:'justify'})}><Icon name='justify-left' /></button>
+                        <button class='px-1 btn btn-light' on:click={() => updateStyle({name:'text-align', value:'end'})}><Icon name='text-right' /></button>
+                    </div></div>
+                    <div class='row py-1'><div class='col'>
                         {#each colors as color}
-                            <Button class='px-1' on:click={() => updateStyle({name:'text-color', value:`text-${color}`})}><Icon name='fonts' class={`text-${color}`} /></Button>
+                            <btn class='px-1 btn btn-light' on:click={() => updateStyle({name:'text-color', value:`text-${color}`})}><Icon name='fonts' class={`text-${color}`} /></btn>
                         {/each}
-                    </Col></Row>
-                    <Row class='py-1'><Col>
+                    </div></div>
+                    <div class='row py-1'><div class='col'>
                         {#each colors as color}
-                            <Button class='px-1' on:click={() => updateStyle({name:'backgroud-color', value:`bg-${color}`})}><Icon name='file-font-fill' class={`text-${color}`} /></Button>
+                            <button class='px-1 btn btn-light' on:click={() => updateStyle({name:'backgroud-color', value:`bg-${color}`})}><Icon name='file-font-fill' class={`text-${color}`} /></button>
                         {/each}
-                        <Button class='px-1' on:click={() => updateStyle({name:'backgroud-color', value:``})}>Transparent</Button>
-                    </Col></Row>
-                    <Row class='py-1'><Col>
-                        <Button class='px-1' on:click={() => updateStyle({name:'font-weight', value:'normal'})}>B</Button>
-                        <Button class='px-1' on:click={() => updateStyle({name:'font-weight', value:'bold'})}><Icon name='type-bold' /></Button>
-                        <Button class='px-1' on:click={() => updateStyle({name:'font-style', value:'normal'})}>I</Button>
-                        <Button class='px-1' on:click={() => updateStyle({name:'font-style', value:'italic'})}><Icon name='type-italic' /></Button>
-                    </Col></Row>
-                    <Row class='py-1'>
-                        <Col>
-                            <Button class='px-1' on:click={() => updateStyle({name:'bgPrimaryText', value:true})}><span class='bg-primary'>Background</span></Button>
-                            <Button class='px-1' on:click={() => updateStyle({name:'bgPrimaryText', value:false})}><span class='bg-transparent'>No Background</span></Button>
-                        </Col>
-                    </Row>
-                    <Row class='py-1'>
-                        <Col>
-                            <Button class='p-1' on:click={() => updateStyle({name:'padding', value:'p-1'})}><span>p-1</span></Button>
-                            <Button class='p-2' on:click={() => updateStyle({name:'padding', value:'p-2'})}><span>p-2</span></Button>
-                            <Button class='p-3' on:click={() => updateStyle({name:'padding', value:'p-3'})}><span>p-3</span></Button>
-                            <Button class='p-4' on:click={() => updateStyle({name:'padding', value:'p-4'})}><span>p-4</span></Button>
-                            <Button class='p-5' on:click={() => updateStyle({name:'padding', value:'p-5'})}><span>p-5</span></Button>
-                        </Col>
-                    </Row>
-                    <Row class='py-1'>
-                        <Col>
-                            <Button class='px-1 rounded-0' on:click={() => updateStyle({name:'rounded', value:'rounded-0'})}><span>r-0</span></Button>
-                            <Button class='px-1 rounded-1' on:click={() => updateStyle({name:'rounded', value:'rounded-1'})}><span>r-1</span></Button>
-                            <Button class='px-1 rounded-2' on:click={() => updateStyle({name:'rounded', value:'rounded-2'})}><span>r-2</span></Button>
-                            <Button class='px-1 rounded-3' on:click={() => updateStyle({name:'rounded', value:'rounded-3'})}><span>r-3</span></Button>
-                        </Col>
-                    </Row>
+                        <button class='px-1 btn btn-light' on:click={() => updateStyle({name:'backgroud-color', value:``})}>Transparent</button>
+                    </div></div>
+                    <div class='row py-1'><div class='col'>
+                        <button class='btn btn-light px-1' on:click={() => updateStyle({name:'font-weight', value:'normal'})}>B</button>
+                        <button class='btn btn-light px-1' on:click={() => updateStyle({name:'font-weight', value:'bold'})}><Icon name='type-bold' /></button>
+                        <button class='btn btn-light px-1' on:click={() => updateStyle({name:'font-style', value:'normal'})}>I</button>
+                        <button class='btn btn-light px-1' on:click={() => updateStyle({name:'font-style', value:'italic'})}><Icon name='type-italic' /></button>
+                    </div></div>
+                    <div class='row py-1'>
+                        <div class='col'>
+                            <button class='btn btn-light px-1' on:click={() => updateStyle({name:'bgPrimaryText', value:true})}><span class='bg-primary'>Background</span></button>
+                            <button class='btn btn-light px-1' on:click={() => updateStyle({name:'bgPrimaryText', value:false})}><span class='bg-transparent'>No Background</span></button>
+                        </div>
+                    </div>
+                    <div class='row py-1'>
+                        <div class='col'>
+                            <button class='btn btn-light p-1' on:click={() => updateStyle({name:'padding', value:'p-1'})}><span>p-1</span></button>
+                            <button class='btn btn-light p-2' on:click={() => updateStyle({name:'padding', value:'p-2'})}><span>p-2</span></button>
+                            <button class='btn btn-light p-3' on:click={() => updateStyle({name:'padding', value:'p-3'})}><span>p-3</span></button>
+                            <button class='btn btn-light p-4' on:click={() => updateStyle({name:'padding', value:'p-4'})}><span>p-4</span></button>
+                            <button class='btn btn-light p-5' on:click={() => updateStyle({name:'padding', value:'p-5'})}><span>p-5</span></button>
+                        </div>
+                    </div>
+                    <div class='row py-1'>
+                        <div class='col'>
+                            <button class='btn btn-light px-1 rounded-0' on:click={() => updateStyle({name:'rounded', value:'rounded-0'})}><span>r-0</span></button>
+                            <button class='btn btn-light px-1 rounded-1' on:click={() => updateStyle({name:'rounded', value:'rounded-1'})}><span>r-1</span></button>
+                            <button class='btn btn-light px-1 rounded-2' on:click={() => updateStyle({name:'rounded', value:'rounded-2'})}><span>r-2</span></button>
+                            <button class='btn btn-light px-1 rounded-3' on:click={() => updateStyle({name:'rounded', value:'rounded-3'})}><span>r-3</span></button>
+                        </div>
+                    </div>
                     <div class='row py-1 align-items-center'>
                         <div class='col-4'>Rotate : </div>
                         <div class='col-8'>
-                            <Input type='number' class='px-1' value={transformR} on:change={(e) => updateStyle({name:'transformR', value:e.target.value})}>-</Input>
+                            <input type='number' class='px-1 form-control' value={transformR} on:change={(e) => updateStyle({name:'transformR', value:e.target.value})}>
                         </div>
                     </div>
                     <div class='row py-1 align-items-center'>
                         <div class='col-4'>Translate X : </div>
                         <div class='col-8'>
-                            <Input type='number' class='px-1' value={transformX} on:change={(e) => updateStyle({name:'transformX', value:e.target.value})}>-</Input>
+                            <input type='number' class='px-1 form-control' value={transformX} on:change={(e) => updateStyle({name:'transformX', value:e.target.value})}>
                         </div>
                     </div>
                     <div class='row py-1 align-items-center'>
                         <div class='col-4'>Translate Y : </div>
                         <div class='col-8'>
-                            <Input type='number' class='px-1' value={transformY} on:change={(e) => updateStyle({name:'transformY', value:e.target.value})}>-</Input>
+                            <input type='number' class='px-1 form-control' value={transformY} on:change={(e) => updateStyle({name:'transformY', value:e.target.value})}>
                         </div>
                     </div>
                     <p class='my-3'><strong>Prévisualisation</strong></p>
-                    <Row>
-                        <Col>
+                    <div class='row'>
+                        <div class='col'>
                             <div class={`${textColor} ${bgColor} ${padding} ${rounded}`} style={`text-align: ${textAlign};font-weight: ${fontWeight};font-style: ${fontStyle};transform: rotate(${transformR}deg) translateX(${transformX}vh) translateY(${transformY}vh);`}>
                                 <SvelteMarkdown source={values[0] && values[0].value ? values[0].value : ''} renderers={{
                                     paragraph: ParagrapheMarkdown, 
@@ -186,15 +186,15 @@
                                     text: bgPrimaryText ? TextBgFillPrimaryMarkdown : TextMarkdown,
                                     }}/>
                             </div>
-                        </Col>
-                    </Row>
+                        </div>
+                    </div>
                     
-                </Col>
-            </Row>
+                </div>
+            </div>
         </ModalBody>
         <ModalFooter>
-            <Button color="primary" on:click={toggle}>Enregistrer</Button>
-            <Button color="secondary" on:click={toggle}>Cancel</Button>
+            <button class="btn btn-primary" on:click={toggle}>Enregistrer</button>
+            <button class="btn btn-secondary" on:click={toggle}>Cancel</button>
         </ModalFooter>
     </Modal>
     <div class='content' >

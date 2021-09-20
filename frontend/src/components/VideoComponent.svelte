@@ -32,9 +32,9 @@ import EditButton from "./EditButton.svelte";
     };
     
 
-    const toggle = () => {
+    const toggle = async() => {
         if (edit && updateContent) {
-            updateContent();
+            await updateContent();
         }
         edit = !edit;
     };
@@ -142,7 +142,7 @@ import EditButton from "./EditButton.svelte";
         </Modal>
         
         <div class='content'>
-        <Row class='my-5'>
+        <Row class='my-3'>
             <Col>
                 <div class='video-dimension' style={`max-width:${styles.filter(x => x.name === 'maxWidth')[0].value};margin-left: auto;margin-right: auto;`}>
                     <div class="video-container">

@@ -56,7 +56,7 @@
         await updateOrCreateContent($pageRequest.content);
     };
 
-    $: console.log('request', $pageRequest);
+    //$: console.log('request', $pageRequest);
 
 </script>
 

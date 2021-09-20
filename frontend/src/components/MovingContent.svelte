@@ -39,16 +39,29 @@
 
 </script>
 
+<style>
+    .moving-container {
+        -webkit-transform: scale(1);
+	    transform: scale(1);
+        transition: .5s ease;
+        border: dashed 1px;
+    }
+    .moving-container:hover {
+        -webkit-transform: scale(1.13);
+	    transform: scale(1.13);
+        transition: .5s ease;
+    }
+</style>
+
 {#if admin}
-    <div class='border border-secondary my-3 pt-3'>
-        <Row>
-            <Col>
+    <div class='moving-container border-light rounded-3 mt-3 mb-1 p-3 bg-dark shadow-lg'>
+        <Row class='align-items-center'>
+            <Col class='text-center mb-2'>
                 <Button class='mx-3' color='secondary' on:click={() => upAction()}><Icon name='caret-up'/>  UP</Button>
                 <Button class='mx-3' color='secondary' on:click={() => downAction()}><Icon name='caret-down'/>  DOWN</Button>
                 <Button class='mx-3' color='danger' on:click={async() => await deleteAction()}><Icon name='trash'/>  DELETE</Button>
             </Col>
         </Row>
-        
         <slot></slot>
     </div>
 {:else}
