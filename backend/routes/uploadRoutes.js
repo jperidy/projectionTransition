@@ -36,7 +36,7 @@ const uploadImage1000x250 = multer({
 });
 
 router.post('/images/1000x250', protect, checkAndCreateImage1000x250Folder, uploadImage1000x250.single('file'), (req, res) => {
-    console.log('body', req.body);
+    //console.log('file', req.file);
     res.status(200).json({path:`/${req.file.path}`});
 });
 router.delete('/images', protect, deleteImage);

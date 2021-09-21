@@ -19,7 +19,7 @@
     //components;
 
     //const colors = ['primary', 'secondary', 'success', 'danger', 'warning', 'info', 'light', 'dark'];
-    const colors = ['pomme', 'outremer', 'lavande', 'caraibe', 'tangerine', 'ambre', 'light', 'white', 'dark', 'transparent'];
+    const colors = ['pomme', 'outremer', 'lavande', 'caraibe', 'tangerine', 'ambre', 'light', 'white', 'dark', 'black'];
 
     const toggle = async() => {
         if (edit && updateContent) {
@@ -100,7 +100,7 @@
 
 <div class='content-container'>
 
-    <Modal isOpen={edit} {toggle}>
+    <Modal isOpen={edit} {toggle} size='lg' scrollable>
         <ModalHeader {toggle}>Ajouter un contenu</ModalHeader>
         <ModalBody>
             <div class='row'>

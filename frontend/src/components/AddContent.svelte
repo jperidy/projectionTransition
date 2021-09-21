@@ -35,7 +35,7 @@
   <Col>
     <Button color="primary" class='my-3' on:click={toggle}>Ajouter un contenu</Button>
 
-    <Modal isOpen={open} {toggle}>
+    <Modal isOpen={open} {toggle} size='lg' scrollable>
       
       <ModalHeader {toggle}>Ajouter un contenu</ModalHeader>
       

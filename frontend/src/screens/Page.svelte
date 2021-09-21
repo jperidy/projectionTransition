@@ -4,6 +4,9 @@
     import AdminButton from '../components/AdminButton.svelte';
     import MovingContent from '../components/MovingContent.svelte';
     import AddContent from '../components/AddContent.svelte';
+    import SvelteSeo from "svelte-seo";
+
+    import config from '../config.json';
 
     import { userInfo, pageName, pageRequest } from '../store';
     
@@ -59,6 +62,34 @@
     //$: console.log('request', $pageRequest);
 
 </script>
+
+<SvelteSeo
+  title={config.META.title}
+  description={config.META.description}
+  keywords={config.META.keywords}
+  canonical={config.META.canonical}
+  openGraph={{
+    title: config.META.title,
+    description: config.META.description,
+    url: config.META.canonical,
+    type: 'website',
+    images: [
+      {
+        url: config.META.canonical + config.META.og_image,
+        width: 800,
+        height: 400,
+        alt: 'Logo projection transition'
+      }
+     ]
+  }},
+  twitter={{
+    site: "",
+    title: config.META.title,
+    description: config.META.description,
+    image: config.META.canonical + config.META.og_image,
+    imageAlt: "logo projection transition",
+  }}
+/>
 
 
 {#if isAuthenticate}

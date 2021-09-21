@@ -13,6 +13,8 @@
 
 	import Page from "./screens/Page.svelte";
 
+	//import config from "./config.json";
+
 	const routes = {
 		'/article/:category/:id': wrap({ component: Article}),
 		'/film/:id': wrap({ component: Film}),
@@ -24,10 +26,10 @@
 
 </script>
 
-<svelte:head>
+<!-- <svelte:head>
   	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
   	<link rel="stylesheet" href="/global.css">
-</svelte:head>
+</svelte:head> -->
 
 <header>
 	<Nav />

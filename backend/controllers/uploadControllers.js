@@ -31,9 +31,11 @@ const checkAndCreateImage1000x250Folder = asyncHandler(async (req, res, next) =>
 // @access  Private
 const deleteImage = asyncHandler(async (req, res, next) => {
 
-    //console.log('start delteImage');
+    console.log('start delteImage');
     try {
+
         const name = req.query.url.split('/uploads')[1];
+        console.log('name');
         const directory = path.resolve() + '/uploads';
 
         //console.log('file to delete', name, 'in directory', directory);

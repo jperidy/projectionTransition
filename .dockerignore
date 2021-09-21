@@ -5,4 +5,6 @@ frontend
 uploads
 _images
 _backup
+_backup-volume
 _sources
+docker-copy-backup.bash

@@ -102,7 +102,7 @@ import EditButton from "./EditButton.svelte";
 <div class='content-container'>
 <Row>
     <Col>  
-        <Modal isOpen={edit} {toggle}>
+        <Modal isOpen={edit} {toggle} size='lg' scrollable>
             <ModalHeader {toggle}>Editer le contenu de la Card</ModalHeader>
             <ModalBody>
               <Row>

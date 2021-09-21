@@ -1,6 +1,16 @@
 {
-    "SVELTE_ENV": "dev",
+    "SVELTE_ENV": "production",
     "API_URL_DEV": "http://localhost:5000",
     "API_URL_PREPROD": "https://dev.projtranapi.jprdev.ovh",
-    "API_URL_PROD": "https://dev.projtranapi.jprdev.ovh"
+    "API_URL_PROD": "https://dev.projtranapi.jprdev.ovh",
+    "META": {
+        "title": "Projection Transition",
+        "description": "Retrouvez toutes les informations sur le festival Projection Transition",
+        "keywords": "écologie, transition, projection transition, cinéma, shiftProject",
+        "robots": "index, follow",
+        "canonical": "https://dev.projtran.jprdev.ovh/",
+        "og_type": "website",
+        "og_image": "images/logo-projection-transition.png",
+        "og_twitter_image": "images/og_logo.jpg"
+    }
 }

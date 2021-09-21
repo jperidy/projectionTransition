@@ -2,8 +2,11 @@
 
     import { Button, Col, Icon, Input, Modal, ModalBody, ModalFooter, ModalHeader, Row } from "sveltestrap";
     import { uploadImage } from "../actions/imagesActions";
-
     import EditButton from "./EditButton.svelte";
+    import config from '../config.json';
+
+    const API_URL = config.SVELTE_ENV === 'dev' ? config.API_URL_DEV : config.SVELTE_ENV === 'preprod' ? config.API_URL_PREPROD : config.SVELTE_ENV === 'production' ? config.API_URL_PROD : config.API_URL_DEV;
+
 
     export let values=[];
     export let styles=[];
@@ -102,7 +105,7 @@
             <Input type='text' name='text' class='my-3' bind:value={values[0].substitution} placeholder='Substitution text'/>
             <p class='my-3'><strong>Prévisualisation</strong></p>
             <figure class='figure' style={`transform: rotate(${transformR}deg) translateX(${transformX}vh) translateY(${transformY}vh) scale(${scaleXY, scaleXY});`}>
-                <img class={`figure-img img-fluid ${rounded} ${shadow}`} src={values[0].url} alt={values[0].substitution}>
+                <img class={`figure-img img-fluid ${rounded} ${shadow}`} src={`${API_URL}${values[0].url}`} alt={values[0].substitution}>
                 <figcaption class='figure-caption'>{values[0].caption}</figcaption>
             </figure>
             <div class='row py-1'>
@@ -158,7 +161,7 @@
                 <div class='bg-secondary text-center text-white' style='min-height:100px;'>Image</div>
             {/if}
             <figure class='figure' style={`transform: rotate(${transformR}deg) translateX(${transformX}vh) translateY(${transformY}vh) scale(${scaleXY, scaleXY});`}>
-                <img class={`figure-img img-fluid ${rounded} ${shadow}`} src={values[0].url} alt={values[0].substitution}>
+                <img class={`figure-img img-fluid ${rounded} ${shadow}`} src={`${API_URL}${values[0].url}`} alt={values[0].substitution}>
                 <figcaption class='figure-caption'>{values[0].caption}</figcaption>
             </figure>
         </div>

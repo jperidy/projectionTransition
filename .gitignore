@@ -7,5 +7,7 @@ adminAccount
 _images
 /config.json
 _backup
+_backup-volume
 _images
 _sources
+docker-copy-backup.bash

@@ -24,9 +24,11 @@ export const uploadImage = async(file, imageToDelete) => {
             await axios.delete(`${API_URL}/api/upload/images?url=${imageToDelete}`, config);
         }
 
+        console.log('file', file);
         const { data } = await axios.post(`${API_URL}/api/upload/images/1000x250`, file, config);
 
-        return { status: 'Ok', data: `${API_URL}${data.path}` };
+        //return { status: 'Ok', data: `${API_URL}${data.path}` };
+        return { status: 'Ok', data: `${data.path}` };
         
     } catch (error) {
         return { status: 'Error', data: error.response && error.response.data.message
