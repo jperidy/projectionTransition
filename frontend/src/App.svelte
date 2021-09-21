@@ -4,6 +4,11 @@
 	
 	import Router from 'svelte-spa-router';
 	import { wrap } from 'svelte-spa-router/wrap';
+
+	// import { Router, Link, Route } from "svelte-routing";
+	// export let url = "";
+
+
 	import Footer from './components/Footer.svelte';
 
 	import Nav from "./components/Nav.svelte";
@@ -34,6 +39,18 @@
 <header>
 	<Nav />
 </header>
+
+<!-- <Router url="{url}">
+	<div>
+	  <Route path="/article/:category/:id" component="{Article}" />
+	  <Route path="/film/:id" component="{Film}" />
+	  <Route path="/:name/:city" component="{Page}" />
+	  <Route path="/:name" component="{Page}" />
+	  <Route path="/login" component={Login}/>
+	  <Route path="/" component={Page}/>
+	</div>
+</Router> -->
+
 
 <main>
 	<Router { routes }/>

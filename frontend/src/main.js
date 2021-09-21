@@ -4,6 +4,7 @@ import '../css/mains.min.css';
 
 const app = new App({
 	target: document.body,
+	//hydrate: true,
 	props: {
 		name: 'projection transition'
 	}
