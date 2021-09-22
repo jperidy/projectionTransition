@@ -6,6 +6,8 @@ import { terser } from 'rollup-plugin-terser';
 import css from 'rollup-plugin-css-only';
 import json from "@rollup/plugin-json";
 
+import ssr from "rollup-plugin-svelte-ssr";
+
 const production = !process.env.ROLLUP_WATCH;
 
 function serve() {
@@ -32,6 +34,8 @@ function serve() {
 export default {
 	input: 'src/main.js',
 	output: {
+		// format: "cjs",
+    	// file: "dist/ssr.js"
 		sourcemap: true,
 		format: 'iife',
 		name: 'app',
@@ -39,6 +43,7 @@ export default {
 	},
 	plugins: [
 		svelte({
+			generate: "ssr",
 			compilerOptions: {
 				// enable run-time checks when not in production
 				dev: !production,
@@ -73,7 +78,14 @@ export default {
 
 		// If we're building for production (npm run build
 		// instead of npm run dev), minify
-		production && terser()
+		production && terser(),
+
+		// ssr({
+		// 	fileName: 'ssr.html',
+		// 	props: {
+		// 	  name: 'Hello',
+		// 	}
+		//   })
 	],
 	watch: {
 		clearScreen: false

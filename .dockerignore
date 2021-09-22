@@ -8,3 +8,4 @@ _backup
 _backup-volume
 _sources
 docker-copy-backup.bash
+frontend-sveltekit/build
