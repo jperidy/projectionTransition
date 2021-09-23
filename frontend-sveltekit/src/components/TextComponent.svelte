@@ -1,7 +1,7 @@
 <script>
     import SvelteMarkdown from "svelte-markdown";
 
-    import { Button, Col, Icon, Input, Modal, ModalBody, ModalFooter, ModalHeader, Row } from "sveltestrap";
+    import { Icon, Modal, ModalBody, ModalFooter, ModalHeader } from "sveltestrap";
 
     import EditButton from "./EditButton.svelte";
     import ParagrapheMarkdown from "./markdown/ParagrapheMarkdown.svelte";
@@ -18,7 +18,6 @@
 
     //components;
 
-    //const colors = ['primary', 'secondary', 'success', 'danger', 'warning', 'info', 'light', 'dark'];
     const colors = ['pomme', 'outremer', 'lavande', 'caraibe', 'tangerine', 'ambre', 'light', 'white', 'dark', 'black'];
 
     const toggle = async() => {

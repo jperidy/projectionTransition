@@ -2,7 +2,7 @@ import { deleteImage } from "../actions/imagesActions";
 
 export const recursiveDeleteAction = async (array) => {
 
-    console.log('recursive delete', array);
+    //console.log('recursive delete', array);
 
     // if no array passed (partner case)
     if (array.url && array.url.values.length) {

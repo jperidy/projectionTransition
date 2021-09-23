@@ -12,6 +12,7 @@
     import ProgrammationComponent from "./ProgrammationComponent.svelte";
     import EquipeComponent from "./EquipeComponent.svelte";
     import ContactForm from "./ContactForm.svelte";
+import LayoutComponent from "./LayoutComponent.svelte";
 
     export let type = '';
     export let updateContent = null;
@@ -125,6 +126,16 @@
 
 {#if type === 'contactComponent'}
     <ContactForm
+        bind:values={values}
+        bind:styles={styles}
+        updateContent={updateContent}
+        admin={admin}
+        edit={edit}
+    />
+{/if}
+
+{#if type === 'layoutComponent'}
+    <LayoutComponent
         bind:values={values}
         bind:styles={styles}
         updateContent={updateContent}

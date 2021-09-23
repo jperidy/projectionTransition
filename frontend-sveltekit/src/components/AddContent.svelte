@@ -4,6 +4,8 @@
 
   export let admin = false;
   export let addContent = null;
+  export let position = 0;
+  export let addToLayout = null;
 
   let type = '';
   let values = [];
@@ -15,6 +17,9 @@
   const toggle = async(save) => {
         if (open && addContent && save) {
             await addContent({type, values, styles });
+        }
+        if (open && addToLayout && save) {
+            await addToLayout({type, values, styles }, position);
         }
         open = !open;
   };
@@ -46,6 +51,7 @@
                   <Label for="exampleSelect">Select</Label>
                   <select class='form-select' type="select" name="select" id="exampleSelect" bind:value={type} on:change={onChangeHandler}>
                     <option value='' selected={type === ''}>--- select ---</option>
+                    <option value='layoutComponent' selected={type === 'layoutComponent'}>type LAYOUT</option>
                     <option value='textComponent' selected={type === 'textComponent'}>type TEXT</option>
                     <option value='imageComponent' selected={type === 'imageComponent'}>type IMAGE</option>
                     <option value='videoComponent' selected={type === 'videoComponent'}>type VIDEO</option>
