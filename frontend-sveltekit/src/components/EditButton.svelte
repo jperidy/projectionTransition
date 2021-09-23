@@ -18,7 +18,7 @@
     <Row class='text-end m-3'>
         <Col>
             <Button 
-                color='primary'
+                color='ambre'
                 on:click={() => modifyEdit()}
             ><Icon name={edit ? 'arrow-counterclockwise' : 'box-arrow-up-left'}/>
                 {edit ? 'Save' : 'Edit'}

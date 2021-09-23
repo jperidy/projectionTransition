@@ -66,7 +66,7 @@
 <div class='row mt-3 mb-5 gx-5 gy-3'>   
     {#each values[0].values as lieu, position}
         <!-- block pour chaque ville -->
-        <div class='col-sm-12 col-md-12'>
+        <div class='col-sm-12 col-md-6'>
             <MovingContent
                 array={values[0].values} 
                 position={position} 
@@ -88,128 +88,127 @@
                 </div>
             
                 <div class='row align-items-center'>
-                    <div class='col-sm-12 col-md-6'>                    
-                        <div class='row align-items-center mt-1'>
-                            <div class='col-2 text-end'>
-                                <i class="bi bi-geo-alt"></i>
-                            </div>
-                            <div class='col-10 text-start'>
-                                <a href={lieu.gmapsLink ? lieu.gmapsLink : (lieu.gmapsLink = '')} target="_blank">
-                                    <TextComponent 
-                                        bind:values={lieu.adresse.values}
-                                        bind:styles={lieu.adresse.styles}
-                                        edit={edit}
-                                        admin={admin}
-                                        updateContent={updateContent}
-                                    />
-                                </a>
+                    {#if admin}
+                        <div class='row'>
+                            <div class='col'>
+                                <span>Lien Google Maps :</span>
+                                <input class='form-control' type='text' bind:value={lieu.gmapsLink} on:change={updateContent}/>
                             </div>
                         </div>
-                        <div class='row align-items-center mt-1'>
-                            <div class='col-2 text-end'>
-                                <i class="bi bi-telephone"></i>
+                        <div class='row'>
+                            <div class='col'>
+                                <span>Latitude : </span>
+                                <input class='form-control' type='number' bind:value={lieu.latitude} step={0.00001} on:change={updateContent}/>
                             </div>
-                            <div class='col-10 text-start'>
+                        </div>
+                        <div class='row'>
+                            <div class='col'>
+                                <span>Longitude : </span>
+                                <input class='form-control' type='number' bind:value={lieu.longitude} step={0.00001} on:change={updateContent}/>
+                            </div>
+                        </div>
+                    {/if}
+                            
+                    <div class='row align-items-center'>
+                        <div class='col text-center my-3'>
+                            <MapComponent 
+                                latitude={lieu.latitude}
+                                longitude={lieu.longitude}
+                                adresse={lieu.adresse.values[0] ? lieu.adresse.values[0].value : 'Unknown'}
+                                mapid={position}
+                            />
+                        </div>
+                    </div>
+
+
+                    <div class='row align-items-center mt-1'>
+                        <div class='col-2 text-end'>
+                            <i class="bi bi-geo-alt"></i>
+                        </div>
+                        <div class='col-10 text-start'>
+                            <a href={lieu.gmapsLink ? lieu.gmapsLink : (lieu.gmapsLink = '')} target="_blank">
                                 <TextComponent 
-                                    bind:values={lieu.telephone.values}
-                                    bind:styles={lieu.telephone.styles}
+                                    bind:values={lieu.adresse.values}
+                                    bind:styles={lieu.adresse.styles}
+                                    edit={edit}
+                                    admin={admin}
+                                    updateContent={updateContent}
+                                />
+                            </a>
+                        </div>
+                    </div>
+                    <div class='row align-items-center mt-1'>
+                        <div class='col-2 text-end'>
+                            <i class="bi bi-telephone"></i>
+                        </div>
+                        <div class='col-10 text-start'>
+                            <TextComponent 
+                                bind:values={lieu.telephone.values}
+                                bind:styles={lieu.telephone.styles}
+                                edit={edit}
+                                admin={admin}
+                                updateContent={updateContent}
+                            />
+                        </div>
+                    </div>
+                    <div class='row align-items-center mt-1'>
+                        <div class='col-2 text-end'>
+                            <i class="bi bi-globe"></i>
+                        </div>
+                        {#if admin}
+                            <div class='row'>
+                                <div class='col'>
+                                    <span>Site web du cinéma :</span>
+                                    <input class='form-control' type='text' bind:value={lieu.internet} on:change={updateContent}/>
+                                </div>
+                            </div>
+                        {:else}
+                            <div class='col-10 text-start'>
+                                <a href={lieu.internet ? lieu.internet : (lieu.internet = '')} target="_blank">Accéder directement au site web du cinéma</a>
+                            </div>
+                        {/if}
+                    </div>                    
+                </div>
+                
+                <div class='mt-3'>
+                    <!-- Informations pratiques sur l'itinéraire -->
+                    <DropDownSection
+                        sectionTitle="Accés au site"
+                        visible={false}
+                        type="h4"
+                    >
+                        <div class='row align-items-center'>
+                            <div class='col-12 text-center'>
+                                <TextComponent 
+                                    bind:values={lieu.access.values}
+                                    bind:styles={lieu.access.styles}
                                     edit={edit}
                                     admin={admin}
                                     updateContent={updateContent}
                                 />
                             </div>
                         </div>
-                        <div class='row align-items-center mt-1'>
-                            <div class='col-2 text-end'>
-                                <i class="bi bi-globe"></i>
-                            </div>
-                            {#if admin}
-                                <div class='row'>
-                                    <div class='col'>
-                                        <span>Site web du cinéma :</span>
-                                        <input type='text' bind:value={lieu.internet} on:change={updateContent}/>
-                                    </div>
-                                </div>
-                            {:else}
-                                <div class='col-10 text-start'>
-                                    <a href={lieu.internet ? lieu.internet : (lieu.internet = '')} target="_blank">Accéder directement au site web du cinéma</a>
-                                </div>
-                            {/if}
-                        </div>
-                    </div>
-                    <div class='col-sm-12 col-md-6'>
-                        <div class='row align-items-center'>
-                            {#if admin}
-                                <div class='row'>
-                                    <div class='col'>
-                                        <span>Lien Google Maps :</span>
-                                        <input type='text' bind:value={lieu.gmapsLink} on:change={updateContent}/>
-                                    </div>
-                                </div>
-                                <div class='row'>
-                                    <div class='col'>
-                                        <span>Latitude : </span>
-                                        <input type='number' bind:value={lieu.latitude} step={0.00001} on:change={updateContent}/>
-                                    </div>
-                                </div>
-                                <div class='row'>
-                                    <div class='col'>
-                                        <span>Longitude : </span>
-                                        <input type='number' bind:value={lieu.longitude} step={0.00001} on:change={updateContent}/>
-                                    </div>
-                                </div>
-                            {/if}
-                            <div class='col text-center my-3'>
-                                <MapComponent 
-                                    latitude={lieu.latitude}
-                                    longitude={lieu.longitude}
-                                    adresse={lieu.adresse.values[0] ? lieu.adresse.values[0].value : 'Unknown'}
-                                    mapid={position}
+                    </DropDownSection>
+                    
+                    <!-- Informations pratiques sur le prix -->
+                    <DropDownSection
+                        sectionTitle="Tarifs"
+                        visible={false}
+                        type="h4"
+                    >
+                        <div class='row align-items-center mt-2'>
+                            <div class='col-12 text-center'>
+                                <TextComponent 
+                                    bind:values={lieu.tarifs.values}
+                                    bind:styles={lieu.tarifs.styles}
+                                    edit={edit}
+                                    admin={admin}
+                                    updateContent={updateContent}
                                 />
                             </div>
                         </div>
-
-                    </div>
+                    </DropDownSection>
                 </div>
-                
-                
-                <!-- Informations pratiques sur l'itinéraire -->
-                <DropDownSection
-                    sectionTitle="Accés au site"
-                    visible={false}
-                    type="h4"
-                >
-                    <div class='row align-items-center mt-2'>
-                        <div class='col-12 text-center'>
-                            <TextComponent 
-                                bind:values={lieu.access.values}
-                                bind:styles={lieu.access.styles}
-                                edit={edit}
-                                admin={admin}
-                                updateContent={updateContent}
-                            />
-                        </div>
-                    </div>
-                </DropDownSection>
-                
-                <!-- Informations pratiques sur le prix -->
-                <DropDownSection
-                    sectionTitle="Tarifs"
-                    visible={false}
-                    type="h4"
-                >
-                    <div class='row align-items-center mt-2'>
-                        <div class='col-12 text-center'>
-                            <TextComponent 
-                                bind:values={lieu.tarifs.values}
-                                bind:styles={lieu.tarifs.styles}
-                                edit={edit}
-                                admin={admin}
-                                updateContent={updateContent}
-                            />
-                        </div>
-                    </div>
-                </DropDownSection>
                     
             </div>
             </MovingContent>

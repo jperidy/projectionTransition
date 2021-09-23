@@ -45,6 +45,12 @@
 
 </script>
 
+<svelte:head>
+    <title>Login - Projection Transition</title>
+	<meta name='description' content={`Retrouvez toutes les informations sur le festival Projection Transition Login`} />
+	<meta name='keywords' content="écologie, transition, projection transition, cinéma, shiftProject, cine-debat" />
+</svelte:head>
+
 <CustomContainer>
     <Row class='my-5'>
         <Col>

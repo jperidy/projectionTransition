@@ -44,6 +44,9 @@
     import AdminButton from '../components/AdminButton.svelte';
     import MovingContent from '../components/MovingContent.svelte';
     import AddContent from '../components/AddContent.svelte';
+    import config from '../config.json';
+    const API_URL = config.SVELTE_ENV === 'dev' ? config.API_URL_DEV : config.SVELTE_ENV === 'preprod' ? config.API_URL_PREPROD : config.SVELTE_ENV === 'production' ? config.API_URL_PROD : config.API_URL_DEV;
+
 
     import { 
         userInfo, 
@@ -85,6 +88,22 @@
     };
 
 </script>
+
+<svelte:head>
+    <title>Projection Transition</title>
+	<meta name='description' content={`Retrouvez toutes les informations sur le festival Projection Transition ${pageRequest.content.name}`} />
+	<meta name='keywords' content="écologie, transition, projection transition, cinéma, shiftProject, cine-debat" />
+	<meta property="og:title" content="Projection Transition - Le festival ciné-débat pour la transition écologique" />
+	<meta property="og:type" content="website" />
+	<meta property="og:image" content={`${API_URL}/images/og_logo.jpg`} />
+	<meta property="og:image:width" content="800" />
+	<meta property="og:image:height" content="400" />
+	<meta property="og:url" content={`${API_URL}/`} />
+	<meta property="og:locale" content="fr_FR" />
+	<meta name="twitter:image" content={`${API_URL}/images/og_logo.jpg`} />
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta name="twitter:description" content="Retrouvez toutes les informations sur le festival Projection Transition" />
+</svelte:head>
 
 {#if isAuthenticate}
     <AdminButton 

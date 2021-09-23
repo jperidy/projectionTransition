@@ -5,6 +5,7 @@
 
     import TextComponent from "./TextComponent.svelte";
     import Loading from "./Loading.svelte";
+    import CustomContainer from "./CustomContainer.svelte";
     export let values=[];
     export let styles=[];
     export let admin='false';
@@ -36,64 +37,73 @@
 
 </script>
 
-<div class='mt-5'>
-    <div class='text-center my-3'>
-        <TextComponent 
-            bind:values={values[0].title.values}
-            bind:styles={values[0].title.styles}
-            edit={edit}
-            admin={admin}
-            updateContent={updateContent}
-        />
-    </div>
-
-    <form class="row contact-form" on:submit={sendEmailHandler}>
-        <div class="row mb-3 align-items-center">
-            <div class="col-4">
-                <label for="exampleInputEmail1" class="form-label">Adresse email pour vous joindre *</label>
-            </div>
-            <div class="col-5">
-                <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Email" required bind:value={email}>
-            </div>
-            <div class="col-3">
-                <div id="emailHelp" class="form-text">Nous ne partagerons pas votre adresse email.</div>
-            </div>
+<CustomContainer size={{xs: 12, sm:12, md:12, lg:6}}>
+    <div class='mt-5'>
+        <div class='text-center my-3'>
+            <TextComponent 
+                bind:values={values[0].title.values}
+                bind:styles={values[0].title.styles}
+                edit={edit}
+                admin={admin}
+                updateContent={updateContent}
+            />
         </div>
-        <div class="row mb-3 align-items-center">
-            <div class="col-4">
-                <label for="emailObject" class="form-label">Objet de votre message *</label>
-            </div>
-            <div class="col-5">
-                <input type="text" class="form-control" id="emailObject" aria-describedby="emailObjectHelper" placeholder="Objet de votre message" required bind:value={subject}>
-            </div>
-            <div class="col-3">
-                <div id="emailObjectHelper" class="form-text">L'objet nous permet d'orienter le traitement de votre message.</div>
-            </div>
-        </div>
-        <div class="row mb-3">
-            <div class='col'>
-                <label for="emailBody" class="form-label">Votre message *</label>
-                <textarea class="form-control" id="emailBody" aria-describedby="bodyHelper" placeholder="Votre message" required bind:value={body}></textarea>
-                <div id="bodyHelper" class="form-text" rows="4">Saisissez ici votre message.</div>
-            </div>
-        </div>
-        <div class='row'>
-            <div class='col text-start'>
-                <button type="submit" class="btn btn-primary">Envoyer</button>
-            </div>
-        </div>
-    </form>
-
-    {#if $emailSendRequest.message}
-        {#if $emailSendRequest.success}
-            <Message color='success'>{$emailSendRequest.message}</Message>
-        {:else}
-            <Message color='warning'>{$emailSendRequest.message}</Message>
-        {/if}
-    {/if}
     
-    {#if $emailSendRequest.loading}
-        <Loading color='secondary' number={3} />
-    {/if}
+        <form class="row contact-form" on:submit={sendEmailHandler}>
+            
+            <div class="row align-items-center">
+                <div class="col-4">
+                    <label for="exampleInputEmail1" class="form-label">Adresse email pour vous joindre *</label>
+                </div>
+                <div class="col-8">
+                    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Email" required bind:value={email}>
+                </div>
+            </div>
+            <div class='row mb-3'>
+                <div class="col text-end">
+                    <div id="emailHelp" class="form-text">Nous ne partagerons pas votre adresse email.</div>
+                </div>
+            </div>
 
-</div>
+            <div class="row align-items-center">
+                <div class="col-4">
+                    <label for="emailObject" class="form-label">Objet de votre message *</label>
+                </div>
+                <div class="col-8">
+                    <input type="text" class="form-control" id="emailObject" aria-describedby="emailObjectHelper" placeholder="Objet de votre message" required bind:value={subject}>
+                </div>
+            </div>
+            <div class='row mb-3'>
+                <div class="col text-end">
+                    <div id="emailObjectHelper" class="form-text">L'objet nous permet d'orienter le traitement de votre message.</div>
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <div class='col'>
+                    <label for="emailBody" class="form-label">Votre message *</label>
+                    <textarea class="form-control" id="emailBody" aria-describedby="bodyHelper" placeholder="Votre message" rows="6" required bind:value={body}></textarea>
+                    <div id="bodyHelper" class="form-text">Saisissez ici votre message.</div>
+                </div>
+            </div>
+            <div class='row'>
+                <div class='col text-start'>
+                    <button type="submit" class="btn btn-primary">Envoyer</button>
+                </div>
+            </div>
+        </form>
+    
+        {#if $emailSendRequest.message}
+            {#if $emailSendRequest.success}
+                <Message color='success'>{$emailSendRequest.message}</Message>
+            {:else}
+                <Message color='warning'>{$emailSendRequest.message}</Message>
+            {/if}
+        {/if}
+        
+        {#if $emailSendRequest.loading}
+            <Loading color='secondary' number={3} />
+        {/if}
+    
+    </div>
+</CustomContainer>

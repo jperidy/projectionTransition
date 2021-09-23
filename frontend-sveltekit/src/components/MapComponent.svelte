@@ -25,33 +25,8 @@
             }).addTo(myMap);
             // Add a marker
             L.marker([latitude, longitude]).addTo(myMap)
-                .bindPopup(`<b>${adresse}</b>`)
+                .bindPopup(`<b>${adresse.replaceAll(/[#|*|_]/g,'')}</b>`)
                 .openPopup();
-
-            // const createMap = (container) => {
-        
-            //     const myMap = L.map(container).setView([latitude, longitude], 13);
-        
-            //     L.tileLayer(tileLayerUrl, {
-            //         attribution: attribution
-            //     }).addTo(myMap);
-            //     // Add a marker
-            //     L.marker([latitude, longitude]).addTo(myMap)
-            //         .bindPopup(`<b>${adresse}</b>`)
-            //         .openPopup();
-        
-            //     return myMap;
-            // }
-        
-            // const mapAction = (container) => {
-            //     map = createMap(container);
-            //     return {
-            //         destroy: () => {
-            //             map.remove();
-            //             map = null;
-            //         }
-            //     }
-            // }
         }
 
     });

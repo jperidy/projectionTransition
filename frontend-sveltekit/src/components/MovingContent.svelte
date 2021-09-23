@@ -47,8 +47,8 @@
         border: dashed 1px;
     }
     .moving-container:hover {
-        -webkit-transform: scale(1.13);
-	    transform: scale(1.13);
+        -webkit-transform: scale(1.03);
+	    transform: scale(1.03);
         transition: .5s ease;
     }
 </style>

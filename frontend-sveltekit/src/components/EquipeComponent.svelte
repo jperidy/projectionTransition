@@ -42,19 +42,6 @@
 
 </script>
 
-<style>
-    .event-container {
-        -webkit-transform: scale(1);
-	    transform: scale(1);
-        transition: .5s ease;
-    }
-    .event-container:hover {
-        -webkit-transform: scale(1.13);
-	    transform: scale(1.13);
-        transition: .5s ease;
-    }
-</style>
-
 <!-- Nom de l'équipe -->
 <div class='row'>
     <div class='col'>
@@ -73,7 +60,7 @@
 <div class='row my-1'>
     {#each values[1].values as personne, position}
         <div class='col-sm-6 col-md-4 my-1'>
-            <div class='event-container p-2 mb-2 text-center'>
+            <div class='p-2 mb-2 text-center'>
             <MovingContent
                 array={values[1].values} 
                 position={position} 

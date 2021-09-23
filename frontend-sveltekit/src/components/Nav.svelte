@@ -69,11 +69,11 @@
                 <NavItem><NavLink class='text-dark mx-2' on:click={() => navigateHandler('/informationsPratiques')}><span class='titre'>INFORMATIONS PRATIQUES</span></NavLink></NavItem>
             </Dropdown>
             <Dropdown nav inNavbar>
-                <DropdownToggle class='text-dark ms-2 me-5' nav caret><span class='titre'>BILLETERIE</span></DropdownToggle>
+                <DropdownToggle class='text-dark ms-2 me-5' nav caret><span class='titre'>BILLETTERIE</span></DropdownToggle>
                 <DropdownMenu end class='bg-white'>
-                  <DropdownItem class='bg-white'><NavItem><NavLink on:click={() => navigateHandler('/billeterie/paris')}><span class='item'>Paris</span></NavLink></NavItem></DropdownItem>
-                  <DropdownItem class='bg-white'><NavItem><NavLink on:click={() => navigateHandler('/billeterie/nantes')}><span class='item'>Nantes</span></NavLink></NavItem></DropdownItem>
-                  <DropdownItem class='bg-white'><NavItem><NavLink on:click={() => navigateHandler('/billeterie/toulouse')}><span class='item'>Toulouse</span></NavLink></NavItem></DropdownItem>
+                  <DropdownItem class='bg-white'><NavItem><NavLink on:click={() => navigateHandler('/billetterie/paris')}><span class='item'>Paris</span></NavLink></NavItem></DropdownItem>
+                  <DropdownItem class='bg-white'><NavItem><NavLink on:click={() => navigateHandler('/billetterie/nantes')}><span class='item'>Nantes</span></NavLink></NavItem></DropdownItem>
+                  <DropdownItem class='bg-white'><NavItem><NavLink on:click={() => navigateHandler('/billetterie/toulouse')}><span class='item'>Toulouse</span></NavLink></NavItem></DropdownItem>
                 </DropdownMenu>
             </Dropdown>
       </Nav>
