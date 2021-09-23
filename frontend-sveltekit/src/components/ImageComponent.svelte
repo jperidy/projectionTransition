@@ -104,8 +104,8 @@
             <Input type='text' name='text' class='my-3' bind:value={values[0].caption} placeholder='Caption'/>
             <Input type='text' name='text' class='my-3' bind:value={values[0].substitution} placeholder='Substitution text'/>
             <p class='my-3'><strong>Prévisualisation</strong></p>
-            <figure class='figure' style={`transform: rotate(${transformR}deg) translateX(${transformX}vh) translateY(${transformY}vh) scale(${scaleXY, scaleXY});`}>
-                <img class={`figure-img img-fluid ${rounded} ${shadow}`} src={`${API_URL}${values[0].url}`} alt={values[0].substitution}>
+            <figure class='figure m-0 p-0' style={`transform: rotate(${transformR}deg) translateX(${transformX}vh) translateY(${transformY}vh) scale(${scaleXY, scaleXY});`}>
+                <img class={`figure-img img-fluid m-0 p-0 ${rounded} ${shadow}`} src={`${API_URL}${values[0].url}`} alt={values[0].substitution}>
                 <figcaption class='figure-caption'>{values[0].caption}</figcaption>
             </figure>
             <div class='row py-1'>
@@ -160,8 +160,8 @@
             {#if !values[0].url}
                 <div class='bg-secondary text-center text-white' style='min-height:100px;'>Image</div>
             {/if}
-            <figure class='figure' style={`transform: rotate(${transformR}deg) translateX(${transformX}vh) translateY(${transformY}vh) scale(${scaleXY, scaleXY});`}>
-                <img class={`figure-img img-fluid ${rounded} ${shadow}`} src={`${API_URL}${values[0].url}`} alt={values[0].substitution}>
+            <figure class='figure m-0 p-0' style={`transform: rotate(${transformR}deg) translateX(${transformX}vh) translateY(${transformY}vh) scale(${scaleXY, scaleXY});`}>
+                <img class={`figure-img img-fluid m-0 p-0 ${rounded} ${shadow}`} src={`${API_URL}${values[0].url}`} alt={values[0].substitution}>
                 <figcaption class='figure-caption'>{values[0].caption}</figcaption>
             </figure>
         </div>

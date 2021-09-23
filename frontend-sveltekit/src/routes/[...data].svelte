@@ -71,6 +71,7 @@
     let admin = false;
 
     const updateContent = async() => {
+        //console.log(pageRequest.content)
         pageRequest = await updateOrCreateContent(pageRequest.content);
     }
 
@@ -91,7 +92,7 @@
 
 <svelte:head>
     <title>Projection Transition</title>
-	<meta name='description' content={`Retrouvez toutes les informations sur le festival Projection Transition ${pageRequest.content.name}`} />
+	<meta name='description' content={`Retrouvez toutes les informations sur le festival Projection Transition ${pageRequest.content.name ? pageRequest.content.name : ''}`} />
 	<meta name='keywords' content="écologie, transition, projection transition, cinéma, shiftProject, cine-debat" />
 	<meta property="og:title" content="Projection Transition - Le festival ciné-débat pour la transition écologique" />
 	<meta property="og:type" content="website" />

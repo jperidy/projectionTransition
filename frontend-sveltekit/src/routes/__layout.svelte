@@ -21,9 +21,7 @@
     <meta name="twitter:image" content="https://dev.projtran.jprdev.ovh/images/og_logo.jpg" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:description" content="Retrouvez toutes les informations sur le festival Projection Transition" />
-
 </svelte:head>
-
 
 <Nav />
 <main>

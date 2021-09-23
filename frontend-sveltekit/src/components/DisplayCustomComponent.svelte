@@ -12,7 +12,7 @@
     import ProgrammationComponent from "./ProgrammationComponent.svelte";
     import EquipeComponent from "./EquipeComponent.svelte";
     import ContactForm from "./ContactForm.svelte";
-import LayoutComponent from "./LayoutComponent.svelte";
+    import LayoutComponent from "./LayoutComponent.svelte";
 
     export let type = '';
     export let updateContent = null;

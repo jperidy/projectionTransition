@@ -54,7 +54,7 @@
 </style>
 
 {#if admin}
-    <div class='moving-container border-light rounded-3 mt-3 mb-1 p-3 bg-dark shadow-lg'>
+    <div class='moving-container border-light rounded-3 mt-3 mb-1 p-3 bg-lavande shadow-lg'>
         <Row class='align-items-center'>
             <Col class='text-center mb-2'>
                 <Button class='mx-3' color='secondary' on:click={() => upAction()}><Icon name='caret-up'/>  UP</Button>

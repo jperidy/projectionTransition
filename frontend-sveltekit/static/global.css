@@ -1,27 +1,28 @@
 @font-face {
     font-family: 'omotenashi_2regular';
     src: url('fonts/omotenashi2-4be39-webfont.woff2') format('woff2'),
-         url('fonts/omotenashi2-4be39-webfont.woff') format('woff');
+        url('fonts/omotenashi2-4be39-webfont.woff') format('woff');
     font-weight: normal;
     font-style: normal;
 }
 
 @font-face {
-	font-family: 'Roboto-Regular';
-	src: url('fonts/Roboto-Regular.eot');
-	src: local('☺'), url('fonts/Roboto-Regular.woff') format('woff'), url('fonts/Roboto-Regular.ttf') format('truetype'), url('fonts/Roboto-Regular.svg') format('svg');
-	font-weight: normal;
-	font-style: normal;
+    font-family: 'Roboto-Regular';
+    src: url('fonts/Roboto-Regular.eot');
+    src: local('☺'), url('fonts/Roboto-Regular.woff') format('woff'), url('fonts/Roboto-Regular.ttf') format('truetype'), url('fonts/Roboto-Regular.svg') format('svg');
+    font-weight: normal;
+    font-style: normal;
 }
 
 :global(body) {
-	/* this will apply to <body> */
-	padding: 2vh;
+    /* this will apply to <body> */
+    padding: 0vh;
 }
 main {
-	margin-top: 20vh;
-	min-height: 80vh;
-}
-footer {
-	margin-top: 10vh;
+    background-image: url('images/fond.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    padding-top: 20vh;
+    padding-bottom: 5vh;
+    min-height: 100vh;
 }
