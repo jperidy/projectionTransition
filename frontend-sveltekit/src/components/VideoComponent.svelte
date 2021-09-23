@@ -1,6 +1,6 @@
 <script>
 
-import { Button, Col, Input, Label, Modal, ModalBody, ModalFooter, ModalHeader, Row } from "sveltestrap";
+import { Button, Col, Icon, Input, Label, Modal, ModalBody, ModalFooter, ModalHeader, Row } from "sveltestrap";
 import EditButton from "./EditButton.svelte";
 
 
@@ -57,6 +57,23 @@ import EditButton from "./EditButton.svelte";
             size = styles.filter( x => x.name === 'maxWidth')[0].size;
         }
     }
+
+    const updateStyle = ({name, value}) => {
+        const curentStyleItem = styles.filter(x => x.name === name);
+        if (curentStyleItem.length) {
+            for (let index = 0; index < styles.length; index++) {
+                if (styles[index].name === name) {
+                    styles[index].value = value;
+                }
+            }
+        } else {
+            styles = [...styles, {name, value}];
+        }
+        styles = styles;
+    };
+
+    $: textAlign = styles.filter(x => x.name === 'text-align')[0] && styles.filter(x => x.name === 'text-align')[0].value;
+
 
 </script>
 
@@ -121,6 +138,11 @@ import EditButton from "./EditButton.svelte";
                                 <option value='normal'>Normal 500px [default]</option>
                                 <option value='large'>Large 1000px</option>
                             </select>
+                            <div class='row py-1'><div class='col'>
+                                <button class='px-1 btn btn-light' on:click={() => updateStyle({name:'text-align', value:'margin-right: auto;'})}><Icon name='text-left' /></button>
+                                <button class='px-1 btn btn-light' on:click={() => updateStyle({name:'text-align', value:'margin-left: auto;margin-right: auto'})}><Icon name='text-center' /></button>
+                                <button class='px-1 btn btn-light' on:click={() => updateStyle({name:'text-align', value:'margin-left: auto'})}><Icon name='text-right' /></button>
+                            </div></div>
                         </Col>
                     </Row>
                     <Row class='my-3'>
@@ -144,8 +166,9 @@ import EditButton from "./EditButton.svelte";
         <div class='content'>
         <Row class='my-3'>
             <Col>
-                <div class='video-dimension' style={`max-width:${styles.filter(x => x.name === 'maxWidth')[0].value};margin-left: auto;margin-right: auto;`}>
-                    <div class="video-container">
+                <!-- <div class='video-dimension' style={`max-width:${styles.filter(x => x.name === 'maxWidth')[0].value};margin-left: auto;margin-right: auto;`}> -->
+                <div class='video-dimension' style={`max-width:${styles.filter(x => x.name === 'maxWidth')[0].value};${textAlign};`}>
+                    <div class={`video-container`}>
                         <iframe 
                             width="1280"
                             height="720"

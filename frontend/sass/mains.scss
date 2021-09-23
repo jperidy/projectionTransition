@@ -11,6 +11,9 @@ $gray-800: #3c3f78;
 $gray-900: #18233c;
 $black:    #000;
 
+$lavande:       #7c79b9;
+$ambre:         #fbdd2d;
+
 $blue:    #3c3f78;
 $indigo:  #6610f2;
 $purple:  #7c79b9;
@@ -22,7 +25,7 @@ $green:   #2aa13e;
 $teal:    #20c997;
 $cyan:    #268bd2;
 
-$primary:       #f47b20;
+$primary:       $ambre;
 $secondary:     #dbe797;
 $success:       $green;
 $info:          $cyan;
@@ -31,7 +34,6 @@ $danger:        $red;
 $light:         $gray-100;
 $dark:          $gray-800;
 
-$lavande:       #7c79b9;
 
 $theme-colors: (
     "primary":    $primary,
@@ -72,7 +74,7 @@ $body-color:                $white;
 
 // Links
 
-$link-color:                $dark;
+$link-color:                $white;
 $link-hover-color:          $purple;
 
 // Components

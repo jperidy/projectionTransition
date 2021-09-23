@@ -72,3 +72,4 @@ Editer le fichier docker-compose.yml pour tout besoin de modification du paramé
 # Dimensions à privilégier pour les images
 - Photos équipe : 400 x 300 px
 - Images partenaires : 400 x 400 px
+- Images pour carousel : 1000 x 500 px

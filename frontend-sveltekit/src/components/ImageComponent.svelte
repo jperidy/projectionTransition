@@ -52,6 +52,7 @@
     // styles section
     $: shadow = styles.filter(x => x.name === 'shadow')[0] && styles.filter(x => x.name === 'shadow')[0].value;
     $: rounded = styles.filter(x => x.name === 'rounded')[0] && styles.filter(x => x.name === 'rounded')[0].value;
+    $: textAlign = styles.filter(x => x.name === 'text-align')[0] && styles.filter(x => x.name === 'text-align')[0].value;
     
     $: transformR = styles.filter(x => x.name === 'transformR')[0] ? styles.filter(x => x.name === 'transformR')[0].value : 0;
     $: transformX = styles.filter(x => x.name === 'transformX')[0] ? styles.filter(x => x.name === 'transformX')[0].value : 0;
@@ -99,15 +100,15 @@
     <ModalHeader {toggle}>Editer l'image</ModalHeader>
     <ModalBody>
     <Row>
-        <Col>
+        <Col class={`col`}>
             <Input type='file' name='image-url' on:change={(e) => onChangeHandler (0, e)} />
             <Input type='text' name='text' class='my-3' bind:value={values[0].caption} placeholder='Caption'/>
             <Input type='text' name='text' class='my-3' bind:value={values[0].substitution} placeholder='Substitution text'/>
-            <p class='my-3'><strong>Prévisualisation</strong></p>
-            <figure class='figure m-0 p-0' style={`transform: rotate(${transformR}deg) translateX(${transformX}vh) translateY(${transformY}vh) scale(${scaleXY, scaleXY});`}>
-                <img class={`figure-img img-fluid m-0 p-0 ${rounded} ${shadow}`} src={`${API_URL}${values[0].url}`} alt={values[0].substitution}>
-                <figcaption class='figure-caption'>{values[0].caption}</figcaption>
-            </figure>
+            <div class='row py-1'><div class='col'>
+                <button class='px-1 btn btn-light' on:click={() => updateStyle({name:'text-align', value:'text-start'})}><Icon name='text-left' /></button>
+                <button class='px-1 btn btn-light' on:click={() => updateStyle({name:'text-align', value:'text-center'})}><Icon name='text-center' /></button>
+                <button class='px-1 btn btn-light' on:click={() => updateStyle({name:'text-align', value:'text-end'})}><Icon name='text-right' /></button>
+            </div></div>
             <div class='row py-1'>
                 <div class='col'>
                     <Button class='px-1' on:click={() => updateStyle({name:'shadow', value:'shadow'})}><Icon name='back' /></Button>
@@ -145,6 +146,14 @@
                     <Input type='number' class='px-1' value={scaleXY} on:change={(e) => updateStyle({name:'scaleXY', value:e.target.value})} step={0.05} />
                 </div>
             </div>
+            <p class='my-3'><strong>Prévisualisation</strong></p>
+            <div class={`col ${textAlign}`}>
+                <figure class='figure m-0 p-0' style={`transform: rotate(${transformR}deg) translateX(${transformX}vh) translateY(${transformY}vh) scale(${scaleXY, scaleXY});`}>
+                    <img class={`figure-img img-fluid m-0 p-0 ${rounded} ${shadow}`} src={`${API_URL}${values[0].url}`} alt={values[0].substitution}>
+                    <figcaption class='figure-caption'>{values[0].caption}</figcaption>
+                </figure>
+            </div>
+            
         </Col>
     </Row>
     </ModalBody>
@@ -156,7 +165,7 @@
 
 <div class='content-container'>
     <div class='row'>
-        <div class='col'>   
+        <div class={`col ${textAlign}`}>   
             {#if !values[0].url}
                 <div class='bg-secondary text-center text-white' style='min-height:100px;'>Image</div>
             {/if}

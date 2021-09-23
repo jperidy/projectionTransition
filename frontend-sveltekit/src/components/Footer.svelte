@@ -16,9 +16,9 @@ import { goto } from "$app/navigation";
     <div class='col-sm-12 col-md-3 text-center'>
         <div class='row my-1'>
             <div class="col text-center" style='font-size:1.4rem'>
-                <span class='fw-bold' style="margin: 0px 15px;"><a class="" target="_blank" href="https://www.facebook.com/FestivalProjectionTransition/"><i class="bi bi-facebook"></i></a></span>
-                <span class='fw-bold' style="margin: 0px 15px;"><a class="" target="_blank" href="https://www.instagram.com/projectiontransition/"><i class="bi bi-instagram"></i></a></span>
-                <span class='fw-bold' style="margin: 0px 15px;"><a class="" target="_blank" href="mailto:contact@projectiontransition.fr"><i class="bi bi-envelope-fill"></i></a></span>
+                <span class='fw-bold' style="margin: 0px 15px;"><a class="" target="_blank" href="https://www.facebook.com/FestivalProjectionTransition/"><i class="bi bi-facebook text-dark"></i></a></span>
+                <span class='fw-bold' style="margin: 0px 15px;"><a class="" target="_blank" href="https://www.instagram.com/projectiontransition/"><i class="bi bi-instagram text-dark"></i></a></span>
+                <span class='fw-bold' style="margin: 0px 15px;"><a class="" target="_blank" href="mailto:contact@projectiontransition.fr"><i class="bi bi-envelope-fill text-dark"></i></a></span>
             </div>
         </div>
     </div>

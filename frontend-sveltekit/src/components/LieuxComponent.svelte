@@ -123,7 +123,7 @@
 
                     <div class='row align-items-center mt-1'>
                         <div class='col-2 text-end'>
-                            <i class="bi bi-geo-alt"></i>
+                            <i class="bi bi-geo-alt text-dark"></i>
                         </div>
                         <div class='col-10 text-start'>
                             <a href={lieu.gmapsLink ? lieu.gmapsLink : (lieu.gmapsLink = '')} target="_blank">
@@ -139,7 +139,7 @@
                     </div>
                     <div class='row align-items-center mt-1'>
                         <div class='col-2 text-end'>
-                            <i class="bi bi-telephone"></i>
+                            <i class="bi bi-telephone text-dark"></i>
                         </div>
                         <div class='col-10 text-start'>
                             <TextComponent 
@@ -153,7 +153,7 @@
                     </div>
                     <div class='row align-items-center mt-1'>
                         <div class='col-2 text-end'>
-                            <i class="bi bi-globe"></i>
+                            <i class="bi bi-globe text-dark"></i>
                         </div>
                         {#if admin}
                             <div class='row'>
@@ -164,7 +164,7 @@
                             </div>
                         {:else}
                             <div class='col-10 text-start'>
-                                <a href={lieu.internet ? lieu.internet : (lieu.internet = '')} target="_blank">Accéder directement au site web du cinéma</a>
+                                <a href={lieu.internet ? lieu.internet : (lieu.internet = '')} target="_blank" class='text-dark'>Accéder directement au site web du cinéma</a>
                             </div>
                         {/if}
                     </div>                    

@@ -51,7 +51,7 @@
 	<meta name='keywords' content="écologie, transition, projection transition, cinéma, shiftProject, cine-debat" />
 </svelte:head>
 
-<CustomContainer>
+<CustomContainer size ={{ xs: 12, sm:6, md:6, lg:6 }}>
     <Row class='my-5'>
         <Col>
             <h3>Login</h3>
