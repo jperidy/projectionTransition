@@ -1,9 +1,9 @@
 # Version de démonstration
----
+
 https://dev.projtran.jprdev.ovh/
 
 # Installation locale (dev)
----
+
 - $ git clone https://github.com/jperidy/projectionTransition
 - $ npm install
 - $ cd frontend-sveltekit npm install
@@ -43,11 +43,11 @@ A la racine :
 - $ npm run dev >> pour lancer simultanément le frontend et le backend avec nodemon
 
 # Déployer l'application sans docker
----
+
 [TODO]
 
 # Déployer l'application avec docker
----
+
 ## Générer le docker pour le backend
 Ouvrir le fichier docker-build.bash et changer le nom du repo dockerhub
 - $ . docker-build <version>
@@ -72,7 +72,7 @@ Editer le fichier docker-compose.yml pour tout besoin de modification du paramé
 $ . docker-start.bash
 
 # Migrer les données de la préprod vers la production
----
+
 ## Avec Docker
 ### Backuper et restaurer les données du volume
 ### Backuper et restaurer les données de la base MongoDB
@@ -82,7 +82,7 @@ $ . docker-start.bash
 ### Backuper et restaurer les données de la base MongoDB
 
 # Autres
----
+
 ## Dimensions à privilégier pour les images
 - Photos équipe : 400 x 300 px
 - Images partenaires : 400 x 400 px
