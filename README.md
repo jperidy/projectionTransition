@@ -42,10 +42,10 @@ Dans le docker frontend-sveltekit/src/ créer le fichier config.json et le compl
 ## Commandes pour lancer l'application depuis la racine du répertoire
 A la racine :
 ```
--$ npm run start >> pour lancer le backend
--$ npm run server >> pour lancer le backend avec nodemon
--$ npm run client >> pour lancer le frontend
--$ npm run dev >> pour lancer simultanément le frontend et le backend avec nodemon
+> npm run start >> pour lancer le backend
+> npm run server >> pour lancer le backend avec nodemon
+> npm run client >> pour lancer le frontend
+> npm run dev >> pour lancer simultanément le frontend et le backend avec nodemon
 ```
 # Déployer l'application sans docker
 
@@ -55,7 +55,7 @@ A la racine :
 
 ## Générer le docker pour le backend
 Ouvrir le fichier docker-build.bash et changer le nom du repo dockerhub
-- $ . docker-build <version>
+> $ . docker-build <version>
 Par défaut le backend sera exposé sur le port 5000.
 ### Attention Sécurité
 Votre fichier config.json contient des informations sensibles. Le script pousse automatiquement l'image du docker sur dockerhub. Assurez vous que ce répertoire est privé ou supprimez les lignes push.
@@ -64,7 +64,7 @@ Votre fichier config.json contient des informations sensibles. Le script pousse 
 Ouvrir le fichier frontend-sveltekit/docker-build.bash et changer le nom du repo dockerhub
 
 Ouvrir le fichier frontend-sveltekit/source/config/backend_api.js et modifier l'url à laquelle sera joignable votre backend
-- $ . docker-build <version>
+> $ . docker-build <version>
 Par défaut le frontend sera exposé sur le port 80 (servi par un nginx dont la configuration est disponible dans frontend/nginx)
 
 ## Préparer votre serveur (cas d'un VPS)
@@ -74,7 +74,7 @@ Par défaut le frontend sera exposé sur le port 80 (servi par un nginx dont la 
 
 ## Deployer et lancer vos dockers sur le serveur
 Editer le fichier docker-compose.yml pour tout besoin de modification du paramétrage
-$ . docker-start.bash
+>$ . docker-start.bash
 
 # Migrer les données de la préprod vers la production
 
