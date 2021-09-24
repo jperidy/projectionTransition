@@ -13,9 +13,10 @@
         const id = page.params.id ? page.params.id : null;
         
         filmRequest = await getFilm(id);
-        //console.log(filmRequest);
 
-        return {props: {filmRequest, id, redirection}};
+        //console.log(page)
+
+        return {props: {filmRequest, id, redirection, page}};
     }
 
 </script>
@@ -35,17 +36,18 @@
     import { goto } from '$app/navigation';
     import { onMount } from 'svelte';
 
+    import config from '../../config.json';
+    const SITE_URL = config.SVELTE_ENV === 'dev' ? config.SITE_URL_DEV : config.SVELTE_ENV === 'preprod' ? config.SITE_URL_PREPROD : config.SVELTE_ENV === 'production' ? config.SITE_URL_PROD : config.SITE_URL_DEV;
     
     export let filmRequest;
     export let id;
     export let redirection;
-
-    //console.log(filmRequest);
+    export let page;
     
     // redirect to login page if requested
     onMount(() => {
         if (redirection.length > 1) {
-                goto(`/login?redirection=${redirection[0]}`);
+            goto(`/login?redirection=${redirection[0]}`);
         }
     });
 
@@ -55,12 +57,7 @@
     let admin = false;
     let edit = false;
 
-    // $: {
-    //     getFilm(id);
-    // }
-
     const updateFilm = async () => {
-        //console.log('create here function to create or update the film');
         await updateFilmRequest(id, filmRequest.film);
     };
 
@@ -72,7 +69,6 @@
             description: {values:[], styles:[]},
             complement:{values:[], styles:[]}
         }];
-        //filmRequest.set(tempFilmRequest);
         filmRequest = tempFilmRequest;
         updateFilm();
     };
@@ -86,6 +82,22 @@
     };
 
 </script>
+
+<svelte:head>
+    <title>Projection Transition {filmRequest.film.title.values.length ? filmRequest.film.title.values[0].value.replaceAll(/[#|*|_]/g, '') : ''}</title>
+	<meta name='description' content={`Retrouvez toutes les informations sur le festival Projection Transition ${filmRequest.film.title.values.length ? filmRequest.film.title.values[0].value.replaceAll(/[#|*|_]/g, '') : ''}`} />
+	<meta name='keywords' content="écologie, transition, projection transition, cinéma, shiftProject, cine-debat" />
+	<meta property="og:title" content={`Projection Transition - Participez à la projection de ${filmRequest.film.title.values.length ? filmRequest.film.title.values[0].value.replaceAll(/[#|*|_]/g, '') : ''}`} />
+	<meta property="og:type" content="website" />
+	<meta property="og:image" content={`${SITE_URL}/images/og_logo.jpg`} />
+	<meta property="og:image:width" content="800" />
+	<meta property="og:image:height" content="400" />
+	<meta property="og:url" content={`${page.host}${page.path}`} />
+	<meta property="og:locale" content="fr_FR" />
+	<meta name="twitter:image" content={`${SITE_URL}/images/og_logo.jpg`} />
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta name="twitter:description" content={`Projection Transition - Participez à la projection de ${filmRequest.film.title.values.length ? filmRequest.film.title.values[0].value.replaceAll(/[#|*|_]/g, '') : ''}`} />
+</svelte:head>
 
 {#if isAuthenticate}
     <AdminButton
@@ -115,7 +127,7 @@
     <CustomContainer size={{xs: 12, sm:12, md:12, lg:12}}>
         <div class='row mt-5'>
             <!-- contents for conference -->
-            <div class='col-sm-12 col-md-6'>
+            <div class='col-sm-12 col-md-5'>
                 <div class='row align-items-center'>
                     <div class='col-2'>
                     </div>
@@ -150,8 +162,8 @@
                             </div>
                         </div>
                         <div class='col-10'>
-                            <div class='row'>
-                                <div class='col-sm-12 col-md-8'>
+                            <!-- <div class='row'>
+                                <div class='col-sm-12 col-md-8'> -->
                                     <TextComponent
                                         bind:values={action.titre.values}
                                         bind:styles={action.titre.styles}
@@ -166,8 +178,6 @@
                                         edit={edit}
                                         updateContent={updateFilm}
                                     />
-                                </div>
-                                <div class='col-sm-12 col-md-4'>
                                     <TextComponent
                                         bind:values={action.complement.values}
                                         bind:styles={action.complement.styles}
@@ -175,8 +185,10 @@
                                         edit={edit}
                                         updateContent={updateFilm}
                                     />
-                                </div>
-                            </div>
+                                <!-- </div> -->
+                                <!-- <div class='col-sm-12 col-md-4'>
+                                </div> -->
+                            <!-- </div> -->
                         </div>
                     </div>
                     </MovingContent>
@@ -187,7 +199,7 @@
             </div>
 
             <!-- content for film -->
-            <div class='col-sm-12 col-md-6'>
+            <div class='col-sm-12 col-md-7'>
                 <div class='row'>
                     <div class='col-sm-12 col-md-6 text-center mt-5'>
                         <ImageComponent
@@ -247,7 +259,7 @@
         </div>
         <div class='row mt-5'>
             <div class='col text-center'>
-                <button on:click={() => goto(`/programmation/${filmRequest.film.location}`)}>
+                <button class='btn btn-white border border-white' on:click={() => goto(`/programmation/${filmRequest.film.location}`)}>
                     <i class="bi bi-box-arrow-in-left"></i>
                     Retour à la programmation
                 </button>

@@ -1,8 +1,10 @@
 <script>
-
+import { uploadVideo } from "../actions/videosActions";
 import { Button, Col, Icon, Input, Label, Modal, ModalBody, ModalFooter, ModalHeader, Row } from "sveltestrap";
 import EditButton from "./EditButton.svelte";
-
+import config from '../config.json';
+const API_URL = config.SVELTE_ENV === 'dev' ? config.API_URL_DEV : config.SVELTE_ENV === 'preprod' ? config.API_URL_PREPROD : config.SVELTE_ENV === 'production' ? config.API_URL_PROD : config.API_URL_DEV;
+let local = false;
 
     export let values=[];
     export let styles=[];
@@ -42,6 +44,13 @@ import EditButton from "./EditButton.svelte";
     $: {
         if (values.length === 0) {
             values.push({
+                type: 'youtube',
+                url: '',
+            })
+        }
+        if (values.length === 1) {
+            values.push({
+                type: 'local',
                 url: '',
             })
         }
@@ -74,6 +83,22 @@ import EditButton from "./EditButton.svelte";
 
     $: textAlign = styles.filter(x => x.name === 'text-align')[0] && styles.filter(x => x.name === 'text-align')[0].value;
 
+    const onChangeHandler = async(index, e) => {
+        const data = new FormData();
+
+        data.append('video', e.target.files[0]);
+
+        const videoToReplace = values[index].url;
+        
+        const result = await uploadVideo(data, videoToReplace);
+
+        if (result.status === 'Ok') {
+            values[index].url = result.data;
+            values = values;
+        } else {
+            console.log('error', result.data);
+        }
+    };
 
 </script>
 
@@ -113,6 +138,15 @@ import EditButton from "./EditButton.svelte";
         width: 100%;
         height: 100%;
     }
+
+    .video-insert {
+        min-width: 100%; 
+        min-height: 100%;
+        width: 100%; 
+        height: 100%;
+        background-size: cover;
+        overflow: hidden;
+    }
     
 </style>
 
@@ -126,13 +160,15 @@ import EditButton from "./EditButton.svelte";
                 <Col>
                     <Row class='my-3'>
                         <Col>
-                            <Label for='input-text'>Enter video YouTube url</Label>
+                            <Label for='input-text'>URL de la vidéo Youtube</Label>
                             <Input type='text' name='text' id='input-text' bind:value={values[0].url} placeholder='url'/>
+                            <Label for='upload-video' class='mt-3'>Charger une vidéo localement</Label>
+                            <Input type='file' class='h-1' on:change={(e) => onChangeHandler (1, e)}/>
                         </Col>
                         <Col>
                             <Label for='select-size'>Select display size</Label>
                             {size}
-                            <select id='select-size' name='select-size' bind:value={size} on:change={sizeChange}>
+                            <select class='form-control' id='select-size' name='select-size' bind:value={size} on:change={sizeChange}>
                                 <option value=''>--- select ---</option>
                                 <option value='small'>Smal 250px</option>
                                 <option value='normal'>Normal 500px [default]</option>
@@ -147,8 +183,7 @@ import EditButton from "./EditButton.svelte";
                     </Row>
                     <Row class='my-3'>
                         <Col>
-                            <Label for='upload-video'>Select video to upload [TODO]</Label>
-                            <Input type='file' class='h-1' />
+                            
                         </Col>
                     </Row>
 
@@ -165,21 +200,52 @@ import EditButton from "./EditButton.svelte";
         
         <div class='content'>
         <Row class='my-3'>
-            <Col>
-                <!-- <div class='video-dimension' style={`max-width:${styles.filter(x => x.name === 'maxWidth')[0].value};margin-left: auto;margin-right: auto;`}> -->
-                <div class='video-dimension' style={`max-width:${styles.filter(x => x.name === 'maxWidth')[0].value};${textAlign};`}>
-                    <div class={`video-container`}>
-                        <iframe 
-                            width="1280"
-                            height="720"
-                            src={values[0].url} 
-                            title="YouTube video player" 
-                            frameborder="0" 
-                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                            allowfullscreen
-                        ></iframe>
+            <Col class='text-center'>
+                {#if values[0].url}
+                    <div class='video-dimension' style={`max-width:${styles.filter(x => x.name === 'maxWidth')[0].value};${textAlign};`}>
+                        <div class={`video-container`}>
+                            <iframe 
+                                width="1280"
+                                height="720"
+                                src={values[0].url} 
+                                title="YouTube video player" 
+                                frameborder="0" 
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                                allowfullscreen
+                            ></iframe>
+                        </div>
                     </div>
-                </div>
+                {/if}
+                {#if values[1].url}
+                    <!-- Afficher la version locale si la version youtube n'est pas disponible -->
+                    {#if !values[0].url}
+                        <div class='video-local-dimension' style={`max-width:${styles.filter(x => x.name === 'maxWidth')[0].value};${textAlign};`}>
+                            <video class='video-insert' controls >
+                                <source src={API_URL + '/' + values[1].url} type="video/mp4">
+                                <source src={API_URL + '/' + values[1].url} type="video/webm">
+                                <source src={API_URL + '/' + values[1].url} type="video/ogg">
+                                <track default kind="captions"/>
+                                Sorry, your browser doesn't support embedded videos.
+                            </video>
+                        </div>
+                    {:else}
+                        <!-- si la version youtube est disponible on peut regarder optionnellement la version locale -->
+                        <button class='btn btn-sm btn-primary my-3' on:click={() => local = !local}>
+                            {local ? 'Retour' : 'Voir la version locale'}
+                        </button>
+                        {#if local}
+                            <div class='video-local-dimension' style={`max-width:${styles.filter(x => x.name === 'maxWidth')[0].value};${textAlign};`}>
+                                <video class='video-insert' controls >
+                                    <source src={API_URL + '/' + values[1].url} type="video/mp4">
+                                    <source src={API_URL + '/' + values[1].url} type="video/webm">
+                                    <source src={API_URL + '/' + values[1].url} type="video/ogg">
+                                    <track default kind="captions"/>
+                                    Sorry, your browser doesn't support embedded videos.
+                                </video>
+                            </div>
+                        {/if}
+                    {/if}
+                {/if}
             </Col>
         </Row>
         </div>

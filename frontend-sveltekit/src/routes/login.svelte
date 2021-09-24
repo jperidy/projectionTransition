@@ -14,6 +14,7 @@
     import { login } from '../actions/userActions';
     import { goto } from "$app/navigation";
     import { userInfo } from '../store';
+    import { browser } from '$app/env';
 
     let email = '';
     let password = '';
@@ -21,7 +22,7 @@
 
     $: {
         let isAuthenticate = $userInfo && $userInfo.profil === 'admin' ? true : false;
-        if (isAuthenticate) { goto(redirection); }
+        if (browser && isAuthenticate) { goto(redirection); }
     }
 
 

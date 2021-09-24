@@ -8,12 +8,9 @@
 
         const params = { name: 'homeContent', city:'' }
         
-        //console.log('page.params: ',page.params);
         let [name, city] = page.params.data.split('/');
-        //console.log('name: ', name, 'city: ', city);
         params.name = name !== '' ? name : 'homeContent' ;
         params.city = city ? city : '';
-        //console.log('name: ', name, 'city: ', city);
 
         //verify if login
         let redirection = page.path.split('/login');
@@ -26,7 +23,7 @@
             pageRequest = await getContent(pageName);
         }
 
-        return {props: {pageRequest, params, redirection}};
+        return {props: {pageRequest, params, redirection, page}};
     }
 
 </script>
@@ -36,6 +33,7 @@
     export let params;
     export let pageRequest;
     export let redirection;
+    export let page;
 
     import { updateOrCreateContent } from '../actions/pagesActions';
 
@@ -44,8 +42,9 @@
     import AdminButton from '../components/AdminButton.svelte';
     import MovingContent from '../components/MovingContent.svelte';
     import AddContent from '../components/AddContent.svelte';
+
     import config from '../config.json';
-    const API_URL = config.SVELTE_ENV === 'dev' ? config.API_URL_DEV : config.SVELTE_ENV === 'preprod' ? config.API_URL_PREPROD : config.SVELTE_ENV === 'production' ? config.API_URL_PROD : config.API_URL_DEV;
+    const SITE_URL = config.SVELTE_ENV === 'dev' ? config.SITE_URL_DEV : config.SVELTE_ENV === 'preprod' ? config.SITE_URL_PREPROD : config.SVELTE_ENV === 'production' ? config.SITE_URL_PROD : config.SITE_URL_DEV;
 
 
     import { 
@@ -58,6 +57,7 @@
     import Loading from '../components/Loading.svelte';
     import { goto } from '$app/navigation';
     import { onMount } from 'svelte';
+    import { browser } from '$app/env';
     
     // redirect to login page if requested
     onMount(() => {
@@ -67,7 +67,12 @@
     });
 
     $: isAuthenticate = $userInfo && $userInfo.profil === 'admin' ? true : false;
-    
+    $: {
+        if (browser && pageRequest.message && !isAuthenticate) {
+            goto('/');
+        }
+    }
+
     let admin = false;
 
     const updateContent = async() => {
@@ -84,24 +89,26 @@
     const addContent = async(item) => {
 
         const tempPageRequest = pageRequest;
-        tempPageRequest.content.content = [item, ...tempPageRequest.content.content];
+        tempPageRequest.content.content = [...tempPageRequest.content.content, item];
         pageRequest = await updateOrCreateContent(pageRequest.content);
     };
+
+    //$: console.log(page);
 
 </script>
 
 <svelte:head>
-    <title>Projection Transition</title>
-	<meta name='description' content={`Retrouvez toutes les informations sur le festival Projection Transition ${pageRequest.content.name ? pageRequest.content.name : ''}`} />
+    <title>Projection Transition {params.name}</title>
+	<meta name='description' content={`Retrouvez toutes les informations sur le festival Projection Transition`} />
 	<meta name='keywords' content="écologie, transition, projection transition, cinéma, shiftProject, cine-debat" />
-	<meta property="og:title" content="Projection Transition - Le festival ciné-débat pour la transition écologique" />
+	<meta property="og:title" content={`Projection Transition - Le festival ciné-débat pour la transition écologique`} />
 	<meta property="og:type" content="website" />
-	<meta property="og:image" content={`${API_URL}/images/og_logo.jpg`} />
+	<meta property="og:image" content={`${SITE_URL}/images/og_logo.jpg`} />
 	<meta property="og:image:width" content="800" />
 	<meta property="og:image:height" content="400" />
-	<meta property="og:url" content={`${API_URL}/`} />
+	<meta property="og:url" content={`${SITE_URL}${page.path}`} />
 	<meta property="og:locale" content="fr_FR" />
-	<meta name="twitter:image" content={`${API_URL}/images/og_logo.jpg`} />
+	<meta name="twitter:image" content={`${SITE_URL}/images/og_logo.jpg`} />
 	<meta name="twitter:card" content="summary_large_image" />
 	<meta name="twitter:description" content="Retrouvez toutes les informations sur le festival Projection Transition" />
 </svelte:head>

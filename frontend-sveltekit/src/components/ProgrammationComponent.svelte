@@ -64,69 +64,64 @@ import { createFilmRequest } from "../actions/filmActions";
             </span></h4>
         {/if}
     </div>
-    <!-- name of the city -->
-    <!-- <div class="col text-end">
-        <h3><span class="text-primary">({city.toUpperCase()})</span></h3>
-    </div> -->
 </div>
 <div class='row mt-2'>
         {#if values[1] && values[1].values}
             {#each values[1].values as evenement, position }
-                    <div class='col-sm-12 col-md-6 my-4'>
-                        <MovingContent
-                        array={values[1].values} 
-                        position={position} 
-                        admin={admin} 
-                        updateMovedArray={updateMovedArray}
-                        >
-                        <div class='p-3 bg-white rounded-3 event-container'>
-                            <div class='image-container'>
-                                <div class="image my-auto">
-                                    <ImageComponent
-                                        bind:values={evenement.url.values}
-                                        bind:styles={evenement.url.styles}
-                                        admin={admin}
-                                        edit={edit}
-                                        updateContent={updateContent}
-                                    />
+                <div class='col-sm-12 col-md-6 my-4'>
+                    <MovingContent
+                    array={values[1].values} 
+                    position={position} 
+                    admin={admin} 
+                    updateMovedArray={updateMovedArray}
+                    >
+                    <div class='p-3 bg-white rounded-3 event-container'>
+                        <div class='image-container'>
+                            <div class="image my-auto">
+                                <ImageComponent
+                                    bind:values={evenement.url.values}
+                                    bind:styles={evenement.url.styles}
+                                    admin={admin}
+                                    edit={edit}
+                                    updateContent={updateContent}
+                                />
+                            </div>
+                            {#if !admin}
+                                <div class="middle">
+                                    <button class='btn btn-secondary mt-3' on:click={() => goto(`/film/${evenement.filmId}`)}>Voir l'événement</button>
                                 </div>
-                                {#if !admin}
-                                    <div class="middle">
-                                        <button class='btn btn-secondary mt-3' on:click={() => goto(`/film/${evenement.filmId}`)}>Voir l'événement</button>
-                                    </div>
-                                {/if}
-                            </div>
-                
-                            <div class='film mt-1'>
-                                <TextComponent
-                                    bind:values={evenement.film.values}
-                                    bind:styles={evenement.film.styles}
-                                    admin={admin}
-                                    edit={edit}
-                                    updateContent={updateContent}
-                                />
-                            </div>
-                            <div class='debat my-1'>
-                                <TextComponent
-                                    bind:values={evenement.debat.values}
-                                    bind:styles={evenement.debat.styles}
-                                    admin={admin}
-                                    edit={edit}
-                                    updateContent={updateContent}
-                                />
-                            </div>
-                            <div class='horaire'>
-                                <TextComponent
-                                    bind:values={evenement.horaire.values}
-                                    bind:styles={evenement.horaire.styles}
-                                    admin={admin}
-                                    edit={edit}
-                                    updateContent={updateContent}
-                                />
-                            </div>
+                            {/if}
                         </div>
-                        </MovingContent>
+                        <div class='film mt-1'>
+                            <TextComponent
+                                bind:values={evenement.film.values}
+                                bind:styles={evenement.film.styles}
+                                admin={admin}
+                                edit={edit}
+                                updateContent={updateContent}
+                            />
+                        </div>
+                        <div class='debat my-1'>
+                            <TextComponent
+                                bind:values={evenement.debat.values}
+                                bind:styles={evenement.debat.styles}
+                                admin={admin}
+                                edit={edit}
+                                updateContent={updateContent}
+                            />
+                        </div>
+                        <div class='horaire'>
+                            <TextComponent
+                                bind:values={evenement.horaire.values}
+                                bind:styles={evenement.horaire.styles}
+                                admin={admin}
+                                edit={edit}
+                                updateContent={updateContent}
+                            />
+                        </div>
                     </div>
+                    </MovingContent>
+                </div>
             {/each}
         {/if}
         {#if admin}

@@ -1,6 +1,7 @@
 design
 node_modules
-frontend/public/build/
+# frontend/public/build/
+frontend/
 .env
 uploads
 adminAccount
