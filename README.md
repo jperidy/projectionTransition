@@ -12,6 +12,7 @@ https://dev.projtran.jprdev.ovh/
 ## Configuration du backend (config.json)
 A la racine du projet créer le fichier config.json et le compléter avec les variables suivantes :  
 ```
+// config.json //
 {
     "NODE_ENV": "dev",  // choisir entre dev, preprod ou production
     "JWT_SECRET": "", // clé aléatoire pour le secret
@@ -28,6 +29,7 @@ A la racine du projet créer le fichier config.json et le compléter avec les va
 ## Configuration du frontend
 Dans le docker frontend-sveltekit/src/ créer le fichier config.json et le compléter avec les variables suivantes :
 ```
+// fontend-sveltekit/src/config.json //
 {
     "SVELTE_ENV": "production", // choisir entre dev, preprod ou production
     "API_URL_DEV": "http://localhost:5000", // url de l'API si SVELTE_ENV = 'dev'
