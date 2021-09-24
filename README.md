@@ -3,67 +3,49 @@
 https://dev.projtran.jprdev.ovh/
 
 # Installation locale (dev)
-
-- $ git clone https://github.com/jperidy/projectionTransition
-- $ npm install
-- $ cd frontend-sveltekit npm install
-
+```
+$ git clone https://github.com/jperidy/projectionTransition
+$ npm install
+$ cd frontend-sveltekit npm install
+```
 ## Configuration du backend (config.json)
 A la racine du projet créer le fichier config.json et le compléter avec les variables suivantes :  
-
+```
 {
-
     "NODE_ENV": "dev",  // choisir entre dev, preprod ou production
-    
     "JWT_SECRET": "", // clé aléatoire pour le secret
-    
     "MONGO_URI_DEV": "mongodb+srv://<name>:<password>@<database>",
-    
     "MONGO_URI_PREPROD": "mongodb+srv://<name>:<password>@<database>",
-    
     "MONGO_URI_PROD": "mongodb+srv://<name>:<password>@<database>",
-    
     "CONTACT_EMAIL": "name@mail.com", // email qui doit recevoir les demandes des clients
-    
     "MAIL_HOST": "smtp.gmail.com", // si gmail
-    
     "MAIL_PORT": "587", // si gmail
-    
     "MAIL_USER": "compte@mail.com", // email du compte qui envoit les emails
-    
     "MAIL_PASS": "" // mot de passe du compte qui envoir les emails
-
 }
-
+```
 ## Configuration du frontend
 Dans le docker frontend-sveltekit/src/ créer le fichier config.json et le compléter avec les variables suivantes :
-
+```
 {
-
     "SVELTE_ENV": "production", // choisir entre dev, preprod ou production
-
     "API_URL_DEV": "http://localhost:5000", // url de l'API si SVELTE_ENV = 'dev'
-
     "API_URL_PREPROD": "https://dev.projtranapi.jprdev.ovh", // url de l'API si SVELTE_ENV = 'preprod'
-
     "API_URL_PROD": "https://dev.projtranapi.jprdev.ovh", // url de l'API si SVELTE_ENV = 'prod'
-
     "SITE_URL_DEV": "https://localhost:3000",  // url du site si SVELTE_ENV = 'dev' (utile pour les open graphe)
-
     "SITE_URL_PREPROD": "https://dev.projtran.jprdev.ovh",  // url du site si SVELTE_ENV = 'dev' (utile pour les open 
     graphe)
-
     "SITE_URL_PROD": "https://dev.projtran.jprdev.ovh"  // url du site si SVELTE_ENV = 'dev' (utile pour les open graphe)
-
 }
-
+```
 ## Commandes pour lancer l'application depuis la racine du répertoire
 A la racine :
-- $ npm run start >> pour lancer le backend
-- $ npm run server >> pour lancer le backend avec nodemon
-- $ npm run client >> pour lancer le frontend
-- $ npm run dev >> pour lancer simultanément le frontend et le backend avec nodemon
-
+```
+-$ npm run start >> pour lancer le backend
+-$ npm run server >> pour lancer le backend avec nodemon
+-$ npm run client >> pour lancer le frontend
+-$ npm run dev >> pour lancer simultanément le frontend et le backend avec nodemon
+```
 # Déployer l'application sans docker
 
 [TODO]
