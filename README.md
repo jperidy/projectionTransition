@@ -43,12 +43,12 @@ Dans le docker frontend-sveltekit/src/ créer le fichier config.json et le compl
 ```
 ## Commandes pour lancer l'application depuis la racine du répertoire
 A la racine :
-
+```
 >npm run start >> pour lancer le backend
 >npm run server >> pour lancer le backend avec nodemon
 >npm run client >> pour lancer le frontend
 >npm run dev >> pour lancer simultanément le frontend et le backend avec nodemon
-
+```
 # Déployer l'application sans docker
 
 [TODO]
