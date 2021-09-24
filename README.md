@@ -101,13 +101,13 @@ $ . docker-start.bash
 - Récupérer le fichier .tar généré dans le dossier /backup
 - Créer un doccier _backup-volume sur l'environnement où vous souhaitez restaurer votre volume
 - Créer et exécuter le fichier suivant
-
-    - sudo docker rm -f `sudo docker ps -aq -f name=projection-transition*`
-    - sudo docker rmi --force `sudo docker images --filter=reference="jbperidy/projection-transition*:*" -q`
-    - sudo docker volume rm projection-transition_projection-transition-data --force
-    - sudo docker-compose -p "projection-transition" up -d
-    - sudo docker run --rm --volumes-from projection-transition-backend -v $(pwd)/_backup-volume:/backup ubuntu bash -c "cd /app && tar xvf /backup/backup-projection-transition-volume.tar --strip 1"
-
+```
+sudo docker rm -f `sudo docker ps -aq -f name=projection-transition*`
+sudo docker rmi --force `sudo docker images --filter=reference="jbperidy/projection-transition*:*" -q`
+sudo docker volume rm projection-transition_projection-transition-data --force
+sudo docker-compose -p "projection-transition" up -d
+sudo docker run --rm --volumes-from projection-transition-backend -v $(pwd)/_backup-volume:/backup ubuntu bash -c "cd /app && tar xvf /backup/backup-projection-transition-volume.tar --strip 1"
+```
 ### Backuper et restaurer les données de la base MongoDB
 [TODO]
 
