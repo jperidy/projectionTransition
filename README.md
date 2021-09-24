@@ -4,9 +4,10 @@ https://dev.projtran.jprdev.ovh/
 
 # Installation locale (dev)
 ```
-$ git clone https://github.com/jperidy/projectionTransition
-$ npm install
-$ cd frontend-sveltekit npm install
+> git clone https://github.com/jperidy/projectionTransition
+> npm install
+> cd frontend-sveltekit 
+> npm install
 ```
 ## Configuration du backend (config.json)
 A la racine du projet créer le fichier config.json et le compléter avec les variables suivantes :  
