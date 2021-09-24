@@ -10,6 +10,15 @@ sudo echo "server {
     server_name $1.jprdev.ovh www.$1.jprdev.ovh;
     location / {
         proxy_pass http://localhost:$2;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade '$http_upgrade';
+        proxy_set_header Connection 'upgrade';
+        proxy_set_header Host '$host';
+        proxy_cache_bypass '$http_upgrade';
+        gzip on;
+        gzip_min_length 1000;
+        gzip_proxied expired no-cache no-store private auth;
+        gzip_types text/plain text/css application/json application/javascript application/x-javascript text/xml application/xml image/jpg image/jpeg image/png image/>
     }
     listen 80;
     listen [::]:80;

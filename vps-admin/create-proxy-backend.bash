@@ -15,6 +15,10 @@ sudo echo "server {
         proxy_set_header Connection 'upgrade';
         proxy_set_header Host '$host';
         proxy_cache_bypass '$http_upgrade';
+        gzip on;
+        gzip_min_length 1000;
+        gzip_proxied expired no-cache no-store private auth;
+        gzip_types text/plain text/css application/json application/javascript application/x-javascript text/xml application/xml image/jpg image/jpeg image/png image/>
     }
     listen 80;
     listen [::]:80;

@@ -8,6 +8,8 @@ const connectDB = async () => {
     
     if (['dev'].includes(config.NODE_ENV)) {
         uri = config.MONGO_URI_DEV;
+    } else if (['preprod'].includes(config.NODE_ENV)) {
+        uri = config.MONGO_URI_PREPROD;
     } else if (['production'].includes(config.NODE_ENV)) {
         uri = config.MONGO_URI_PROD;
     } else {
