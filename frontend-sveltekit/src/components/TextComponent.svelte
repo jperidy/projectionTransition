@@ -209,6 +209,7 @@ import LinkLightBgMarkdown from "./markdown/LinkLightBgMarkdown.svelte";
                 table: TableMarkdown, 
                 tablecell: TdMarkdown,
                 text: bgPrimaryText ? TextBgFillPrimaryMarkdown : TextMarkdown,
+                link: dark ? LinkDarkBgMarkdown : LinkLightBgMarkdown,
                 }} />
         </div>
     </div>

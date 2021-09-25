@@ -2,10 +2,10 @@ node_modules
 npm-debug.log
 uploads
 frontend
+frontend-sveltekit
 uploads
 _images
 _backup
 _backup-volume
 _sources
 docker-copy-backup.bash
-frontend-sveltekit/build
