@@ -9,7 +9,6 @@ read path
 echo "Archive name to restore:"
 read archiveName
 
-#scp jprdev@141.94.31.170:/home/jprdev/projectionTransition/backup/backup-projection-transition-volume.tar $(pwd)/_backup-volume
 scp $connexion:/$path/$archiveName $(pwd)/_backup-volume
 
 # Remove and recreate the volume
