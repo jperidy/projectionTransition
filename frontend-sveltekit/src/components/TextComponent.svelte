@@ -145,6 +145,7 @@ import LinkLightBgMarkdown from "./markdown/LinkLightBgMarkdown.svelte";
                     </div>
                     <div class='row py-1'>
                         <div class='col'>
+                            <button class='btn btn-light p-0' on:click={() => updateStyle({name:'padding', value:'p-0'})}><span>p-0</span></button>
                             <button class='btn btn-light p-1' on:click={() => updateStyle({name:'padding', value:'p-1'})}><span>p-1</span></button>
                             <button class='btn btn-light p-2' on:click={() => updateStyle({name:'padding', value:'p-2'})}><span>p-2</span></button>
                             <button class='btn btn-light p-3' on:click={() => updateStyle({name:'padding', value:'p-3'})}><span>p-3</span></button>

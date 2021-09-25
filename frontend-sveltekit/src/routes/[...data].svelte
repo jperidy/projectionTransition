@@ -130,9 +130,6 @@
     <CustomContainer>
         <Row class='mt-3'>
             <Col>
-                {#if admin}
-                    <AddContent admin={admin} addContent={addContent}/>
-                {/if}
                 {#if pageRequest.content && pageRequest.content.content}
                     {#each pageRequest.content.content as section, position}
                         <MovingContent 
@@ -154,7 +151,26 @@
                         </MovingContent>
                     {/each}
                 {/if}
+                {#if admin}
+                    <div class="moving-container border-light rounded-3 mt-3 mb-1 p-3 bg-lavande shadow-lg text-center">
+                        <AddContent admin={admin} addContent={addContent}/>
+                    </div>
+                {/if}
             </Col>
         </Row>
     </CustomContainer>
 {/if}
+
+<style>
+    .moving-container {
+        -webkit-transform: scale(1);
+	    transform: scale(1);
+        transition: .5s ease;
+        border: dashed 1px;
+    }
+    .moving-container:hover {
+        -webkit-transform: scale(1.03);
+	    transform: scale(1.03);
+        transition: .5s ease;
+    }
+</style>

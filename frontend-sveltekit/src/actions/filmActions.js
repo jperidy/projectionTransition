@@ -135,3 +135,15 @@ export const deleteFilmRequest = async (id) => {
         filmDeleteRequest.set({success:false, loading:false, message:'Error deleting film ' + error});
     }
 };
+
+export const recursiveFilmDelete = async (object) => {
+    //console.log('object', object);
+    if (object.filmId) {
+        await deleteFilmRequest(object.filmId);
+    }
+    if (object.values && object.values.length) {
+        for (let index = 0; index < object.values.length; index++) {
+            recursiveFilmDelete(object.values[index]);
+        }
+    }
+}

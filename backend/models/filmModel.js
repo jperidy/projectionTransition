@@ -7,6 +7,9 @@ const filmSchema = mongoose.Schema({
     real: { values: [], styles: []},
     summury: { values: [], styles: []},
     location: { type: String, required: true},
+    book: { type: String },
+    bookingAvailable: { type: Boolean },
+    justification: { type: String },
 }, {timestamps: true});
 
 const Film = mongoose.model('Film', filmSchema);

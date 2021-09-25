@@ -1,4 +1,6 @@
 <script>
+import { recursiveFilmDelete } from "../actions/filmActions";
+
     import { Button, Col, Icon, Row } from "sveltestrap";
     import { recursiveDeleteAction } from '../utils/imageFunctions'
     
@@ -31,8 +33,13 @@
 
     const deleteAction = async() => {
 
+        // Delete any tied media (image and video)
         const values = array[position];
         await recursiveDeleteAction(values);
+
+        // Delete any film tied to object
+        await recursiveFilmDelete(array[position]);
+
         array.splice(position, 1);
         updateMovedArray(array);
     };

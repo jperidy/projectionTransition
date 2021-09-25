@@ -1,11 +1,12 @@
 <script>
   import { Button, Col, FormGroup, Label, Row, Modal, ModalHeader, ModalBody, ModalFooter } from "sveltestrap";
-  import DisplayCustomComponent from "./DisplayCustomComponent.svelte";
+  //import DisplayCustomComponent from "./DisplayCustomComponent.svelte";
 
   export let admin = false;
   export let addContent = null;
   export let position = 0;
   export let addToLayout = null;
+  admin;
 
   let type = '';
   let values = [];
@@ -38,7 +39,7 @@
 
 <Row class='my-3 pt-3'>
   <Col>
-    <Button color="primary" class='my-3' on:click={toggle}>Ajouter un contenu</Button>
+    <Button color="primary" class='my-3 p-3' on:click={toggle}>Ajouter un contenu</Button>
 
     <Modal isOpen={open} {toggle} size='lg' scrollable>
       
@@ -70,7 +71,7 @@
           </Col>
         </Row>
 
-        <Row class='mt-5'>
+        <!-- <Row class='mt-5'>
           <Col>
             <DisplayCustomComponent 
               bind:values={values}
@@ -81,7 +82,7 @@
               edit={false}
             />
           </Col>
-        </Row>
+        </Row> -->
       </ModalBody>
 
       <ModalFooter>

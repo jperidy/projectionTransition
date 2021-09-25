@@ -19,7 +19,6 @@ import { createFilmRequest } from "../actions/filmActions";
 
     $:{
         if (values.length === 0 ) {
-            //values.push({title: {values:[], styles:[]}});
             values.push({date: ''});
         }
     }
@@ -27,7 +26,7 @@ import { createFilmRequest } from "../actions/filmActions";
     const updateMovedArray = async(array) => {
         values[1].values = array;
         values = values;
-        updateContent();
+        updateContent && updateContent();
     };
 
     const addEventHandler = async () => {
@@ -48,7 +47,7 @@ import { createFilmRequest } from "../actions/filmActions";
             filmId: filmCreatedId,
         });
         //values = values;
-        updateContent();
+        updateContent && updateContent();
     };
 
 </script>
@@ -59,9 +58,9 @@ import { createFilmRequest } from "../actions/filmActions";
         {#if admin}
             <input type='texte' bind:value={values[0].date} on:change={updateContent} placeholder="Date de l'événement"/>
         {:else}
-            <h4><span class='text-white bg-primary text-center px-1'>
+            <h2><span class='text-white bg-primary text-center px-1'>
                 {values[0].date ? values[0].date.toUpperCase() : 'Journée ?' }
-            </span></h4>
+            </span></h2>
         {/if}
     </div>
 </div>
@@ -124,7 +123,7 @@ import { createFilmRequest } from "../actions/filmActions";
                 </div>
             {/each}
         {/if}
-        {#if admin}
+        {#if admin && updateContent}
             <div class='row'>
                 <div class='col text-center'>
                     <button class='btn btn-primary text-center' on:click={addEventHandler}>Add Event</button>
