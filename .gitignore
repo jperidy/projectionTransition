@@ -11,6 +11,7 @@ _backup-volume
 _backup-mongodb
 _images
 _sources
+backup
 docker-copy-backup.bash
 frontend-sveltekit/build
 test.bash

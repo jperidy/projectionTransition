@@ -137,7 +137,19 @@ Editer le fichier docker-compose.yml pour tout besoin de modification du paramé
 - coller ce répertoire (uploads) à la racine du projet
 
 
-# Autres
+# Usage du back-office
+## Markdown
+Les zone éditables utilisent les markown et permettent de faire une mise en forme simple.
+- Italique : \**texte en italique*\*
+- Gras : \*\***texte en gras**\*\*
+- Italique et gras : \*\*\****texte en italique et gras***\*\*\*
+- Titre 1 : # Titre 1
+- Titre 2 : ## Titre 2
+- ...
+- Paragraphe : ajouter une ligne vierge pour ajouter un paragraphe
+- Lien hypertexte : \[lien hypertexte\]\(https://lien.com\)
+- Autres possibilités ici : https://www.ionos.fr/digitalguide/sites-internet/developpement-web/markdown/
+- 
 ## Dimensions à privilégier pour les images
 - Photos équipe : 400 x 300 px
 - Images partenaires : 400 x 400 px
