@@ -22,9 +22,9 @@ export function init(settings = default_settings) {
 		amp: false,
 		dev: false,
 		entry: {
-			file: assets + "/_app/start-8a20af14.js",
+			file: assets + "/_app/start-355b6046.js",
 			css: [assets + "/_app/assets/start-61d1577b.css",assets + "/_app/assets/vendor-cf063f61.css"],
-			js: [assets + "/_app/start-8a20af14.js",assets + "/_app/chunks/vendor-23fb87d9.js",assets + "/_app/chunks/preload-helper-ec9aa979.js",assets + "/_app/chunks/singletons-12a22614.js"]
+			js: [assets + "/_app/start-355b6046.js",assets + "/_app/chunks/vendor-5d9b017f.js",assets + "/_app/chunks/preload-helper-ec9aa979.js",assets + "/_app/chunks/singletons-12a22614.js"]
 		},
 		fetched: undefined,
 		floc: false,
@@ -70,7 +70,7 @@ const d = s => s
 const empty = () => ({});
 
 const manifest = {
-	assets: [{"file":"favicon.png","size":4646,"type":"image/png"},{"file":"fonts/Roboto-Regular.eot","size":168436,"type":"application/vnd.ms-fontobject"},{"file":"fonts/Roboto-Regular.otf","size":233484,"type":"font/otf"},{"file":"fonts/Roboto-Regular.svg","size":1013951,"type":"image/svg+xml"},{"file":"fonts/Roboto-Regular.ttf","size":168260,"type":"font/ttf"},{"file":"fonts/Roboto-Regular.woff","size":119608,"type":"font/woff"},{"file":"fonts/omotenashi2-4be39-webfont.woff","size":16832,"type":"font/woff"},{"file":"fonts/omotenashi2-4be39-webfont.woff2","size":12532,"type":"font/woff2"},{"file":"global.css","size":816,"type":"text/css"},{"file":"images/fond.jpg","size":18516,"type":"image/jpeg"},{"file":"images/logo-projection-transition.png","size":32213,"type":"image/png"},{"file":"images/og_logo.jpg","size":34095,"type":"image/jpeg"},{"file":"mains.min.css","size":218736,"type":"text/css"}],
+	assets: [{"file":"favicon.png","size":4646,"type":"image/png"},{"file":"fonts/Roboto-Regular.eot","size":168436,"type":"application/vnd.ms-fontobject"},{"file":"fonts/Roboto-Regular.otf","size":233484,"type":"font/otf"},{"file":"fonts/Roboto-Regular.svg","size":1013951,"type":"image/svg+xml"},{"file":"fonts/Roboto-Regular.ttf","size":168260,"type":"font/ttf"},{"file":"fonts/Roboto-Regular.woff","size":119608,"type":"font/woff"},{"file":"fonts/omotenashi2-4be39-webfont.woff","size":16832,"type":"font/woff"},{"file":"fonts/omotenashi2-4be39-webfont.woff2","size":12532,"type":"font/woff2"},{"file":"global.css","size":816,"type":"text/css"},{"file":"images/fond.jpg","size":18516,"type":"image/jpeg"},{"file":"images/logo-projection-transition.png","size":32213,"type":"image/png"},{"file":"images/og_logo.jpg","size":34095,"type":"image/jpeg"},{"file":"mains.min.css","size":176941,"type":"text/css"}],
 	layout: "src/routes/__layout.svelte",
 	error: ".svelte-kit/build/components/error.svelte",
 	routes: [
@@ -97,13 +97,6 @@ const manifest = {
 					},
 		{
 						type: 'page',
-						pattern: /^\/old\/?$/,
-						params: empty,
-						a: ["src/routes/__layout.svelte", "src/routes/old/index.svelte"],
-						b: [".svelte-kit/build/components/error.svelte"]
-					},
-		{
-						type: 'page',
 						pattern: /^(?:\/(.*))?\/?$/,
 						params: (m) => ({ data: d(m[1] || '')}),
 						a: ["src/routes/__layout.svelte", "src/routes/[...data].svelte"],
@@ -122,10 +115,10 @@ const get_hooks = hooks => ({
 });
 
 const module_lookup = {
-	"src/routes/__layout.svelte": () => import("../../src/routes/__layout.svelte"),".svelte-kit/build/components/error.svelte": () => import("./components/error.svelte"),"src/routes/article/[...data].svelte": () => import("../../src/routes/article/[...data].svelte"),"src/routes/login.svelte": () => import("../../src/routes/login.svelte"),"src/routes/film/[id].svelte": () => import("../../src/routes/film/[id].svelte"),"src/routes/old/index.svelte": () => import("../../src/routes/old/index.svelte"),"src/routes/[...data].svelte": () => import("../../src/routes/[...data].svelte")
+	"src/routes/__layout.svelte": () => import("../../src/routes/__layout.svelte"),".svelte-kit/build/components/error.svelte": () => import("./components/error.svelte"),"src/routes/article/[...data].svelte": () => import("../../src/routes/article/[...data].svelte"),"src/routes/login.svelte": () => import("../../src/routes/login.svelte"),"src/routes/film/[id].svelte": () => import("../../src/routes/film/[id].svelte"),"src/routes/[...data].svelte": () => import("../../src/routes/[...data].svelte")
 };
 
-const metadata_lookup = {"src/routes/__layout.svelte":{"entry":"pages/__layout.svelte-32bc7e7c.js","css":["assets/pages/__layout.svelte-4023d378.css","assets/vendor-cf063f61.css"],"js":["pages/__layout.svelte-32bc7e7c.js","chunks/vendor-23fb87d9.js","chunks/navigation-51f4a605.js","chunks/singletons-12a22614.js"],"styles":[]},".svelte-kit/build/components/error.svelte":{"entry":"error.svelte-add0d706.js","css":["assets/vendor-cf063f61.css"],"js":["error.svelte-add0d706.js","chunks/vendor-23fb87d9.js"],"styles":[]},"src/routes/article/[...data].svelte":{"entry":"pages/article/[...data].svelte-1e0b06b3.js","css":["assets/vendor-cf063f61.css","assets/Loading-cf5c7f6a.css"],"js":["pages/article/[...data].svelte-1e0b06b3.js","chunks/vendor-23fb87d9.js","chunks/articleActions-c7237ad8.js","chunks/CustomContainer-6347260b.js","chunks/Loading-d281598b.js","chunks/navigation-51f4a605.js","chunks/singletons-12a22614.js"],"styles":[]},"src/routes/login.svelte":{"entry":"pages/login.svelte-6c08889d.js","css":["assets/vendor-cf063f61.css"],"js":["pages/login.svelte-6c08889d.js","chunks/vendor-23fb87d9.js","chunks/CustomContainer-6347260b.js","chunks/navigation-51f4a605.js","chunks/singletons-12a22614.js"],"styles":[]},"src/routes/film/[id].svelte":{"entry":"pages/film/[id].svelte-b933d324.js","css":["assets/vendor-cf063f61.css","assets/MovingContent-4f501c22.css","assets/Loading-cf5c7f6a.css"],"js":["pages/film/[id].svelte-b933d324.js","chunks/vendor-23fb87d9.js","chunks/MovingContent-bd7db751.js","chunks/CustomContainer-6347260b.js","chunks/Loading-d281598b.js","chunks/navigation-51f4a605.js","chunks/singletons-12a22614.js"],"styles":[]},"src/routes/old/index.svelte":{"entry":"pages/old/index.svelte-a82ab433.js","css":["assets/vendor-cf063f61.css"],"js":["pages/old/index.svelte-a82ab433.js","chunks/vendor-23fb87d9.js"],"styles":[]},"src/routes/[...data].svelte":{"entry":"pages/[...data].svelte-c1e0ac90.js","css":["assets/pages/[...data].svelte-89197b30.css","assets/vendor-cf063f61.css","assets/Loading-cf5c7f6a.css","assets/MovingContent-4f501c22.css"],"js":["pages/[...data].svelte-c1e0ac90.js","chunks/vendor-23fb87d9.js","chunks/CustomContainer-6347260b.js","chunks/Loading-d281598b.js","chunks/navigation-51f4a605.js","chunks/singletons-12a22614.js","chunks/MovingContent-bd7db751.js","chunks/articleActions-c7237ad8.js","chunks/preload-helper-ec9aa979.js"],"styles":[]}};
+const metadata_lookup = {"src/routes/__layout.svelte":{"entry":"pages/__layout.svelte-83c0ddd5.js","css":["assets/pages/__layout.svelte-4023d378.css","assets/vendor-cf063f61.css"],"js":["pages/__layout.svelte-83c0ddd5.js","chunks/vendor-5d9b017f.js","chunks/navigation-51f4a605.js","chunks/singletons-12a22614.js"],"styles":[]},".svelte-kit/build/components/error.svelte":{"entry":"error.svelte-8bf1216f.js","css":["assets/vendor-cf063f61.css"],"js":["error.svelte-8bf1216f.js","chunks/vendor-5d9b017f.js"],"styles":[]},"src/routes/article/[...data].svelte":{"entry":"pages/article/[...data].svelte-b7909f75.js","css":["assets/vendor-cf063f61.css","assets/Loading-cf5c7f6a.css"],"js":["pages/article/[...data].svelte-b7909f75.js","chunks/vendor-5d9b017f.js","chunks/articleActions-81437636.js","chunks/CustomContainer-a7142113.js","chunks/Loading-f946706e.js","chunks/navigation-51f4a605.js","chunks/singletons-12a22614.js"],"styles":[]},"src/routes/login.svelte":{"entry":"pages/login.svelte-4612ea98.js","css":["assets/vendor-cf063f61.css"],"js":["pages/login.svelte-4612ea98.js","chunks/vendor-5d9b017f.js","chunks/CustomContainer-a7142113.js","chunks/navigation-51f4a605.js","chunks/singletons-12a22614.js"],"styles":[]},"src/routes/film/[id].svelte":{"entry":"pages/film/[id].svelte-2d816160.js","css":["assets/pages/film/[id].svelte-3e993aa3.css","assets/vendor-cf063f61.css","assets/MovingContent-ec5075fb.css","assets/Loading-cf5c7f6a.css"],"js":["pages/film/[id].svelte-2d816160.js","chunks/vendor-5d9b017f.js","chunks/MovingContent-22332d0d.js","chunks/CustomContainer-a7142113.js","chunks/Loading-f946706e.js","chunks/navigation-51f4a605.js","chunks/singletons-12a22614.js"],"styles":[]},"src/routes/[...data].svelte":{"entry":"pages/[...data].svelte-35bb6ad8.js","css":["assets/pages/[...data].svelte-33008d0b.css","assets/vendor-cf063f61.css","assets/Loading-cf5c7f6a.css","assets/MovingContent-ec5075fb.css"],"js":["pages/[...data].svelte-35bb6ad8.js","chunks/vendor-5d9b017f.js","chunks/CustomContainer-a7142113.js","chunks/Loading-f946706e.js","chunks/navigation-51f4a605.js","chunks/singletons-12a22614.js","chunks/MovingContent-22332d0d.js","chunks/articleActions-81437636.js","chunks/preload-helper-ec9aa979.js"],"styles":[]}};
 
 async function load_component(file) {
 	const { entry, css, js, styles } = metadata_lookup[file];
