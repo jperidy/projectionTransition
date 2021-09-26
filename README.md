@@ -76,7 +76,7 @@ Arrêter
 
 ## Créer l'image docker pour le backend
 Ouvrir le fichier docker-build.bash et changer le nom du repo dockerhub
-> $ . docker-build <version>
+>. docker-build <version>
 Par défaut le backend est exposé sur le port 5000.
 ### Attention Sécurité
 Votre fichier config.json contient des informations sensibles. Le script pousse automatiquement l'image du docker sur dockerhub. Assurez vous que ce répertoire est privé ou supprimez les lignes push.
@@ -89,12 +89,15 @@ Le frontend est exposé sur le port 3000
 ## Préparer votre serveur (cas d'un VPS)
 - Installer nginx et le configurer
 - Configurer un proxy backend sur le nginx 
->cd vps-admin
->. create-proxy-backend.bash
+```
+cd vps-admin
+. create-proxy-backend.bash
+```
 - Configurer un proxy frontend sur le nginx 
->cd vps-admin
->. create-proxy-frontend.bash
-
+```
+cd vps-admin
+. create-proxy-frontend.bash
+```
 ## Deployer et lancer vos dockers sur le serveur
 Editer le fichier docker-compose.yml pour tout besoin de modification du paramétrage
 >. docker-start.bash
