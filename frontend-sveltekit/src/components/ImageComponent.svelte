@@ -167,7 +167,7 @@
     <div class='row'>
         <div class={`col ${textAlign}`}>   
             {#if !values[0].url}
-                <div class='bg-secondary text-center text-white' style='min-height:100px;'>Image</div>
+                <div class='bg-secondary text-center text-dark rounded-3' style='min-height:100px;'>Ajouter l'image</div>
             {/if}
             <figure class='figure m-0 p-0' style={`transform: rotate(${transformR}deg) translateX(${transformX}vh) translateY(${transformY}vh) scale(${scaleXY, scaleXY});`}>
                 <img class={`figure-img img-fluid m-0 p-0 ${rounded} ${shadow}`} src={`${API_URL}${values[0].url}`} alt={values[0].substitution}>

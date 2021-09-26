@@ -86,10 +86,14 @@
         pageRequest = await updateOrCreateContent(pageRequest.content);
     }
 
-    const addContent = async(item) => {
+    const addContent = async(item, position) => {
 
-        const tempPageRequest = pageRequest;
-        tempPageRequest.content.content = [...tempPageRequest.content.content, item];
+        // const tempPageRequest = pageRequest;
+        // tempPageRequest.content.content = [...tempPageRequest.content.content, item];
+
+        //const tempPageRequest = pageRequest;
+        pageRequest.content.content.splice(position, 0, item);
+
         pageRequest = await updateOrCreateContent(pageRequest.content);
     };
 
@@ -137,6 +141,7 @@
                             position={position} 
                             admin={admin} 
                             updateMovedArray={updateMovedArray}
+                            addContent={addContent}
                         >
                             <DisplayCustomComponent 
                                 bind:value={section.value}
@@ -151,7 +156,7 @@
                         </MovingContent>
                     {/each}
                 {/if}
-                {#if admin}
+                {#if admin && pageRequest.content && !pageRequest.content.content.length}
                     <div class="moving-container border-light rounded-3 mt-3 mb-1 p-3 bg-lavande shadow-lg text-center">
                         <AddContent admin={admin} addContent={addContent}/>
                     </div>

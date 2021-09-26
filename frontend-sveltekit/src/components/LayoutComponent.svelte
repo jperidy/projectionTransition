@@ -49,6 +49,8 @@
     const addToLayout = async(item, position) => {
         //values[position] = item;
         values[position].values.push(item);
+
+        
         updateContent && await updateContent();
     };
 
@@ -89,7 +91,6 @@
             styles = [...styles, {name, value}];
         }
         styles = styles;
-        //await updateContent()
     };
 
 </script>
@@ -118,6 +119,17 @@
     .content-container:hover .middle {
         opacity: 1;
     }
+    .moving-container {
+        -webkit-transform: scale(1);
+	    transform: scale(1);
+        transition: .5s ease;
+        border: dashed 1px;
+    }
+    .moving-container:hover {
+        -webkit-transform: scale(1.03);
+	    transform: scale(1.03);
+        transition: .5s ease;
+    }
     
 </style>
 
@@ -138,7 +150,6 @@
         <ModalBody>
                 <div class="row align-items-center">
                     <div class='col'>
-                        
                         <label for="input-columns" class="form-label">Nombre de colonnes *</label>
                         <input type="number" class="form-control" id="input-columns" 
                             aria-describedby="nombre de colonnes" 
@@ -149,7 +160,6 @@
                             bind:value={columnNumber}
                             on:change={(e) => columnChangeHandler(e.target.value)}
                         />
-
                         <div class='row py-1'>
                             <div class='col'>
                                 <span>Alignement : </span>
@@ -230,11 +240,7 @@
                 <div class={`row gx-2 align-items-${alignContent} ${bgColor} ${padding} ${marginX} ${marginY} ${rounded} ${border} ${borderColor}`}>
                     {#each values as column, position}
                         <div class={`col-sm-12 col-md-${md.toString()} border border-light`} style={`min-height: 5vh;`};>
-                            Colonne {position}
-                            <!-- {#each column.values as content, pos}
-                                
-                            {/each} -->
-                                
+                            Colonne {position}                                
                         </div>
                     {/each}
                 </div>
@@ -253,6 +259,7 @@
                     position={position} 
                     admin={admin} 
                     updateMovedArray={updateMovedArray}
+                    addContent={null}
                 >
                 
                 {#each column.values as content, pos}
@@ -264,6 +271,7 @@
                             values[position].values = array;
                             updateContent && await updateContent();
                         }}
+                        addContent={null}
                     >
                         <DisplayCustomComponent 
                             bind:value={content.value}
@@ -280,7 +288,9 @@
 
                 {#if admin}
                     <!-- <AddContent admin={admin} addContent={addContent}/> -->
-                    <AddContent admin={admin} position={position} addToLayout={addToLayout} />
+                    <div class="moving-container border-light rounded-3 mt-3 mb-1 py-1 px-3 bg-lavande shadow-lg text-center">
+                        <AddContent admin={admin} position={position} addToLayout={addToLayout} />
+                    </div>
                 {/if}
                     
                 </MovingContent>

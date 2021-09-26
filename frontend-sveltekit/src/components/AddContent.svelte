@@ -1,5 +1,6 @@
 <script>
   import { Button, Col, FormGroup, Label, Row, Modal, ModalHeader, ModalBody, ModalFooter } from "sveltestrap";
+import AddElement from "./AddElement.svelte";
   //import DisplayCustomComponent from "./DisplayCustomComponent.svelte";
 
   export let admin = false;
@@ -37,14 +38,19 @@
 
 </script>
 
+<AddElement 
+  addContent={addContent}
+  position={position}      
+  bind:open={open}
+  addToLayout={addToLayout}
+/>
+
 <Row class='my-3 pt-3'>
   <Col>
     <Button color="primary" class='my-3 p-3' on:click={toggle}>Ajouter un contenu</Button>
 
-    <Modal isOpen={open} {toggle} size='lg' scrollable>
-      
+    <!-- <Modal isOpen={open} {toggle} size='lg' scrollable>      
       <ModalHeader {toggle}>Ajouter un contenu</ModalHeader>
-      
       <ModalBody>
         <Row>
           <Col>
@@ -64,32 +70,16 @@
                     <option value='programmationComponent' selected={type === 'programmationComponent'}>type PROGRAMMATION VILLE</option>
                     <option value='equipeComponent' selected={type === 'equipeComponent'}>type EQUIPE</option>
                     <option value='contactComponent' selected={type === 'contactComponent'}>type CONTACT</option>
-                    
                     <option value='test' selected={type === 'test'}>type TEST</option>
                   </select>
                 </FormGroup> 
           </Col>
         </Row>
-
-        <!-- <Row class='mt-5'>
-          <Col>
-            <DisplayCustomComponent 
-              bind:values={values}
-              bind:styles={styles}
-              type={type}
-              updateContent={null}
-              admin={admin}
-              edit={false}
-            />
-          </Col>
-        </Row> -->
       </ModalBody>
-
       <ModalFooter>
         <Button color="primary" on:click={() => toggle(true)}>Enregistrer</Button>
         <Button color="secondary" on:click={() => toggle(false)}>Cancel</Button>
       </ModalFooter>
-
-    </Modal>
+    </Modal> -->
   </Col>
 </Row>
