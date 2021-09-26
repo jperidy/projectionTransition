@@ -57,14 +57,14 @@
                   <DropdownItem class='bg-white'><NavItem><NavLink on:click={() => navigateHandler('/programmation/toulouse')} ><span class='item'>Toulouse</span></NavLink></NavItem></DropdownItem>
                 </DropdownMenu>
             </Dropdown>
-            <Dropdown nav inNavbar>
+            <!-- <Dropdown nav inNavbar>
                 <DropdownToggle class='text-dark mx-2' nav caret><span class='titre'>PROJET PEDAGOGIQUE</span></DropdownToggle>
                 <DropdownMenu end class='bg-white'>
                   <DropdownItem class='bg-white'><NavItem><NavLink on:click={() => navigateHandler('/presentation')}><span class='item'>Présentation</span></NavLink></NavItem></DropdownItem>
                   <DropdownItem class='bg-white'><NavItem><NavLink on:click={() => navigateHandler('/projesseurs')}><span class='item'>Mots des professeurs</span></NavLink></NavItem></DropdownItem>
                   <DropdownItem class='bg-white'><NavItem><NavLink on:click={() => navigateHandler('/eleves')}><span class='item'>Elèves</span></NavLink></NavItem></DropdownItem>
                 </DropdownMenu>
-            </Dropdown>
+            </Dropdown> -->
             <Dropdown nav inNavbar>
                 <NavItem><NavLink class='text-dark mx-2' on:click={() => navigateHandler('/informationsPratiques')}><span class='titre'>INFORMATIONS PRATIQUES</span></NavLink></NavItem>
             </Dropdown>

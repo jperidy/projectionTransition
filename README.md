@@ -138,6 +138,11 @@ Editer le fichier docker-compose.yml pour tout besoin de modification du paramé
 
 
 # Usage du back-office
+## Générale
+Une fois connecté au BO, un bandeau en haut est disponible sur toutes les pages. Il vous permet :
+- de passer en mode édition
+- de vous déconnecter
+Si vous êtres en mode édition, une boite d'édition apparait lorsque votre souris survole les composants.
 ## Markdown
 Les zone éditables utilisent les markown et permettent de faire une mise en forme simple.
 - Italique : \**texte en italique*\*
@@ -146,11 +151,12 @@ Les zone éditables utilisent les markown et permettent de faire une mise en for
 - Titre 1 : # Titre 1
 - Titre 2 : ## Titre 2
 - ...
+- Ajouter une ligne : passer à la ligne et ***
 - Paragraphe : ajouter une ligne vierge pour ajouter un paragraphe
 - Lien hypertexte : \[lien hypertexte\]\(https://lien.com\)
 - Autres possibilités ici : https://www.ionos.fr/digitalguide/sites-internet/developpement-web/markdown/
-- 
-## Dimensions à privilégier pour les images
+## Dimensions à privilégier pour les images (largeur x hauteur)
 - Photos équipe : 400 x 300 px
 - Images partenaires : 400 x 400 px
 - Images pour carousel : 1000 x 500 px
+- Images pour Programmation : 900 x 600 px
