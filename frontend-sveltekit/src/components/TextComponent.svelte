@@ -4,8 +4,8 @@
     import { Icon, Modal, ModalBody, ModalFooter, ModalHeader } from "sveltestrap";
 
     import EditButton from "./EditButton.svelte";
-import LinkDarkBgMarkdown from "./markdown/LinkDarkBgMarkdown.svelte";
-import LinkLightBgMarkdown from "./markdown/LinkLightBgMarkdown.svelte";
+    //import LinkDarkBgMarkdown from "./markdown/LinkDarkBgMarkdown.svelte";
+    //import LinkLightBgMarkdown from "./markdown/LinkLightBgMarkdown.svelte";
     import ParagrapheMarkdown from "./markdown/ParagrapheMarkdown.svelte";
     import TableMarkdown from "./markdown/TableMarkdown.svelte";
     import TdMarkdown from "./markdown/TdMarkdown.svelte";
@@ -46,7 +46,7 @@ import LinkLightBgMarkdown from "./markdown/LinkLightBgMarkdown.svelte";
     $: transformX = styles.filter(x => x.name === 'transformX')[0] ? styles.filter(x => x.name === 'transformX')[0].value : 0;
     $: transformY = styles.filter(x => x.name === 'transformY')[0] ? styles.filter(x => x.name === 'transformY')[0].value : 0;
 
-    $: dark = (['bg-white', 'bg-light', 'bg-pomme', 'bg-caraibe', 'bg-ambre'].includes(bgColor)) ? false : true;
+    //$: dark = (['bg-white', 'bg-light', 'bg-pomme', 'bg-caraibe', 'bg-ambre'].includes(bgColor)) ? false : true;
 
     const updateStyle = ({name, value}) => {
         const curentStyleItem = styles.filter(x => x.name === name);
@@ -188,7 +188,6 @@ import LinkLightBgMarkdown from "./markdown/LinkLightBgMarkdown.svelte";
                                     table: TableMarkdown, 
                                     tablecell: TdMarkdown,
                                     text: bgPrimaryText ? TextBgFillPrimaryMarkdown : TextMarkdown,
-                                    link: dark ? LinkDarkBgMarkdown : LinkLightBgMarkdown,
                                     }}/>
                             </div>
                         </div>
@@ -209,7 +208,6 @@ import LinkLightBgMarkdown from "./markdown/LinkLightBgMarkdown.svelte";
                 table: TableMarkdown, 
                 tablecell: TdMarkdown,
                 text: bgPrimaryText ? TextBgFillPrimaryMarkdown : TextMarkdown,
-                link: dark ? LinkDarkBgMarkdown : LinkLightBgMarkdown,
                 }} />
         </div>
     </div>

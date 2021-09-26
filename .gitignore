@@ -1,6 +1,5 @@
 design
 node_modules
-# frontend/public/build/
 frontend/
 .env
 uploads
@@ -9,6 +8,7 @@ _images
 /config.json
 _backup
 _backup-volume
+_backup-mongodb
 _images
 _sources
 docker-copy-backup.bash

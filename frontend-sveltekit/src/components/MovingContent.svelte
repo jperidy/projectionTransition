@@ -115,9 +115,6 @@ import { recursiveFilmDelete } from "../actions/filmActions";
                     <button class='btn btn-primary btn-sm' on:click={() => addDown = true}><i class="bi bi-plus-circle-dotted"></i></button>
                     {/if}
                 </div>
-                <div></div>
-                <div></div>
-                <div></div>
             </div>
         </div>
     </div>
