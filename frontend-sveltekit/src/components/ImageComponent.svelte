@@ -58,6 +58,7 @@
     $: transformX = styles.filter(x => x.name === 'transformX')[0] ? styles.filter(x => x.name === 'transformX')[0].value : 0;
     $: transformY = styles.filter(x => x.name === 'transformY')[0] ? styles.filter(x => x.name === 'transformY')[0].value : 0;
     $: scaleXY = styles.filter(x => x.name === 'scaleXY')[0] ? styles.filter(x => x.name === 'scaleXY')[0].value : 1;
+    $: maxHeight = styles.filter(x => x.name === 'maxHeight')[0] ? styles.filter(x => x.name === 'maxHeight')[0].value : 30;
 
 
     const updateStyle = ({name, value}) => {
@@ -94,6 +95,10 @@
     .content-container:hover .middle {
         opacity: 1;
     }
+    /* img{
+        max-height: {``};
+        max-width: auto;
+    } */
 </style>
 
 <Modal isOpen={edit} {toggle}>
@@ -146,10 +151,19 @@
                     <Input type='number' class='px-1' value={scaleXY} on:change={(e) => updateStyle({name:'scaleXY', value:e.target.value})} step={0.05} />
                 </div>
             </div>
+            <div class='row py-1 align-items-center'>
+                <div class='col-4'>Hauteur maximale (% de la hauteur de l'écran) : </div>
+                <div class='col-8'>
+                    <Input type='number' class='px-1' value={maxHeight} on:change={(e) => updateStyle({name:'maxHeight', value:e.target.value})} step={1} />
+                </div>
+            </div>
             <p class='my-3'><strong>Prévisualisation</strong></p>
             <div class={`col ${textAlign}`}>
                 <figure class='figure m-0 p-0' style={`transform: rotate(${transformR}deg) translateX(${transformX}vh) translateY(${transformY}vh) scale(${scaleXY, scaleXY});`}>
-                    <img class={`figure-img img-fluid m-0 p-0 ${rounded} ${shadow}`} src={`${API_URL}${values[0].url}`} alt={values[0].substitution}>
+                    <img 
+                        class={`figure-img img-fluid m-0 p-0 ${rounded} ${shadow}`} src={`${API_URL}${values[0].url}`} alt={values[0].substitution}
+                        style={`max-height:${maxHeight}vh;max-width:auto;`}
+                    >
                     <figcaption class='figure-caption'>{values[0].caption}</figcaption>
                 </figure>
             </div>
@@ -170,7 +184,10 @@
                 <div class='bg-secondary text-center text-dark rounded-3' style='min-height:100px;'>Ajouter l'image</div>
             {/if}
             <figure class='figure m-0 p-0' style={`transform: rotate(${transformR}deg) translateX(${transformX}vh) translateY(${transformY}vh) scale(${scaleXY, scaleXY});`}>
-                <img class={`figure-img img-fluid m-0 p-0 ${rounded} ${shadow}`} src={`${API_URL}${values[0].url}`} alt={values[0].substitution}>
+                <img 
+                    class={`figure-img img-fluid m-0 p-0 ${rounded} ${shadow}`} src={`${API_URL}${values[0].url}`} alt={values[0].substitution}
+                    style={`max-height:${maxHeight}vh;max-width:auto;`}
+                >
                 <figcaption class='figure-caption'>{values[0].caption}</figcaption>
             </figure>
         </div>

@@ -32,7 +32,9 @@ const sendContactFormEmail = asyncHandler(async (req, res) => {
         context: {
             email: email.email,
             body: email.body.split('\n'),
-            subject: email.subject
+            subject: email.subject,
+            nom: email.nom,
+            prenom: email.prenom
         }
     };
     const mailService = new MailService();

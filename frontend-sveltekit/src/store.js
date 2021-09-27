@@ -13,8 +13,6 @@ export const userInfo = writable(browser ? getInitialUserInfo() : '');
 export const pageRequest = writable({content:{content:[], name:''}, loading: false, message: ''});
 
 export const pageName = writable('homePage');
-//export const pageContent = writable([]);
-//export const pageContentMessage = writable(null);
 
 export const articleRequest = writable({article:null, loading:false, message:''});
 export const articleUpdateRequest = writable({success:false, loading:false, message:''});

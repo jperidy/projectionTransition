@@ -2,7 +2,6 @@
 
     import { page } from '$app/stores'
     let redirection = $page.query.get('redirection');
-    //console.log(redirection);
     if (!redirection) {
         redirection='/';
     }

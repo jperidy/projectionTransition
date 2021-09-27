@@ -16,6 +16,8 @@
 
     let subject = '';
     let email = '';
+    let nom = '';
+    let prenom = '';
     let body = '';
 
     $:{
@@ -31,13 +33,13 @@
         if (form.checkValidity() === false) {
         } else {
             e.preventDefault(); // to avoid page to refresh
-            sendContactEmail({email, subject, body});
+            sendContactEmail({email, subject, body, prenom, nom});
         }
     }
 
 </script>
 
-<CustomContainer size={{xs: 12, sm:12, md:12, lg:6}}>
+<CustomContainer size={{xs: 12, sm:12, md:12, lg:8}}>
     <div class='mt-5'>
         <div class='text-center my-3'>
             <TextComponent 
@@ -51,32 +53,29 @@
     
         <form class="row contact-form" on:submit={sendEmailHandler}>
             
-            <div class="row align-items-center">
-                <div class="col-4">
-                    <label for="exampleInputEmail1" class="form-label">Adresse email pour vous joindre *</label>
+            <div class="row align-items-center mb-3">
+                <div class="col-sm-12 col-md-6">
+                    <label for="exampleInputNom" class="form-label">Votre nom *</label>
+                    <input type="text" class="form-control" id="exampleInputNom" aria-describedby="nomHelp" placeholder="Votre nom" required bind:value={nom}>
+                    <!-- <div id="nomHelp" class="form-text">Nous ne partagerons pas votre adresse email.</div> -->
                 </div>
-                <div class="col-8">
-                    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Email" required bind:value={email}>
-                </div>
-            </div>
-            <div class='row mb-3'>
-                <div class="col text-end">
-                    <div id="emailHelp" class="form-text">Nous ne partagerons pas votre adresse email.</div>
-                </div>
-            </div>
-
-            <div class="row align-items-center">
-                <div class="col-4">
-                    <label for="emailObject" class="form-label">Objet de votre message *</label>
-                </div>
-                <div class="col-8">
-                    <input type="text" class="form-control" id="emailObject" aria-describedby="emailObjectHelper" placeholder="Objet de votre message" required bind:value={subject}>
+                <div class="col-sm-12 col-md-6">
+                    <label for="exampleInputPrenom" class="form-label">Votre prénom *</label>
+                    <input type="text" class="form-control" id="exampleInputPrenom" aria-describedby="emailHelp" placeholder="Votre prénom" required bind:value={prenom}>
+                    <!-- <div id="emailHelp" class="form-text">Nous ne partagerons pas votre adresse email.</div> -->
                 </div>
             </div>
-            <div class='row mb-3'>
-                <div class="col text-end">
-                    <div id="emailObjectHelper" class="form-text">L'objet nous permet d'orienter le traitement de votre message.</div>
+            <div class="row align-items-center mb-3">
+                <div class="col-sm-12 col-md-6">
+                    <label for="exampleInputSujet" class="form-label">Sujet du message *</label>
+                    <input type="text" class="form-control" id="exampleInputSujet" aria-describedby="SujetHelp" placeholder="Votre sujet" required bind:value={email}>
+                    <!-- <div id="SujetHelp" class="form-text">Nous ne partagerons pas votre adresse email.</div> -->
                 </div>
+                <div class="col-sm-12 col-md-6">
+                    <label for="exampleInputEmail1" class="form-label">Email pour nous puissions vous répondre *</label>
+                    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Votre email" required bind:value={subject}>
+                </div>
+                <div id="emailHelp" class="form-text">Nous ne partagerons pas ces données.</div>
             </div>
 
             <div class="row mb-3">

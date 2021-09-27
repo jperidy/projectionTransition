@@ -4,7 +4,7 @@ import { goto } from "$app/navigation";
 </script>
 
 
-<div class="row bg-white text-dark align-items-center px-5 py-2 " style='min-height:5vh;'>
+<div class="row bg-white text-dark align-items-center px-5 py-2 " style='min-height:15vh;'>
     <div class='col-sm-12 col-md-9 text-center'>
         <span class='mx-3 fw-bold ' style="font-size:1.2rem; cursor:pointer;" on:click={() => goto('/mentions-legales')}>MENTIONS LEGALES</span>
         <span class='fw-bold ' style="font-size:1.2rem;">|</span>

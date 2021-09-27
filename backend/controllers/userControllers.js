@@ -121,38 +121,16 @@ const registerUser = asyncHandler(async(req,res) => {
                 .catch((error) => res.status(500).json({message: `Error creating user in database: ${error}`}));
             }
         })
-
-
-    
-
-    // const { name, email, password } = req.body;
-
-    // const userExists = await User.findOne({ email });
-
-    // if(userExists) {
-    //     res.status(400).json({message: 'User already exists'});
-    // }
-
-    // const user = await User.create({
-    //     name,
-    //     email,
-    //     password,
-    //     status: 'Waiting approval',
-    //     profil:'unknown'
-    // });
-
-    // if (user) {
-    //     res.status(201).json({
-    //         _id: user._id,
-    //         name: user.name,
-    //         email: user.email,
-    //         profil: user.profil,
-    //         status: 'Waiting approval',
-    //         token: generateToken(user._id)
-    //     });
-    // } else {
-    //     res.status(400).json({message: 'Invalid user data'});
-    // }
 });
 
-module.exports = { authUser, registerUser };
+// @desc    Verify token for user
+// @route   POST /api/users/verify
+// @access  Private
+const verifyUserToken = asyncHandler(async(req,res) => {
+
+    // if protect is pass then the token is valid
+    res.status(200).json({message: 'token is valid'});
+    
+});
+
+module.exports = { authUser, registerUser, verifyUserToken };

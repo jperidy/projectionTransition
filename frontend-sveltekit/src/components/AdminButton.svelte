@@ -12,7 +12,7 @@ import { goto } from "$app/navigation";
 
     const logoutHandler = () => {
         logout();
-        goto('/login');
+        //goto('/login');
     };
 
 </script>

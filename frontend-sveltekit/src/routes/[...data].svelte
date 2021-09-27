@@ -4,7 +4,7 @@
     
     export const prerender = true;
 
-    export async function load({page, fetch, session, context}){
+    export async function load({page}){
 
         const params = { name: 'homeContent', city:'' }
         
@@ -12,17 +12,19 @@
         params.name = name !== '' ? name : 'homeContent' ;
         params.city = city ? city : '';
 
-        //verify if login
+        //verify if login is requested
         let redirection = page.path.split('/login');
-        
+
         //const pageRequest = await getContent(params.name);
         let pageRequest = { content: { content: [], name: '' }, loading: true, message: '' };
         if (redirection.length === 1) {
             let pageName = page.path.substring(1).replace('/','-');
             pageName = pageName === '' ? 'homeContent' : pageName;
             pageRequest = await getContent(pageName);
+            return {status:200, props: {pageRequest, params, page}};
+        } else {
+            return { status: 307, redirect: `/login?redirection=${redirection[0]}`}
         }
-        return {status:200, props: {pageRequest, params, redirection, page}};
     }
 
 </script>
@@ -31,7 +33,6 @@
     
     export let params;
     export let pageRequest;
-    export let redirection;
     export let page;
 
     import { updateOrCreateContent } from '../actions/pagesActions';
@@ -46,22 +47,26 @@
     const SITE_URL = config.SVELTE_ENV === 'dev' ? config.SITE_URL_DEV : config.SVELTE_ENV === 'preprod' ? config.SITE_URL_PREPROD : config.SVELTE_ENV === 'production' ? config.SITE_URL_PROD : config.SITE_URL_DEV;
 
 
-    import { 
-        userInfo, 
-    } from '../store';
+    import { userInfo } from '../store';
     
     import DisplayCustomComponent from '../components/DisplayCustomComponent.svelte';
     import Message from '../components/Message.svelte';
     import Loading from '../components/Loading.svelte';
     import { goto } from '$app/navigation';
-    import { onMount } from 'svelte';
     import { browser } from '$app/env';
     import SeoComponent from '../components/SeoComponent.svelte';
-    
-    // redirect to login page if requested
-    onMount(() => {
-        if (redirection.length > 1) {
-                goto(`/login?redirection=${redirection[0]}`);
+    import { onMount } from 'svelte';
+    import { get } from 'svelte/store';
+    import { logout, verifyLocalToken } from '../actions/userActions';
+
+    onMount(async() => {
+        const userInfoStored = get(userInfo);
+        
+        if (userInfoStored && userInfoStored.token) {
+            const tokenValid = await verifyLocalToken(userInfoStored.token);
+            if (tokenValid.status === 'Error') {
+                await logout();
+            }
         }
     });
 

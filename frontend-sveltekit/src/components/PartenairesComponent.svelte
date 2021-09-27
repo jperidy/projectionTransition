@@ -37,14 +37,7 @@ const updateMovedArray = async(array) => {
 
 </script>
 
-<!-- on admin mode -->
-{#if admin}
-    <div class='row my-5'>
-        <div class='col text-center'>
-            <button class='btn btn-primary' on:click={addPartnerHandler}>Add a partner</button>
-        </div>
-    </div>
-{/if}
+
 
 <!-- categorie de partenaire -->
 <div class='row mt-5'>
@@ -60,7 +53,7 @@ const updateMovedArray = async(array) => {
 </div>
 
 <!-- affichage des partenaire -->
-<div class='row pt-3 gx-3'>
+<div class='moving-container row pt-3 gx-3'>
     {#each values[1].values as partenaire, position}
         <div class='col-sm-6 col-md-3 text-center'>
             <MovingContent 
@@ -88,4 +81,27 @@ const updateMovedArray = async(array) => {
             </MovingContent>
         </div>   
     {/each}
+    <!-- on admin mode -->
+    {#if admin}
+    <!-- <div class='row my-5'> -->
+        <div class='edition add-partenaire col-sm-6 col-md-3 text-center border-light rounded-3 mt-3 mb-1 p-3 bg-lavande shadow-lg'>
+            <button class='btn btn-primary py-auto' on:click={addPartnerHandler}>Add a partner</button>
+        </div>
+    <!-- </div> -->
+    {/if}
 </div>
+
+<style>
+    .edition {
+        -webkit-transform: scale(0);
+	    transform: scale(0);
+        transition: .5s ease;
+        width: 0px;
+    }
+    .moving-container:hover .edition {
+        -webkit-transform: scale(1);
+	    transform: scale(1);
+        transition: .5s ease;
+        width: 25vh;
+    }
+</style>

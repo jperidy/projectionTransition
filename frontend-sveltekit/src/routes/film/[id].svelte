@@ -14,9 +14,11 @@
         
         filmRequest = await getFilm(id);
 
-        //console.log(page)
-
-        return {status:200, props: {filmRequest, id, redirection, page}};
+        if (redirection.length === 1) {
+            return {status:200, props: {filmRequest, id, page}};
+        } else {
+            return {status:307, redirect: `/login?redirection=${redirection[0]}`}
+        }
     }
 
 </script>
@@ -34,26 +36,29 @@
 
     import { userInfo, filmUpdateRequest } from '../../store';
     import { goto } from '$app/navigation';
-    import { onMount } from 'svelte';
+    import { get } from 'svelte/store';
 
     import config from '../../config.json';
     import SeoComponent from '../../components/SeoComponent.svelte';
+    import { logout, verifyLocalToken } from '../../actions/userActions';
     const SITE_URL = config.SVELTE_ENV === 'dev' ? config.SITE_URL_DEV : config.SVELTE_ENV === 'preprod' ? config.SITE_URL_PREPROD : config.SVELTE_ENV === 'production' ? config.SITE_URL_PROD : config.SITE_URL_DEV;
     
     export let filmRequest;
     export let id;
-    export let redirection;
     export let page;
-    
-    // redirect to login page if requested
-    onMount(() => {
-        if (redirection.length > 1) {
-            goto(`/login?redirection=${redirection[0]}`);
-        }
-    });
 
     $: isAuthenticate = $userInfo && $userInfo.profil === 'admin' ? true : false;
 
+    onMount(async() => {
+        const userInfoStored = get(userInfo);
+        
+        if (userInfoStored && userInfoStored.token) {
+            const tokenValid = await verifyLocalToken(userInfoStored.token);
+            if (tokenValid.status === 'Error') {
+                await logout();
+            }
+        }
+    });
 
     let admin = false;
     let edit = false;
