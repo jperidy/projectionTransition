@@ -154,7 +154,7 @@ Les zone éditables utilisent les markown et permettent de faire une mise en for
 - Ajouter une ligne : passer à la ligne et ***
 - Paragraphe : ajouter une ligne vierge pour ajouter un paragraphe
 - Lien hypertexte : \[lien hypertexte\]\(https://lien.com\)
-- Autres possibilités ici : https://www.ionos.fr/digitalguide/sites-internet/developpement-web/markdown/
+- Autres possibilités ici : [utilisation des markdown](https://www.ionos.fr/digitalguide/sites-internet/developpement-web/markdown/)
 ## Dimensions à privilégier pour les images (largeur x hauteur)
 Privilégier le format jpeg
 - Photos équipe : 400 x 300 px
