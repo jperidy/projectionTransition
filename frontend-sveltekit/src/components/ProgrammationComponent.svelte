@@ -58,9 +58,9 @@ import { createFilmRequest } from "../actions/filmActions";
         {#if admin}
             <input type='texte' bind:value={values[0].date} on:change={updateContent} placeholder="Date de l'événement"/>
         {:else}
-            <h2><span class='text-white bg-primary text-center px-1'>
+            <h1><span class='text-white bg-primary text-center px-1'>
                 {values[0].date ? values[0].date.toUpperCase() : 'Journée ?' }
-            </span></h2>
+            </span></h1>
         {/if}
     </div>
 </div>
