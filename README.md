@@ -161,6 +161,7 @@ Privilégier le format jpeg
 - Images partenaires : 200 x 200 px
 - Images pour carousel : 1000 x 500 px
 - Images pour Programmation : 1000 x 600 px
+
 La taille maximale acceptée pour une image est 1 Mb
 ## Dimensions à privilégier pour les vidéos
 La taill maximale acceptée pour une vidéo est 10 Mb

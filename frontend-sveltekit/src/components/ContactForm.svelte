@@ -68,12 +68,12 @@
             <div class="row align-items-center mb-3">
                 <div class="col-sm-12 col-md-6">
                     <label for="exampleInputSujet" class="form-label">Sujet du message</label>
-                    <input type="text" class="form-control" id="exampleInputSujet" aria-describedby="SujetHelp" placeholder="Votre sujet" required bind:value={email}>
+                    <input type="text" class="form-control" id="exampleInputSujet" aria-describedby="SujetHelp" placeholder="Votre sujet" required bind:value={subject}>
                     <!-- <div id="SujetHelp" class="form-text">Nous ne partagerons pas votre adresse email.</div> -->
                 </div>
                 <div class="col-sm-12 col-md-6">
                     <label for="exampleInputEmail1" class="form-label">Votre adresse e-mail</label>
-                    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Votre e-mail" required bind:value={subject}>
+                    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Votre e-mail" required bind:value={email}>
                 </div>
             </div>
 
