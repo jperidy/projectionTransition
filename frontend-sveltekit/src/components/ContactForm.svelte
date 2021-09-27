@@ -55,34 +55,33 @@
             
             <div class="row align-items-center mb-3">
                 <div class="col-sm-12 col-md-6">
-                    <label for="exampleInputNom" class="form-label">Votre nom *</label>
+                    <label for="exampleInputNom" class="form-label">Votre nom</label>
                     <input type="text" class="form-control" id="exampleInputNom" aria-describedby="nomHelp" placeholder="Votre nom" required bind:value={nom}>
                     <!-- <div id="nomHelp" class="form-text">Nous ne partagerons pas votre adresse email.</div> -->
                 </div>
                 <div class="col-sm-12 col-md-6">
-                    <label for="exampleInputPrenom" class="form-label">Votre prénom *</label>
+                    <label for="exampleInputPrenom" class="form-label">Votre prénom</label>
                     <input type="text" class="form-control" id="exampleInputPrenom" aria-describedby="emailHelp" placeholder="Votre prénom" required bind:value={prenom}>
                     <!-- <div id="emailHelp" class="form-text">Nous ne partagerons pas votre adresse email.</div> -->
                 </div>
             </div>
             <div class="row align-items-center mb-3">
                 <div class="col-sm-12 col-md-6">
-                    <label for="exampleInputSujet" class="form-label">Sujet du message *</label>
+                    <label for="exampleInputSujet" class="form-label">Sujet du message</label>
                     <input type="text" class="form-control" id="exampleInputSujet" aria-describedby="SujetHelp" placeholder="Votre sujet" required bind:value={email}>
                     <!-- <div id="SujetHelp" class="form-text">Nous ne partagerons pas votre adresse email.</div> -->
                 </div>
                 <div class="col-sm-12 col-md-6">
-                    <label for="exampleInputEmail1" class="form-label">Email pour nous puissions vous répondre *</label>
-                    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Votre email" required bind:value={subject}>
+                    <label for="exampleInputEmail1" class="form-label">Votre adresse e-mail</label>
+                    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Votre e-mail" required bind:value={subject}>
                 </div>
-                <div id="emailHelp" class="form-text">Nous ne partagerons pas ces données.</div>
             </div>
 
             <div class="row mb-3">
                 <div class='col'>
-                    <label for="emailBody" class="form-label">Votre message *</label>
+                    <label for="emailBody" class="form-label">Votre message</label>
                     <textarea class="form-control" id="emailBody" aria-describedby="bodyHelper" placeholder="Votre message" rows="6" required bind:value={body}></textarea>
-                    <div id="bodyHelper" class="form-text">Saisissez ici votre message.</div>
+                    <div id="bodyHelper" class="form-text">* champs obligatoires</div>
                 </div>
             </div>
             <div class='row'>

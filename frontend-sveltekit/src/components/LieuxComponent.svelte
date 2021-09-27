@@ -63,13 +63,13 @@
     </div>
 {/if}
 
-<div class='row'>
+<!-- <div class='row'>
     <div class='col text-center'>
         <button class='btn btn-primary mx-3 my-1 py-3' style='width:15vh;'>PARIS</button>
         <button class='btn btn-primary mx-3 my-1 py-3' style='width:15vh;'>NANTES</button>
         <button class='btn btn-primary mx-3 my-1 py-3' style='width:15vh;'>TOULOUSE</button>
     </div>
-</div>
+</div> -->
 
 <div class='row mt-3 mb-5 gx-5 gy-3'>   
     {#each values[0].values as lieu, position}
