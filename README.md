@@ -160,3 +160,4 @@ Les zone éditables utilisent les markown et permettent de faire une mise en for
 - Images partenaires : 400 x 400 px
 - Images pour carousel : 1000 x 500 px
 - Images pour Programmation : 900 x 600 px
+La taille maximale acceptée pour une image est 1 Mb
