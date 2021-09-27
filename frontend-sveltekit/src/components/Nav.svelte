@@ -1,6 +1,9 @@
+<script context='module'>
+  export const prerender = true;
+</script>
 <script>
     //import { push } from 'svelte-spa-router';
-    import { goto, invalidate, prefetch, prefetchRoutes } from '$app/navigation';
+    import { goto } from '$app/navigation';
     
     import {
         Collapse,

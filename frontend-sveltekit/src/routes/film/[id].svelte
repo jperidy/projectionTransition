@@ -16,7 +16,7 @@
 
         //console.log(page)
 
-        return {props: {filmRequest, id, redirection, page}};
+        return {status:200, props: {filmRequest, id, redirection, page}};
     }
 
 </script>
@@ -37,6 +37,7 @@
     import { onMount } from 'svelte';
 
     import config from '../../config.json';
+    import SeoComponent from '../../components/SeoComponent.svelte';
     const SITE_URL = config.SVELTE_ENV === 'dev' ? config.SITE_URL_DEV : config.SVELTE_ENV === 'preprod' ? config.SITE_URL_PREPROD : config.SVELTE_ENV === 'production' ? config.SITE_URL_PROD : config.SITE_URL_DEV;
     
     export let filmRequest;
@@ -88,22 +89,6 @@
 
 </script>
 
-<svelte:head>
-    <title>Projection Transition {filmRequest.film && filmRequest.film.title.values.length ? filmRequest.film.title.values[0].value.replaceAll(/[#|*|_]/g, '') : ''}</title>
-	<meta name='description' content={`Retrouvez toutes les informations sur le festival Projection Transition ${filmRequest.film && filmRequest.film.title.values.length ? filmRequest.film.title.values[0].value.replaceAll(/[#|*|_]/g, '') : ''}`} />
-	<meta name='keywords' content="écologie, transition, projection transition, cinéma, shiftProject, cine-debat" />
-	<meta property="og:title" content={`Projection Transition - Participez à la projection de ${filmRequest.film && filmRequest.film.title.values.length ? filmRequest.film.title.values[0].value.replaceAll(/[#|*|_]/g, '') : ''}`} />
-	<meta property="og:type" content="website" />
-	<meta property="og:image" content={`${SITE_URL}/images/og_logo.jpg`} />
-	<meta property="og:image:width" content="800" />
-	<meta property="og:image:height" content="400" />
-	<meta property="og:url" content={`${page.host}${page.path}`} />
-	<meta property="og:locale" content="fr_FR" />
-	<meta name="twitter:image" content={`${SITE_URL}/images/og_logo.jpg`} />
-	<meta name="twitter:card" content="summary_large_image" />
-	<meta name="twitter:description" content={`Projection Transition - Participez à la projection de ${filmRequest.film && filmRequest.film.title.values.length ? filmRequest.film.title.values[0].value.replaceAll(/[#|*|_]/g, '') : ''}`} />
-</svelte:head>
-
 {#if filmRequest.message}
     <Message color='warning'>{filmRequest.message}</Message>
 {/if}
@@ -135,6 +120,7 @@
     {/if}
 
     {#if filmRequest.film}
+
         <CustomContainer size={{xs: 12, sm:12, md:12, lg:12}}>
             <div class='row mt-5'>
                 <!-- contents for conference -->
@@ -311,6 +297,13 @@
                     </button>
                 </div>
             </div>
+            <SeoComponent
+                pageContent={filmRequest.film}
+                page={page}
+                siteURL={SITE_URL}
+                admin={admin}
+                updateContent={updateFilm}
+            />
         </CustomContainer>
     {/if}
 {/if}

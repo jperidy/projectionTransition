@@ -10,6 +10,10 @@ const filmSchema = mongoose.Schema({
     book: { type: String },
     bookingAvailable: { type: Boolean },
     justification: { type: String },
+    titleSeo: {type: String},
+    descriptionSeo: {type: String},
+    titleOG: {type: String},
+    descriptionOG: {type: String},
 }, {timestamps: true});
 
 const Film = mongoose.model('Film', filmSchema);

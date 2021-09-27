@@ -87,6 +87,10 @@ const updateFilmContent = asyncHandler(async(req,res) =>{
                 film.book = updatedFilm.book;
                 film.bookingAvailable = updatedFilm.bookingAvailable;
                 film.justification = updatedFilm.justification;
+                film.titleSeo = updatedFilm.titleSeo;
+                film.descriptionSeo = updatedFilm.descriptionSeo;
+                film.titleOG = updatedFilm.titleOG;
+                film.descriptionOG = updatedFilm.descriptionOG;
                 film.save()
                     .then(() => res.status(200).json({message: 'film updated', value: film}))
                     .catch((error) => res.status(500).json({message: `Error saving film in database: ${error}`}));

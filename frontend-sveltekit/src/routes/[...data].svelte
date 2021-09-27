@@ -22,8 +22,7 @@
             pageName = pageName === '' ? 'homeContent' : pageName;
             pageRequest = await getContent(pageName);
         }
-
-        return {props: {pageRequest, params, redirection, page}};
+        return {status:200, props: {pageRequest, params, redirection, page}};
     }
 
 </script>
@@ -49,7 +48,6 @@
 
     import { 
         userInfo, 
-        //pageName, 
     } from '../store';
     
     import DisplayCustomComponent from '../components/DisplayCustomComponent.svelte';
@@ -58,6 +56,7 @@
     import { goto } from '$app/navigation';
     import { onMount } from 'svelte';
     import { browser } from '$app/env';
+    import SeoComponent from '../components/SeoComponent.svelte';
     
     // redirect to login page if requested
     onMount(() => {
@@ -76,7 +75,6 @@
     let admin = false;
 
     const updateContent = async() => {
-        //console.log(pageRequest.content)
         pageRequest = await updateOrCreateContent(pageRequest.content);
     }
 
@@ -87,35 +85,10 @@
     }
 
     const addContent = async(item, position) => {
-
-        // const tempPageRequest = pageRequest;
-        // tempPageRequest.content.content = [...tempPageRequest.content.content, item];
-
-        //const tempPageRequest = pageRequest;
         pageRequest.content.content.splice(position, 0, item);
-
         pageRequest = await updateOrCreateContent(pageRequest.content);
     };
-
-    //$: console.log(page);
-
 </script>
-
-<svelte:head>
-    <title>Projection Transition {params.name}</title>
-	<meta name='description' content={`Retrouvez toutes les informations sur le festival Projection Transition`} />
-	<meta name='keywords' content="écologie, transition, projection transition, cinéma, shiftProject, cine-debat" />
-	<meta property="og:title" content={`Projection Transition - Le festival ciné-débat pour la transition écologique`} />
-	<meta property="og:type" content="website" />
-	<meta property="og:image" content={`${SITE_URL}/images/og_logo.jpg`} />
-	<meta property="og:image:width" content="800" />
-	<meta property="og:image:height" content="400" />
-	<meta property="og:url" content={`${SITE_URL}${page.path}`} />
-	<meta property="og:locale" content="fr_FR" />
-	<meta name="twitter:image" content={`${SITE_URL}/images/og_logo.jpg`} />
-	<meta name="twitter:card" content="summary_large_image" />
-	<meta name="twitter:description" content="Retrouvez toutes les informations sur le festival Projection Transition" />
-</svelte:head>
 
 {#if isAuthenticate}
     <AdminButton 
@@ -162,9 +135,19 @@
                     </div>
                 {/if}
             </Col>
+
+            <SeoComponent 
+                pageContent={pageRequest.content}
+                page={page}
+                siteURL={SITE_URL}
+                admin={admin}
+                updateContent={updateContent}
+            />
+            
         </Row>
     </CustomContainer>
 {/if}
+
 
 <style>
     .moving-container {
