@@ -13,6 +13,7 @@
     import EquipeComponent from "./EquipeComponent.svelte";
     import ContactForm from "./ContactForm.svelte";
     import LayoutComponent from "./LayoutComponent.svelte";
+    import SouslligneComponent from "./SouslligneComponent.svelte";
 
     export let type = '';
     export let updateContent = null;
@@ -144,8 +145,8 @@
     />
 {/if}
 
-{#if type === 'test'}
-    <TestComponent 
+{#if type === 'sousligneComponent'}
+    <SouslligneComponent
         bind:values={values}
         bind:styles={styles}
         updateContent={updateContent}
@@ -153,3 +154,4 @@
         edit={edit}
     />
 {/if}
+

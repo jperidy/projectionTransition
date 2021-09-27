@@ -12,12 +12,6 @@
     edit;
 
     $: {
-        // if (values.length < 4) {
-        //     values.push({name:'title', values:[], styles:[]});
-        //     values.push({name:'image', values:[], styles:[]});
-        //     values.push({name:'colonne-1', values:[], styles:[]});
-        //     values.push({name:'colonne-2', values:[], styles:[]});
-        // }
         if (values.length < 1) { values.push({name: 'titre', values:[], styles:[]});}
         if (values.length < 2) { values.push({name: 'image', values:[], styles:[]});}
         if (values.length < 3) { values.push({name: 'colonne-1', values:[], styles:[]});}
