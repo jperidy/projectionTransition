@@ -156,8 +156,11 @@ Les zone éditables utilisent les markown et permettent de faire une mise en for
 - Lien hypertexte : \[lien hypertexte\]\(https://lien.com\)
 - Autres possibilités ici : https://www.ionos.fr/digitalguide/sites-internet/developpement-web/markdown/
 ## Dimensions à privilégier pour les images (largeur x hauteur)
+Privilégier le format jpeg
 - Photos équipe : 400 x 300 px
-- Images partenaires : 400 x 400 px
+- Images partenaires : 200 x 200 px
 - Images pour carousel : 1000 x 500 px
-- Images pour Programmation : 900 x 600 px
+- Images pour Programmation : 1000 x 600 px
 La taille maximale acceptée pour une image est 1 Mb
+## Dimensions à privilégier pour les vidéos
+La taill maximale acceptée pour une vidéo est 10 Mb
