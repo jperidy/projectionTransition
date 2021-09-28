@@ -32,6 +32,7 @@
     };
 
     const onChangeHandler = () => {
+        copy = false;
         updateValues();
     }
 
@@ -52,7 +53,7 @@
       } else {
         values=[];
         styles=[];
-        type='';
+        //type='';
       }
     }
 
