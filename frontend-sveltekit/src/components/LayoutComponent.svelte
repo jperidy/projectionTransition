@@ -48,7 +48,8 @@
 
     const addToLayout = async(item, position) => {
         //values[position] = item;
-        values[position].values.push(item);
+        console.log("item", item);
+        values[position].values.push({...item, size:'auto'});
 
         
         updateContent && await updateContent();
@@ -91,6 +92,18 @@
             styles = [...styles, {name, value}];
         }
         styles = styles;
+    };
+
+    const calculateCol = (size, position, arrayLength) => {
+        if (size) {
+            if (position < arrayLength) {
+                return size.toString();
+            } else {
+                return 'auto';
+            }
+        } else {
+            return 'auto';
+        }
     };
 
 </script>
@@ -244,6 +257,7 @@
                         </div>
                     {/each}
                 </div>
+
         </ModalBody>
         <ModalFooter>
             <button class="btn btn-primary" on:click={toggle}>Enregistrer</button>
@@ -253,7 +267,9 @@
     
     <div class={`row gx-2 content align-items-${alignContent} ${bgColor} ${padding} ${marginX} ${marginY} ${rounded} ${border} ${borderColor}`}>
         {#each values as column, position}
-            <div class={`col-sm-12 col-md-${md.toString()}`} style={`min-height: 5vh;`};>
+
+        <!-- <div class={`col-sm-12 col-md-${md.toString()}`} style={`min-height: 5vh;`};> -->
+            <div class={`col-sm-12 col-md-${calculateCol(column.size, position, values.length)}`} style={`min-height: 5vh;`};>
                 <MovingContent 
                     array={values} 
                     position={position} 
@@ -261,6 +277,10 @@
                     updateMovedArray={updateMovedArray}
                     addContent={null}
                 >
+                {#if admin}
+                    <input class='form-control' type='number' bind:value={column.size} min={1} max={12} />
+                    <p>{"* somme de la ligne < 12"}</p>
+                {/if}
                 
                 {#each column.values as content, pos}
                     <MovingContent 

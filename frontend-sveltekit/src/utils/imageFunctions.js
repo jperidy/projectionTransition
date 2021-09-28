@@ -33,7 +33,13 @@ export const recursiveBlankMedias = (array) => {
     // const arrayOut = [...arrayIn];
     for (let ind=0; ind<array.length; ind++) {
         if (array[ind].url) {
-            array[ind].url = "";
+            if (typeof array[ind].url === "string") {
+                array[ind].url = "";
+            } else {
+                if (array[ind].url.values && array[ind].url.values.length) {
+                    recursiveBlankMedias(array[ind].url.values)
+                }
+            }
         }
         if (array[ind].component && array[ind].component.values && array[ind].component.values.length) {
             recursiveBlankMedias(array[ind].component.values);

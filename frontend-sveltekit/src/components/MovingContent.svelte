@@ -48,10 +48,6 @@
         updateMovedArray(array);
     };
 
-    // const addElementHandler = async(posToAdd) => {
-    //     console.log('add element position: ', posToAdd);
-    // }
-
 </script>
 
 <style>

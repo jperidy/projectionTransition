@@ -44,9 +44,11 @@
 
     // Build the first component
     $:{
-        if (values.length === 0) {
+        if (values && values.length === 0) {
             values.push({caption: '',substitution: '',url: '',redirection:''});
         }
+        // if (!styles) styles = [];
+        // if (!values) values = [];
     }
     
     // styles section

@@ -1,9 +1,7 @@
 <script>
 import { goto } from "$app/navigation";
 
-//import { push } from "svelte-spa-router";
-
-import { createFilmRequest } from "../actions/filmActions";
+    import { createFilmRequest } from "../actions/filmActions";
 
     import ImageComponent from "./ImageComponent.svelte";
     import MovingContent from "./MovingContent.svelte";
@@ -130,8 +128,6 @@ import { createFilmRequest } from "../actions/filmActions";
                 </div>
             </div>
         {/if}
-
-
 </div>
 
 <style>

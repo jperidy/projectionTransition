@@ -1,4 +1,6 @@
 <script>
+import { Icon } from "sveltestrap";
+
 import EditButton from "./EditButton.svelte";
 
 
@@ -19,9 +21,13 @@ import EditButton from "./EditButton.svelte";
         }
     }
 
+    const colors = ['pomme', 'outremer', 'lavande', 'caraibe', 'tangerine', 'ambre', 'light', 'white', 'dark', 'black'];
+
     $: width = styles.filter(x => x.name === 'width')[0] ? styles.filter(x => x.name === 'width')[0].value : 10;
     $: marginTop = styles.filter(x => x.name === 'marginTop')[0] ? styles.filter(x => x.name === 'marginTop')[0].value : 0;
     $: marginBottom = styles.filter(x => x.name === 'marginBottom')[0] ? styles.filter(x => x.name === 'marginBottom')[0].value : 0;
+    $: textAlign = styles.filter(x => x.name === 'text-align')[0] && styles.filter(x => x.name === 'text-align')[0].value;
+    $: textColor = styles.filter(x => x.name === 'text-color')[0] && styles.filter(x => x.name === 'text-color')[0].value;
 
     const updateStyle = ({name, value}) => {
         const curentStyleItem = styles.filter(x => x.name === name);
@@ -40,31 +46,43 @@ import EditButton from "./EditButton.svelte";
 </script>
 
 <div class="content-container row">
-    <div class='col'>
+    <div class="col">
         <div 
-            class='border-top border-5 border-primary'
-            style={`max-width: ${width}vh; margin-top:${marginTop}px;margin-bottom:${marginBottom}px;`}
+            class={`border-top border-5 ${textColor}`}
+            style={`max-width: ${width}vh; margin-top:${marginTop}px;margin-bottom:${marginBottom}px;${textAlign}`}
         >
-            {#if admin}
-                <div class='middle'>
-                    <EditButton
-                        admin={admin}
-                        updateContent={updateContent}
-                        bind:edit={edit}
-                    />
-                </div>
-            {/if}
         </div>
+        {#if admin}
+            <div class='middle'>
+                <EditButton
+                    admin={admin}
+                    updateContent={updateContent}
+                    bind:edit={edit}
+                />
+            </div>
+        {/if}
     </div>
+
     {#if edit}
-        <div class='col-2 parametres'>
+        <div class='parametres'>
             <label for="inputWidth">Largeur en % de la largeur totale</label>
             <input id ="inputWidth" type='number' class='form-control' value={width} on:change={(e) => updateStyle({name:'width', value:e.target.value})} />
             <label for="marginTop">Marge au dessus en pixels</label>
             <input id ="marginTop" type='number' class='form-control' value={marginTop} min={0} on:change={(e) => updateStyle({name:'marginTop', value:e.target.value})} />
             <label for="marginBottom">Marge au dessous en pixels</label>
             <input id ="marginBottom" type='number' class='form-control' value={marginBottom} min={0} on:change={(e) => updateStyle({name:'marginBottom', value:e.target.value})} />
+            <div class='py-1'><div class=''>
+                <button class='px-1 btn btn-light' on:click={() => updateStyle({name:'text-align', value:'margin-right:auto;'})}><Icon name='text-left' /></button>
+                <button class='px-1 btn btn-light' on:click={() => updateStyle({name:'text-align', value:'margin-right:auto;margin-left:auto;'})}><Icon name='text-center' /></button>
+                <button class='px-1 btn btn-light' on:click={() => updateStyle({name:'text-align', value:'margin-left:auto;'})}><Icon name='text-right' /></button>
+            </div></div>
+            <div class='py-1'><div class=''>
+                {#each colors as color}
+                    <btn class='px-1 btn btn-light' on:click={() => updateStyle({name:'text-color', value:`border-${color}`})}><Icon name='fonts' class={`text-${color}`} /></btn>
+                {/each}
+            </div></div>
         </div>
+        
     {/if}
 </div>
 
@@ -75,7 +93,6 @@ import EditButton from "./EditButton.svelte";
         -webkit-transform: scale(0);
         transform: scale(0);
         transition: .5s ease;
-        width: 0vh;
     }
     .content-container{
         position: relative;
