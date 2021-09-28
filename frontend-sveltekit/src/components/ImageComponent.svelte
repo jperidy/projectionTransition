@@ -45,7 +45,7 @@
     // Build the first component
     $:{
         if (values.length === 0) {
-            values.push({caption: '',substitution: '',url: ''});
+            values.push({caption: '',substitution: '',url: '',redirection:''});
         }
     }
     
@@ -107,8 +107,10 @@
     <Row>
         <Col class={`col`}>
             <Input type='file' name='image-url' on:change={(e) => onChangeHandler (0, e)} />
-            <Input type='text' name='text' class='my-3' bind:value={values[0].caption} placeholder='Caption'/>
-            <Input type='text' name='text' class='my-3' bind:value={values[0].substitution} placeholder='Substitution text'/>
+            <Input type='text' name='text' class='my-3' bind:value={values[0].caption} placeholder='[option] Légende'/>
+            <Input type='text' name='text' class='my-3' bind:value={values[0].substitution} placeholder='Texte de substitution'/>
+            <Input type='text' name='text' class='my-3' bind:value={values[0].redirection} placeholder='[option] url de redirection *'/>
+            <p>* exemple : https://url_cible.com Pour une url externe au site <br>* exemple : /edito pour une url interne au site</p>
             <div class='row py-1'><div class='col'>
                 <button class='px-1 btn btn-light' on:click={() => updateStyle({name:'text-align', value:'text-start'})}><Icon name='text-left' /></button>
                 <button class='px-1 btn btn-light' on:click={() => updateStyle({name:'text-align', value:'text-center'})}><Icon name='text-center' /></button>
@@ -158,14 +160,16 @@
                 </div>
             </div>
             <p class='my-3'><strong>Prévisualisation</strong></p>
-            <div class={`col ${textAlign}`}>
-                <figure class='figure m-0 p-0' style={`transform: rotate(${transformR}deg) translateX(${transformX}vh) translateY(${transformY}vh) scale(${scaleXY, scaleXY});`}>
-                    <img 
-                        class={`figure-img img-fluid m-0 p-0 ${rounded} ${shadow}`} src={`${API_URL}${values[0].url}`} alt={values[0].substitution}
-                        style={`max-height:${maxHeight}vh;max-width:auto;`}
-                    >
-                    <figcaption class='figure-caption'>{values[0].caption}</figcaption>
-                </figure>
+            <div class='row'>
+                <div class={`col ${textAlign}`}>
+                    <figure class='figure m-0 p-0' style={`transform: rotate(${transformR}deg) translateX(${transformX}vh) translateY(${transformY}vh) scale(${scaleXY, scaleXY});`}>
+                        <img 
+                            class={`figure-img img-fluid m-0 p-0 ${rounded} ${shadow}`} src={`${API_URL}${values[0].url}`} alt={values[0].substitution}
+                            style={`max-height:${maxHeight}vh;max-width:auto;`}
+                        >
+                        <figcaption class='figure-caption'>{values[0].caption}</figcaption>
+                    </figure>
+                </div>
             </div>
             
         </Col>
@@ -183,13 +187,15 @@
             {#if !values[0].url}
                 <div class='bg-secondary text-center text-dark rounded-3' style='min-height:100px;'>Ajouter l'image</div>
             {/if}
-            <figure class='figure m-0 p-0' style={`transform: rotate(${transformR}deg) translateX(${transformX}vh) translateY(${transformY}vh) scale(${scaleXY, scaleXY});`}>
-                <img 
-                    class={`figure-img img-fluid m-0 p-0 ${rounded} ${shadow}`} src={`${API_URL}${values[0].url}`} alt={values[0].substitution}
-                    style={`max-height:${maxHeight}vh;max-width:auto;`}
-                >
-                <figcaption class='figure-caption'>{values[0].caption}</figcaption>
-            </figure>
+            <a href={values[0].redirection ? values[0].redirection : '#'} target={values[0].redirection ? values[0].redirection.match(/^http/i) ? '_blank' : '_self' : '_self'} >
+                <figure class='figure m-0 p-0' style={`transform: rotate(${transformR}deg) translateX(${transformX}vh) translateY(${transformY}vh) scale(${scaleXY, scaleXY});`}>
+                    <img 
+                        class={`figure-img img-fluid m-0 p-0 ${rounded} ${shadow}`} src={`${API_URL}${values[0].url}`} alt={values[0].substitution}
+                        style={`max-height:${maxHeight}vh;max-width:auto;`}
+                    >
+                    <figcaption class='figure-caption'>{values[0].caption}</figcaption>
+                </figure>
+            </a>
         </div>
     </div>
 
