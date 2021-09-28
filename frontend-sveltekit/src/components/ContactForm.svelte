@@ -51,7 +51,7 @@
             />
         </div>
     
-        <form class="row contact-form" on:submit={sendEmailHandler}>
+        <form id='contact' class="row contact-form" on:submit={sendEmailHandler}>
             
             <div class="row align-items-center mb-3">
                 <div class="col-sm-12 col-md-6">

@@ -12,6 +12,8 @@
   	<link rel="stylesheet" href="/mains.min.css">
 </svelte:head>
 
+<div id='up'></div>
+
 <Nav />
 <main>
     <slot></slot>

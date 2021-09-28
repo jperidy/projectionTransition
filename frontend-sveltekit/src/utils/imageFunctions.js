@@ -27,3 +27,20 @@ export const recursiveDeleteAction = async (array) => {
     }
     return;
 }
+
+export const recursiveBlankMedias = (array) => {
+
+    // const arrayOut = [...arrayIn];
+    for (let ind=0; ind<array.length; ind++) {
+        if (array[ind].url) {
+            array[ind].url = "";
+        }
+        if (array[ind].component && array[ind].component.values && array[ind].component.values.length) {
+            recursiveBlankMedias(array[ind].component.values);
+        }
+        if (array[ind].values && array[ind].values.length) {
+            recursiveBlankMedias(array[ind].values);
+        }
+    }
+    //return array;
+};

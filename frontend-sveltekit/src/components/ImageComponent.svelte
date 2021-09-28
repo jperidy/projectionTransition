@@ -58,7 +58,7 @@
     $: transformX = styles.filter(x => x.name === 'transformX')[0] ? styles.filter(x => x.name === 'transformX')[0].value : 0;
     $: transformY = styles.filter(x => x.name === 'transformY')[0] ? styles.filter(x => x.name === 'transformY')[0].value : 0;
     $: scaleXY = styles.filter(x => x.name === 'scaleXY')[0] ? styles.filter(x => x.name === 'scaleXY')[0].value : 1;
-    $: maxHeight = styles.filter(x => x.name === 'maxHeight')[0] ? styles.filter(x => x.name === 'maxHeight')[0].value : 30;
+    $: maxHeight = styles.filter(x => x.name === 'maxHeight')[0] ? styles.filter(x => x.name === 'maxHeight')[0].value : 50;
 
 
     const updateStyle = ({name, value}) => {
@@ -164,7 +164,9 @@
                 <div class={`col ${textAlign}`}>
                     <figure class='figure m-0 p-0' style={`transform: rotate(${transformR}deg) translateX(${transformX}vh) translateY(${transformY}vh) scale(${scaleXY, scaleXY});`}>
                         <img 
-                            class={`figure-img img-fluid m-0 p-0 ${rounded} ${shadow}`} src={`${API_URL}${values[0].url}`} alt={values[0].substitution}
+                            src={`${API_URL}${values[0].url}`} 
+                            alt={values[0].substitution}
+                            class={`figure-img img-fluid m-0 p-0 ${rounded} ${shadow}`} 
                             style={`max-height:${maxHeight}vh;max-width:auto;`}
                         >
                         <figcaption class='figure-caption'>{values[0].caption}</figcaption>
@@ -190,7 +192,9 @@
             <a href={values[0].redirection ? values[0].redirection : '#'} target={values[0].redirection ? values[0].redirection.match(/^http/i) ? '_blank' : '_self' : '_self'} >
                 <figure class='figure m-0 p-0' style={`transform: rotate(${transformR}deg) translateX(${transformX}vh) translateY(${transformY}vh) scale(${scaleXY, scaleXY});`}>
                     <img 
-                        class={`figure-img img-fluid m-0 p-0 ${rounded} ${shadow}`} src={`${API_URL}${values[0].url}`} alt={values[0].substitution}
+                        src={`${API_URL}${values[0].url}`} 
+                        alt={values[0].substitution}
+                        class={`figure-img img-fluid m-0 p-0 ${rounded} ${shadow}`} 
                         style={`max-height:${maxHeight}vh;max-width:auto;`}
                     >
                     <figcaption class='figure-caption'>{values[0].caption}</figcaption>

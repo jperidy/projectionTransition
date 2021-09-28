@@ -1,5 +1,5 @@
 <script>
-import { recursiveFilmDelete } from "../actions/filmActions";
+    import { recursiveFilmDelete } from "../actions/filmActions";
 
     import { recursiveDeleteAction } from '../utils/imageFunctions'
     import AddElement from "./AddElement.svelte";
@@ -48,9 +48,9 @@ import { recursiveFilmDelete } from "../actions/filmActions";
         updateMovedArray(array);
     };
 
-    const addElementHandler = async(posToAdd) => {
-        console.log('add element position: ', posToAdd);
-    }
+    // const addElementHandler = async(posToAdd) => {
+    //     console.log('add element position: ', posToAdd);
+    // }
 
 </script>
 
@@ -89,12 +89,18 @@ import { recursiveFilmDelete } from "../actions/filmActions";
             position={position}      
             bind:open={addUp}
             addToLayout={''}
+            copyValues={array[position].values}
+            copyStyles={array[position].styles}
+            copyType={array[position].type}
         />
         <AddElement 
             addContent={addContent}
             position={position + 1}      
             bind:open={addDown}
             addToLayout={''}
+            copyValues={array[position].values}
+            copyStyles={array[position].styles}
+            copyType={array[position].type}
         />
     {/if}
 

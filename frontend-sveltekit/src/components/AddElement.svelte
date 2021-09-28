@@ -1,4 +1,5 @@
 <script>
+    import { recursiveBlankMedias } from "../utils/imageFunctions";
 
     import { Button, Col, FormGroup, Label, Modal, ModalBody, ModalFooter, ModalHeader, Row } from "sveltestrap";
     
@@ -6,15 +7,22 @@
     export let position = 0;
     export let addToLayout = null;
     export let open = false;
+    export let copyValues = [];
+    export let copyStyles = [];
+    export let copyType = '';
 
     let type = '';
     let values = [];
     let styles = [];
+    let copy = false;
 
-    //let open = false;
+    //$:console.log('follow copy', copyValues);
+
+    //$:if(open) console.log(copyValues);
 
     const toggle = async(save) => {
         if (open && addContent && save) {
+            //console.log('in toggle', {type, values, styles});
             await addContent({type, values, styles }, position);
         }
         if (open && addToLayout && save) {
@@ -24,8 +32,28 @@
     };
 
     const onChangeHandler = () => {
+        updateValues();
+    }
+
+    const toogleCopy = () => {
+      copy = !copy;
+      updateValues();
+    }
+
+    const updateValues = () => {
+      let newArray = JSON.parse(JSON.stringify(copyValues));
+      recursiveBlankMedias(newArray);
+      //console.log('copyValues', copyValues);
+      //console.log('newArray', newArray);
+      if (copy) {
+        values = newArray;
+        styles = copyStyles;
+        type = copyType;
+      } else {
         values=[];
         styles=[];
+        type='';
+      }
     }
 
 </script>
@@ -38,6 +66,10 @@
       <Row>
         <Col>
             <FormGroup>
+                <div class="form-check form-switch mt-3">
+                  <input class="form-check-input" type="checkbox" id="flexSwitchCopy" checked={copy} on:change={toogleCopy}>
+                  <label class="form-check-label" for="flexSwitchCopy">Copier la forme</label>
+                </div>
                 <Label for="exampleSelect">Select</Label>
                 <select class='form-select' type="select" name="select" id="exampleSelect" bind:value={type} on:change={onChangeHandler}>
                   <option value='' selected={type === ''}>--- select ---</option>
