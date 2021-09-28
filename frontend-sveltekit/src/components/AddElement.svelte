@@ -44,8 +44,8 @@
     const updateValues = () => {
       let newArray = JSON.parse(JSON.stringify(copyValues));
       recursiveBlankMedias(newArray);
-      console.log('copyValues', copyValues);
-      console.log('newArray', newArray);
+      //console.log('copyValues', copyValues);
+      //console.log('newArray', newArray);
       if (copy) {
         values = newArray;
         styles = copyStyles;

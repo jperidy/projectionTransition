@@ -48,7 +48,7 @@
 
     const addToLayout = async(item, position) => {
         //values[position] = item;
-        console.log("item", item);
+        //console.log("item", item);
         values[position].values.push({...item, size:'auto'});
 
         
