@@ -85,39 +85,39 @@ import { goto } from "$app/navigation";
                                 updateContent={updateContent}
                             />
                         </div>
-                        {#if !admin}
-                            <div class="middle">
-                                <button class='btn btn-light mt-3' style="width: 10vh; height:10vh;" on:click={() => goto(`/film/${evenement.filmId}`)}><i class="bi bi-cast"></i></button>
+                        <div class={admin ? '' : 'middle'}>
+                            <div class='p-3'>
+                                <div class='horaire mb-5'>
+                                    <TextComponent
+                                    bind:values={evenement.horaire.values}
+                                    bind:styles={evenement.horaire.styles}
+                                    admin={admin}
+                                    edit={edit}
+                                    updateContent={updateContent}
+                                    />
+                                </div>
+                                <div class='film mt-5'>
+                                    <TextComponent
+                                    bind:values={evenement.film.values}
+                                    bind:styles={evenement.film.styles}
+                                    admin={admin}
+                                    edit={edit}
+                                    updateContent={updateContent}
+                                    />
+                                </div>
+                                <div class='debat my-1'>
+                                    <TextComponent
+                                    bind:values={evenement.debat.values}
+                                    bind:styles={evenement.debat.styles}
+                                    admin={admin}
+                                    edit={edit}
+                                    updateContent={updateContent}
+                                    />
+                                </div>
                             </div>
-                        {/if}
-                    </div>
-                    <div class='p-3'>
-                        <div class='film mt-1'>
-                            <TextComponent
-                                bind:values={evenement.film.values}
-                                bind:styles={evenement.film.styles}
-                                admin={admin}
-                                edit={edit}
-                                updateContent={updateContent}
-                            />
-                        </div>
-                        <div class='debat my-1'>
-                            <TextComponent
-                                bind:values={evenement.debat.values}
-                                bind:styles={evenement.debat.styles}
-                                admin={admin}
-                                edit={edit}
-                                updateContent={updateContent}
-                            />
-                        </div>
-                        <div class='horaire'>
-                            <TextComponent
-                                bind:values={evenement.horaire.values}
-                                bind:styles={evenement.horaire.styles}
-                                admin={admin}
-                                edit={edit}
-                                updateContent={updateContent}
-                            />
+                            {#if !admin}
+                                <button class='btn btn-light mt-5' style="width: 30vh; height:5vh;" on:click={() => goto(`/film/${evenement.filmId}`)}>En savoir plus</button>
+                            {/if}
                         </div>
                     </div>
                 </div>
@@ -216,15 +216,17 @@ import { goto } from "$app/navigation";
 <style>
     .image-container {
         position: relative;
+        min-height: 30vh;
     }
     .image {
         opacity: 1;
         backface-visibility: hidden;
-        height: 30vh;
+        max-width: 100%;
+        height:auto;
     }
     .middle {
         transition: .5s ease;
-        opacity: .4;
+        opacity: 1;
         position: absolute;
         top: 50%;
         left: 50%;
