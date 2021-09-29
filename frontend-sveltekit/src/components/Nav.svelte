@@ -39,6 +39,12 @@
     <NavbarBrand on:click={() => navigateHandler('/')}>
       <img class='img-fluid mx-3' style="max-width: 130px;" src='/images/logo-projection-transition.png' alt='logo'/>
     </NavbarBrand>
+    <div>
+      <span class='fw-bold'><a class="" target="_self" href="/informationsPratiques#contact"><img class='icone-rs' src="/icones/MAIL.004.png" alt="icone envoyer mail" /></a></span>
+        <span class='fw-bold'><a class="" target="_blank" href="https://www.facebook.com/FestivalProjectionTransition/"><img class='icone-rs' src="/icones/FB.004.png" alt="icone lien Facebook" /></a></span>
+        <span class='fw-bold'><a class="" target="_blank" href="https://www.instagram.com/projectiontransition/"><img class='icone-rs' src="/icones/INSTA.004.png" alt="icone lien Instagram" /></a></span>
+        <span class='fw-bold'><a class="" target="_blank" href="https://www.youtube.com/channel/UCgSSefHpeDC42nXZcOy97aA"><img class='icone-rs' src="/icones/YT.004.png" alt="icone lien Youtube" /></a></span>
+    </div>
     <NavbarToggler on:click={() => (isOpen = !isOpen)} />
     <Collapse {isOpen} navbar expand={expand}>
         <Nav class="ms-auto align-items-center" navbar>
@@ -93,4 +99,8 @@
     font-size:1.1rem;
     font-weight: bold;
   }
+  .icone-rs {
+        max-width: 7vh;
+        height: auto;
+    }
 </style>
