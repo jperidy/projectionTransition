@@ -38,14 +38,17 @@
     const deleteAction = async() => {
 
         // Delete any tied media (image and video)
-        const values = array[position];
-        await recursiveDeleteAction(values);
 
-        // Delete any film tied to object
-        await recursiveFilmDelete(array[position]);
-
-        array.splice(position, 1);
-        updateMovedArray(array);
+        if (window.confirm('Attention cette action est irreversible !')) {
+            const values = array[position];
+            await recursiveDeleteAction(values);
+    
+            // Delete any film tied to object
+            await recursiveFilmDelete(array[position]);
+    
+            array.splice(position, 1);
+            updateMovedArray(array);
+        }
     };
 
 </script>
