@@ -35,6 +35,8 @@
     export let pageRequest;
     export let page;
 
+    //$: console.log('params', params);
+
     import { updateOrCreateContent } from '../actions/pagesActions';
 
     import CustomContainer from '../components/CustomContainer.svelte';

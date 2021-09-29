@@ -1,7 +1,6 @@
 <script>
     
     import TextComponent from "./TextComponent.svelte";
-    import TestComponent from "./TestComponent.svelte";
     import ImageComponent from "./ImageComponent.svelte";
     import CarouselComponent from "./CarouselComponent.svelte";
     import VideoComponent from "./VideoComponent.svelte";
@@ -142,6 +141,7 @@
         updateContent={updateContent}
         admin={admin}
         edit={edit}
+        city={city}
     />
 {/if}
 

@@ -50,8 +50,91 @@ import { goto } from "$app/navigation";
 
 </script>
 
-<div class="row align-items-center">
-    <!-- date des événements -->
+<!-- <div class="row align-items-center">
+    <div class='col text-start'>
+        {#if admin}
+            <input type='texte' bind:value={values[0].date} on:change={updateContent} placeholder="Date de l'événement"/>
+        {:else}
+            <h1><span class='text-white bg-primary text-center px-1'>
+                {values[0].date ? values[0].date.toUpperCase() : 'Journée ?' }
+            </span></h1>
+        {/if}
+    </div>
+</div> -->
+<div class='row mt-2'>
+    {#if values[1] && values[1].values}
+        {#each values[1].values as evenement, position }
+            <div 
+                class='col-12 my-4' 
+                style="_height: 45vh; _width:auto;"
+            >
+                <MovingContent
+                array={values[1].values} 
+                position={position} 
+                admin={admin} 
+                updateMovedArray={updateMovedArray}
+                >
+                <div class='bg-white rounded-3 event-container'>
+                    <div class='image-container'>
+                        <div class="image my-auto">
+                            <ImageComponent
+                                bind:values={evenement.url.values}
+                                bind:styles={evenement.url.styles}
+                                admin={admin}
+                                edit={edit}
+                                updateContent={updateContent}
+                            />
+                        </div>
+                        {#if !admin}
+                            <div class="middle">
+                                <button class='btn btn-light mt-3' style="width: 10vh; height:10vh;" on:click={() => goto(`/film/${evenement.filmId}`)}><i class="bi bi-cast"></i></button>
+                            </div>
+                        {/if}
+                    </div>
+                    <div class='p-3'>
+                        <div class='film mt-1'>
+                            <TextComponent
+                                bind:values={evenement.film.values}
+                                bind:styles={evenement.film.styles}
+                                admin={admin}
+                                edit={edit}
+                                updateContent={updateContent}
+                            />
+                        </div>
+                        <div class='debat my-1'>
+                            <TextComponent
+                                bind:values={evenement.debat.values}
+                                bind:styles={evenement.debat.styles}
+                                admin={admin}
+                                edit={edit}
+                                updateContent={updateContent}
+                            />
+                        </div>
+                        <div class='horaire'>
+                            <TextComponent
+                                bind:values={evenement.horaire.values}
+                                bind:styles={evenement.horaire.styles}
+                                admin={admin}
+                                edit={edit}
+                                updateContent={updateContent}
+                            />
+                        </div>
+                    </div>
+                </div>
+                </MovingContent>
+            </div>
+        {/each}
+    {/if}
+    {#if admin && updateContent}
+        <div class='row'>
+            <div class='col text-center'>
+                <button class='btn btn-primary text-center' on:click={addEventHandler}>Add Event</button>
+            </div>
+        </div>
+    {/if}
+</div>
+
+<!-- <div class="row align-items-center">
     <div class='col text-start'>
         {#if admin}
             <input type='texte' bind:value={values[0].date} on:change={updateContent} placeholder="Date de l'événement"/>
@@ -128,7 +211,7 @@ import { goto } from "$app/navigation";
                 </div>
             </div>
         {/if}
-</div>
+</div> -->
 
 <style>
     .image-container {
@@ -137,10 +220,11 @@ import { goto } from "$app/navigation";
     .image {
         opacity: 1;
         backface-visibility: hidden;
+        height: 30vh;
     }
     .middle {
         transition: .5s ease;
-        opacity: 0;
+        opacity: .4;
         position: absolute;
         top: 50%;
         left: 50%;

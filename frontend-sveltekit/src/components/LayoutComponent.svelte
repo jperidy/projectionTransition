@@ -11,6 +11,7 @@
     export let admin='false';
     export let edit='false';
     export let updateContent;
+    export let city='';
 
     styles;
 
@@ -301,7 +302,7 @@
                             updateContent={updateContent}
                             admin={admin}
                             edit={false}
-                            city={""}
+                            city={city}
                         />
                     </MovingContent>
                 {/each}
