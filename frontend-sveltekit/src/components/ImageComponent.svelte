@@ -191,7 +191,19 @@
             {#if !values[0].url}
                 <div class='bg-secondary text-center text-dark rounded-3' style='min-height:100px;'>Ajouter l'image</div>
             {/if}
-            <a href={values[0].redirection ? values[0].redirection : '#'} target={values[0].redirection ? values[0].redirection.match(/^http/i) ? '_blank' : '_self' : '_self'} >
+            {#if values[0].redirection}
+                <a href={values[0].redirection} target={values[0].redirection.match(/^http/i) ? '_blank' : '_self'} >
+                    <figure class='figure m-0 p-0' style={`transform: rotate(${transformR}deg) translateX(${transformX}vh) translateY(${transformY}vh) scale(${scaleXY, scaleXY});`}>
+                        <img 
+                            src={`${API_URL}${values[0].url}`} 
+                            alt={values[0].substitution}
+                            class={`figure-img img-fluid m-0 p-0 ${rounded} ${shadow}`} 
+                            style={`max-height:${maxHeight}vh;max-width:auto;`}
+                        >
+                        <figcaption class='figure-caption'>{values[0].caption}</figcaption>
+                    </figure>
+                </a>
+            {:else}
                 <figure class='figure m-0 p-0' style={`transform: rotate(${transformR}deg) translateX(${transformX}vh) translateY(${transformY}vh) scale(${scaleXY, scaleXY});`}>
                     <img 
                         src={`${API_URL}${values[0].url}`} 
@@ -199,10 +211,9 @@
                         class={`figure-img img-fluid m-0 p-0 ${rounded} ${shadow}`} 
                         style={`max-height:${maxHeight}vh;max-width:auto;`}
                     >
-                    <!-- style={`max-height:${maxHeight}vh;max-width:auto;`} -->
                     <figcaption class='figure-caption'>{values[0].caption}</figcaption>
                 </figure>
-            </a>
+            {/if}
         </div>
     </div>
 
