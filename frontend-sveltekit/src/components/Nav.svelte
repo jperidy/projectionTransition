@@ -37,7 +37,7 @@
     class='mb-3 fixed-top'
 >
     <NavbarBrand on:click={() => navigateHandler('/')}>
-      <img class='img-fluid mx-3' style="max-width: 130px;" src='/images/logo-projection-transition.png' alt='logo'/>
+      <img class='img-fluid' style="max-width: 130px;" src='/images/logo-projection-transition.png' alt='logo'/>
     </NavbarBrand>
     <div>
       <span class='fw-bold'><a class="" target="_self" href="/informationsPratiques#contact"><img class='icone-rs' src="/icones/MAIL.004.png" alt="icone envoyer mail" /></a></span>
@@ -55,14 +55,14 @@
                   <DropdownItem class='bg-white'><NavItem><NavLink on:click={() => navigateHandler('/edito')}><span class='item'>Edito</span></NavLink></NavItem></DropdownItem>
                   <DropdownItem class='bg-white'><NavItem><NavLink on:click={() => navigateHandler('/partenaires')}><span class='item'>Partenaires</span></NavLink></NavItem></DropdownItem>
                   <DropdownItem class='bg-white'><NavItem><NavLink on:click={() => navigateHandler('/equipe')}><span class='item'>L'équipe</span></NavLink></NavItem></DropdownItem>
-                  <DropdownItem class='bg-white'><NavItem><NavLink on:click={() => navigateHandler('/publications')}><span class='item'>Publications</span></NavLink></NavItem></DropdownItem>
+                  <!-- <DropdownItem class='bg-white'><NavItem><NavLink on:click={() => navigateHandler('/publications')}><span class='item'>Publications</span></NavLink></NavItem></DropdownItem> -->
                 </DropdownMenu>
             </Dropdown>       
             <Dropdown nav inNavbar>
                 <DropdownToggle class='text-dark mx-2' nav caret><span class='titre'>LA PROGRAMMATION 2021</span></DropdownToggle>
                 <DropdownMenu end class='bg-white'>
-                  <DropdownItem class='bg-white'><NavItem><NavLink on:click={() => navigateHandler('/programmation/paris')} ><span class='item'>Paris</span></NavLink></NavItem></DropdownItem>
                   <DropdownItem class='bg-white'><NavItem><NavLink on:click={() => navigateHandler('/programmation/nantes')} ><span class='item'>Nantes</span></NavLink></NavItem></DropdownItem>
+                  <DropdownItem class='bg-white'><NavItem><NavLink on:click={() => navigateHandler('/programmation/paris')} ><span class='item'>Paris</span></NavLink></NavItem></DropdownItem>
                   <DropdownItem class='bg-white'><NavItem><NavLink on:click={() => navigateHandler('/programmation/toulouse')} ><span class='item'>Toulouse</span></NavLink></NavItem></DropdownItem>
                 </DropdownMenu>
             </Dropdown>
@@ -100,7 +100,7 @@
     font-weight: bold;
   }
   .icone-rs {
-        max-width: 7vh;
+        max-width: 6vh;
         height: auto;
     }
 </style>

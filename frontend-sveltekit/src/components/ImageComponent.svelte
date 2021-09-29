@@ -199,6 +199,7 @@
                         class={`figure-img img-fluid m-0 p-0 ${rounded} ${shadow}`} 
                         style={`max-height:${maxHeight}vh;max-width:auto;`}
                     >
+                    <!-- style={`max-height:${maxHeight}vh;max-width:auto;`} -->
                     <figcaption class='figure-caption'>{values[0].caption}</figcaption>
                 </figure>
             </a>

@@ -4,25 +4,26 @@
 
 <div class='row bg-white text-dark align-items-center'>
     <div class="row bg-white text-dark align-items-center px-3 py-2 " style='min-height:15vh;'>
-        <div class='col-3 text-center'>
+        <div class='col-3 text-start'>
             <a href="#up">
                 <img 
-                    src="/favicon-bas-page.jpeg"
+                    class='img-fluid mx-2'
+                    src="/images/logo-projection-transition.png"
                     alt='logo en projection transition en bas de page'
-                    style="width: 100%; max-width:20vh;"
+                    style="width: 100%; max-width:130px;"
                 />
             </a>
         </div>
         <div class='col-6 text-center'>
             <div class='row align-items-center'>
                 <div class='col text-center'>
-                    <span class='ref-bas mx-3 fw-bold' on:click={() => goto('/the-shift-project#up')}>QUI SOMMES NOUS</span>
+                    <span class='ref-bas mx-3 fw-bold' on:click={() => goto('/the-shift-project#up')}>QUI SOMMES-NOUS</span>
                     <span class='ref-bas fw-bold ' >|</span>
                     <span class='ref-bas mx-3 fw-bold ' on:click={() => goto('/presse#up')}>PRESSE</span>
                     <span class='ref-bas fw-bold ' >|</span>
                     <span class='ref-bas mx-3 fw-bold ' on:click={() => goto('/archives-2020#up')}>ARCHIVES 2020</span>
                     <span class='ref-bas fw-bold ' >|</span>
-                    <span class='ref-bas mx-3 fw-bold ' on:click={() => goto('/mentions-legales')}>MENTIONS LEGALES</span>
+                    <span class='ref-bas mx-3 fw-bold ' on:click={() => goto('/mentions-legales')}>MENTIONS L&Eacute;GALES</span>
                 </div>
             </div>
             <!-- <div class="row align-items-center">
@@ -51,7 +52,7 @@
 
 <style>
     .ref-bas {
-        font-size:1.1rem; 
+        font-size:1rem; 
         cursor:pointer;
     }
     .icone-rs {

@@ -14,8 +14,8 @@
 
 <div id='up'></div>
 
-<Nav />
 <main>
+    <Nav />
     <slot></slot>
 </main>
 <footer>
