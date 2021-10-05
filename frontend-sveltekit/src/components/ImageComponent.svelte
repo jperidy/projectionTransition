@@ -97,10 +97,11 @@
     .content-container:hover .middle {
         opacity: 1;
     }
-    /* img{
-        max-height: {``};
-        max-width: auto;
-    } */
+    img {
+        object-fit: cover;
+        width: 100%;
+        height: 100%;
+    }
 </style>
 
 <Modal isOpen={edit} {toggle}>
@@ -168,9 +169,9 @@
                         <img 
                             src={`${API_URL}${values[0].url}`} 
                             alt={values[0].substitution}
-                            class={`figure-img img-fluid m-0 p-0 ${rounded} ${shadow}`} 
+                            class={`figure-img m-0 p-0 ${rounded} ${shadow}`} 
                             style={`max-height:${maxHeight}vh;max-width:auto;`}
-                        >
+                            >
                         <figcaption class='figure-caption'>{values[0].caption}</figcaption>
                     </figure>
                 </div>
@@ -197,9 +198,9 @@
                         <img 
                             src={`${API_URL}${values[0].url}`} 
                             alt={values[0].substitution}
-                            class={`figure-img img-fluid m-0 p-0 ${rounded} ${shadow}`} 
+                            class={`figure-img m-0 p-0 ${rounded} ${shadow}`} 
                             style={`max-height:${maxHeight}vh;max-width:auto;`}
-                        >
+                            >
                         <figcaption class='figure-caption'>{values[0].caption}</figcaption>
                     </figure>
                 </a>
@@ -208,9 +209,9 @@
                     <img 
                         src={`${API_URL}${values[0].url}`} 
                         alt={values[0].substitution}
-                        class={`figure-img img-fluid m-0 p-0 ${rounded} ${shadow}`} 
+                        class={`figure-img m-0 p-0 ${rounded} ${shadow}`} 
                         style={`max-height:${maxHeight}vh;max-width:auto;`}
-                    >
+                        >
                     <figcaption class='figure-caption'>{values[0].caption}</figcaption>
                 </figure>
             {/if}

@@ -50,24 +50,10 @@ import { goto } from "$app/navigation";
 
 </script>
 
-<!-- <div class="row align-items-center">
-    <div class='col text-start'>
-        {#if admin}
-            <input type='texte' bind:value={values[0].date} on:change={updateContent} placeholder="Date de l'événement"/>
-        {:else}
-            <h1><span class='text-white bg-primary text-center px-1'>
-                {values[0].date ? values[0].date.toUpperCase() : 'Journée ?' }
-            </span></h1>
-        {/if}
-    </div>
-</div> -->
-<div class='row mt-2'>
+<div class='row mt-2 px-2'>
     {#if values[1] && values[1].values}
         {#each values[1].values as evenement, position }
-            <div 
-                class='col-12 my-4' 
-                style="_height: 45vh; _width:auto;"
-            >
+            <div class='col-12 my-4'>
                 <MovingContent
                 array={values[1].values} 
                 position={position} 
@@ -86,8 +72,8 @@ import { goto } from "$app/navigation";
                             />
                         </div>
                         <div class={admin ? '' : 'middle'}>
-                            <div class='p-3'>
-                                <div class='horaire mb-5'>
+                            <div class=''>
+                                <div class='horaire'>
                                     <TextComponent
                                     bind:values={evenement.horaire.values}
                                     bind:styles={evenement.horaire.styles}
@@ -96,7 +82,7 @@ import { goto } from "$app/navigation";
                                     updateContent={updateContent}
                                     />
                                 </div>
-                                <div class='film mt-5'>
+                                <div class='film px-5'>
                                     <TextComponent
                                     bind:values={evenement.film.values}
                                     bind:styles={evenement.film.styles}
@@ -105,7 +91,7 @@ import { goto } from "$app/navigation";
                                     updateContent={updateContent}
                                     />
                                 </div>
-                                <div class='debat my-1'>
+                                <div class='debat px-3'>
                                     <TextComponent
                                     bind:values={evenement.debat.values}
                                     bind:styles={evenement.debat.styles}
@@ -116,7 +102,7 @@ import { goto } from "$app/navigation";
                                 </div>
                             </div>
                             {#if !admin}
-                                <button class='btn btn-light mt-5' style="width: 30vh; height:5vh;" on:click={() => goto(`/film/${evenement.filmId}`)}>En savoir plus</button>
+                                <button class='info btn btn-light mx-auto text-center p-0 m-0' on:click={() => goto(`/film/${evenement.filmId}`)}>En savoir plus</button>
                             {/if}
                         </div>
                     </div>
@@ -133,85 +119,6 @@ import { goto } from "$app/navigation";
         </div>
     {/if}
 </div>
-
-<!-- <div class="row align-items-center">
-    <div class='col text-start'>
-        {#if admin}
-            <input type='texte' bind:value={values[0].date} on:change={updateContent} placeholder="Date de l'événement"/>
-        {:else}
-            <h1><span class='text-white bg-primary text-center px-1'>
-                {values[0].date ? values[0].date.toUpperCase() : 'Journée ?' }
-            </span></h1>
-        {/if}
-    </div>
-</div>
-<div class='row mt-2'>
-        {#if values[1] && values[1].values}
-            {#each values[1].values as evenement, position }
-                <div class='col-sm-12 col-md-6 my-4'>
-                    <MovingContent
-                    array={values[1].values} 
-                    position={position} 
-                    admin={admin} 
-                    updateMovedArray={updateMovedArray}
-                    >
-                    <div class='p-3 bg-white rounded-3 event-container'>
-                        <div class='image-container'>
-                            <div class="image my-auto">
-                                <ImageComponent
-                                    bind:values={evenement.url.values}
-                                    bind:styles={evenement.url.styles}
-                                    admin={admin}
-                                    edit={edit}
-                                    updateContent={updateContent}
-                                />
-                            </div>
-                            {#if !admin}
-                                <div class="middle">
-                                    <button class='btn btn-secondary mt-3' on:click={() => goto(`/film/${evenement.filmId}`)}>Voir l'événement</button>
-                                </div>
-                            {/if}
-                        </div>
-                        <div class='film mt-1'>
-                            <TextComponent
-                                bind:values={evenement.film.values}
-                                bind:styles={evenement.film.styles}
-                                admin={admin}
-                                edit={edit}
-                                updateContent={updateContent}
-                            />
-                        </div>
-                        <div class='debat my-1'>
-                            <TextComponent
-                                bind:values={evenement.debat.values}
-                                bind:styles={evenement.debat.styles}
-                                admin={admin}
-                                edit={edit}
-                                updateContent={updateContent}
-                            />
-                        </div>
-                        <div class='horaire'>
-                            <TextComponent
-                                bind:values={evenement.horaire.values}
-                                bind:styles={evenement.horaire.styles}
-                                admin={admin}
-                                edit={edit}
-                                updateContent={updateContent}
-                            />
-                        </div>
-                    </div>
-                    </MovingContent>
-                </div>
-            {/each}
-        {/if}
-        {#if admin && updateContent}
-            <div class='row'>
-                <div class='col text-center'>
-                    <button class='btn btn-primary text-center' on:click={addEventHandler}>Add Event</button>
-                </div>
-            </div>
-        {/if}
-</div> -->
 
 <style>
     .image-container {
@@ -230,6 +137,8 @@ import { goto } from "$app/navigation";
         position: absolute;
         top: 50%;
         left: 50%;
+        height: 100%;
+        width: 100%;
         transform: translate(-50%, -50%);
         -ms-transform: translate(-50%, -50%);
         text-align: center;
@@ -246,6 +155,28 @@ import { goto } from "$app/navigation";
         -webkit-transform: scale(1.13);
 	    transform: scale(1.13);
         transition: .5s ease;
+    }
+    .horaire {
+        position: absolute;
+        top: 12%;
+        left: 17%;
+    }
+    .film {
+        position: absolute;
+        top: 40%;
+        width: 100%;
+    }
+    .debat {
+        position: absolute;
+        top: 55%;
+        width: 100%;
+    }
+    .info {
+        position: absolute;
+        top: 88%;
+        left: 5%;
+        width: 90%;
+        height: 10%;
     }
     
 </style>

@@ -53,9 +53,9 @@ const updateMovedArray = async(array) => {
 </div>
 
 <!-- affichage des partenaire -->
-<div class='moving-container row pt-3 gx-3'>
+<div class='moving-container row pt-3 gx-3 align-items-center'>
     {#each values[1].values as partenaire, position}
-        <div class='col-sm-6 col-md-3 text-center'>
+        <div class='col-6 col-md-3 text-center'>
             <MovingContent 
                 array={values[1].values} 
                 position={position} 

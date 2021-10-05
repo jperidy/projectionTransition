@@ -17,12 +17,16 @@
 :global(body) {
     /* this will apply to <body> */
     padding: 0vh;
+    margin: 0vh;
 }
 main {
     background-image: url('images/fond.jpg');
     background-repeat: no-repeat;
     background-size: cover;
-    padding-top: 20vh;
     padding-bottom: 5vh;
     min-height: 100vh;
+}
+/* padding-top: 15vh; */
+nav {
+    min-height: 15vh;
 }

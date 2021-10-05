@@ -34,8 +34,9 @@
     color="white"
     light
     expand={expand}
-    class='mb-3 fixed-top'
+    class='mb-3'
 >
+<!-- class='mb-3 fixed-top' -->
     <NavbarBrand on:click={() => navigateHandler('/')}>
       <img class='img-fluid' style="max-width: 130px;" src='/images/logo-projection-transition.png' alt='logo'/>
     </NavbarBrand>
