@@ -135,7 +135,7 @@
                         <div class='col-2'>
                         </div>
                         <div class='col-10'>
-                            <h3 class='mb-3'><span class='text-white bg-primary'>PROGRAMME</span></h3>
+                            <h3 class='mb-3'><span class='px-3 py-2 text-white bg-primary rounded'>PROGRAMME</span></h3>
                             <TextComponent
                                 bind:values={filmRequest.film.infosGenerales.values}
                                 bind:styles={filmRequest.film.infosGenerales.styles}
@@ -265,7 +265,7 @@
                     {:else}
                         <button 
                             type='button'
-                            class="btn btn-light border border-primary text-wrap text-break text-center text-primary bg-transparent"
+                            class="btn btn-light mt-3 border border-primary text-wrap text-break text-center text-primary bg-transparent"
                             data-bs-toggle="tooltip" 
                             data-bs-placement="right" 
                             title={filmRequest.film.justification}

@@ -15,7 +15,7 @@
 </script>
 
 {#if admin}
-    <Row class='text-end m-3'>
+    <Row class='text-end'>
         <Col>
             <Button 
                 size='sm'

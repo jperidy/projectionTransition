@@ -102,7 +102,7 @@ import { goto } from "$app/navigation";
                                 </div>
                             </div>
                             {#if !admin}
-                                <button class='info btn btn-light mx-auto text-center p-0 m-0' on:click={() => goto(`/film/${evenement.filmId}`)}>En savoir plus</button>
+                                <button class='info btn btn-dark mx-auto text-center text-light p-0 m-0 rounded-0' on:click={() => goto(`/film/${evenement.filmId}`)}><strong>EN SAVOIR PLUS</strong></button>
                             {/if}
                         </div>
                     </div>
