@@ -1,5 +1,6 @@
 <script>
-    import DropDownSection from "./DropDownSection.svelte";
+    import CustomContainer from "./CustomContainer.svelte";
+import DropDownSection from "./DropDownSection.svelte";
 
     import MapComponent from "./MapComponent.svelte";
     import MovingContent from "./MovingContent.svelte";
@@ -63,14 +64,7 @@
     </div>
 {/if}
 
-<!-- <div class='row'>
-    <div class='col text-center'>
-        <button class='btn btn-primary mx-3 my-1 py-3' style='width:15vh;'>PARIS</button>
-        <button class='btn btn-primary mx-3 my-1 py-3' style='width:15vh;'>NANTES</button>
-        <button class='btn btn-primary mx-3 my-1 py-3' style='width:15vh;'>TOULOUSE</button>
-    </div>
-</div> -->
-
+<CustomContainer>
 <div class='row mt-3 mb-5 gx-5 gy-3'>   
     {#each values[0].values as lieu, position}
         <!-- block pour chaque ville -->
@@ -223,3 +217,4 @@
         </div>
     {/each}
 </div>  
+</CustomContainer>

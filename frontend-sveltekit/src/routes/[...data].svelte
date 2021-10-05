@@ -111,8 +111,9 @@
 {#if pageRequest.loading}
     <Loading color='secondary' number={3} />
 {:else}
-    <CustomContainer>
-        <Row class='mt-3'>
+    <!-- <CustomContainer> -->
+        <Row>
+        <!-- <Row class='mt-3'> -->
             <Col>
                 {#if pageRequest.content && pageRequest.content.content}
                     {#each pageRequest.content.content as section, position}
@@ -152,7 +153,7 @@
             />
             
         </Row>
-    </CustomContainer>
+    <!-- </CustomContainer> -->
 {/if}
 
 

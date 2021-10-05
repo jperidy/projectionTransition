@@ -7,15 +7,11 @@
 
     const API_URL = config.SVELTE_ENV === 'dev' ? config.API_URL_DEV : config.SVELTE_ENV === 'preprod' ? config.API_URL_PREPROD : config.SVELTE_ENV === 'production' ? config.API_URL_PROD : config.API_URL_DEV;
 
-
     export let values=[];
     export let styles=[];
     export let admin='false';
     export let edit='false';
     export let updateContent;
-
-    styles;
-    //$: console.log('edit', edit);
 
     const toggle = async () => {
         if (edit && updateContent) {
@@ -23,7 +19,6 @@
         }
         edit = !edit;
     };
-
 
     const onChangeHandler = async(index, e) => {
         const data = new FormData();

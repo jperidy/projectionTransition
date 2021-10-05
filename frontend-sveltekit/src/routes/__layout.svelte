@@ -1,6 +1,7 @@
 <script context='module'>
     export const prerender = true; 
 </script>
+
 <script>
     import Nav from '../components/Nav.svelte';
     import Footer from '../components/Footer.svelte';

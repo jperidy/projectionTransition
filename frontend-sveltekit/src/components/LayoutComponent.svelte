@@ -3,6 +3,7 @@
     import { onMount } from "svelte";
     import { Icon, Modal, ModalBody, ModalFooter, ModalHeader } from "sveltestrap";
     import AddContent from "./AddContent.svelte";
+    import CustomContainer from "./CustomContainer.svelte";
     import DisplayCustomComponent from "./DisplayCustomComponent.svelte";
     import EditButton from "./EditButton.svelte";
     import MovingContent from "./MovingContent.svelte";
@@ -16,7 +17,9 @@
     styles;
 
     let columnNumber = 1;
+    let columnNumberMobile = 1;
     let md = 12;
+    let sm = 12;
 
     $:{
         if (values.length === 0) {
@@ -32,27 +35,29 @@
     onMount(() => {
         columnNumber = values.length;
         md = 12 / columnNumber;
+        sm = 12 / columnNumberMobile;
     });
 
-    $: columnChangeHandler = (number) => {
+    $: columnChangeHandler = (number, endPoint) => {
 
         if (number > values.length && number >=1) {
             values.push({type:'layout', values:[]})
         } else {
             values.pop();
         }
-        md = 12 / number;
+        if (endPoint === 'pc') {
+            md = 12 / number;
+        }
+        if (endPoint === 'mobile') {
+            sm = 12 / number;
+        }
         values = values;
         updateContent && updateContent();
 
     };
 
     const addToLayout = async(item, position) => {
-        //values[position] = item;
-        //console.log("item", item);
         values[position].values.push({...item, size:'auto'});
-
-        
         updateContent && await updateContent();
     };
 
@@ -147,6 +152,7 @@
     
 </style>
 
+<CustomContainer>
 <div class='content-container'>
 
     {#if admin}
@@ -164,7 +170,7 @@
         <ModalBody>
                 <div class="row align-items-center">
                     <div class='col'>
-                        <label for="input-columns" class="form-label">Nombre de colonnes *</label>
+                        <label for="input-columns" class="form-label">Nombre de colonnes PC *</label>
                         <input type="number" class="form-control" id="input-columns" 
                             aria-describedby="nombre de colonnes" 
                             placeholder="Nombre de colonnes"
@@ -172,7 +178,7 @@
                             max={4}
                             required
                             bind:value={columnNumber}
-                            on:change={(e) => columnChangeHandler(e.target.value)}
+                            on:change={(e) => columnChangeHandler(e.target.value, 'pc')}
                         />
                         <div class='row py-1'>
                             <div class='col'>
@@ -253,7 +259,7 @@
                 <p class='my-3'><strong>Prévisualisation</strong></p>
                 <div class={`row gx-2 align-items-${alignContent} ${bgColor} ${padding} ${marginX} ${marginY} ${rounded} ${border} ${borderColor}`}>
                     {#each values as column, position}
-                        <div class={`col-sm-12 col-md-${md.toString()} border border-light`} style={`min-height: 5vh;`};>
+                        <div class={`col-sm-${sm.toString()} col-md-${md.toString()} border border-light`} style={`min-height: 5vh;`};>
                             Colonne {position}                                
                         </div>
                     {/each}
@@ -266,11 +272,11 @@
         </ModalFooter>
     </Modal> 
     
-    <div class={`row gx-2 content align-items-${alignContent} ${bgColor} ${padding} ${marginX} ${marginY} ${rounded} ${border} ${borderColor}`}>
+    <div class={`row gx-2 gy-2 content align-items-${alignContent} ${bgColor} ${padding} ${marginX} ${marginY} ${rounded} ${border} ${borderColor}`}>
         {#each values as column, position}
 
         <!-- <div class={`col-sm-12 col-md-${md.toString()}`} style={`min-height: 5vh;`};> -->
-            <div class={`col-sm-12 col-md-${calculateCol(column.size, position, values.length)}`} style={`min-height: 5vh;`};>
+            <div class={`col-${calculateCol(column.sizeMobile, position, values.length)} col-md-${calculateCol(column.size, position, values.length)}`} style={`min-height: 5vh;`};>
                 <MovingContent 
                     array={values} 
                     position={position} 
@@ -279,7 +285,16 @@
                     addContent={null}
                 >
                 {#if admin}
-                    <input class='form-control' type='number' bind:value={column.size} min={1} max={12} />
+                    <div class='row'>
+                        <div class='col'>
+                            <label for="conf-desktop-size">Largeur (/12) PC</label>
+                            <input id='conf-desktop-size' class='form-control' type='number' bind:value={column.size} on:change={updateContent} min={1} max={12} />
+                        </div>
+                        <div class='col'>
+                            <label for="conf-mobile-size">Largeur (/12) Mobile</label>
+                            <input id='conf-mobile-size' class='form-control' type='number' bind:value={column.sizeMobile} on:change={updateContent} min={1} max={12} />
+                        </div>
+                    </div>
                     <p>{"* somme de la ligne < 12"}</p>
                 {/if}
                 
@@ -320,3 +335,4 @@
     </div>
 
 </div>
+</CustomContainer>

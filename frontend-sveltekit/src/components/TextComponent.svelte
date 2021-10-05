@@ -4,8 +4,6 @@
     import { Icon, Modal, ModalBody, ModalFooter, ModalHeader } from "sveltestrap";
 
     import EditButton from "./EditButton.svelte";
-    //import LinkDarkBgMarkdown from "./markdown/LinkDarkBgMarkdown.svelte";
-    //import LinkLightBgMarkdown from "./markdown/LinkLightBgMarkdown.svelte";
     import ParagrapheMarkdown from "./markdown/ParagrapheMarkdown.svelte";
     import TableMarkdown from "./markdown/TableMarkdown.svelte";
     import TdMarkdown from "./markdown/TdMarkdown.svelte";
@@ -18,8 +16,6 @@
     export let edit='false';
     export let updateContent;
 
-    //components;
-
     const colors = ['pomme', 'outremer', 'lavande', 'caraibe', 'tangerine', 'ambre', 'light', 'white', 'dark', 'black'];
 
     const toggle = async() => {
@@ -28,8 +24,6 @@
         }
         edit = !edit;
     };
-
-    //$: console.log('TextComponent', values);
 
     $: textAlign = styles.filter(x => x.name === 'text-align')[0] && styles.filter(x => x.name === 'text-align')[0].value;
     $: textColor = styles.filter(x => x.name === 'text-color')[0] && styles.filter(x => x.name === 'text-color')[0].value;
@@ -45,8 +39,6 @@
     $: transformR = styles.filter(x => x.name === 'transformR')[0] ? styles.filter(x => x.name === 'transformR')[0].value : 0;
     $: transformX = styles.filter(x => x.name === 'transformX')[0] ? styles.filter(x => x.name === 'transformX')[0].value : 0;
     $: transformY = styles.filter(x => x.name === 'transformY')[0] ? styles.filter(x => x.name === 'transformY')[0].value : 0;
-
-    //$: dark = (['bg-white', 'bg-light', 'bg-pomme', 'bg-caraibe', 'bg-ambre'].includes(bgColor)) ? false : true;
 
     const updateStyle = ({name, value}) => {
         const curentStyleItem = styles.filter(x => x.name === name);
@@ -221,5 +213,4 @@
         />
         </div>
     {/if}
-
 </div>

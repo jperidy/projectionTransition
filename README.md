@@ -15,6 +15,7 @@ A la racine du projet créer le fichier config.json et le compléter avec les va
 // config.json //
 {
     "NODE_ENV": "dev",  // choisir entre "dev", "preprod" ou "production"
+    "PORT": 5000, // port sur lequel exposer le backend
     "JWT_SECRET": "", // clé aléatoire pour le secret d'authentification admin
     "MONGO_URI_DEV": "" // on cloud : "mongodb+srv://<userName>:<password>@<dbHost>/<dbName>" or local mongodb://<userName>:<password>@localhost:<port>/<dbName>
     "MONGO_URI_PREPROD": "", // même format que MONGO_URI_DEV
@@ -65,25 +66,32 @@ Arrêter
 >pm2 stop server
 
 ## Démarrer le frontend
-̀̀Démarrer
->cd frontend-sveltekit
->npm run build
->pm2 start build/index.js
-Arrêter
->pm2 stop index
+### Démarrer
+```
+cd frontend-sveltekit
+npm run build
+HOST=127.0.0.1 PORT=3000 pm2 start build/index.js
+```
+### Arrêter
+```
+pm2 stop index
+```
 
 # Déployer l'application avec docker
-
 ## Créer l'image docker pour le backend
 Ouvrir le fichier docker-build.bash et changer le nom du repo dockerhub
->. docker-build <version>
+```
+. docker-build <version>
+```
 Par défaut le backend est exposé sur le port 5000.
 ### Attention Sécurité
 Votre fichier config.json contient des informations sensibles. Le script pousse automatiquement l'image du docker sur dockerhub. Assurez vous que ce répertoire est privé ou supprimez les lignes push.
 
 ## Créer l'image docker pour le frontend-sveltekit
 Ouvrir le fichier frontend-sveltekit/docker-build.bash et changer le nom du repo dockerhub
->. docker-build <version>
+```
+. docker-build <version>
+```
 Le frontend est exposé sur le port 3000
 
 ## Préparer votre serveur (cas d'un VPS)
@@ -100,7 +108,9 @@ cd vps-admin
 ```
 ## Deployer et lancer vos dockers sur le serveur
 Editer le fichier docker-compose.yml pour tout besoin de modification du paramétrage
->. docker-start.bash
+```
+. docker-start.bash
+```
 
 # Migrer les données de la préprod vers la production
 
