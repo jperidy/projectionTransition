@@ -1,5 +1,7 @@
 const asyncHandler = require('express-async-handler');
+const { set } = require('mongoose');
 const Logs = require('../models/logsModel');
+const Page = require('../models/pageModels');
 
 // @desc    log a request
 const logARequest = (type, target) => {
@@ -19,37 +21,64 @@ const getStatistics = asyncHandler(async(req,res) =>{
     const start = req.query.start ? new Date(req.query.start.substring(0,10)) : null;
     const end = req.query.end ? new Date(req.query.end.substring(0,10)) : null;
     const filterType = req.query.type ? { type: req.query.type } : {};
-    const filterTarget = req.query.target ? { target: req.query.target } : {};
+    //const filterTarget = req.query.target ? { target: req.query.target } : {};
 
     if (!start || !end) {
+
         res.status(400).json({message: 'Error need start and end dates'});
+    
     } else {
 
+        const logs = await Logs.find();
+        let targets = logs.map(x => x.target);
+        targets = [... new Set(targets)];
+
+        let labels = [];
+        let datasets = [];
+
         const numberOfDay = (end - start) / (3600 * 24 * 1000 );
-        const statictics = [];
-        let sum = 0;
         
-        for (let incr = 0; incr < Math.ceil(numberOfDay); incr++) {
+        for (let targetItem = 0; targetItem < targets.length; targetItem++) {
 
-            start.setUTCHours(0);
-            const dayNext = new Date(start);
-            dayNext.setUTCDate(dayNext.getUTCDate()+1);
+            const targetpage = targets[targetItem];
+            const filterTarget = { target: targetpage };
 
-            const filterDate = {
-                $and: [
-                    {createdAt: { $gte: start }},
-                    {createdAt: { $lte: dayNext }}
-                ]
-            };
-            try {
-                const result = await Logs.countDocuments({ ...filterType, ...filterTarget, ...filterDate });
-                statictics.push({date: start.toISOString(0,10), value: result});
-                sum += result;
-            } catch (error) {
-                res.status(500).json({message: 'error calculating statistics: ' + error});
-                return
+            const data = [];
+            const backgroundColor = [];
+            const borderColor = [];
+            const borderWidth = 1;
+            const label = targetpage;
+
+            datasets.push({label, data, backgroundColor, borderColor, borderWidth})
+            
+            const copyStart = new Date(start);
+            copyStart.setUTCHours(0);
+            const dayNext = new Date(copyStart);
+            
+            for (let incr = 0; incr < Math.ceil(numberOfDay); incr++) {
+                dayNext.setUTCDate(dayNext.getUTCDate()+1);
+
+                const filterDate = {
+                    $and: [
+                        {createdAt: { $gte: copyStart }},
+                        {createdAt: { $lte: dayNext }}
+                    ]
+                };
+                try {
+                    const result = await Logs.countDocuments({ ...filterType, ...filterTarget, ...filterDate });
+                    data.push(Number(result));
+                    backgroundColor.push('white');
+                    borderColor.push('white');
+                    if (targetItem === 0) {
+                        labels.push(copyStart.toISOString().substring(0,10));
+                    }
+                } catch (error) {
+                    res.status(500).json({message: 'error calculating statistics: ' + error});
+                    return;
+                }
+                copyStart.setUTCDate(copyStart.getUTCDate() + 1);
             }
-            start.setUTCDate(start.getUTCDate() + 1);
+
         }
         res.status(200).json({
             message: 'get statistics',
@@ -57,8 +86,7 @@ const getStatistics = asyncHandler(async(req,res) =>{
             target: req.query.target ? req.query.target : 'all',
             start: req.query.start,
             end: req.query.end,
-            statistics: statictics,
-            sum: sum
+            data: {labels, datasets},
         });    
     }
 });
@@ -68,6 +96,10 @@ const getStatistics = asyncHandler(async(req,res) =>{
 // @access  Private
 const getStatisticsParams = asyncHandler(async(req,res) =>{
 
+    const logs = await Logs.find();
+    let targets = logs.map(x => x.target);
+    targets = [... new Set(targets)];
+    res.status(200).json({message: 'get all targets', data: targets});
     
 });
 

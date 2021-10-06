@@ -1,18 +1,17 @@
-<script context='module'>
-    
-</script>
 <script>
+
     import { browser } from "$app/env";
     import { goto } from "$app/navigation";
 
-    import { userInfo, statisticsSendRequest } from "../store";
+    import { userInfo, statisticsSendRequest, statisticsAllPages } from "../store";
 
-    import { getStatistics } from "../actions/logsActions";
+    import { getStatistics, getAllpages } from "../actions/logsActions";
     import CustomContainer from "../components/CustomContainer.svelte";
     import Message from "../components/Message.svelte";
     import Loading from "../components/Loading.svelte";
     import Chart from "chart.js/auto";
     import { onMount } from "svelte";
+import { select_value } from "svelte/internal";
 
     $: {
         let isAuthenticate = $userInfo && $userInfo.profil === 'admin' ? true : false;
@@ -28,6 +27,9 @@
     
 
     onMount(() => {
+
+        getAllpages();
+
         ctx = document.getElementById('statisticsChart').getContext('2d');
         statisticsChart = new Chart(ctx, {
                 type: 'line',
@@ -41,27 +43,20 @@
                         borderWidth: 1,
                     }]
                 },
-                options: {
-                    scales: {
-                        y: {
-                            beginAtZero: true
-                        },
-                    }
-                }
+                // options: {
+                //     scales: {
+                //         y: {
+                //             beginAtZero: true
+                //         },
+                //     }
+                // }
             });
     });
 
     $:{
-        if ($statisticsSendRequest.statistics && $statisticsSendRequest.statistics.statistics.length) {
-            statisticsChart.data.labels = [];
-            statisticsChart.data.datasets.forEach( (dataset) => dataset.data=[] );
-            statisticsChart.data.datasets.forEach( (dataset) => dataset.borderColor=[] );
-            for (let incr = 0; incr < $statisticsSendRequest.statistics.statistics.length; incr++) {
-                const value = $statisticsSendRequest.statistics.statistics[incr];
-                statisticsChart.data.labels.push(value.date.substring(0,10));
-                statisticsChart.data.datasets.forEach((dataset) => dataset.data.push(Number(value.value)));
-                statisticsChart.data.datasets.forEach((dataset) => dataset.borderColor.push('#2c3f78'));
-            }
+        //console.log('result', $statisticsSendRequest.data);
+        if ($statisticsSendRequest.success) {
+            statisticsChart.data = $statisticsSendRequest.data;
             statisticsChart.update();
         }
     }
@@ -93,6 +88,17 @@
                 <input type="date" class="form-control" id="endDateInput" required bind:value={endDate}>
             </div>
         </div>
+        {#if $statisticsAllPages.data}
+            <div class='row mb-3'>
+                <div class="col">
+                    <select class="form-select" multiple aria-label="multiple select pages" on:change={(e) => console.log(e)}>
+                        {#each $statisticsAllPages.data as page}
+                            <option value={page}>{page}</option>
+                        {/each}
+                    </select>
+                </div>
+            </div>
+        {/if}
         
         <div class='row'>
             <div class='col text-start'>
@@ -100,6 +106,7 @@
             </div>
         </div>
     </form>
+
 
     {#if $statisticsSendRequest.loading}
         <Loading number={3} color="primary" />

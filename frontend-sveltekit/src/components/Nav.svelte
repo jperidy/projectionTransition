@@ -66,10 +66,10 @@ Col,
                     <NavItem><NavLink class='text-dark mx-2' on:click={() => navigateHandler('/partenaires')}><span class='titre'>NOS PARTENAIRES</span></NavLink></NavItem>
                   </Dropdown>
                   <Dropdown nav inNavbar>
-                    <NavItem><NavLink class='text-dark mx-2' on:click={() => navigateHandler('/equipe')}><span class='titre'>NOTRE EQUIPE</span></NavLink></NavItem>
+                    <NavItem><NavLink class='text-dark mx-2' on:click={() => navigateHandler('/equipe')}><span class='titre'>L'EQUIPE</span></NavLink></NavItem>
                   </Dropdown>
                   <Dropdown nav inNavbar>
-                    <NavItem><NavLink class='text-dark mx-2' on:click={() => navigateHandler('/programmation2021')}><span class='titre'>LA PROGRAMMATION 2021</span></NavLink></NavItem>
+                    <NavItem><NavLink class='text-dark mx-2' on:click={() => navigateHandler('/programmation2021')}><span class='titre'>PROGRAMMATION 2021</span></NavLink></NavItem>
                   </Dropdown>
                   <!-- <Dropdown nav inNavbar>
                       <DropdownToggle class='text-dark mx-2' nav caret><span class='titre'>LA PROGRAMMATION 2021</span></DropdownToggle>
