@@ -161,17 +161,13 @@ import { goto } from "$app/navigation";
         position: absolute;
         top: 60%;
         width: 100%;
-        transform: scale(0.8);
-        transition: .5s ease;
-        opacity: 0.6;
+        transform: scale(0.9);
     }
     .debat {
         position: absolute;
         top: 70%;
         width: 100%;
-        transform: scale(0.8);
-        transition: .5s ease;
-        opacity: 0.6;
+        transform: scale(0.9);
     }
     .info {
         position: absolute;
@@ -179,24 +175,7 @@ import { goto } from "$app/navigation";
         left: 5%;
         width: 90%;
         height: 10%;
-        transform: scale(0.8);
-        transition: .5s ease;
-        opacity: 0.6;
-    }
-    .event-container:hover .debat {
         transform: scale(0.9);
-        transition: .5s ease;
-        opacity: 1;
-    }
-    .event-container:hover .film {
-        transform: scale(0.9);
-        transition: .5s ease;
-        opacity: 1;
-    }
-    .event-container:hover .info {
-        transform: scale(0.9);
-        transition: .5s ease;
-        opacity: 1;
     }
     
 </style>
