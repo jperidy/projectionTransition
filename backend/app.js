@@ -12,14 +12,16 @@ const emailRoutes = require('./routes/emailRoutes');
 const config = require('../config.json');
 
 const connectDB = require('./config/db');
+const { logARequest } = require('./controllers/logControllers');
 
 const app = express();
 
 if (config.NODE_ENV === 'dev' ) {
     app.use(morgan('dev'));
-} else {
-    app.use(morgan('common'));
-}
+} 
+// else {
+//     app.use(morgan('common'));
+// }
 
 connectDB();
 
@@ -31,6 +33,25 @@ app.use((req, res, next) => {
 });
 
 app.use(express.json());
+
+// login in database
+// https://expressjs.com/en/5x/api.html#req
+app.use((req, res, next) => {
+    const url = req.url;
+    const splitPage = url.split(/page\//i);
+    const splitFilm = url.split(/film\//i);
+    const splitArticle = url.split(/page\//i);
+    if (splitPage.length > 1) {
+        logARequest('page', splitPage[1]);
+    }
+    if (splitFilm.length > 1) {
+        logARequest('film', splitFilm[1]);
+    }
+    if (splitArticle.length > 1) {
+        logARequest('article', splitArticle[1]);
+    }
+    next();
+})
 
 app.use('/api/users', userRoutes);
 app.use('/api/page', pageRoutes);

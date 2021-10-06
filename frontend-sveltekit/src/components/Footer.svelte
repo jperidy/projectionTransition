@@ -8,7 +8,7 @@
             <a href="#up">
                 <img 
                     class='img-fluid mx-2'
-                    src="/images/logo-projection-transition.png"
+                    src="/images/Logo_Principal.jpg"
                     alt='logo en projection transition en bas de page'
                     style="width: 100%; max-width:130px;"
                 />

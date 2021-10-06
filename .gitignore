@@ -5,7 +5,7 @@ frontend/
 uploads
 adminAccount
 _images
-/config.json
+config.json
 _backup
 _backup-volume
 _backup-mongodb
