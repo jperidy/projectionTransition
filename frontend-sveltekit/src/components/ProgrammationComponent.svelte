@@ -123,7 +123,7 @@ import { goto } from "$app/navigation";
 <style>
     .image-container {
         position: relative;
-        min-height: 30vh;
+        min-height: 2vh;
     }
     .image {
         opacity: 1;
