@@ -8,6 +8,7 @@ const userRoutes = require('./routes/userRoutes');
 const articleRoutes = require('./routes/articleRoutes');
 const filmRoutes = require('./routes/filmRoutes');
 const emailRoutes = require('./routes/emailRoutes');
+const logsRoutes = require('./routes/logsRoutes');
 
 const config = require('../config.json');
 
@@ -40,7 +41,7 @@ app.use((req, res, next) => {
     const url = req.url;
     const splitPage = url.split(/page\//i);
     const splitFilm = url.split(/film\//i);
-    const splitArticle = url.split(/page\//i);
+    const splitArticle = url.split(/article\//i);
     if (splitPage.length > 1) {
         logARequest('page', splitPage[1]);
     }
@@ -59,6 +60,7 @@ app.use('/api/upload', uploadRoutes);
 app.use('/api/article', articleRoutes);
 app.use('/api/film', filmRoutes);
 app.use('/api/emails', emailRoutes);
+app.use('/api/statistics', logsRoutes);
 
 
 // static route for developpement access to build repository
