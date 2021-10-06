@@ -21,6 +21,7 @@ A la racine du projet créer le fichier config.json et le compléter avec les va
     "MONGO_URI_PREPROD": "", // même format que MONGO_URI_DEV
     "MONGO_URI_PROD": "", // même format que MONGO_URI_DEV
     "CONTACT_EMAIL": "name@mail.com", // email qui doit recevoir les demandes des clients
+    "DEV_EMAIL": "name@mail.com", // email pour contacter le développeur
     "MAIL_HOST": "smtp.gmail.com", // si gmail
     "MAIL_PORT": "587", // si gmail
     "MAIL_USER": "compte@mail.com", // email du compte qui envoit les emails

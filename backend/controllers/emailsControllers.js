@@ -25,8 +25,15 @@ const sendContactFormEmail = asyncHandler(async (req, res) => {
 
     const email = req.body;
     //const emailToSend = test ? "jprdevapp@gmail.com" : user.email; // to add others use ","
+
+    const typeContact = email.type;
+    let sendTo = config.CONTACT_EMAIL;
+    if (typeContact === 'dev') {
+        sendTo = config.DEV_EMAIL;
+    }
+
     const mailInfo = {
-        to: config.CONTACT_EMAIL,
+        to: sendTo,
         subject: 'Contact web // ' + email.subject,
         template: "contactEmail",
         context: {

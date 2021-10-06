@@ -50,7 +50,7 @@ import { goto } from "$app/navigation";
 
 </script>
 
-<div class='row mt-2 px-2'>
+<div class='row mt-2 px-4'>
     {#if values[1] && values[1].values}
         {#each values[1].values as evenement, position }
             <div class='col-12 my-4'>
@@ -71,7 +71,7 @@ import { goto } from "$app/navigation";
                                 updateContent={updateContent}
                             />
                         </div>
-                        <div class={admin ? '' : 'middle'}>
+                        <div class={admin ? '' : 'middle'} on:click={() => {if(!admin) {goto(`/film/${evenement.filmId}`)}}}>
                             <div class=''>
                                 <div class='horaire'>
                                     <TextComponent
@@ -142,6 +142,7 @@ import { goto } from "$app/navigation";
         transform: translate(-50%, -50%);
         -ms-transform: translate(-50%, -50%);
         text-align: center;
+        cursor: pointer;
     }
     .event-container {
         -webkit-transform: scale(1);
@@ -151,11 +152,6 @@ import { goto } from "$app/navigation";
     .event-container:hover .middle {
         opacity: 1;
     }
-    .event-container:hover {
-        -webkit-transform: scale(1.13);
-	    transform: scale(1.13);
-        transition: .5s ease;
-    }
     .horaire {
         position: absolute;
         top: 12%;
@@ -163,13 +159,19 @@ import { goto } from "$app/navigation";
     }
     .film {
         position: absolute;
-        top: 40%;
+        top: 60%;
         width: 100%;
+        transform: scale(0.8);
+        transition: .5s ease;
+        opacity: 0.6;
     }
     .debat {
         position: absolute;
-        top: 55%;
+        top: 70%;
         width: 100%;
+        transform: scale(0.8);
+        transition: .5s ease;
+        opacity: 0.6;
     }
     .info {
         position: absolute;
@@ -177,6 +179,24 @@ import { goto } from "$app/navigation";
         left: 5%;
         width: 90%;
         height: 10%;
+        transform: scale(0.8);
+        transition: .5s ease;
+        opacity: 0.6;
+    }
+    .event-container:hover .debat {
+        transform: scale(0.9);
+        transition: .5s ease;
+        opacity: 1;
+    }
+    .event-container:hover .film {
+        transform: scale(0.9);
+        transition: .5s ease;
+        opacity: 1;
+    }
+    .event-container:hover .info {
+        transform: scale(0.9);
+        transition: .5s ease;
+        opacity: 1;
     }
     
 </style>

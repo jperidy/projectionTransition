@@ -33,7 +33,7 @@
         if (form.checkValidity() === false) {
         } else {
             e.preventDefault(); // to avoid page to refresh
-            sendContactEmail({email, subject, body, prenom, nom});
+            sendContactEmail({email, subject, body, prenom, nom, type: values[0].type});
         }
     }
 
@@ -50,6 +50,15 @@
                 updateContent={updateContent}
             />
         </div>
+
+        {#if admin}
+            <label for="type-of-contact">Sélectionner le destinataire</label>
+            <select class='form-control' name="type-of-contact" id="type-of-contact" bind:value={values[0].type} on:change={updateContent}>
+                <option value="">--selectionner--</option>
+                <option value="contact">Contact</option>
+                <option value="dev">Développeur</option>
+            </select>
+        {/if}
     
         <form id='contact' class="row contact-form" on:submit={sendEmailHandler}>
             
