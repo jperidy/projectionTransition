@@ -127,132 +127,123 @@
 
     {#if filmRequest.film}
 
-        <CustomContainer size={{xs: 12, sm:12, md:12, lg:12}}>
-            <div class='row mt-5'>
+        <CustomContainer size={{xs: 12, sm:12, md:12, lg:12, xl:10}}>
+            <div class='row gx-3 gy-5'>
                 <!-- contents for conference -->
-                <div class='col-sm-12 col-md-5'>
-                    <div class='row align-items-center'>
-                        <div class='col-2'>
-                        </div>
-                        <div class='col-10'>
-                            <h3 class='mb-3'><span class='px-3 py-2 text-white bg-primary rounded'>PROGRAMME</span></h3>
+                <div class='col-sm-12 col-md-4'>
+                    <ImageComponent
+                        bind:values={filmRequest.film.url.values}
+                        bind:styles={filmRequest.film.url.styles}
+                        admin={admin}
+                        edit={edit}
+                        updateContent={updateFilm}
+                    />
+                </div>
+
+                <!-- content for film -->
+                <div class='col-sm-12 col-md-8'>
+                    <div class='row'>
+                        <div class='col'>
                             <TextComponent
-                                bind:values={filmRequest.film.infosGenerales.values}
-                                bind:styles={filmRequest.film.infosGenerales.styles}
+                                bind:values={filmRequest.film.title.values}
+                                bind:styles={filmRequest.film.title.styles}
                                 admin={admin}
                                 edit={edit}
                                 updateContent={updateFilm}
                             />
                         </div>
                     </div>
-                    {#each filmRequest.film.actions as action, position}
-                        <MovingContent
-                            array={filmRequest.film.actions} 
-                            position={position} 
-                            admin={admin} 
-                            updateMovedArray={updateMovedArray}
-                        >
-                        <div class='row mt-3'>
-                            <div class='col-2'>
-                                <div class='text-center'>
-                                    <TextComponent
-                                        bind:values={action.heure.values}
-                                        bind:styles={action.heure.styles}
-                                        admin={admin}
-                                        edit={edit}
-                                        updateContent={updateFilm}
-                                    />
-                                </div>
-                            </div>
-                            <div class='col-10'>
-                                <!-- <div class='row'>
-                                    <div class='col-sm-12 col-md-8'> -->
-                                        <TextComponent
-                                            bind:values={action.titre.values}
-                                            bind:styles={action.titre.styles}
-                                            admin={admin}
-                                            edit={edit}
-                                            updateContent={updateFilm}
-                                        />
-                                        <TextComponent
-                                            bind:values={action.description.values}
-                                            bind:styles={action.description.styles}
-                                            admin={admin}
-                                            edit={edit}
-                                            updateContent={updateFilm}
-                                        />
-                                        <TextComponent
-                                            bind:values={action.complement.values}
-                                            bind:styles={action.complement.styles}
-                                            admin={admin}
-                                            edit={edit}
-                                            updateContent={updateFilm}
-                                        />
-                                    <!-- </div> -->
-                                    <!-- <div class='col-sm-12 col-md-4'>
-                                    </div> -->
-                                <!-- </div> -->
-                            </div>
-                        </div>
-                        </MovingContent>
-                    {/each}
-                    {#if admin}
-                        <button class='btn btn-primary text-center' on:click={addActionHandler}>Add an action</button>
-                    {/if}
-                </div>
-
-                <!-- content for film -->
-                <div class='col-sm-12 col-md-7'>
-                    <div class='row'>
-                        <div class='col-sm-12 col-md-6 text-center mt-5'>
-                            <ImageComponent
-                                bind:values={filmRequest.film.url.values}
-                                bind:styles={filmRequest.film.url.styles}
+                    <div class='row mt-1'>
+                        <div class='col-12'>
+                            <TextComponent
+                                bind:values={filmRequest.film.real.values}
+                                bind:styles={filmRequest.film.real.styles}
                                 admin={admin}
                                 edit={edit}
                                 updateContent={updateFilm}
                             />
                         </div>
-                        <div class='col-sm-12 col-md-6 mt-5'>
-                            <div class='row'>
-                                <div class='col'>
-                                    <TextComponent
-                                        bind:values={filmRequest.film.title.values}
-                                        bind:styles={filmRequest.film.title.styles}
-                                        admin={admin}
-                                        edit={edit}
-                                        updateContent={updateFilm}
-                                    />
-                                    <div class='ligne-titre border-top border-5 border-primary' style="max-width: 10vh;"></div>
-                                </div>
-                            </div>
-                            <div class='row mt-3'>
-                                <div class='col-4 border-end border-primary my-auto'>
-                                    <strong>Réalisation</strong>
-                                </div>
-                                <div class='col-8'>
-                                    <TextComponent
-                                        bind:values={filmRequest.film.real.values}
-                                        bind:styles={filmRequest.film.real.styles}
-                                        admin={admin}
-                                        edit={edit}
-                                        updateContent={updateFilm}
-                                    />
-                                </div>
-                            </div>
-                            <div class='row mt-3'>
+                    </div>
+                    <div class='row mt-3'>
+                        <TextComponent
+                            bind:values={filmRequest.film.summury.values}
+                            bind:styles={filmRequest.film.summury.styles}
+                            admin={admin}
+                            edit={edit}
+                            updateContent={updateFilm}
+                        />
+                    </div>
+                </div>
+            </div>
+
+            <div class='row mt-3'>
+                <div class='row align-items-center'>
+                    <div class='col-12'>
+                        <TextComponent
+                            bind:values={filmRequest.film.infosGenerales.values}
+                            bind:styles={filmRequest.film.infosGenerales.styles}
+                            admin={admin}
+                            edit={edit}
+                            updateContent={updateFilm}
+                        />
+                    </div>
+                </div>
+                {#each filmRequest.film.actions as action, position}
+                    <MovingContent
+                        array={filmRequest.film.actions} 
+                        position={position} 
+                        admin={admin} 
+                        updateMovedArray={updateMovedArray}
+                    >
+                    <div class='row mt-3'>
+                        <div class='col-2'>
+                            <div class='text-center'>
                                 <TextComponent
-                                    bind:values={filmRequest.film.summury.values}
-                                    bind:styles={filmRequest.film.summury.styles}
+                                    bind:values={action.heure.values}
+                                    bind:styles={action.heure.styles}
                                     admin={admin}
                                     edit={edit}
                                     updateContent={updateFilm}
                                 />
                             </div>
                         </div>
+                        <div class='col-10'>
+                            <!-- <div class='row'>
+                                <div class='col-sm-12 col-md-8'> -->
+                                    <TextComponent
+                                        bind:values={action.titre.values}
+                                        bind:styles={action.titre.styles}
+                                        admin={admin}
+                                        edit={edit}
+                                        updateContent={updateFilm}
+                                    />
+                                    <TextComponent
+                                        bind:values={action.description.values}
+                                        bind:styles={action.description.styles}
+                                        admin={admin}
+                                        edit={edit}
+                                        updateContent={updateFilm}
+                                    />
+                                    <TextComponent
+                                        bind:values={action.complement.values}
+                                        bind:styles={action.complement.styles}
+                                        admin={admin}
+                                        edit={edit}
+                                        updateContent={updateFilm}
+                                    />
+                                <!-- </div> -->
+                                <!-- <div class='col-sm-12 col-md-4'>
+                                </div> -->
+                            <!-- </div> -->
+                        </div>
                     </div>
-                </div>
+                    </MovingContent>
+                {/each}
+                {#if admin}
+                    <button class='btn btn-primary text-center' on:click={addActionHandler}>Add an action</button>
+                {/if}
             </div>
+
             <div class='row mt-3'>
                 <div class='col text-center'>
 

@@ -1,5 +1,5 @@
 <script>
-import { goto } from "$app/navigation";
+    import { goto } from "$app/navigation";
 
     import { createFilmRequest } from "../actions/filmActions";
 
@@ -60,6 +60,15 @@ import { goto } from "$app/navigation";
                 admin={admin} 
                 updateMovedArray={updateMovedArray}
                 >
+                <div class='horaire mb-3'>
+                    <TextComponent
+                    bind:values={evenement.horaire.values}
+                    bind:styles={evenement.horaire.styles}
+                    admin={admin}
+                    edit={edit}
+                    updateContent={updateContent}
+                    />
+                </div>
                 <div class='bg-white rounded-3 event-container'>
                     <div class='image-container'>
                         <div class="image my-auto">
@@ -70,19 +79,8 @@ import { goto } from "$app/navigation";
                                 edit={edit}
                                 updateContent={updateContent}
                             />
-                        </div>
-                        <div class={admin ? '' : 'middle'} on:click={() => {if(!admin) {goto(`/film/${evenement.filmId}`)}}}>
-                            <div class=''>
-                                <div class='horaire'>
-                                    <TextComponent
-                                    bind:values={evenement.horaire.values}
-                                    bind:styles={evenement.horaire.styles}
-                                    admin={admin}
-                                    edit={edit}
-                                    updateContent={updateContent}
-                                    />
-                                </div>
-                                <div class='film px-5'>
+                            <div class={admin ? '' : 'middle'} on:click={() => {if(!admin) {goto(`/film/${evenement.filmId}`)}}}>
+                                <div class='film px-3'>
                                     <TextComponent
                                     bind:values={evenement.film.values}
                                     bind:styles={evenement.film.styles}
@@ -100,10 +98,10 @@ import { goto } from "$app/navigation";
                                     updateContent={updateContent}
                                     />
                                 </div>
+                                {#if !admin}
+                                    <button class='info btn btn-dark mx-auto text-center text-light p-0 m-0 rounded-0' on:click={() => goto(`/film/${evenement.filmId}`)}><strong>EN SAVOIR PLUS</strong></button>
+                                {/if}
                             </div>
-                            {#if !admin}
-                                <button class='info btn btn-dark mx-auto text-center text-light p-0 m-0 rounded-0' on:click={() => goto(`/film/${evenement.filmId}`)}><strong>EN SAVOIR PLUS</strong></button>
-                            {/if}
                         </div>
                     </div>
                 </div>
@@ -152,22 +150,20 @@ import { goto } from "$app/navigation";
     .event-container:hover .middle {
         opacity: 1;
     }
-    .horaire {
+    /* .horaire {
         position: absolute;
         top: 12%;
         left: 17%;
-    }
+    } */
     .film {
         position: absolute;
-        top: 60%;
+        top: 55%;
         width: 100%;
-        transform: scale(0.9);
     }
     .debat {
         position: absolute;
-        top: 70%;
+        top: 65%;
         width: 100%;
-        transform: scale(0.9);
     }
     .info {
         position: absolute;
@@ -175,7 +171,6 @@ import { goto } from "$app/navigation";
         left: 5%;
         width: 90%;
         height: 10%;
-        transform: scale(0.9);
     }
     
 </style>

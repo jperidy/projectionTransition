@@ -52,10 +52,10 @@
     $: textAlign = styles.filter(x => x.name === 'text-align')[0] && styles.filter(x => x.name === 'text-align')[0].value;
     
     $: transformR = styles.filter(x => x.name === 'transformR')[0] ? styles.filter(x => x.name === 'transformR')[0].value : 0;
-    $: transformX = styles.filter(x => x.name === 'transformX')[0] ? styles.filter(x => x.name === 'transformX')[0].value : 0;
-    $: transformY = styles.filter(x => x.name === 'transformY')[0] ? styles.filter(x => x.name === 'transformY')[0].value : 0;
+    //$: transformX = styles.filter(x => x.name === 'transformX')[0] ? styles.filter(x => x.name === 'transformX')[0].value : 0;
+    //$: transformY = styles.filter(x => x.name === 'transformY')[0] ? styles.filter(x => x.name === 'transformY')[0].value : 0;
     $: scaleXY = styles.filter(x => x.name === 'scaleXY')[0] ? styles.filter(x => x.name === 'scaleXY')[0].value : 1;
-    $: maxHeight = styles.filter(x => x.name === 'maxHeight')[0] ? styles.filter(x => x.name === 'maxHeight')[0].value : 50;
+    //$: maxHeight = styles.filter(x => x.name === 'maxHeight')[0] ? styles.filter(x => x.name === 'maxHeight')[0].value : 50;
 
 
     const updateStyle = ({name, value}) => {
@@ -133,7 +133,7 @@
                     <Input type='number' class='px-1' value={transformR} on:change={(e) => updateStyle({name:'transformR', value: e.target.value})} />
                 </div>
             </div>
-            <div class='row py-1 align-items-center'>
+            <!-- <div class='row py-1 align-items-center'>
                 <div class='col-4'>Translate X : </div>
                 <div class='col-8'>
                     <Input type='number' class='px-1' value={transformX} on:change={(e) => updateStyle({name:'transformX', value:e.target.value})} />
@@ -144,29 +144,30 @@
                 <div class='col-8'>
                     <Input type='number' class='px-1' value={transformY} on:change={(e) => updateStyle({name:'transformY', value:e.target.value})} />
                 </div>
-            </div>
+            </div> -->
             <div class='row py-1 align-items-center'>
                 <div class='col-4'>Scale XY : </div>
                 <div class='col-8'>
                     <Input type='number' class='px-1' value={scaleXY} on:change={(e) => updateStyle({name:'scaleXY', value:e.target.value})} step={0.05} />
                 </div>
             </div>
-            <div class='row py-1 align-items-center'>
+            <!-- <div class='row py-1 align-items-center'>
                 <div class='col-4'>Hauteur maximale (% de la hauteur de l'écran) : </div>
                 <div class='col-8'>
                     <Input type='number' class='px-1' value={maxHeight} on:change={(e) => updateStyle({name:'maxHeight', value:e.target.value})} step={1} />
                 </div>
-            </div>
+            </div> -->
             <p class='my-3'><strong>Prévisualisation</strong></p>
             <div class='row'>
                 <div class={`col ${textAlign}`}>
-                    <figure class='figure m-0 p-0' style={`transform: rotate(${transformR}deg) translateX(${transformX}vh) translateY(${transformY}vh) scale(${scaleXY, scaleXY});`}>
+                    <!-- <figure class='figure m-0 p-0' style={`transform: rotate(${transformR}deg) translateX(${transformX}vh) translateY(${transformY}vh) scale(${scaleXY, scaleXY});`}> -->
+                    <figure class='figure m-0 p-0' style={`transform: rotate(${transformR}deg) scale(${scaleXY, scaleXY});`}>
                         <img 
                             src={`${API_URL}${values[0].url}`} 
                             alt={values[0].substitution}
                             class={`figure-img m-0 p-0 ${rounded} ${shadow}`} 
-                            style={`max-height:${maxHeight}vh;max-width:auto;`}
                             >
+                            <!-- style={`max-height:${maxHeight}vh;max-width:auto;`} -->
                         <figcaption class='figure-caption'>{values[0].caption}</figcaption>
                     </figure>
                 </div>
@@ -189,24 +190,24 @@
             {/if}
             {#if values[0].redirection}
                 <a href={values[0].redirection} target={values[0].redirection.match(/^http/i) ? '_blank' : '_self'} >
-                    <figure class='figure m-0 p-0' style={`transform: rotate(${transformR}deg) translateX(${transformX}vh) translateY(${transformY}vh) scale(${scaleXY, scaleXY});`}>
+                    <figure class='figure m-0 p-0' style={`transform: rotate(${transformR}deg) scale(${scaleXY, scaleXY});`}>
                         <img 
                             src={`${API_URL}${values[0].url}`} 
                             alt={values[0].substitution}
                             class={`figure-img m-0 p-0 ${rounded} ${shadow}`} 
-                            style={`max-height:${maxHeight}vh;max-width:auto;`}
                             >
+                            <!-- style={`max-height:${maxHeight}vh;max-width:auto;`} -->
                         <figcaption class='figure-caption'>{values[0].caption}</figcaption>
                     </figure>
                 </a>
             {:else}
-                <figure class='figure m-0 p-0' style={`transform: rotate(${transformR}deg) translateX(${transformX}vh) translateY(${transformY}vh) scale(${scaleXY, scaleXY});`}>
+                <figure class='figure m-0 p-0' style={`transform: rotate(${transformR}deg) scale(${scaleXY, scaleXY});`}>
                     <img 
                         src={`${API_URL}${values[0].url}`} 
                         alt={values[0].substitution}
                         class={`figure-img m-0 p-0 ${rounded} ${shadow}`} 
-                        style={`max-height:${maxHeight}vh;max-width:auto;`}
                         >
+                        <!-- style={`max-height:${maxHeight}vh;max-width:auto;`} -->
                     <figcaption class='figure-caption'>{values[0].caption}</figcaption>
                 </figure>
             {/if}

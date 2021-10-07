@@ -61,8 +61,8 @@
         border: dashed 1px;
     }
     .moving-container:hover {
-        -webkit-transform: scale(1.03);
-	    transform: scale(1.03);
+        -webkit-transform: scale(1);
+	    transform: scale(1);
         transition: .5s ease;
     }
     .edition {
@@ -72,8 +72,8 @@
         width: 0px;
     }
     .moving-container:hover .edition {
-        -webkit-transform: scale(1);
-	    transform: scale(1);
+        -webkit-transform: scale(.7);
+	    transform: scale(.7);
         transition: .5s ease;
         width: 5vh;
     }
@@ -103,7 +103,7 @@
         />
     {/if}
 
-    <div class='moving-container border-light rounded-3 mt-3 mb-1 p-3 bg-lavande shadow-lg'>
+    <div class='moving-container border-light rounded-3 my-1 mb-1 p-1 bg-lavande shadow-lg'>
         <div class='row align-items-center'>
             <div class="col">
                 <slot></slot>

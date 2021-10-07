@@ -45,9 +45,9 @@ import AddElement from "./AddElement.svelte";
   addToLayout={addToLayout}
 />
 
-<Row class='my-3 pt-3'>
+<Row class='my-1 py-1'>
   <Col>
-    <Button color="primary" class='my-3 p-3' on:click={toggle}>Ajouter un contenu</Button>
+    <Button color="primary" class='my-1 p-2' on:click={toggle}>Ajouter un contenu</Button>
 
     <!-- <Modal isOpen={open} {toggle} size='lg' scrollable>      
       <ModalHeader {toggle}>Ajouter un contenu</ModalHeader>
