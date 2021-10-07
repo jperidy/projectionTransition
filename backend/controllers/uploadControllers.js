@@ -49,7 +49,7 @@ const uploadVideo = multer({
     fileFilter: function(req, file, cb) {
         checkFileTypeVideo(file, cb);
     },
-    limits: { fileSize: 10000000 },
+    limits: { fileSize: 100000000 },
 });
 
 
