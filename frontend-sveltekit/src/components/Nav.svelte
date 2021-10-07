@@ -66,7 +66,7 @@ Col,
                     <NavItem><NavLink class='text-dark mx-2' on:click={() => navigateHandler('/partenaires')}><span class='titre'>NOS PARTENAIRES</span></NavLink></NavItem>
                   </Dropdown>
                   <Dropdown nav inNavbar>
-                    <NavItem><NavLink class='text-dark mx-2' on:click={() => navigateHandler('/equipe')}><span class='titre'>L'EQUIPE</span></NavLink></NavItem>
+                    <NavItem><NavLink class='text-dark mx-2' on:click={() => navigateHandler('/equipe')}><span class='titre'>L'&Eacute;QUIPE</span></NavLink></NavItem>
                   </Dropdown>
                   <Dropdown nav inNavbar>
                     <NavItem><NavLink class='text-dark mx-2' on:click={() => navigateHandler('/programmation2021')}><span class='titre'>PROGRAMMATION 2021</span></NavLink></NavItem>
