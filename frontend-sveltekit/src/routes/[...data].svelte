@@ -39,7 +39,6 @@
 
     import { updateOrCreateContent } from '../actions/pagesActions';
 
-    import CustomContainer from '../components/CustomContainer.svelte';
     import { Col, Row } from 'sveltestrap';
     import AdminButton from '../components/AdminButton.svelte';
     import MovingContent from '../components/MovingContent.svelte';

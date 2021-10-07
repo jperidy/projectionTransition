@@ -17,7 +17,7 @@
 </script>
 
 {#if isAuthenticate}
-    <div class='alert alert-warning text-center'>
+    <div class='alert alert-warning text-center my-0'>
         <div class="row align-items-center">
             <div class='col my-auto' sm={4} md={10}>You are in admin mode. Be careful!</div>
             <div class='col text-end' sm={4} md={1}>

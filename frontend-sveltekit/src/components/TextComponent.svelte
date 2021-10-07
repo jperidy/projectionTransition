@@ -16,7 +16,7 @@
     export let edit='false';
     export let updateContent;
 
-    const colors = ['pomme', 'outremer', 'lavande', 'caraibe', 'tangerine', 'ambre', 'light', 'white', 'dark', 'black'];
+    const colors = ['primary', 'secondary', 'pomme', 'outremer', 'lavande', 'caraibe', 'tangerine', 'ambre', 'light', 'white', 'dark', 'black'];
 
     const toggle = async() => {
         if (edit && updateContent) {
@@ -30,10 +30,19 @@
     $: bgColor = styles.filter(x => x.name === 'backgroud-color')[0] && styles.filter(x => x.name === 'backgroud-color')[0].value;
     $: fontWeight = styles.filter(x => x.name === 'font-weight')[0] && styles.filter(x => x.name === 'font-weight')[0].value;
     $: fontStyle = styles.filter(x => x.name === 'font-style')[0] && styles.filter(x => x.name === 'font-style')[0].value;
-
     $: bgPrimaryText = styles.filter(x => x.name === 'bgPrimaryText')[0] && styles.filter(x => x.name === 'bgPrimaryText')[0].value;
     $: padding = styles.filter(x => x.name === 'padding')[0] && styles.filter(x => x.name === 'padding')[0].value;
     
+    $: marginL = styles.filter(x => x.name === 'marginL')[0] && styles.filter(x => x.name === 'marginL')[0].value;
+    $: marginR = styles.filter(x => x.name === 'marginR')[0] && styles.filter(x => x.name === 'marginR')[0].value;
+    $: marginT = styles.filter(x => x.name === 'marginT')[0] && styles.filter(x => x.name === 'marginT')[0].value;
+    $: marginB = styles.filter(x => x.name === 'marginB')[0] && styles.filter(x => x.name === 'marginB')[0].value;
+
+    $: paddingL = styles.filter(x => x.name === 'paddingL')[0] && styles.filter(x => x.name === 'paddingL')[0].value;
+    $: paddingR = styles.filter(x => x.name === 'paddingR')[0] && styles.filter(x => x.name === 'paddingR')[0].value;
+    $: paddingT = styles.filter(x => x.name === 'paddingT')[0] && styles.filter(x => x.name === 'paddingT')[0].value;
+    $: paddingB = styles.filter(x => x.name === 'paddingB')[0] && styles.filter(x => x.name === 'paddingB')[0].value;
+
     $: rounded = styles.filter(x => x.name === 'rounded')[0] && styles.filter(x => x.name === 'rounded')[0].value;
 
     $: transformR = styles.filter(x => x.name === 'transformR')[0] ? styles.filter(x => x.name === 'transformR')[0].value : 0;
@@ -145,6 +154,42 @@
                             <button class='btn btn-light p-5' on:click={() => updateStyle({name:'padding', value:'p-5'})}><span>p-5</span></button>
                         </div>
                     </div>
+                    <div class="row py-1">
+                        <div class='col'>
+                            <span>Margin Left : </span>
+                            <input type='number' step={1} min={0} class='form-control' value={marginL} on:change={(e) => updateStyle({name:'marginL', value:e.target.value})} />
+                        </div>
+                        <div class='col'>
+                            <span>Margin Right : </span>
+                            <input type='number' step={1} min={0} class='form-control' value={marginR} on:change={(e) => updateStyle({name:'marginR', value:e.target.value})} />
+                        </div>
+                        <div class='col'>
+                            <span>Margin Top : </span>
+                            <input type='number' step={1} min={0} class='form-control' value={marginT} on:change={(e) => updateStyle({name:'marginT', value:e.target.value})} />
+                        </div>
+                        <div class='col'>
+                            <span>Margin Bottom : </span>
+                            <input type='number' step={1} min={0} class='form-control' value={marginB} on:change={(e) => updateStyle({name:'marginB', value:e.target.value})} />
+                        </div>
+                    </div>
+                    <div class="row py-1">
+                        <div class='col'>
+                            <span>Padding Left : </span>
+                            <input type='number' step={1} min={0} class='form-control' value={paddingL} on:change={(e) => updateStyle({name:'paddingL', value:e.target.value})} />
+                        </div>
+                        <div class='col'>
+                            <span>Padding Right : </span>
+                            <input type='number' step={1} min={0} class='form-control' value={paddingR} on:change={(e) => updateStyle({name:'paddingR', value:e.target.value})} />
+                        </div>
+                        <div class='col'>
+                            <span>Padding Top : </span>
+                            <input type='number' step={1} min={0} class='form-control' value={paddingT} on:change={(e) => updateStyle({name:'paddingT', value:e.target.value})} />
+                        </div>
+                        <div class='col'>
+                            <span>Padding Bottom : </span>
+                            <input type='number' step={1} min={0} class='form-control' value={paddingB} on:change={(e) => updateStyle({name:'paddingB', value:e.target.value})} />
+                        </div>
+                    </div>
                     <div class='row py-1'>
                         <div class='col'>
                             <button class='btn btn-light px-1 rounded-0' on:click={() => updateStyle({name:'rounded', value:'rounded-0'})}><span>r-0</span></button>
@@ -159,22 +204,10 @@
                             <input type='number' class='px-1 form-control' value={transformR} on:change={(e) => updateStyle({name:'transformR', value:e.target.value})}>
                         </div>
                     </div>
-                    <!-- <div class='row py-1 align-items-center'>
-                        <div class='col-4'>Translate X : </div>
-                        <div class='col-8'>
-                            <input type='number' class='px-1 form-control' value={transformX} on:change={(e) => updateStyle({name:'transformX', value:e.target.value})}>
-                        </div>
-                    </div>
-                    <div class='row py-1 align-items-center'>
-                        <div class='col-4'>Translate Y : </div>
-                        <div class='col-8'>
-                            <input type='number' class='px-1 form-control' value={transformY} on:change={(e) => updateStyle({name:'transformY', value:e.target.value})}>
-                        </div>
-                    </div> -->
                     <p class='my-3'><strong>Prévisualisation</strong></p>
                     <div class='row'>
                         <div class='col'>
-                            <div class={`${textColor} ${bgColor} ${padding} ${rounded}`} style={`text-align: ${textAlign};font-weight: ${fontWeight};font-style: ${fontStyle};transform: rotate(${transformR}deg);`}>
+                            <div class={`${textColor} ${bgColor} ${padding} ${rounded}`} style={`text-align: ${textAlign};font-weight: ${fontWeight};font-style: ${fontStyle};transform: rotate(${transformR}deg);margin-left: ${marginL}rem;;margin-right: ${marginR}rem;;margin-top: ${marginT}rem;;margin-bottom: ${marginB}rem;padding-left: ${paddingL}rem;;padding-right: ${paddingR}rem;;padding-top: ${paddingT}rem;;padding-bottom: ${paddingB}rem;`}>
                                 <SvelteMarkdown source={values[0] && values[0].value ? values[0].value : ''} renderers={{
                                     paragraph: ParagrapheMarkdown, 
                                     table: TableMarkdown, 
@@ -194,7 +227,7 @@
         </ModalFooter>
     </Modal>
     <div class='content' >
-        <div class={`${textColor} ${bgColor} ${padding} ${rounded}`} style={`text-align: ${textAlign};font-weight: ${fontWeight};font-style: ${fontStyle};transform: rotate(${transformR}deg);`}>
+        <div class={`${textColor} ${bgColor} ${padding} ${rounded}`} style={`text-align: ${textAlign};font-weight: ${fontWeight};font-style: ${fontStyle};transform: rotate(${transformR}deg);margin-left: ${marginL}rem;;margin-right: ${marginR}rem;;margin-top: ${marginT}rem;;margin-bottom: ${marginB}rem;padding-left: ${paddingL}rem;;padding-right: ${paddingR}rem;;padding-top: ${paddingT}rem;;padding-bottom: ${paddingB}rem;`}>
             <SvelteMarkdown source={values[0] && values[0].value ? values[0].value : ''} renderers={{
                 paragraph: ParagrapheMarkdown, 
                 table: TableMarkdown, 

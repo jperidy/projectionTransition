@@ -103,7 +103,7 @@
         />
     {/if}
 
-    <div class='moving-container border-light rounded-3 my-1 mb-1 p-1 bg-lavande shadow-lg'>
+    <div class='moving-container border-light rounded-3 my-1 mb-1 p-1 bg-transparent shadow-lg'>
         <div class='row align-items-center'>
             <div class="col">
                 <slot></slot>

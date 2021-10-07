@@ -42,8 +42,14 @@
         if (values && values.length === 0) {
             values.push({caption: '',substitution: '',url: '',redirection:''});
         }
-        // if (!styles) styles = [];
-        // if (!values) values = [];
+        if (!styles) styles = [];
+        if (!values) values = [];
+    }
+
+    $:{
+        if (!styles.length) {
+            styles = [];
+        }
     }
     
     // styles section
@@ -52,14 +58,19 @@
     $: textAlign = styles.filter(x => x.name === 'text-align')[0] && styles.filter(x => x.name === 'text-align')[0].value;
     
     $: transformR = styles.filter(x => x.name === 'transformR')[0] ? styles.filter(x => x.name === 'transformR')[0].value : 0;
-    //$: transformX = styles.filter(x => x.name === 'transformX')[0] ? styles.filter(x => x.name === 'transformX')[0].value : 0;
-    //$: transformY = styles.filter(x => x.name === 'transformY')[0] ? styles.filter(x => x.name === 'transformY')[0].value : 0;
     $: scaleXY = styles.filter(x => x.name === 'scaleXY')[0] ? styles.filter(x => x.name === 'scaleXY')[0].value : 1;
-    //$: maxHeight = styles.filter(x => x.name === 'maxHeight')[0] ? styles.filter(x => x.name === 'maxHeight')[0].value : 50;
 
+    $: marginL = styles.filter(x => x.name === 'marginL')[0] && styles.filter(x => x.name === 'marginL')[0].value;
+    $: marginR = styles.filter(x => x.name === 'marginR')[0] && styles.filter(x => x.name === 'marginR')[0].value;
+    $: marginT = styles.filter(x => x.name === 'marginT')[0] && styles.filter(x => x.name === 'marginT')[0].value;
+    $: marginB = styles.filter(x => x.name === 'marginB')[0] && styles.filter(x => x.name === 'marginB')[0].value;
+
+    $: paddingL = styles.filter(x => x.name === 'paddingL')[0] && styles.filter(x => x.name === 'paddingL')[0].value;
+    $: paddingR = styles.filter(x => x.name === 'paddingR')[0] && styles.filter(x => x.name === 'paddingR')[0].value;
+    $: paddingT = styles.filter(x => x.name === 'paddingT')[0] && styles.filter(x => x.name === 'paddingT')[0].value;
+    $: paddingB = styles.filter(x => x.name === 'paddingB')[0] && styles.filter(x => x.name === 'paddingB')[0].value;
 
     const updateStyle = ({name, value}) => {
-        //console.log('updatesstyle', {name, value});
         const curentStyleItem = styles.filter(x => x.name === name);
         if (curentStyleItem.length) {
             for (let index = 0; index < styles.length; index++) {
@@ -67,10 +78,10 @@
                     styles[index].value = value;
                 }
             }
-            styles = styles;
         } else {
             styles = [...styles, {name, value}];
         }
+        styles = styles;
     };
 
 </script>
@@ -99,7 +110,7 @@
     }
 </style>
 
-<Modal isOpen={edit} {toggle}>
+<Modal isOpen={edit} {toggle} size='lg' scrollable>
     <ModalHeader {toggle}>Editer l'image</ModalHeader>
     <ModalBody>
     <Row>
@@ -127,47 +138,63 @@
                     <Button class='px-1' on:click={() => updateStyle({name:'rounded', value:''})}>No rounded</Button>
                 </div>
             </div>
+            <div class="row py-1">
+                <div class='col'>
+                    <span>Margin Left : </span>
+                    <input type='number' step={1} min={0} class='form-control' value={marginL} on:change={(e) => updateStyle({name:'marginL', value:e.target.value})} />
+                </div>
+                <div class='col'>
+                    <span>Margin Right : </span>
+                    <input type='number' step={1} min={0} class='form-control' value={marginR} on:change={(e) => updateStyle({name:'marginR', value:e.target.value})} />
+                </div>
+                <div class='col'>
+                    <span>Margin Top : </span>
+                    <input type='number' step={1} min={0} class='form-control' value={marginT} on:change={(e) => updateStyle({name:'marginT', value:e.target.value})} />
+                </div>
+                <div class='col'>
+                    <span>Margin Bottom : </span>
+                    <input type='number' step={1} min={0} class='form-control' value={marginB} on:change={(e) => updateStyle({name:'marginB', value:e.target.value})} />
+                </div>
+            </div>
+            <div class="row py-1">
+                <div class='col'>
+                    <span>Padding Left : </span>
+                    <input type='number' step={1} min={0} class='form-control' value={paddingL} on:change={(e) => updateStyle({name:'paddingL', value:e.target.value})} />
+                </div>
+                <div class='col'>
+                    <span>Padding Right : </span>
+                    <input type='number' step={1} min={0} class='form-control' value={paddingR} on:change={(e) => updateStyle({name:'paddingR', value:e.target.value})} />
+                </div>
+                <div class='col'>
+                    <span>Padding Top : </span>
+                    <input type='number' step={1} min={0} class='form-control' value={paddingT} on:change={(e) => updateStyle({name:'paddingT', value:e.target.value})} />
+                </div>
+                <div class='col'>
+                    <span>Padding Bottom : </span>
+                    <input type='number' step={1} min={0} class='form-control' value={paddingB} on:change={(e) => updateStyle({name:'paddingB', value:e.target.value})} />
+                </div>
+            </div>
             <div class='row py-1 align-items-center'>
                 <div class='col-4'>Rotate : </div>
                 <div class='col-8'>
                     <Input type='number' class='px-1' value={transformR} on:change={(e) => updateStyle({name:'transformR', value: e.target.value})} />
                 </div>
             </div>
-            <!-- <div class='row py-1 align-items-center'>
-                <div class='col-4'>Translate X : </div>
-                <div class='col-8'>
-                    <Input type='number' class='px-1' value={transformX} on:change={(e) => updateStyle({name:'transformX', value:e.target.value})} />
-                </div>
-            </div>
-            <div class='row py-1 align-items-center'>
-                <div class='col-4'>Translate Y : </div>
-                <div class='col-8'>
-                    <Input type='number' class='px-1' value={transformY} on:change={(e) => updateStyle({name:'transformY', value:e.target.value})} />
-                </div>
-            </div> -->
             <div class='row py-1 align-items-center'>
                 <div class='col-4'>Scale XY : </div>
                 <div class='col-8'>
                     <Input type='number' class='px-1' value={scaleXY} on:change={(e) => updateStyle({name:'scaleXY', value:e.target.value})} step={0.05} />
                 </div>
             </div>
-            <!-- <div class='row py-1 align-items-center'>
-                <div class='col-4'>Hauteur maximale (% de la hauteur de l'écran) : </div>
-                <div class='col-8'>
-                    <Input type='number' class='px-1' value={maxHeight} on:change={(e) => updateStyle({name:'maxHeight', value:e.target.value})} step={1} />
-                </div>
-            </div> -->
             <p class='my-3'><strong>Prévisualisation</strong></p>
             <div class='row'>
                 <div class={`col ${textAlign}`}>
-                    <!-- <figure class='figure m-0 p-0' style={`transform: rotate(${transformR}deg) translateX(${transformX}vh) translateY(${transformY}vh) scale(${scaleXY, scaleXY});`}> -->
-                    <figure class='figure m-0 p-0' style={`transform: rotate(${transformR}deg) scale(${scaleXY, scaleXY});`}>
+                    <figure class='figure' style={`transform: rotate(${transformR}deg) scale(${scaleXY, scaleXY});margin-left: ${marginL}rem;margin-right: ${marginR}rem;;margin-top: ${marginT}rem;;margin-bottom: ${marginB}rem;padding-left: ${paddingL}rem;padding-right: ${paddingR}rem;;padding-top: ${paddingT}rem;;padding-bottom: ${paddingB}rem;`}>
                         <img 
                             src={`${API_URL}${values[0].url}`} 
                             alt={values[0].substitution}
                             class={`figure-img m-0 p-0 ${rounded} ${shadow}`} 
                             >
-                            <!-- style={`max-height:${maxHeight}vh;max-width:auto;`} -->
                         <figcaption class='figure-caption'>{values[0].caption}</figcaption>
                     </figure>
                 </div>
@@ -190,24 +217,22 @@
             {/if}
             {#if values[0].redirection}
                 <a href={values[0].redirection} target={values[0].redirection.match(/^http/i) ? '_blank' : '_self'} >
-                    <figure class='figure m-0 p-0' style={`transform: rotate(${transformR}deg) scale(${scaleXY, scaleXY});`}>
+                    <figure class='figure' style={`transform: rotate(${transformR}deg) scale(${scaleXY, scaleXY});margin-left: ${marginL}rem;;margin-right: ${marginR}rem;;margin-top: ${marginT}rem;;margin-bottom: ${marginB}rem;padding-left: ${paddingL}rem;;padding-right: ${paddingR}rem;padding-top: ${paddingT}rem;;padding-bottom: ${paddingB}rem;`}>
                         <img 
                             src={`${API_URL}${values[0].url}`} 
                             alt={values[0].substitution}
                             class={`figure-img m-0 p-0 ${rounded} ${shadow}`} 
                             >
-                            <!-- style={`max-height:${maxHeight}vh;max-width:auto;`} -->
                         <figcaption class='figure-caption'>{values[0].caption}</figcaption>
                     </figure>
                 </a>
             {:else}
-                <figure class='figure m-0 p-0' style={`transform: rotate(${transformR}deg) scale(${scaleXY, scaleXY});`}>
+                <figure class='figure' style={`transform: rotate(${transformR}deg) scale(${scaleXY, scaleXY});margin-left: ${marginL}rem;;margin-right: ${marginR}rem;;margin-top: ${marginT}rem;;margin-bottom: ${marginB}rem;padding-left: ${paddingL}rem;;padding-right: ${paddingR}rem;padding-top: ${paddingT}rem;;padding-bottom: ${paddingB}rem;`}>
                     <img 
                         src={`${API_URL}${values[0].url}`} 
                         alt={values[0].substitution}
                         class={`figure-img m-0 p-0 ${rounded} ${shadow}`} 
                         >
-                        <!-- style={`max-height:${maxHeight}vh;max-width:auto;`} -->
                     <figcaption class='figure-caption'>{values[0].caption}</figcaption>
                 </figure>
             {/if}
