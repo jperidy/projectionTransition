@@ -22,7 +22,7 @@ const getStatistics = asyncHandler(async(req,res) =>{
     const end = req.query.end ? new Date(req.query.end.substring(0,10)) : null;
     const filteredPages = req.query.pages ? req.query.pages.split('-SEP-') : null;
     
-    console.log(filteredPages);
+    //console.log(filteredPages);
     
     //const filterType = req.query.type ? { type: req.query.type } : {};
     //const filterTarget = req.query.target ? { target: req.query.target } : {};
