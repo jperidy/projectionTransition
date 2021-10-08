@@ -5,7 +5,7 @@ import { userInfo, statisticsSendRequest, statisticsAllPages } from '../store';
 
 const API_URL = config.SVELTE_ENV === 'dev' ? config.API_URL_DEV : config.SVELTE_ENV === 'preprod' ? config.API_URL_PREPROD : config.SVELTE_ENV === 'production' ? config.API_URL_PROD : config.API_URL_DEV;
 
-export const getStatistics = async (type, target, start, end) => {
+export const getStatistics = async (start, end, pages) => {
 
     try {
 
@@ -19,7 +19,7 @@ export const getStatistics = async (type, target, start, end) => {
             }
         }
 
-        const { data } = await axios.get(`${API_URL}/api/statistics?type=${type}&target=${target}&start=${start}&end=${end}`, config);
+        const { data } = await axios.get(`${API_URL}/api/statistics?start=${start}&end=${end}&pages=${pages}`, config);
         statisticsSendRequest.set({loading:false, success: true, message:'success', data:data.data});
                 
     } catch (error) {

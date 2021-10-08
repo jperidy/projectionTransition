@@ -23,6 +23,9 @@
     let endDate = (new Date(Date.now())).toISOString().substring(0,10);
     let ctx = null;
     let statisticsChart;
+    let selectedPages = [];
+
+    //$: console.log('selectedPages', selectedPages);
     
 
     onMount(() => {
@@ -41,19 +44,11 @@
                         borderColor: [],
                         borderWidth: 1,
                     }]
-                },
-                // options: {
-                //     scales: {
-                //         y: {
-                //             beginAtZero: true
-                //         },
-                //     }
-                // }
+                }
             });
     });
 
     $:{
-        //console.log('result', $statisticsSendRequest.data);
         if ($statisticsSendRequest.success) {
             statisticsChart.data = $statisticsSendRequest.data;
             statisticsChart.update();
@@ -65,7 +60,7 @@
         if (form.checkValidity() === false) {
         } else {
             e.preventDefault(); // to avoid page to refresh
-            getStatistics(type, target, startDate, endDate);
+            getStatistics(startDate, endDate, selectedPages.join('-SEP-'));
         }
     };
 
@@ -74,7 +69,7 @@
 <CustomContainer>
     <h1 class='mt-2'>Statistics</h1>
 
-    <form id='statistics' class="row statistics-form" on:submit={submitHandler}>
+    <form id='statistics' class="statistics-form" on:submit={submitHandler}>
             
         <div class="row align-items-center mb-3">
 
@@ -90,7 +85,7 @@
         {#if $statisticsAllPages.data}
             <div class='row mb-3'>
                 <div class="col">
-                    <select class="form-select" multiple aria-label="multiple select pages" on:change={(e) => console.log(e)}>
+                    <select class="form-select" multiple aria-label="multiple select pages" bind:value={selectedPages}>
                         {#each $statisticsAllPages.data as page}
                             <option value={page}>{page}</option>
                         {/each}

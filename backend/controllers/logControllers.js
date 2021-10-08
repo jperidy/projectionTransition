@@ -20,7 +20,11 @@ const getStatistics = asyncHandler(async(req,res) =>{
     
     const start = req.query.start ? new Date(req.query.start.substring(0,10)) : null;
     const end = req.query.end ? new Date(req.query.end.substring(0,10)) : null;
-    const filterType = req.query.type ? { type: req.query.type } : {};
+    const filteredPages = req.query.pages ? req.query.pages.split('-SEP-') : null;
+    
+    console.log(filteredPages);
+    
+    //const filterType = req.query.type ? { type: req.query.type } : {};
     //const filterTarget = req.query.target ? { target: req.query.target } : {};
 
     if (!start || !end) {
@@ -32,6 +36,10 @@ const getStatistics = asyncHandler(async(req,res) =>{
         const logs = await Logs.find();
         let targets = logs.map(x => x.target);
         targets = [... new Set(targets)];
+
+        if (filteredPages && filteredPages.length > 0) {
+            targets = targets.filter(x => filteredPages.includes(x));
+        }
 
         let labels = [];
         let datasets = [];
@@ -48,6 +56,7 @@ const getStatistics = asyncHandler(async(req,res) =>{
             const borderColor = [];
             const borderWidth = 1;
             const label = targetpage;
+            const randomColor = '#'+(Math.random()*0xFFFFFF<<0).toString(16);
 
             datasets.push({label, data, backgroundColor, borderColor, borderWidth})
             
@@ -65,10 +74,10 @@ const getStatistics = asyncHandler(async(req,res) =>{
                     ]
                 };
                 try {
-                    const result = await Logs.countDocuments({ ...filterType, ...filterTarget, ...filterDate });
+                    const result = await Logs.countDocuments({ ...filterTarget, ...filterDate });
                     data.push(Number(result));
-                    backgroundColor.push('white');
-                    borderColor.push('white');
+                    backgroundColor.push(randomColor);
+                    borderColor.push(randomColor);
                     if (targetItem === 0) {
                         labels.push(copyStart.toISOString().substring(0,10));
                     }
@@ -96,7 +105,7 @@ const getStatistics = asyncHandler(async(req,res) =>{
 // @access  Private
 const getStatisticsParams = asyncHandler(async(req,res) =>{
 
-    const logs = await Logs.find();
+    const logs = await Logs.find().sort({target: 1});
     let targets = logs.map(x => x.target);
     targets = [... new Set(targets)];
     res.status(200).json({message: 'get all targets', data: targets});
