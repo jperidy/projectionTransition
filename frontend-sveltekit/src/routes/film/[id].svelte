@@ -176,17 +176,15 @@
                 </div>
             </div>
 
-            <div class='row mt-4'>
-                <div class='row align-items-center'>
-                    <div class='col-12'>
-                        <TextComponent
-                            bind:values={filmRequest.film.infosGenerales.values}
-                            bind:styles={filmRequest.film.infosGenerales.styles}
-                            admin={admin}
-                            edit={edit}
-                            updateContent={updateFilm}
-                        />
-                    </div>
+            <div class='row mt-4 align-items-center'>
+                <div class='col-12'>
+                    <TextComponent
+                        bind:values={filmRequest.film.infosGenerales.values}
+                        bind:styles={filmRequest.film.infosGenerales.styles}
+                        admin={admin}
+                        edit={edit}
+                        updateContent={updateFilm}
+                    />
                 </div>
                 <!-- {#each filmRequest.film.actions as action, position}
                     <MovingContent
