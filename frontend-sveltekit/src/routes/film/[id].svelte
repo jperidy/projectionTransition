@@ -253,6 +253,7 @@
                             data-bs-placement="right" 
                             title={filmRequest.film.justification}
                         >Réservation non disponible</button>
+                        <p>{filmRequest.film.justification ? filmRequest.film.justification : "La billeterie n'est pas encore ouverte"}</p>
                     {/if}
                     {#if admin}
                         <div class="text-start">
