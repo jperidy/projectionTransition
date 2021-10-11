@@ -1,5 +1,5 @@
 {
-    "SVELTE_ENV": "dev",
+    "SVELTE_ENV": "production",
     "API_URL_DEV": "http://localhost:5000",
     "API_URL_PREPROD": "https://dev.projtranapi.jprdev.ovh",
     "API_URL_PROD": "https://dev.projtranapi.jprdev.ovh",
@@ -82,5 +82,14 @@
         "DEFAULT_OG_TITLE": "Projection Transition - Le festival ciné-débat pour la transition écologique",
         "DEFAULT_OG_DESCRIPTION": "Retrouvez toutes les informations sur le festival Projection Transition",
         "DEFAULT_OG_IMAGE": "/images/og_logo.jpg"
+    },
+    "SHEETS": {
+        "FAVICON": {
+            "_48_48": {"path": "/favicon_48x48.png"},
+            "_64_64": {"path": "/favicon_64x64.png"},
+            "_96_96": {"path": "/favicon_96x96.png"},
+            "_128_128": {"path": "/favicon_128x128.png"},
+            "_196_196": {"path": "/favicon_196x196.png"}
+        }
     }
 }
