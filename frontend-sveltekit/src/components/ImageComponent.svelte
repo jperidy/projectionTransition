@@ -60,15 +60,15 @@
     $: transformR = styles.filter(x => x.name === 'transformR')[0] ? styles.filter(x => x.name === 'transformR')[0].value : 0;
     $: scaleXY = styles.filter(x => x.name === 'scaleXY')[0] ? styles.filter(x => x.name === 'scaleXY')[0].value : 1;
 
-    $: marginL = styles.filter(x => x.name === 'marginL')[0] && styles.filter(x => x.name === 'marginL')[0].value;
-    $: marginR = styles.filter(x => x.name === 'marginR')[0] && styles.filter(x => x.name === 'marginR')[0].value;
-    $: marginT = styles.filter(x => x.name === 'marginT')[0] && styles.filter(x => x.name === 'marginT')[0].value;
-    $: marginB = styles.filter(x => x.name === 'marginB')[0] && styles.filter(x => x.name === 'marginB')[0].value;
+    $: marginL = styles.filter(x => x.name === 'marginL')[0] && styles.filter(x => x.name === 'marginL')[0].value || 0;
+    $: marginR = styles.filter(x => x.name === 'marginR')[0] && styles.filter(x => x.name === 'marginR')[0].value || 0;
+    $: marginT = styles.filter(x => x.name === 'marginT')[0] && styles.filter(x => x.name === 'marginT')[0].value || 0;
+    $: marginB = styles.filter(x => x.name === 'marginB')[0] && styles.filter(x => x.name === 'marginB')[0].value || 0;
 
-    $: paddingL = styles.filter(x => x.name === 'paddingL')[0] && styles.filter(x => x.name === 'paddingL')[0].value;
-    $: paddingR = styles.filter(x => x.name === 'paddingR')[0] && styles.filter(x => x.name === 'paddingR')[0].value;
-    $: paddingT = styles.filter(x => x.name === 'paddingT')[0] && styles.filter(x => x.name === 'paddingT')[0].value;
-    $: paddingB = styles.filter(x => x.name === 'paddingB')[0] && styles.filter(x => x.name === 'paddingB')[0].value;
+    $: paddingL = styles.filter(x => x.name === 'paddingL')[0] && styles.filter(x => x.name === 'paddingL')[0].value || 0;
+    $: paddingR = styles.filter(x => x.name === 'paddingR')[0] && styles.filter(x => x.name === 'paddingR')[0].value || 0;
+    $: paddingT = styles.filter(x => x.name === 'paddingT')[0] && styles.filter(x => x.name === 'paddingT')[0].value || 0;
+    $: paddingB = styles.filter(x => x.name === 'paddingB')[0] && styles.filter(x => x.name === 'paddingB')[0].value || 0;
 
     const updateStyle = ({name, value}) => {
         const curentStyleItem = styles.filter(x => x.name === name);
@@ -121,21 +121,21 @@
             <Input type='text' name='text' class='my-3' bind:value={values[0].redirection} placeholder='[option] url de redirection *'/>
             <p>* exemple : https://url_cible.com Pour une url externe au site <br>* exemple : /edito pour une url interne au site</p>
             <div class='row py-1'><div class='col'>
-                <button class='px-1 btn btn-light' on:click={() => updateStyle({name:'text-align', value:'text-start'})}><Icon name='text-left' /></button>
-                <button class='px-1 btn btn-light' on:click={() => updateStyle({name:'text-align', value:'text-center'})}><Icon name='text-center' /></button>
-                <button class='px-1 btn btn-light' on:click={() => updateStyle({name:'text-align', value:'text-end'})}><Icon name='text-right' /></button>
+                <button class={`px-1 btn ${textAlign === "text-start" ? "btn-primary" : "btn-light"}`} on:click={() => updateStyle({name:'text-align', value:'text-start'})}><Icon name='text-left' /></button>
+                <button class={`px-1 btn ${textAlign === "text-center" ? "btn-primary" : "btn-light"}`} on:click={() => updateStyle({name:'text-align', value:'text-center'})}><Icon name='text-center' /></button>
+                <button class={`px-1 btn ${textAlign === "text-end" ? "btn-primary" : "btn-light"}`} on:click={() => updateStyle({name:'text-align', value:'text-end'})}><Icon name='text-right' /></button>
             </div></div>
             <div class='row py-1'>
                 <div class='col'>
-                    <Button class='px-1' on:click={() => updateStyle({name:'shadow', value:'shadow'})}><Icon name='back' /></Button>
-                    <Button class='px-1' on:click={() => updateStyle({name:'shadow', value:''})}>No shadow</Button>
+                    <Button class="px-1" color={`${shadow === "shadow" ? "primary" : "light"}`} on:click={() => updateStyle({name:'shadow', value:'shadow'})}><Icon name='back' /></Button>
+                    <Button class='px-1' color={`${shadow === "" ? "primary" : "light"}`}  on:click={() => updateStyle({name:'shadow', value:''})}>No shadow</Button>
                 </div>
             </div>
             <div class='row py-1'>
                 <div class='col'>
-                    <Button class='px-1 rounded-3' on:click={() => updateStyle({name:'rounded', value:'rounded-3'})}><Icon name='app' /></Button>
-                    <Button class='px-1 rounded-circle' on:click={() => updateStyle({name:'rounded', value:'rounded-circle'})}>Circle</Button>
-                    <Button class='px-1' on:click={() => updateStyle({name:'rounded', value:''})}>No rounded</Button>
+                    <Button class='px-1 rounded-3' color={`${rounded === "rounded-3" ? "primary" : "light"}`}   on:click={() => updateStyle({name:'rounded', value:'rounded-3'})}><Icon name='app' /></Button>
+                    <Button class='px-1 rounded-circle' color={`${rounded === "rounded-circle" ? "primary" : "light"}`} on:click={() => updateStyle({name:'rounded', value:'rounded-circle'})}>Circle</Button>
+                    <Button class='px-1' color={`${rounded === "" ? "primary" : "light"}`} on:click={() => updateStyle({name:'rounded', value:''})}>No rounded</Button>
                 </div>
             </div>
             <div class="row py-1">
@@ -216,8 +216,8 @@
                 <div class='bg-secondary text-center text-dark rounded-3' style='min-height:100px;'>Ajouter l'image</div>
             {/if}
             {#if values[0].redirection}
-                <a href={values[0].redirection} target={values[0].redirection.match(/^http/i) ? '_blank' : '_self'} >
-                    <figure class='figure' style={`transform: rotate(${transformR}deg) scale(${scaleXY, scaleXY});margin-left: ${marginL}rem;;margin-right: ${marginR}rem;;margin-top: ${marginT}rem;;margin-bottom: ${marginB}rem;padding-left: ${paddingL}rem;;padding-right: ${paddingR}rem;padding-top: ${paddingT}rem;;padding-bottom: ${paddingB}rem;`}>
+                <a href={values[0].redirection} target={values[0].redirection.match(/^http/i) ? '_blank' : ''} >
+                    <figure class='figure' style={`transform: rotate(${transformR}deg) scale(${scaleXY, scaleXY});margin-left: ${marginL}rem;;margin-right: ${marginR}rem;margin-top: ${marginT}rem;;margin-bottom: ${marginB}rem;padding-left: ${paddingL}rem;;padding-right: ${paddingR}rem;padding-top: ${paddingT}rem;;padding-bottom: ${paddingB}rem;`}>
                         <img 
                             src={`${API_URL}${values[0].url}`} 
                             alt={values[0].substitution}
@@ -227,7 +227,7 @@
                     </figure>
                 </a>
             {:else}
-                <figure class='figure' style={`transform: rotate(${transformR}deg) scale(${scaleXY, scaleXY});margin-left: ${marginL}rem;;margin-right: ${marginR}rem;;margin-top: ${marginT}rem;;margin-bottom: ${marginB}rem;padding-left: ${paddingL}rem;;padding-right: ${paddingR}rem;padding-top: ${paddingT}rem;;padding-bottom: ${paddingB}rem;`}>
+                <figure class='figure' style={`transform: rotate(${transformR}deg) scale(${scaleXY, scaleXY});margin-left: ${marginL}rem;;margin-right: ${marginR}rem;margin-top: ${marginT}rem;;margin-bottom: ${marginB}rem;padding-left: ${paddingL}rem;;padding-right: ${paddingR}rem;padding-top: ${paddingT}rem;;padding-bottom: ${paddingB}rem;`}>
                     <img 
                         src={`${API_URL}${values[0].url}`} 
                         alt={values[0].substitution}

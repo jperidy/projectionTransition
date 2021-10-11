@@ -41,9 +41,15 @@
     $: columnChangeHandler = (number, endPoint) => {
 
         if (number > values.length && number >=1) {
-            values.push({type:'layout', values:[]})
+            const limit = 12
+            while (values.length < number && values.length < limit) {
+                values.push({type:'layout', values:[]});
+            }
         } else {
-            values.pop();
+            const limit = 0;
+            while (values.length > number && values.length > limit) {
+                values.pop();
+            }
         }
         if (endPoint === 'pc') {
             md = 12 / number;
@@ -78,10 +84,14 @@
 
     $: alignContent = styles.filter(x => x.name === 'align-items')[0] && styles.filter(x => x.name === 'align-items')[0].value;
     $: bgColor = styles.filter(x => x.name === 'backgroud-color')[0] && styles.filter(x => x.name === 'backgroud-color')[0].value;
-    $: padding = styles.filter(x => x.name === 'padding')[0] && styles.filter(x => x.name === 'padding')[0].value;
-    $: marginX = styles.filter(x => x.name === 'marginX')[0] && styles.filter(x => x.name === 'marginX')[0].value;
-    $: marginY = styles.filter(x => x.name === 'marginY')[0] && styles.filter(x => x.name === 'marginY')[0].value;
-    $: rounded = styles.filter(x => x.name === 'rounded')[0] && styles.filter(x => x.name === 'rounded')[0].value;
+    
+    //$: padding = styles.filter(x => x.name === 'padding')[0] && styles.filter(x => x.name === 'padding')[0].value || 0;
+    $: marginX = styles.filter(x => x.name === 'marginX')[0] && styles.filter(x => x.name === 'marginX')[0].value || 0;
+    $: marginY = styles.filter(x => x.name === 'marginY')[0] && styles.filter(x => x.name === 'marginY')[0].value || 0;
+    $: paddingX = styles.filter(x => x.name === 'paddingX')[0] && styles.filter(x => x.name === 'paddingX')[0].value || 0;
+    $: paddingY = styles.filter(x => x.name === 'paddingY')[0] && styles.filter(x => x.name === 'paddingY')[0].value || 0;
+    $: rounded = styles.filter(x => x.name === 'rounded')[0] && styles.filter(x => x.name === 'rounded')[0].value || 0;
+    
     $: border = styles.filter(x => x.name === 'border')[0] && styles.filter(x => x.name === 'border')[0].value;
     $: borderColor = styles.filter(x => x.name === 'border-color')[0] && styles.filter(x => x.name === 'border-color')[0].value;
 
@@ -174,9 +184,9 @@
         <Modal isOpen={edit} {toggle} size='lg' scrollable>
             <ModalHeader {toggle}>Editer le layout</ModalHeader>
             <ModalBody>
-                    <div class="row align-items-center">
+                    <div class="row align-items-center my-2">
                         <div class='col'>
-                            <label for="input-columns" class="form-label">Nombre de colonnes PC *</label>
+                            <label for="input-columns" class="form-label">Nombre de colonnes</label>
                             <input type="number" class="form-control" id="input-columns" 
                                 aria-describedby="nombre de colonnes" 
                                 placeholder="Nombre de colonnes"
@@ -186,37 +196,38 @@
                                 bind:value={columnNumber}
                                 on:change={(e) => columnChangeHandler(e.target.value, 'pc')}
                             />
-                            <div class='row'>
+                            <div class='row my-3'>
+                                <p>Largeur du layout en fonction de l'écran</p>
                                 <div class='col'>
-                                    <label for="xs-size">"Taille sur xs screen (/12)"</label>
+                                    <label for="xs-size">"xs screen (Mobile) (/12)"</label>
                                     <input type="number" class="form-control" id="xs-size" min={1} max={12} bind:value={values[0].xs} on:change={updateContent}/>
                                 </div>
                                 <div class='col'>
-                                    <label for="sm-size">"Taille sur sm screen (/12)"</label>
+                                    <label for="sm-size">"sm screen (Tablette) (/12)"</label>
                                     <input type="number" class="form-control" id="sm-size" min={1} max={12} bind:value={values[0].sm} on:change={updateContent}/>
                                 </div>
                                 <div class='col'>
-                                    <label for="md-size">"Taille sur md screen (/12)"</label>
+                                    <label for="md-size">"md screen (Tablette) (/12)"</label>
                                     <input type="number" class="form-control" id="md-size" min={1} max={12} bind:value={values[0].md} on:change={updateContent}/>
                                 </div>
                                 <div class='col'>
-                                    <label for="lg-size">"Taille sur lg screen (/12)"</label>
+                                    <label for="lg-size">"lg screen (Desktop) (/12)"</label>
                                     <input type="number" class="form-control" id="lg-size" min={1} max={12} bind:value={values[0].lg} on:change={updateContent}/>
                                 </div>
                                 <div class='col'>
-                                    <label for="xl-size">"Taille sur xl screen (/12)"</label>
+                                    <label for="xl-size">"xl screen (Ecran large) (/12)"</label>
                                     <input type="number" class="form-control" id="xl-size" min={1} max={12} bind:value={values[0].xl} on:change={updateContent}/>
                                 </div>
                             </div>
-                            <div class='row py-1'>
+                            <div class='row py-1 my-2'>
                                 <div class='col'>
                                     <span>Alignement : </span>
-                                    <button class='px-1 btn btn-light' on:click={() => updateStyle({name:'align-items', value:'start'})}><Icon name='align-top' /></button>
-                                    <button class='px-1 btn btn-light' on:click={() => updateStyle({name:'align-items', value:'center'})}><Icon name='align-middle' /></button>
-                                    <button class='px-1 btn btn-light' on:click={() => updateStyle({name:'align-items', value:'end'})}><Icon name='align-bottom' /></button>
+                                    <button class={`px-1 btn ${alignContent === "start" ? "btn-primary" : "btn-light"}`} on:click={() => updateStyle({name:'align-items', value:'start'})}><Icon name='align-top' /></button>
+                                    <button class={`px-1 btn ${alignContent === "center" ? "btn-primary" : "btn-light"}`} on:click={() => updateStyle({name:'align-items', value:'center'})}><Icon name='align-middle' /></button>
+                                    <button class={`px-1 btn ${alignContent === "end" ? "btn-primary" : "btn-light"}`} on:click={() => updateStyle({name:'align-items', value:'end'})}><Icon name='align-bottom' /></button>
                                 </div>
                             </div>
-                            <div class='row py-1'>
+                            <div class='row py-1 my-2'>
                                 <div class='col'>
                                     <span>Fond : </span>
                                     {#each colors as color}
@@ -225,7 +236,7 @@
                                     <button class='px-1 btn btn-light' on:click={() => updateStyle({name:'backgroud-color', value:``})}>Transparent</button>
                                 </div>
                             </div>
-                            <div class='row py-1'>
+                            <!-- <div class='row py-1'>
                                 <div class='col'>
                                     <span>Padding : </span>
                                     <button class='btn btn-light p-0' on:click={() => updateStyle({name:'padding', value:'p-0'})}><span>p-0</span></button>
@@ -235,8 +246,28 @@
                                     <button class='btn btn-light p-4' on:click={() => updateStyle({name:'padding', value:'p-4'})}><span>p-4</span></button>
                                     <button class='btn btn-light p-5' on:click={() => updateStyle({name:'padding', value:'p-5'})}><span>p-5</span></button>
                                 </div>
+                            </div> -->
+                            <div class="row py-1 my-2">
+                                <div class='col'>
+                                    <span>Margin X : </span>
+                                    <input type='number' step={1} min={0} class='form-control' value={marginX} on:change={(e) => updateStyle({name:'marginX', value:e.target.value})} />
+                                </div>
+                                <div class='col'>
+                                    <span>Margin Y : </span>
+                                    <input type='number' step={1} min={0} class='form-control' value={marginY} on:change={(e) => updateStyle({name:'marginY', value:e.target.value})} />
+                                </div>
                             </div>
-                            <div class="row py-1">
+                            <div class="row py-1 my-2">
+                                <div class='col'>
+                                    <span>Padding X : </span>
+                                    <input type='number' step={1} min={0} class='form-control' value={paddingX} on:change={(e) => updateStyle({name:'paddingX', value:e.target.value})} />
+                                </div>
+                                <div class='col'>
+                                    <span>Padding Y : </span>
+                                    <input type='number' step={1} min={0} class='form-control' value={paddingY} on:change={(e) => updateStyle({name:'paddingY', value:e.target.value})} />
+                                </div>
+                            </div>
+                            <!-- <div class="row py-1">
                                 <div class='col'>
                                     <span>Margin X : </span>
                                     <button class='btn btn-light mx-0' on:click={() => updateStyle({name:'marginX', value:'mx-0'})}><span>marginX-0</span></button>
@@ -257,17 +288,17 @@
                                     <button class='btn btn-light my-4' on:click={() => updateStyle({name:'marginY', value:'my-4'})}><span>marginY-4</span></button>
                                     <button class='btn btn-light my-5' on:click={() => updateStyle({name:'marginY', value:'my-5'})}><span>marginY-5</span></button>
                                 </div>
-                            </div>
-                            <div class='row py-1'>
+                            </div> -->
+                            <div class='row py-1 my-2'>
                                 <div class='col'>
-                                    <span>Bordure : </span>
-                                    <button class='btn btn-light px-1 rounded-0' on:click={() => updateStyle({name:'rounded', value:'rounded-0'})}><span>r-0</span></button>
-                                    <button class='btn btn-light px-1 rounded-1' on:click={() => updateStyle({name:'rounded', value:'rounded-1'})}><span>r-1</span></button>
-                                    <button class='btn btn-light px-1 rounded-2' on:click={() => updateStyle({name:'rounded', value:'rounded-2'})}><span>r-2</span></button>
-                                    <button class='btn btn-light px-1 rounded-3' on:click={() => updateStyle({name:'rounded', value:'rounded-3'})}><span>r-3</span></button>
+                                    <span>Bordure arrondie : </span>
+                                    <button class={`btn px-1 rounded-0 ${rounded === "rounded-0" ? "btn-primary" : "btn-light"}`} on:click={() => updateStyle({name:'rounded', value:'rounded-0'})}><span>r-0</span></button>
+                                    <button class={`btn px-1 rounded-1 ${rounded === "rounded-1" ? "btn-primary" : "btn-light"}`} on:click={() => updateStyle({name:'rounded', value:'rounded-1'})}><span>r-1</span></button>
+                                    <button class={`btn px-1 rounded-2 ${rounded === "rounded-2" ? "btn-primary" : "btn-light"}`} on:click={() => updateStyle({name:'rounded', value:'rounded-2'})}><span>r-2</span></button>
+                                    <button class={`btn px-1 rounded-3 ${rounded === "rounded-3" ? "btn-primary" : "btn-light"}`} on:click={() => updateStyle({name:'rounded', value:'rounded-3'})}><span>r-3</span></button>
                                 </div>
                             </div>
-                            <div class='row py-1'>
+                            <div class='row py-1 my-2'>
                                 <div class='col'>
                                     <span>Couleur de la bordure : </span>
                                     {#each colors as color}
@@ -285,7 +316,7 @@
                     </div>
 
                     <p class='my-3'><strong>Prévisualisation</strong></p>
-                    <div class={`row gx-2 align-items-${alignContent} ${bgColor} ${padding} ${marginX} ${marginY} ${rounded} ${border} ${borderColor}`}>
+                    <div class={`row gx-2 gy-2 align-items-${alignContent} ${bgColor} ${marginX} ${marginY} ${rounded} ${border} ${borderColor}`} style={`margin-left: ${marginX}rem;margin-right: ${marginX}rem;margin-bottom: ${marginY}rem;margin-top: ${marginY}rem;padding-left: ${paddingX}rem;padding-right: ${paddingX}rem;padding-top: ${paddingY}rem;padding-bottom: ${paddingY}rem;`}>
                         {#each values as column, position}
                             <div class={`col-sm-${sm.toString()} col-md-${md.toString()} border border-light`} style={`min-height: 5vh;`};>
                                 Colonne {position}                                
@@ -300,7 +331,7 @@
             </ModalFooter>
         </Modal> 
         
-        <div class={`row gx-2 gy-2 content align-items-${alignContent} ${bgColor} ${padding} ${marginX} ${marginY} ${rounded} ${border} ${borderColor}`}>
+        <div class={`row gx-2 gy-2 content align-items-${alignContent} ${bgColor} ${marginX} ${marginY} ${rounded} ${border} ${borderColor}`} style={`margin-left: ${marginX}rem;margin-right: ${marginX}rem;margin-bottom: ${marginY}rem;margin-top: ${marginY}rem;padding-left: ${paddingX}rem;padding-right: ${paddingX}rem;padding-top: ${paddingY}rem;padding-bottom: ${paddingY}rem;`}>
             {#each values as column, position}
 
             <!-- <div class={`col-sm-12 col-md-${md.toString()}`} style={`min-height: 5vh;`};> -->

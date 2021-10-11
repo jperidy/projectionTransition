@@ -31,17 +31,17 @@
     $: fontWeight = styles.filter(x => x.name === 'font-weight')[0] && styles.filter(x => x.name === 'font-weight')[0].value;
     $: fontStyle = styles.filter(x => x.name === 'font-style')[0] && styles.filter(x => x.name === 'font-style')[0].value;
     $: bgPrimaryText = styles.filter(x => x.name === 'bgPrimaryText')[0] && styles.filter(x => x.name === 'bgPrimaryText')[0].value;
-    $: padding = styles.filter(x => x.name === 'padding')[0] && styles.filter(x => x.name === 'padding')[0].value;
+    //$: padding = styles.filter(x => x.name === 'padding')[0] && styles.filter(x => x.name === 'padding')[0].value;
     
-    $: marginL = styles.filter(x => x.name === 'marginL')[0] && styles.filter(x => x.name === 'marginL')[0].value;
-    $: marginR = styles.filter(x => x.name === 'marginR')[0] && styles.filter(x => x.name === 'marginR')[0].value;
-    $: marginT = styles.filter(x => x.name === 'marginT')[0] && styles.filter(x => x.name === 'marginT')[0].value;
-    $: marginB = styles.filter(x => x.name === 'marginB')[0] && styles.filter(x => x.name === 'marginB')[0].value;
+    $: marginL = styles.filter(x => x.name === 'marginL')[0] && styles.filter(x => x.name === 'marginL')[0].value || 0;
+    $: marginR = styles.filter(x => x.name === 'marginR')[0] && styles.filter(x => x.name === 'marginR')[0].value || 0;
+    $: marginT = styles.filter(x => x.name === 'marginT')[0] && styles.filter(x => x.name === 'marginT')[0].value || 0;
+    $: marginB = styles.filter(x => x.name === 'marginB')[0] && styles.filter(x => x.name === 'marginB')[0].value || 0;
 
-    $: paddingL = styles.filter(x => x.name === 'paddingL')[0] && styles.filter(x => x.name === 'paddingL')[0].value;
-    $: paddingR = styles.filter(x => x.name === 'paddingR')[0] && styles.filter(x => x.name === 'paddingR')[0].value;
-    $: paddingT = styles.filter(x => x.name === 'paddingT')[0] && styles.filter(x => x.name === 'paddingT')[0].value;
-    $: paddingB = styles.filter(x => x.name === 'paddingB')[0] && styles.filter(x => x.name === 'paddingB')[0].value;
+    $: paddingL = styles.filter(x => x.name === 'paddingL')[0] && styles.filter(x => x.name === 'paddingL')[0].value || 0;
+    $: paddingR = styles.filter(x => x.name === 'paddingR')[0] && styles.filter(x => x.name === 'paddingR')[0].value || 0;
+    $: paddingT = styles.filter(x => x.name === 'paddingT')[0] && styles.filter(x => x.name === 'paddingT')[0].value || 0;
+    $: paddingB = styles.filter(x => x.name === 'paddingB')[0] && styles.filter(x => x.name === 'paddingB')[0].value || 0;
 
     $: rounded = styles.filter(x => x.name === 'rounded')[0] && styles.filter(x => x.name === 'rounded')[0].value;
 
@@ -113,13 +113,14 @@
                         name='textarea' 
                         id='input-textarea' 
                         class='my-3 form-control' 
+                        rows={6}
                         bind:value={values[0].value}
                     />
                     <div class='row py-1'><div class='col'>
-                        <button class='px-1 btn btn-light' on:click={() => updateStyle({name:'text-align', value:'start'})}><Icon name='text-left' /></button>
-                        <button class='px-1 btn btn-light' on:click={() => updateStyle({name:'text-align', value:'center'})}><Icon name='text-center' /></button>
-                        <button class='px-1 btn btn-light' on:click={() => updateStyle({name:'text-align', value:'justify'})}><Icon name='justify-left' /></button>
-                        <button class='px-1 btn btn-light' on:click={() => updateStyle({name:'text-align', value:'end'})}><Icon name='text-right' /></button>
+                        <button class={`px-1 btn ${textAlign === "start" ? "btn-primary" : "btn-light"}`} on:click={() => updateStyle({name:'text-align', value:'start'})}><Icon name='text-left' /></button>
+                        <button class={`px-1 btn ${textAlign === "center" ? "btn-primary" : "btn-light"}`} on:click={() => updateStyle({name:'text-align', value:'center'})}><Icon name='text-center' /></button>
+                        <button class={`px-1 btn ${textAlign === "justify" ? "btn-primary" : "btn-light"}`} on:click={() => updateStyle({name:'text-align', value:'justify'})}><Icon name='justify-left' /></button>
+                        <button class={`px-1 btn ${textAlign === "end" ? "btn-primary" : "btn-light"}`} on:click={() => updateStyle({name:'text-align', value:'end'})}><Icon name='text-right' /></button>
                     </div></div>
                     <div class='row py-1'><div class='col'>
                         {#each colors as color}
@@ -144,7 +145,7 @@
                             <button class='btn btn-light px-1' on:click={() => updateStyle({name:'bgPrimaryText', value:false})}><span class='bg-transparent'>No Background</span></button>
                         </div>
                     </div>
-                    <div class='row py-1'>
+                    <!-- <div class='row py-1'>
                         <div class='col'>
                             <button class='btn btn-light p-0' on:click={() => updateStyle({name:'padding', value:'p-0'})}><span>p-0</span></button>
                             <button class='btn btn-light p-1' on:click={() => updateStyle({name:'padding', value:'p-1'})}><span>p-1</span></button>
@@ -153,7 +154,7 @@
                             <button class='btn btn-light p-4' on:click={() => updateStyle({name:'padding', value:'p-4'})}><span>p-4</span></button>
                             <button class='btn btn-light p-5' on:click={() => updateStyle({name:'padding', value:'p-5'})}><span>p-5</span></button>
                         </div>
-                    </div>
+                    </div> -->
                     <div class="row py-1">
                         <div class='col'>
                             <span>Margin Left : </span>
@@ -192,10 +193,11 @@
                     </div>
                     <div class='row py-1'>
                         <div class='col'>
-                            <button class='btn btn-light px-1 rounded-0' on:click={() => updateStyle({name:'rounded', value:'rounded-0'})}><span>r-0</span></button>
-                            <button class='btn btn-light px-1 rounded-1' on:click={() => updateStyle({name:'rounded', value:'rounded-1'})}><span>r-1</span></button>
-                            <button class='btn btn-light px-1 rounded-2' on:click={() => updateStyle({name:'rounded', value:'rounded-2'})}><span>r-2</span></button>
-                            <button class='btn btn-light px-1 rounded-3' on:click={() => updateStyle({name:'rounded', value:'rounded-3'})}><span>r-3</span></button>
+                            <span>Bordure arrondie : </span>
+                            <button class={`btn px-1 rounded-0 ${rounded === "rounded-0" ? "btn-primary" : "btn-light"}`} on:click={() => updateStyle({name:'rounded', value:'rounded-0'})}><span>r-0</span></button>
+                            <button class={`btn px-1 rounded-1 ${rounded === "rounded-1" ? "btn-primary" : "btn-light"}`} on:click={() => updateStyle({name:'rounded', value:'rounded-1'})}><span>r-1</span></button>
+                            <button class={`btn px-1 rounded-2 ${rounded === "rounded-2" ? "btn-primary" : "btn-light"}`} on:click={() => updateStyle({name:'rounded', value:'rounded-2'})}><span>r-2</span></button>
+                            <button class={`btn px-1 rounded-3 ${rounded === "rounded-3" ? "btn-primary" : "btn-light"}`} on:click={() => updateStyle({name:'rounded', value:'rounded-3'})}><span>r-3</span></button>
                         </div>
                     </div>
                     <div class='row py-1 align-items-center'>
@@ -207,7 +209,7 @@
                     <p class='my-3'><strong>Prévisualisation</strong></p>
                     <div class='row'>
                         <div class='col'>
-                            <div class={`${textColor} ${bgColor} ${padding} ${rounded}`} style={`text-align: ${textAlign};font-weight: ${fontWeight};font-style: ${fontStyle};transform: rotate(${transformR}deg);margin-left: ${marginL}rem;;margin-right: ${marginR}rem;;margin-top: ${marginT}rem;;margin-bottom: ${marginB}rem;padding-left: ${paddingL}rem;;padding-right: ${paddingR}rem;;padding-top: ${paddingT}rem;;padding-bottom: ${paddingB}rem;`}>
+                            <div class={`${textColor} ${bgColor} ${rounded}`} style={`text-align: ${textAlign};font-weight: ${fontWeight};font-style: ${fontStyle};transform: rotate(${transformR}deg);margin-left: ${marginL}rem;margin-right: ${marginR}rem;margin-top: ${marginT}rem;margin-bottom: ${marginB}rem;padding-left: ${paddingL}rem;padding-right: ${paddingR}rem;padding-top: ${paddingT}rem;padding-bottom: ${paddingB}rem;`}>
                                 <SvelteMarkdown source={values[0] && values[0].value ? values[0].value : ''} renderers={{
                                     paragraph: ParagrapheMarkdown, 
                                     table: TableMarkdown, 
@@ -217,7 +219,6 @@
                             </div>
                         </div>
                     </div>
-                    
                 </div>
             </div>
         </ModalBody>
@@ -227,7 +228,7 @@
         </ModalFooter>
     </Modal>
     <div class='content' >
-        <div class={`${textColor} ${bgColor} ${padding} ${rounded}`} style={`text-align: ${textAlign};font-weight: ${fontWeight};font-style: ${fontStyle};transform: rotate(${transformR}deg);margin-left: ${marginL}rem;;margin-right: ${marginR}rem;;margin-top: ${marginT}rem;;margin-bottom: ${marginB}rem;padding-left: ${paddingL}rem;;padding-right: ${paddingR}rem;;padding-top: ${paddingT}rem;;padding-bottom: ${paddingB}rem;`}>
+        <div class={`${textColor} ${bgColor} ${rounded}`} style={`text-align: ${textAlign};font-weight: ${fontWeight};font-style: ${fontStyle};transform: rotate(${transformR}deg);margin-left: ${marginL}rem;margin-right: ${marginR}rem;margin-top: ${marginT}rem;margin-bottom: ${marginB}rem;padding-left: ${paddingL}rem;padding-right: ${paddingR}rem;padding-top: ${paddingT}rem;padding-bottom: ${paddingB}rem;`}>
             <SvelteMarkdown source={values[0] && values[0].value ? values[0].value : ''} renderers={{
                 paragraph: ParagrapheMarkdown, 
                 table: TableMarkdown, 
