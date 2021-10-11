@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const Page = require('../models/pageModels');
-const config = require('../../config.json');
+const config = require('../../config/config.json');
 
 const connectDB = async () => {
     

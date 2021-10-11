@@ -1,7 +1,7 @@
 const asyncHandler = require('express-async-handler');
 const MailService = require("../config/MailService");
 const { multipleMongooseToObj } = require("../utils/emailsFunctions");
-const config = require('../../config.json');
+const config = require('../../config/config.json');
 
 
 const flatArrayTwo = (initialArray) => {

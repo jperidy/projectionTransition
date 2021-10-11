@@ -11,6 +11,7 @@ _sources
 backup
 design
 uploads
+config
 
 docker-copy-backup.bash
 adminAccount

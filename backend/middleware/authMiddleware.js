@@ -1,5 +1,5 @@
 const jwt = require('jsonwebtoken');
-const config = require('../../config.json');
+const config = require('../../config/config.json');
 
 const asyncHandler = require('express-async-handler');
 const User = require('../models/userModels');

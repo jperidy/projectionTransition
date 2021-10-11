@@ -7,7 +7,7 @@ backup
 design
 frontend
 frontend-sveltekit/sass
-frontend-sveltekit/images
+frontend-sveltekit/static/images
 mains.min.css
 favicon_*.png
 node_modules

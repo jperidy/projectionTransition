@@ -10,7 +10,7 @@ const filmRoutes = require('./routes/filmRoutes');
 const emailRoutes = require('./routes/emailRoutes');
 const logsRoutes = require('./routes/logsRoutes');
 
-const config = require('../config.json');
+const config = require('../config/config.json');
 
 const connectDB = require('./config/db');
 const { logARequest } = require('./controllers/logControllers');
