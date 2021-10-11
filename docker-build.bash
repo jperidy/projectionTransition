@@ -2,8 +2,11 @@
 echo Release version: 
 read version
 
+echo Enter repository
+read repository
+
 sudo docker login
-sudo docker build -t jbperidy/projection-transition-backend:RELEASE-$version .
-sudo docker push jbperidy/projection-transition-backend:RELEASE-$version
-sudo docker build -t jbperidy/projection-transition-backend:LATEST .
-sudo docker push jbperidy/projection-transition-backend:LATEST
+sudo docker build -t $repository:RELEASE-$version .
+sudo docker push $repository:RELEASE-$version
+sudo docker build -t $repository:LATEST .
+sudo docker push $repository:LATEST
