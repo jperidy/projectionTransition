@@ -5,11 +5,6 @@
     export let mapid = 'id';
     import { browser } from '$app/env'; 
     import { onMount } from 'svelte';
-    //import L from 'leaflet';
-    
-    //console.log('mapid', mapid)
-
-    //let map;
     
     const tileLayerUrl = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
     const attribution = '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors';    
@@ -17,6 +12,11 @@
     onMount(async() => {
         if (browser) {
             const L = await import('leaflet');
+
+            const container = L.DomUtil.get(mapid.toString());
+            if(container != null){
+              container._leaflet_id = null;
+            }
 
             const myMap = L.map(mapid.toString()).setView([latitude, longitude], 13);
 
