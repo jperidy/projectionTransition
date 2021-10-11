@@ -7,6 +7,8 @@ backup
 design
 frontend
 frontend-sveltekit/sass
+mains.min.css
+favicon_*.png
 node_modules
 .env
 uploads
