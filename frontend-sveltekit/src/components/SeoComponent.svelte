@@ -1,5 +1,6 @@
 <script>
     import CustomContainer from "./CustomContainer.svelte";
+    import config from '../config.json'
 
     export let pageContent;
     export let page;
@@ -7,10 +8,13 @@
     export let admin;
     export let updateContent;
 
-    const defaultTitleSeo = `Projection Transition ${pageContent.name ? pageContent.name : ''}`;
-    const defaultDescriptionSeo = "Retrouvez toutes les informations sur le festival Projection Transition";
-    const defaultTitleOG = "Projection Transition - Le festival ciné-débat pour la transition écologique";
-    const defaultDescriptionOG = "Retrouvez toutes les informations sur le festival Projection Transition";
+    const defaultTitleSeo = `${config.SEO.DEFAULT_TITLE} ${pageContent.name ? pageContent.name : ''}`;
+    const defaultDescriptionSeo = config.SEO.DEFAULT_DESCRIPTION;
+    const defaultTitleOG = config.SEO.DEFAULT_OG_TITLE;
+    const defaultDescriptionOG = config.SEO.DEFAULT_OG_DESCRIPTION;
+
+    const defaultImageOG = config.SEO.DEFAULT_OG_IMAGE;
+
 </script>
 
 <svelte:head>
@@ -19,12 +23,12 @@
 	<meta property="og:title" content={`${pageContent && pageContent.titleOG ? pageContent.titleOG : defaultTitleOG}`} />
 	<meta property="og:description" content={`${pageContent && pageContent.descriptionOG ? pageContent.descriptionOG : defaultDescriptionOG}`} />
 	<meta property="og:type" content="website" />
-	<meta property="og:image" content={`${siteURL}/images/og_logo.jpg`} />
+	<meta property="og:image" content={`${siteURL}${defaultImageOG}`} />
 	<meta property="og:image:width" content="800" />
 	<meta property="og:image:height" content="400" />
 	<meta property="og:url" content={`${siteURL}${page.path}`} />
 	<meta property="og:locale" content="fr_FR" />
-	<meta name="twitter:image" content={`${siteURL}/images/og_logo.jpg`} />
+	<meta name="twitter:image" content={`${siteURL}${defaultImageOG}`} />
 	<meta name="twitter:card" content="summary_large_image" />
 	<meta name="twitter:description" content={`${pageContent && pageContent.descriptionOG ? pageContent.descriptionOG : defaultDescriptionOG}`} />
 </svelte:head>

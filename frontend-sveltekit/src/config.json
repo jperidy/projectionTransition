@@ -16,7 +16,11 @@
             {"name": "BILLETTERIE", "url": "/billetterie", "SUBTITLE": []}
         ],
         "BRAND": {
-            "LOGO": {"path": "/images/Logo_Principal.jpg", "alt": "Logo de projection transition"},
+            "LOGO": {
+                "path": "/images/Logo_Principal.jpg", 
+                "alt": "Logo de projection transition", 
+                "style": "max-width: 20vh; height:auto;"
+            },
             "NAME": ""
         },
         "SOCIAL_NETWORKS": [
@@ -29,13 +33,8 @@
             "expand": "xl",
             "color": "white",
             "theme": "light",
-            "brandLogoWidth": "20vh",
-            "titleClass": "text-dark mx-2",
-            "titleFont": {
-                "family": "omotenashi_2regular",
-                "size": "1.3rem"
-            },
-            "socialNetworkMaxWidth": "6vh"
+            "TITLE": { "bootstrapClass": "text-dark mx-2", "style": "font-family: omotenashi_2regular;font-size: 1.3rem;" },
+            "SOCIAL_NETWORKS": { "bootstrapClass": "", "style": "max-width: 6vh;height: auto;"}
         }
     },
     "FOOTER": {
@@ -76,6 +75,12 @@
             "TITLE": {"bootstrapClass": "mx-3 fw-bold", "style": "font-size:1rem;cursor:pointer;"},
             "SOCIAL_NETWORKS" : {"bootstrapClass": "", "style" : "max-width: 7vh;height: auto;"}
         }
-
+    },
+    "SEO": {
+        "DEFAULT_TITLE": "Projection Transition",
+        "DEFAULT_DESCRIPTION": "Projection Transition - Le festival ciné-débat pour la transition écologique",
+        "DEFAULT_OG_TITLE": "Projection Transition - Le festival ciné-débat pour la transition écologique",
+        "DEFAULT_OG_DESCRIPTION": "Retrouvez toutes les informations sur le festival Projection Transition",
+        "DEFAULT_OG_IMAGE": "/images/og_logo.jpg"
     }
 }

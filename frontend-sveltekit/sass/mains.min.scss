@@ -133,3 +133,35 @@ $modal-content-border-color:        $body-bg;
 $modal-header-border-color:         $body-bg;
 
 @import "../node_modules/bootstrap/scss/bootstrap";
+
+@font-face {
+    font-family: 'omotenashi_2regular';
+    src: url('fonts/omotenashi2-4be39-webfont.woff2') format('woff2'),
+        url('fonts/omotenashi2-4be39-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Roboto-Regular';
+    src: url('fonts/Roboto-Regular.eot');
+    src: local('☺'), url('fonts/Roboto-Regular.woff') format('woff'), url('fonts/Roboto-Regular.ttf') format('truetype'), url('fonts/Roboto-Regular.svg') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+:global(body) {
+    /* this will apply to <body> */
+    padding: 0px;
+    margin: 0px;
+}
+main {
+    background-image: url('images/fond.jpeg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    padding-bottom: 5vh;
+    min-height: 100vh;
+}
+nav {
+  min-height: 15vh;
+}
