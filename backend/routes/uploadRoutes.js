@@ -1,5 +1,5 @@
 const express = require('express');
-const { checkAndCreateImage1000x250Folder, deleteImage, uploadImage1000x250, checkAndCreateVideoFolder, uploadVideo } = require('../controllers/uploadControllers');
+const { checkAndCreateImage1000x250Folder, deleteImage, uploadImage1000x250, checkAndCreateVideoFolder, uploadVideo, checkAndCreateCompressFolder, uploadCompress } = require('../controllers/uploadControllers');
 const { protect } = require('../middleware/authMiddleware');
 
 const router = express.Router();
@@ -14,5 +14,10 @@ router.post('/videos', protect, checkAndCreateVideoFolder, uploadVideo.single('v
     res.status(200).json({path: `${req.file.path}`});
 });
 router.delete('/videos', protect, deleteImage);
+
+router.post('/compress', protect, checkAndCreateCompressFolder, uploadCompress.single('compress'), (req, res) => {
+    res.status(200).json({path: `${req.file.path}`});
+});
+router.delete('/compress', protect, deleteImage);
 
 module.exports = router;

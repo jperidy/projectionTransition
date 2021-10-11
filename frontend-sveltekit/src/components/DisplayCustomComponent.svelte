@@ -13,6 +13,7 @@
     import ContactForm from "./ContactForm.svelte";
     import LayoutComponent from "./LayoutComponent.svelte";
     import SouslligneComponent from "./SouslligneComponent.svelte";
+import CompressFileComponent from "./CompressFileComponent.svelte";
 
     export let type = '';
     export let updateContent = null;
@@ -45,6 +46,16 @@
 
 {#if type === 'videoComponent'}
     <VideoComponent
+        bind:values={values}
+        bind:styles={styles}
+        updateContent={updateContent}
+        admin={admin}
+        edit={edit}
+    />
+{/if}
+
+{#if type === 'compressComponent'}
+    <CompressFileComponent
         bind:values={values}
         bind:styles={styles}
         updateContent={updateContent}

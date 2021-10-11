@@ -3,6 +3,55 @@ const fs = require('fs');
 const path = require('path');
 const multer = require('multer');
 
+// MULTER FOR COMPRESS
+const storageCompress = multer.diskStorage({
+    destination(req, file, cb) {
+        cb(null, 'uploads/compress/');
+    },
+    filename(req, file, cb){
+        cb(null, `COMPRESS-${file.fieldname}-${Date.now()}${path.extname(file.originalname)}`);
+    },
+});
+const checkFileTypeCompress = (file, cb) => {
+    const filetypes = /gz|7z|zip|tar|tar.xz/;
+    const extname = filetypes.test(path.extname(file.originalname).toLowerCase());
+    if(extname){
+        return cb(null, true);
+    } else {
+        cb('Compress file only ! gz|7z|zip|tar|tar.xz')
+    }
+};
+
+const checkAndCreateCompressFolder = asyncHandler(async (req, res, next) => {
+
+    const __dir = path.resolve();
+    const pathCompress = __dir + '/uploads/compress/';
+
+    if (fs.existsSync(pathCompress)) {
+        next();
+    } else {
+        try {
+            fs.mkdirSync(pathCompress, { recursive: true })
+            next();
+        } catch (error) {
+            res.status(500).json({ message: 'Error creating folder to upload compress : ' + pathCompress });
+        }
+    }
+
+});
+
+// @desc    Upload a compress
+// @route   POST /api/upload/compress
+// @access  Private
+const uploadCompress = multer({
+    storage: storageCompress,
+    fileFilter: function(req, file, cb) {
+        checkFileTypeCompress(file, cb);
+    },
+    limits: { fileSize: 100000000 },
+});
+
+
 
 // MULTER FOR VIDEO
 const storageVideo = multer.diskStorage({
@@ -41,8 +90,8 @@ const checkAndCreateVideoFolder = asyncHandler(async (req, res, next) => {
 
 });
 
-// @desc    Upload an image
-// @route   POST /api/upload/images/1000x250
+// @desc    Upload a video
+// @route   POST /api/upload/videos
 // @access  Private
 const uploadVideo = multer({
     storage: storageVideo,
@@ -108,12 +157,11 @@ const checkAndCreateImage1000x250Folder = asyncHandler(async (req, res, next) =>
 
 });
 
-// @desc    Delte image 
+// @desc    Delte image (extended to any file)
 // @route   DELETE /api/upload/images?url=url
 // @access  Private
 const deleteImage = asyncHandler(async (req, res, next) => {
 
-    console.log('start delteImage');
     try {
 
         const name = req.query.url.split('uploads')[1];
@@ -121,15 +169,22 @@ const deleteImage = asyncHandler(async (req, res, next) => {
 
         fs.unlinkSync(directory + name);
 
-        res.status(200).json({ message: 'Image deleted', value: directory + name });
+        res.status(200).json({ message: 'File deleted', value: directory + name });
 
     } catch (error) {
 
-        res.status(200).json({message: `Error deleting image or no image to delte: ${req.params.name}`});
-        //throw new Error(`Error deleting file: ${req.params.name}`);
+        res.status(200).json({message: `Error deleting file or no file to delete: ${req.params.name}`});
     
     }
 
 });
 
-module.exports = { uploadVideo, checkAndCreateVideoFolder, uploadImage1000x250, checkAndCreateImage1000x250Folder, deleteImage };
+module.exports = { 
+    uploadVideo, 
+    checkAndCreateVideoFolder, 
+    uploadImage1000x250, 
+    checkAndCreateImage1000x250Folder, 
+    uploadCompress,
+    checkAndCreateCompressFolder,
+    deleteImage,
+};

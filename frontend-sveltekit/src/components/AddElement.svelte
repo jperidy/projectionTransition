@@ -16,13 +16,9 @@
     let styles = [];
     let copy = false;
 
-    //$:console.log('follow copy', copyValues);
-
-    //$:if(open) console.log(copyValues);
 
     const toggle = async(save) => {
         if (open && addContent && save) {
-            //console.log('in toggle', {type, values, styles});
             await addContent({type, values, styles }, position);
         }
         if (open && addToLayout && save) {
@@ -44,8 +40,6 @@
     const updateValues = () => {
       let newArray = JSON.parse(JSON.stringify(copyValues));
       recursiveBlankMedias(newArray);
-      //console.log('copyValues', copyValues);
-      //console.log('newArray', newArray);
       if (copy) {
         values = newArray;
         styles = copyStyles;
@@ -53,7 +47,6 @@
       } else {
         values=[];
         styles=[];
-        //type='';
       }
     }
 
@@ -76,9 +69,11 @@
                   <option value='' selected={type === ''}>--- select ---</option>
                   <option value='layoutComponent' selected={type === 'layoutComponent'}>type LAYOUT</option>
                   <option value='textComponent' selected={type === 'textComponent'}>type TEXT</option>
-                  <option value='sousligneComponent' selected={type === 'sousligneComponent'}>type TRAIT</option>
                   <option value='imageComponent' selected={type === 'imageComponent'}>type IMAGE</option>
                   <option value='videoComponent' selected={type === 'videoComponent'}>type VIDEO</option>
+                  <option value='compressComponent' selected={type === 'compressComponent'}>type COMPRESS FILE</option>
+                  <option value='contactComponent' selected={type === 'contactComponent'}>type CONTACT</option>
+                  <option value='sousligneComponent' selected={type === 'sousligneComponent'}>type TRAIT</option>
                   <option value='carouselComponent' selected={type === 'carouselComponent'}>type CAROUSEL</option>
                   <option value='editoComponent' selected={type === 'editoComponent'}>type EDITO</option>
                   <option value='articlesComponent' selected={type === 'articlesComponent'}>type ARTICLES</option>
@@ -86,7 +81,6 @@
                   <option value='infoComponent' selected={type === 'infoComponent'}>type INFO VILLE</option>
                   <option value='programmationComponent' selected={type === 'programmationComponent'}>type PROGRAMMATION VILLE</option>
                   <option value='equipeComponent' selected={type === 'equipeComponent'}>type EQUIPE</option>
-                  <option value='contactComponent' selected={type === 'contactComponent'}>type CONTACT</option>
                   
                   <option value='test' selected={type === 'test'}>type TEST</option>
                 </select>
