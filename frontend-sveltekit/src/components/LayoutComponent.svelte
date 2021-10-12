@@ -387,7 +387,7 @@
 
                     {#if admin}
                         <!-- <AddContent admin={admin} addContent={addContent}/> -->
-                        <div class="moving-container border-light rounded-3 my-1 py-1 px-3 bg-lavande shadow-lg text-center">
+                        <div class="moving-container border-light rounded-3 my-1 py-1 px-3 bg-transparent shadow-lg text-center">
                             <AddContent admin={admin} position={position} addToLayout={addToLayout} />
                         </div>
                     {/if}
