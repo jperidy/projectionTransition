@@ -8,6 +8,11 @@ const getInitialUserInfo = () => {
     return userInfo;
 };
 
+const getInitialCopyComponent = () => {
+    const copyComponent = localStorage.getItem('copyComponent') ? JSON.parse(localStorage.getItem('copyComponent')) : null;
+    return copyComponent;
+};
+
 export const userInfo = writable(browser ? getInitialUserInfo() : '');
 
 export const pageRequest = writable({content:{content:[], name:''}, loading: false, message: ''});
@@ -30,3 +35,5 @@ export const emailSendRequest = writable({success:false, loading:false, message:
 
 export const statisticsSendRequest = writable({success:false, loading:false, message:'', data:{}});
 export const statisticsAllPages = writable({success:false, loading:false, message:'', pages:[]});
+
+export const copyComponent = writable(browser ? getInitialCopyComponent() : null);

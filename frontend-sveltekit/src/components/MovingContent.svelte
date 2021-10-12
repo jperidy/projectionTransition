@@ -1,4 +1,6 @@
 <script>
+import { copyComponent } from "../store";
+
     import { recursiveFilmDelete } from "../actions/filmActions";
 
     import { recursiveDeleteAction } from '../utils/imageFunctions'
@@ -49,8 +51,10 @@
     };
 
     const copyAction = () => {
-        localStorage.setItem('copyComponentValues', JSON.stringify(array[position].values));
-        localStorage.setItem('copyComponentStyles', JSON.stringify(array[position].styles));
+        localStorage.setItem('copyComponent', JSON.stringify(array[position]));
+        copyComponent.set(array[position]);
+        // localStorage.setItem('copyComponentValues', JSON.stringify(array[position].values));
+        // localStorage.setItem('copyComponentStyles', JSON.stringify(array[position].styles));
     };
 
 </script>

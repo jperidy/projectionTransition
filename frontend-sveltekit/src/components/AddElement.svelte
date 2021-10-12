@@ -1,30 +1,25 @@
 <script>
-    import { recursiveBlankMedias } from "../utils/imageFunctions";
+  import { recursiveBlankMedias } from "../utils/imageFunctions";
 
-    import { Button, Col, FormGroup, Label, Modal, ModalBody, ModalFooter, ModalHeader, Row } from "sveltestrap";
-import { onMount } from "svelte";
+  import { Button, Col, FormGroup, Label, Modal, ModalBody, ModalFooter, ModalHeader, Row } from "sveltestrap";
+  import { copyComponent } from "../store";
+  import { get } from "svelte/store";
     
-    export let addContent = null;
-    export let position = 0;
-    export let addToLayout = null;
-    export let open = false;
-    export let copyValues = [];
-    export let copyStyles = [];
-    export let copyType = '';
+  export let addContent = null;
+  export let position = 0;
+  export let addToLayout = null;
+  export let open = false;
+  export let copyValues = [];
+  export let copyStyles = [];
+  export let copyType = '';
 
-    let pastValues = null;
-    let pastStyles = null;
+  //let pastComponent = null;
 
-    let type = '';
-    let values = [];
-    let styles = [];
-    let copy = false;
-    let past = false;
-
-    onMount(() => {
-      pastValues = localStorage.getItem('copyComponentValues') ? JSON.parse(localStorage.getItem('copyComponentValues')) : null;
-      pastStyles = localStorage.getItem('copyComponentStyles') ? JSON.parse(localStorage.getItem('copyComponentStyles')) : null;
-    });
+  let type = '';
+  let values = [];
+  let styles = [];
+  let copy = false;
+  let past = false;
 
 
     const toggle = async(save) => {
@@ -35,6 +30,8 @@ import { onMount } from "svelte";
             await addToLayout({type, values, styles }, position);
         }
         open = !open;
+        copy = false;
+        past = false;
     };
 
     const onChangeHandler = () => {
@@ -59,13 +56,16 @@ import { onMount } from "svelte";
         let newArrayCopy = JSON.parse(JSON.stringify(copyValues));
         recursiveBlankMedias(newArrayCopy);
         values = newArrayCopy;
+        console.log('valuesCopy', values);
         styles = copyStyles;
         type = copyType;
       } else if (past) {
-        let newArrayPast = JSON.parse(JSON.stringify(pastValues));
+        let newArrayPast = JSON.parse(JSON.stringify(get(copyComponent))).values;
         recursiveBlankMedias(newArrayPast);
         values = newArrayPast;
-        styles = JSON.parse(JSON.stringify(pastStyles));
+        console.log('valuesPast', values);
+        styles = JSON.parse(JSON.stringify(get(copyComponent))).styles;
+        type = JSON.parse(JSON.stringify(get(copyComponent))).type;
       } else {
         values=[];
         styles=[];
@@ -75,14 +75,12 @@ import { onMount } from "svelte";
 </script>
 
 <Modal isOpen={open} {toggle} size='lg' scrollable>
-      
     <ModalHeader {toggle}>Ajouter un contenu</ModalHeader>
-    
     <ModalBody>
       <Row>
         <Col>
           <FormGroup>
-            {#if pastValues}
+            {#if $copyComponent}
               <div class="form-check form-switch mt-3">
                 <input class="form-check-input" type="checkbox" id="flexSwitchPast" checked={past} on:change={tooglePast}>
                 <label class="form-check-label" for="flexSwitchPast">Coller la forme en cache</label>
