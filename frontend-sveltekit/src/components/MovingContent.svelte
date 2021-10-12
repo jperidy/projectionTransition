@@ -34,10 +34,7 @@
         updateMovedArray(array); 
     };
 
-
     const deleteAction = async() => {
-
-        // Delete any tied media (image and video)
 
         if (window.confirm('Attention cette action est irreversible !')) {
             const values = array[position];
@@ -49,6 +46,11 @@
             array.splice(position, 1);
             updateMovedArray(array);
         }
+    };
+
+    const copyAction = () => {
+        localStorage.setItem('copyComponentValues', JSON.stringify(array[position].values));
+        localStorage.setItem('copyComponentStyles', JSON.stringify(array[position].styles));
     };
 
 </script>
@@ -73,7 +75,7 @@
     }
     .moving-container:hover .edition {
         -webkit-transform: scale(.7);
-	    transform: scale(.7);
+	    transform: scale(.7) translateX(-3rem);
         transition: .5s ease;
         width: 5vh;
     }
@@ -103,7 +105,7 @@
         />
     {/if}
 
-    <div class='moving-container border-light rounded-3 my-1 mb-1 p-1 bg-transparent shadow-lg'>
+    <div class='moving-container border-light rounded-3 my-1 mx-1 p-1 bg-transparent shadow-lg'>
         <div class='row align-items-center'>
             <div class="col">
                 <slot></slot>
@@ -111,13 +113,16 @@
             <div class='edition text-center'>
                 <div class="d-grid gap-2">
                     {#if addContent}
-                    <button class='btn btn-primary btn-sm' on:click={() => addUp = true}><i class="bi bi-plus-circle-dotted"></i></button>
+                    <button class='btn btn-primary btn-sm' on:click={() => addUp = true} data-bs-toggle="tooltip" data-bs-placement="left" title="Ajouter au dessus"><i class="bi bi-plus-circle-dotted"></i></button>
                     {/if}
-                    <button class='btn btn-secondary btn-sm' on:click={() => upAction()}><i class='bi bi-caret-up'/></button>
-                    <button class='btn btn-danger btn-sm' on:click={async() => await deleteAction()}><i class='bi bi-trash'/></button>
-                    <button class='btn btn-secondary btn-sm' on:click={() => downAction()}><i class='bi bi-caret-down'/></button>
+                    <button class='btn btn-secondary btn-sm' on:click={() => upAction()} data-bs-toggle="tooltip" data-bs-placement="left" title="Déplacer vers le haut"><i class='bi bi-caret-up'/></button>
+                    <span class='d-flex gap-2'>
+                        <button class='btn btn-danger btn-sm' on:click={async() => await deleteAction()} data-bs-toggle="tooltip" data-bs-placement="left" title="Supprimer"><i class='bi bi-trash'/></button>
+                        <button class='btn btn-info btn-sm' on:click={async() => copyAction()} data-bs-toggle="tooltip" data-bs-placement="left" title="Copier"><i class='bi bi-files'/></button>
+                    </span>
+                    <button class='btn btn-secondary btn-sm' on:click={() => downAction()} data-bs-toggle="tooltip" data-bs-placement="left" title="Déplacer vers le bas"><i class='bi bi-caret-down'/></button>
                     {#if addContent}
-                    <button class='btn btn-primary btn-sm' on:click={() => addDown = true}><i class="bi bi-plus-circle-dotted"></i></button>
+                    <button class='btn btn-primary btn-sm' on:click={() => addDown = true} data-bs-toggle="tooltip" data-bs-placement="left" title="Ajouter en dessous"><i class="bi bi-plus-circle-dotted"></i></button>
                     {/if}
                 </div>
             </div>
