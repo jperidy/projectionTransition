@@ -43,13 +43,13 @@ app.use((req, res, next) => {
     const splitFilm = url.split(/film\//i);
     const splitArticle = url.split(/article\//i);
     if (splitPage.length > 1) {
-        logARequest('page', splitPage[1]);
+        logARequest('page', `_page/${splitPage[1]}`);
     }
     if (splitFilm.length > 1) {
-        logARequest('film', splitFilm[1]);
+        logARequest('film', `_film/${splitFilm[1]}`);
     }
     if (splitArticle.length > 1) {
-        logARequest('article', splitArticle[1]);
+        logARequest('article', `_article/${splitArticle[1]}`);
     }
     next();
 })

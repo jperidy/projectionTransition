@@ -1,7 +1,5 @@
 const asyncHandler = require('express-async-handler');
-const { set } = require('mongoose');
 const Logs = require('../models/logsModel');
-const Page = require('../models/pageModels');
 
 // @desc    log a request
 const logARequest = (type, target) => {
