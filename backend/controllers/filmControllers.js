@@ -77,20 +77,25 @@ const updateFilmContent = asyncHandler(async(req,res) =>{
     Film.findById(filmId)
         .then((film) => {
             if(film) {
-                film.location = updatedFilm.location;
-                film.title = updatedFilm.title;
-                film.url = updatedFilm.url;
-                film.real = updatedFilm.real;
-                film.summury = updatedFilm.summury;
-                film.infosGenerales = updatedFilm.infosGenerales;
-                film.actions = updatedFilm.actions;
-                film.book = updatedFilm.book;
-                film.bookingAvailable = updatedFilm.bookingAvailable;
-                film.justification = updatedFilm.justification;
-                film.titleSeo = updatedFilm.titleSeo;
-                film.descriptionSeo = updatedFilm.descriptionSeo;
-                film.titleOG = updatedFilm.titleOG;
-                film.descriptionOG = updatedFilm.descriptionOG;
+                for (let key in updatedFilm) {
+                    film[key] = updatedFilm[key]
+                }
+
+                // film.location = updatedFilm.location;
+                // film.title = updatedFilm.title;
+                // film.url = updatedFilm.url;
+                // film.real = updatedFilm.real;
+                // film.summury = updatedFilm.summury;
+                // film.infosGenerales = updatedFilm.infosGenerales;
+                // film.actions = updatedFilm.actions;
+                // film.book = updatedFilm.book;
+                // film.bookingAvailable = updatedFilm.bookingAvailable;
+                // film.justification = updatedFilm.justification;
+                // film.titleSeo = updatedFilm.titleSeo;
+                // film.descriptionSeo = updatedFilm.descriptionSeo;
+                // film.titleOG = updatedFilm.titleOG;
+                // film.descriptionOG = updatedFilm.descriptionOG;
+                
                 film.save()
                     .then(() => res.status(200).json({message: 'film updated', value: film}))
                     .catch((error) => res.status(500).json({message: `Error saving film in database: ${error}`}));

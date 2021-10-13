@@ -93,13 +93,16 @@ const updateArticleContent = asyncHandler(async(req,res) =>{
     Article.findById(articleId)
         .then((article) => {
             if(article) {
-                article.title = updatedArticle.title;
-                article.subTitle = updatedArticle.subTitle;
-                article.url = updatedArticle.url;
-                article.content = updatedArticle.content;
-                article.author = updatedArticle.author;
-                article.category = updatedArticle.category;
-                article.createdAt = updatedArticle.createdAt;
+                for (let key in updatedArticle) {
+                    article[key] = updatedArticle[key]
+                }
+                // article.title = updatedArticle.title;
+                // article.subTitle = updatedArticle.subTitle;
+                // article.url = updatedArticle.url;
+                // article.content = updatedArticle.content;
+                // article.author = updatedArticle.author;
+                // article.category = updatedArticle.category;
+                // article.createdAt = updatedArticle.createdAt;
                 article.save()
                     .then(() => res.status(200).json({message: 'article updated', value: article}))
                     .catch((error) => res.status(500).json({message: `Error saving the article in database: ${error}`}));

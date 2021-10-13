@@ -41,12 +41,16 @@ const updatePageContent = asyncHandler(async(req,res) =>{
                     })
                     .catch((error) => res.status(500).json({message: `Error creating content in database: ${error}`, value:[]}))   
             } else {
-                //content.content = newContent.content;
-                content.content = newContent.content;
-                content.titleSeo = newContent.titleSeo;
-                content.descriptionSeo = newContent.descriptionSeo;
-                content.titleOG = newContent.titleOG;
-                content.descriptionOG = newContent.descriptionOG;
+
+                for (let key in newContent) {
+                    content[key] = newContent[key]
+                }
+                // content.content = newContent.content;
+                // content.titleSeo = newContent.titleSeo;
+                // content.descriptionSeo = newContent.descriptionSeo;
+                // content.titleOG = newContent.titleOG;
+                // content.descriptionOG = newContent.descriptionOG;
+
                 content.save()
                     .then((contentUpdated) => {
                         if (contentUpdated) {
