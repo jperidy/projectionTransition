@@ -1,17 +1,18 @@
-node_modules
-npm-debug.log
-frontend
-frontend-sveltekit
-uploads
 _backup
 _backup-mongodb
 _backup-volume
 _images
 _sources
 backup
-design
-uploads
 config
+design
+frontend
+frontend-sveltekit
+node_modules
+npm-debug.log
+uploads
+vps-admin
+.env
+adminAccount
 
 docker-copy-backup.bash
-adminAccount
