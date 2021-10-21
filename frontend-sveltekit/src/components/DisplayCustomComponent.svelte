@@ -13,7 +13,8 @@
     import ContactForm from "./ContactForm.svelte";
     import LayoutComponent from "./LayoutComponent.svelte";
     import SouslligneComponent from "./SouslligneComponent.svelte";
-import CompressFileComponent from "./CompressFileComponent.svelte";
+    import CompressFileComponent from "./CompressFileComponent.svelte";
+import MultiLayerComponent from "./MultiLayerComponent.svelte";
 
     export let type = '';
     export let updateContent = null;
@@ -56,6 +57,16 @@ import CompressFileComponent from "./CompressFileComponent.svelte";
 
 {#if type === 'compressComponent'}
     <CompressFileComponent
+        bind:values={values}
+        bind:styles={styles}
+        updateContent={updateContent}
+        admin={admin}
+        edit={edit}
+    />
+{/if}
+
+{#if type === 'multiLayerComponent'}
+    <MultiLayerComponent
         bind:values={values}
         bind:styles={styles}
         updateContent={updateContent}

@@ -85,7 +85,6 @@
     $: alignContent = styles.filter(x => x.name === 'align-items')[0] && styles.filter(x => x.name === 'align-items')[0].value;
     $: bgColor = styles.filter(x => x.name === 'backgroud-color')[0] && styles.filter(x => x.name === 'backgroud-color')[0].value;
     
-    //$: padding = styles.filter(x => x.name === 'padding')[0] && styles.filter(x => x.name === 'padding')[0].value || 0;
     $: marginX = styles.filter(x => x.name === 'marginX')[0] && styles.filter(x => x.name === 'marginX')[0].value || 0;
     $: marginY = styles.filter(x => x.name === 'marginY')[0] && styles.filter(x => x.name === 'marginY')[0].value || 0;
     $: paddingX = styles.filter(x => x.name === 'paddingX')[0] && styles.filter(x => x.name === 'paddingX')[0].value || 0;
@@ -110,14 +109,14 @@
     };
 
     const calculateCol = (size, position, arrayLength) => {
-        if (size) {
+        if (size && size !=='auto') {
             if (position < arrayLength) {
                 return size.toString();
             } else {
-                return 'auto';
+                return '4';
             }
         } else {
-            return 'auto';
+            return '4';
         }
     };
 
@@ -236,17 +235,6 @@
                                     <button class='px-1 btn btn-light' on:click={() => updateStyle({name:'backgroud-color', value:``})}>Transparent</button>
                                 </div>
                             </div>
-                            <!-- <div class='row py-1'>
-                                <div class='col'>
-                                    <span>Padding : </span>
-                                    <button class='btn btn-light p-0' on:click={() => updateStyle({name:'padding', value:'p-0'})}><span>p-0</span></button>
-                                    <button class='btn btn-light p-1' on:click={() => updateStyle({name:'padding', value:'p-1'})}><span>p-1</span></button>
-                                    <button class='btn btn-light p-2' on:click={() => updateStyle({name:'padding', value:'p-2'})}><span>p-2</span></button>
-                                    <button class='btn btn-light p-3' on:click={() => updateStyle({name:'padding', value:'p-3'})}><span>p-3</span></button>
-                                    <button class='btn btn-light p-4' on:click={() => updateStyle({name:'padding', value:'p-4'})}><span>p-4</span></button>
-                                    <button class='btn btn-light p-5' on:click={() => updateStyle({name:'padding', value:'p-5'})}><span>p-5</span></button>
-                                </div>
-                            </div> -->
                             <div class="row py-1 my-2">
                                 <div class='col'>
                                     <span>Margin X : </span>
@@ -267,28 +255,6 @@
                                     <input type='number' step={1} min={0} class='form-control' value={paddingY} on:change={(e) => updateStyle({name:'paddingY', value:e.target.value})} />
                                 </div>
                             </div>
-                            <!-- <div class="row py-1">
-                                <div class='col'>
-                                    <span>Margin X : </span>
-                                    <button class='btn btn-light mx-0' on:click={() => updateStyle({name:'marginX', value:'mx-0'})}><span>marginX-0</span></button>
-                                    <button class='btn btn-light mx-1' on:click={() => updateStyle({name:'marginX', value:'mx-1'})}><span>marginX-1</span></button>
-                                    <button class='btn btn-light mx-2' on:click={() => updateStyle({name:'marginX', value:'mx-2'})}><span>marginX-2</span></button>
-                                    <button class='btn btn-light mx-3' on:click={() => updateStyle({name:'marginX', value:'mx-3'})}><span>marginX-3</span></button>
-                                    <button class='btn btn-light mx-4' on:click={() => updateStyle({name:'marginX', value:'mx-4'})}><span>marginX-4</span></button>
-                                    <button class='btn btn-light mx-5' on:click={() => updateStyle({name:'marginX', value:'mx-5'})}><span>marginX-5</span></button>
-                                </div>
-                            </div>
-                            <div class="row py-1">
-                                <div class='col'>
-                                    <span>Margin Y : </span>
-                                    <button class='btn btn-light my-0' on:click={() => updateStyle({name:'marginY', value:'my-0'})}><span>marginY-0</span></button>
-                                    <button class='btn btn-light my-1' on:click={() => updateStyle({name:'marginY', value:'my-1'})}><span>marginY-1</span></button>
-                                    <button class='btn btn-light my-2' on:click={() => updateStyle({name:'marginY', value:'my-2'})}><span>marginY-2</span></button>
-                                    <button class='btn btn-light my-3' on:click={() => updateStyle({name:'marginY', value:'my-3'})}><span>marginY-3</span></button>
-                                    <button class='btn btn-light my-4' on:click={() => updateStyle({name:'marginY', value:'my-4'})}><span>marginY-4</span></button>
-                                    <button class='btn btn-light my-5' on:click={() => updateStyle({name:'marginY', value:'my-5'})}><span>marginY-5</span></button>
-                                </div>
-                            </div> -->
                             <div class='row py-1 my-2'>
                                 <div class='col'>
                                     <span>Bordure arrondie : </span>
@@ -333,8 +299,6 @@
         
         <div class={`row gx-2 gy-2 content align-items-${alignContent} ${bgColor} ${marginX} ${marginY} ${rounded} ${border} ${borderColor}`} style={`margin-left: ${marginX}rem;margin-right: ${marginX}rem;margin-bottom: ${marginY}rem;margin-top: ${marginY}rem;padding-left: ${paddingX}rem;padding-right: ${paddingX}rem;padding-top: ${paddingY}rem;padding-bottom: ${paddingY}rem;`}>
             {#each values as column, position}
-
-            <!-- <div class={`col-sm-12 col-md-${md.toString()}`} style={`min-height: 5vh;`};> -->
                 <div class={`col-${calculateCol(column.sizeMobile, position, values.length)} col-md-${calculateCol(column.sizeTablette, position, values.length)} col-xl-${calculateCol(column.size, position, values.length)}`} style={`min-height: 5vh;`};>
                     <MovingContent 
                         array={values} 

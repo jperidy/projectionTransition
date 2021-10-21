@@ -1,6 +1,6 @@
 <script>
   import { Button, Col, FormGroup, Label, Row, Modal, ModalHeader, ModalBody, ModalFooter } from "sveltestrap";
-import AddElement from "./AddElement.svelte";
+  import AddElement from "./AddElement.svelte";
   //import DisplayCustomComponent from "./DisplayCustomComponent.svelte";
 
   export let admin = false;
@@ -17,24 +17,14 @@ import AddElement from "./AddElement.svelte";
   //const toggle = () => (open = !open);
 
   const toggle = async(save) => {
-        if (open && addContent && save) {
-            await addContent({type, values, styles });
-        }
-        if (open && addToLayout && save) {
-            await addToLayout({type, values, styles }, position);
-        }
-        open = !open;
+    if (open && addContent && save) {
+        await addContent({type, values, styles });
+    }
+    if (open && addToLayout && save) {
+        await addToLayout({type, values, styles }, position);
+    }
+    open = !open;
   };
-
-  // const validateModal = async() => {
-  //   await addContent({type, values, styles });
-  //   toggle();
-  // };
-
-  // const onChangeHandler = () => {
-  //   values=[];
-  //   styles=[];
-  // }
 
 </script>
 
