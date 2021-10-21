@@ -91,6 +91,10 @@
     $: paddingY = styles.filter(x => x.name === 'paddingY')[0] && styles.filter(x => x.name === 'paddingY')[0].value || 0;
     $: rounded = styles.filter(x => x.name === 'rounded')[0] && styles.filter(x => x.name === 'rounded')[0].value || 0;
     
+    $: gutterX = styles.filter(x => x.name === 'gutterX')[0] && styles.filter(x => x.name === 'gutterX')[0].value || 2;
+    $: gutterY = styles.filter(x => x.name === 'gutterY')[0] && styles.filter(x => x.name === 'gutterY')[0].value || 2;
+
+
     $: border = styles.filter(x => x.name === 'border')[0] && styles.filter(x => x.name === 'border')[0].value;
     $: borderColor = styles.filter(x => x.name === 'border-color')[0] && styles.filter(x => x.name === 'border-color')[0].value;
 
@@ -190,7 +194,6 @@
                                 aria-describedby="nombre de colonnes" 
                                 placeholder="Nombre de colonnes"
                                 min={1}
-                                max={4}
                                 required
                                 bind:value={columnNumber}
                                 on:change={(e) => columnChangeHandler(e.target.value, 'pc')}
@@ -255,6 +258,16 @@
                                     <input type='number' step={1} min={0} class='form-control' value={paddingY} on:change={(e) => updateStyle({name:'paddingY', value:e.target.value})} />
                                 </div>
                             </div>
+                            <div class="row py-1 my-2">
+                                <div class='col'>
+                                    <span>Gutter X : </span>
+                                    <input type='number' step={1} min={0} max={5} class='form-control' value={gutterX} on:change={(e) => updateStyle({name:'gutterX', value:e.target.value})} />
+                                </div>
+                                <div class='col'>
+                                    <span>Gutter Y : </span>
+                                    <input type='number' step={1} min={0} max={5} class='form-control' value={gutterY} on:change={(e) => updateStyle({name:'gutterY', value:e.target.value})} />
+                                </div>
+                            </div>
                             <div class='row py-1 my-2'>
                                 <div class='col'>
                                     <span>Bordure arrondie : </span>
@@ -282,7 +295,7 @@
                     </div>
 
                     <p class='my-3'><strong>Prévisualisation</strong></p>
-                    <div class={`row gx-2 gy-2 align-items-${alignContent} ${bgColor} ${marginX} ${marginY} ${rounded} ${border} ${borderColor}`} style={`margin-left: ${marginX}rem;margin-right: ${marginX}rem;margin-bottom: ${marginY}rem;margin-top: ${marginY}rem;padding-left: ${paddingX}rem;padding-right: ${paddingX}rem;padding-top: ${paddingY}rem;padding-bottom: ${paddingY}rem;`}>
+                    <div class={`row gx-${gutterX} gy-${gutterY} align-items-${alignContent} ${bgColor} ${marginX} ${marginY} ${rounded} ${border} ${borderColor}`} style={`margin-left: ${marginX}rem;margin-right: ${marginX}rem;margin-bottom: ${marginY}rem;margin-top: ${marginY}rem;padding-left: ${paddingX}rem;padding-right: ${paddingX}rem;padding-top: ${paddingY}rem;padding-bottom: ${paddingY}rem;`}>
                         {#each values as column, position}
                             <div class={`col-sm-${sm.toString()} col-md-${md.toString()} border border-light`} style={`min-height: 5vh;`};>
                                 Colonne {position}                                
@@ -297,7 +310,7 @@
             </ModalFooter>
         </Modal> 
         
-        <div class={`row gx-2 gy-2 content align-items-${alignContent} ${bgColor} ${marginX} ${marginY} ${rounded} ${border} ${borderColor}`} style={`margin-left: ${marginX}rem;margin-right: ${marginX}rem;margin-bottom: ${marginY}rem;margin-top: ${marginY}rem;padding-left: ${paddingX}rem;padding-right: ${paddingX}rem;padding-top: ${paddingY}rem;padding-bottom: ${paddingY}rem;`}>
+        <div class={`row content gx-${gutterX} gy-${gutterY} align-items-${alignContent} ${bgColor} ${marginX} ${marginY} ${rounded} ${border} ${borderColor}`} style={`margin-left: ${marginX}rem;margin-right: ${marginX}rem;margin-bottom: ${marginY}rem;margin-top: ${marginY}rem;padding-left: ${paddingX}rem;padding-right: ${paddingX}rem;padding-top: ${paddingY}rem;padding-bottom: ${paddingY}rem;`}>
             {#each values as column, position}
                 <div class={`col-${calculateCol(column.sizeMobile, position, values.length)} col-md-${calculateCol(column.sizeTablette, position, values.length)} col-xl-${calculateCol(column.size, position, values.length)}`} style={`min-height: 5vh;`};>
                     <MovingContent 

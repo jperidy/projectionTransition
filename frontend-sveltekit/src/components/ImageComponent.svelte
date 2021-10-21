@@ -59,6 +59,7 @@
     
     $: transformR = styles.filter(x => x.name === 'transformR')[0] ? styles.filter(x => x.name === 'transformR')[0].value : 0;
     $: scaleXY = styles.filter(x => x.name === 'scaleXY')[0] ? styles.filter(x => x.name === 'scaleXY')[0].value : 1;
+    $: width = styles.filter(x => x.name === 'width')[0] ? styles.filter(x => x.name === 'width')[0].value : 100;
 
     $: marginL = styles.filter(x => x.name === 'marginL')[0] && styles.filter(x => x.name === 'marginL')[0].value || 0;
     $: marginR = styles.filter(x => x.name === 'marginR')[0] && styles.filter(x => x.name === 'marginR')[0].value || 0;
@@ -105,8 +106,8 @@
     }
     img {
         object-fit: cover;
-        width: 100%;
-        height: 100%;
+        /* width: 100%;
+        height: 100%; */
     }
 </style>
 
@@ -186,6 +187,12 @@
                     <Input type='number' class='px-1' value={scaleXY} on:change={(e) => updateStyle({name:'scaleXY', value:e.target.value})} step={0.05} />
                 </div>
             </div>
+            <div class='row py-1 align-items-center'>
+                <div class='col-4'>Largeur (%) : </div>
+                <div class='col-8'>
+                    <Input type='number' class='px-1' value={width} on:change={(e) => updateStyle({name:'width', value:e.target.value})} step={0.5} min={0} max={100} />
+                </div>
+            </div>
             <p class='my-3'><strong>Prévisualisation</strong></p>
             <div class='row'>
                 <div class={`col ${textAlign}`}>
@@ -193,7 +200,8 @@
                         <img 
                             src={`${API_URL}${values[0].url}`} 
                             alt={values[0].substitution}
-                            class={`figure-img m-0 p-0 ${rounded} ${shadow}`} 
+                            class={`figure-img m-0 p-0 ${rounded} ${shadow}`}
+                            style={`width:${width}%;heigth:auto;`}
                             >
                         <figcaption class='figure-caption'>{values[0].caption}</figcaption>
                     </figure>
@@ -221,7 +229,8 @@
                         <img 
                             src={`${API_URL}${values[0].url}`} 
                             alt={values[0].substitution}
-                            class={`figure-img m-0 p-0 ${rounded} ${shadow}`} 
+                            class={`figure-img m-0 p-0 ${rounded} ${shadow}`}
+                            style={`width:${width}%;heigth:auto;`}
                             >
                         <figcaption class='figure-caption'>{values[0].caption}</figcaption>
                     </figure>
@@ -231,7 +240,8 @@
                     <img 
                         src={`${API_URL}${values[0].url}`} 
                         alt={values[0].substitution}
-                        class={`figure-img m-0 p-0 ${rounded} ${shadow}`} 
+                        class={`figure-img m-0 p-0 ${rounded} ${shadow}`}
+                        style={`width:${width}%;heigth:auto;`}
                         >
                     <figcaption class='figure-caption'>{values[0].caption}</figcaption>
                 </figure>

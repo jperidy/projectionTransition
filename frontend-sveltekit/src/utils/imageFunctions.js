@@ -1,28 +1,28 @@
 import { deleteImage } from "../actions/imagesActions";
 
-export const recursiveDeleteAction = async (array) => {
+export const recursiveDeleteAction = async (objectToDelete) => {
 
-    //console.log('recursive delete', array);
+    //console.log('recursive delete', objectToDelete);
 
-    // if no array passed (partner case)
-    if (array.url && array.url.values.length) {
-        recursiveDeleteAction(array.url.values);
+    // if no objectToDelete passed (partner case)
+    if (objectToDelete.url && objectToDelete.url.values.length) {
+        recursiveDeleteAction(objectToDelete.url.values);
     }
-    if (array.values && array.values.length) {
-        recursiveDeleteAction(array.values);
+    if (objectToDelete.values && objectToDelete.values.length) {
+        recursiveDeleteAction(objectToDelete.values);
     }
     
-    for (let ind = 0 ; ind < array.length ; ind++) {
+    for (let ind = 0 ; ind < objectToDelete.length ; ind++) {
         
-        if (array[ind].url && array[ind].url.length) {
-            await deleteImage(array[ind].url);
+        if (objectToDelete[ind].url && objectToDelete[ind].url.length) {
+            await deleteImage(objectToDelete[ind].url);
         }
           
-        if (array[ind].component && array[ind].component.values && array[ind].component.values.length) {
-            recursiveDeleteAction(array[ind].component.values);
+        if (objectToDelete[ind].component && objectToDelete[ind].component.values && objectToDelete[ind].component.values.length) {
+            recursiveDeleteAction(objectToDelete[ind].component.values);
         }
-        if (array[ind].values && array[ind].values.length) {
-            recursiveDeleteAction(array[ind].values);
+        if (objectToDelete[ind].values && objectToDelete[ind].values.length) {
+            recursiveDeleteAction(objectToDelete[ind].values);
         }
     }
     return;

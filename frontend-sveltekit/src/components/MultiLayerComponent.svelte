@@ -1,4 +1,8 @@
 <script>
+import { recursiveFilmDelete } from "../actions/filmActions";
+
+import { recursiveDeleteAction } from "../utils/imageFunctions";
+
 
     import AddContent from "./AddContent.svelte";
     import DisplayCustomComponent from "./DisplayCustomComponent.svelte";
@@ -28,9 +32,17 @@
         }
     };
 
-    const handleRemove = (pos) => {
-        values.splice(pos, 1);
-        values = values;
+    const handleRemove = async (pos) => {
+        if (window.confirm('Attention cette action est irreversible !')) {
+
+            // check and delete image file from server if necessary
+            await recursiveDeleteAction(values[pos]);
+            // check and delete video file from server if necessary
+            await recursiveFilmDelete(values[pos]);
+
+            values.splice(pos, 1);
+            values = values;
+        }
     }
 
     let top = 0;
