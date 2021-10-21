@@ -29,7 +29,7 @@ export const getStatistics = async (start, end, pages) => {
 
 export const getAllpages = async () => {
     try {
-        statisticsAllPages.set({ loading:true, success: false, message: '', data:[] });
+        statisticsAllPages.set({ loading:true, success: false, message: '', data:[], application:{} });
         const userInfoStored = get(userInfo);
         const config = {
             headers: {
@@ -39,10 +39,10 @@ export const getAllpages = async () => {
         }
 
         const { data } = await axios.get(`${API_URL}/api/statistics/params`, config);
-        statisticsAllPages.set({ loading:false, success: true, message: 'success', data:data.data });
+        statisticsAllPages.set({ loading:false, success: true, message: 'success', data:data.data, application:data.application });
         
     } catch (error) {
-        statisticsAllPages.set({ loading:false, success: false, message: 'error : ' + error, data:[] });
+        statisticsAllPages.set({ loading:false, success: false, message: 'error : ' + error, data:[], application:{} });
         
     }
 }

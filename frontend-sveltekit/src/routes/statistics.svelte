@@ -3,6 +3,8 @@
     import { browser } from "$app/env";
     import { goto } from "$app/navigation";
 
+    import config from "../config.json";
+
     import { userInfo, statisticsSendRequest, statisticsAllPages } from "../store";
 
     import { getStatistics, getAllpages } from "../actions/logsActions";
@@ -17,16 +19,13 @@
         if (browser && !isAuthenticate) { goto('/'); }
     }
     
-    let type = '';
-    let target = '';
+    // let type = '';
+    // let target = '';
     let startDate = (new Date(Date.now())).toISOString().substring(0,10);
     let endDate = (new Date(Date.now())).toISOString().substring(0,10);
     let ctx = null;
     let statisticsChart;
-    let selectedPages = [];
-
-    //$: console.log('selectedPages', selectedPages);
-    
+    let selectedPages = [];    
 
     onMount(() => {
 
@@ -67,6 +66,8 @@
 </script>
 
 <CustomContainer>
+    
+    
     <h1 class='mt-2'>Statistics</h1>
 
     <form id='statistics' class="statistics-form" on:submit={submitHandler}>
@@ -101,7 +102,6 @@
         </div>
     </form>
 
-
     {#if $statisticsSendRequest.loading}
         <Loading number={3} color="primary" />
     {/if}
@@ -113,5 +113,9 @@
             <canvas id="statisticsChart"></canvas>
         </div>
     </div>
+
+    <h1>Application version</h1>
+    <p>frontend : {config.VERSION} in {config.SVELTE_ENV} mode</p>
+    <p>backend : {$statisticsAllPages.application.version} in {$statisticsAllPages.application.mode} mode</p>
 
 </CustomContainer>

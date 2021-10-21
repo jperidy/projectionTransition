@@ -34,6 +34,6 @@ export const filmDeleteRequest = writable({success:false, loading:false, message
 export const emailSendRequest = writable({success:false, loading:false, message:''});
 
 export const statisticsSendRequest = writable({success:false, loading:false, message:'', data:{}});
-export const statisticsAllPages = writable({success:false, loading:false, message:'', pages:[]});
+export const statisticsAllPages = writable({success:false, loading:false, message:'', pages:[], application: {}});
 
 export const copyComponent = writable(browser ? getInitialCopyComponent() : null);
