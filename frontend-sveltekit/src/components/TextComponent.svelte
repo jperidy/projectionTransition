@@ -117,10 +117,10 @@
                         bind:value={values[0].value}
                     />
                     <div class='row py-1'><div class='col'>
-                        <button class={`px-1 btn ${textAlign === "start" ? "btn-primary border border-dark" : "btn-light"}`} on:click={() => updateStyle({name:'text-align', value:'start'})}><Icon name='text-left' /></button>
-                        <button class={`px-1 btn ${textAlign === "center" ? "btn-primary border border-dark" : "btn-light"}`} on:click={() => updateStyle({name:'text-align', value:'center'})}><Icon name='text-center' /></button>
-                        <button class={`px-1 btn ${textAlign === "justify" ? "btn-primary border border-dark" : "btn-light"}`} on:click={() => updateStyle({name:'text-align', value:'justify'})}><Icon name='justify-left' /></button>
-                        <button class={`px-1 btn ${textAlign === "end" ? "btn-primary border border-dark" : "btn-light"}`} on:click={() => updateStyle({name:'text-align', value:'end'})}><Icon name='text-right' /></button>
+                        <button class={`px-1 btn ${textAlign === "start" ? "btn-primary border border-light" : "btn-light"}`} on:click={() => updateStyle({name:'text-align', value:'start'})}><Icon name='text-left' /></button>
+                        <button class={`px-1 btn ${textAlign === "center" ? "btn-primary border border-light" : "btn-light"}`} on:click={() => updateStyle({name:'text-align', value:'center'})}><Icon name='text-center' /></button>
+                        <button class={`px-1 btn ${textAlign === "justify" ? "btn-primary border border-light" : "btn-light"}`} on:click={() => updateStyle({name:'text-align', value:'justify'})}><Icon name='justify-left' /></button>
+                        <button class={`px-1 btn ${textAlign === "end" ? "btn-primary border border-light" : "btn-light"}`} on:click={() => updateStyle({name:'text-align', value:'end'})}><Icon name='text-right' /></button>
                     </div></div>
                     <div class='row py-1'><div class='col'>
                         {#each colors as color}
@@ -197,10 +197,10 @@
                     <div class='row py-1'>
                         <div class='col'>
                             <span>Bordure arrondie : </span>
-                            <button class={`btn px-1 rounded-0 ${rounded === "rounded-0" ? "btn-primary border border-dark" : "btn-light"}`} on:click={() => updateStyle({name:'rounded', value:'rounded-0'})}><span>r-0</span></button>
-                            <button class={`btn px-1 rounded-1 ${rounded === "rounded-1" ? "btn-primary border border-dark" : "btn-light"}`} on:click={() => updateStyle({name:'rounded', value:'rounded-1'})}><span>r-1</span></button>
-                            <button class={`btn px-1 rounded-2 ${rounded === "rounded-2" ? "btn-primary border border-dark" : "btn-light"}`} on:click={() => updateStyle({name:'rounded', value:'rounded-2'})}><span>r-2</span></button>
-                            <button class={`btn px-1 rounded-3 ${rounded === "rounded-3" ? "btn-primary border border-dark" : "btn-light"}`} on:click={() => updateStyle({name:'rounded', value:'rounded-3'})}><span>r-3</span></button>
+                            <button class={`btn px-1 rounded-0 ${rounded === "rounded-0" ? "btn-primary border border-light" : "btn-light"}`} on:click={() => updateStyle({name:'rounded', value:'rounded-0'})}><span>r-0</span></button>
+                            <button class={`btn px-1 rounded-1 ${rounded === "rounded-1" ? "btn-primary border border-light" : "btn-light"}`} on:click={() => updateStyle({name:'rounded', value:'rounded-1'})}><span>r-1</span></button>
+                            <button class={`btn px-1 rounded-2 ${rounded === "rounded-2" ? "btn-primary border border-light" : "btn-light"}`} on:click={() => updateStyle({name:'rounded', value:'rounded-2'})}><span>r-2</span></button>
+                            <button class={`btn px-1 rounded-3 ${rounded === "rounded-3" ? "btn-primary border border-light" : "btn-light"}`} on:click={() => updateStyle({name:'rounded', value:'rounded-3'})}><span>r-3</span></button>
                         </div>
                     </div>
                     <div class='row py-1 align-items-center'>
