@@ -1,5 +1,5 @@
 <script>
-import { copyComponent } from "../store";
+    import { copyComponent } from "../store";
 
     import { recursiveFilmDelete } from "../actions/filmActions";
 
@@ -89,6 +89,7 @@ import { copyComponent } from "../store";
 {#if admin}
 
     {#if addContent}
+        <!-- open if addUp is true -->
         <AddElement 
             addContent={addContent}
             position={position}      
@@ -98,6 +99,7 @@ import { copyComponent } from "../store";
             copyStyles={array[position].styles}
             copyType={array[position].type}
         />
+        <!-- open if addDown is true -->
         <AddElement 
             addContent={addContent}
             position={position + 1}      
@@ -133,5 +135,5 @@ import { copyComponent } from "../store";
         </div>
     </div>
 {:else}
-    <span><slot></slot></span>
+    <slot></slot>
 {/if}

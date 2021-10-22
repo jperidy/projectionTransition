@@ -14,7 +14,7 @@
     import LayoutComponent from "./LayoutComponent.svelte";
     import SouslligneComponent from "./SouslligneComponent.svelte";
     import CompressFileComponent from "./CompressFileComponent.svelte";
-import MultiLayerComponent from "./MultiLayerComponent.svelte";
+    import MultiLayerComponent from "./MultiLayerComponent.svelte";
 
     export let type = '';
     export let updateContent = null;

@@ -110,49 +110,44 @@
 {#if pageRequest.loading}
     <Loading color='secondary' number={3} />
 {:else}
-    <!-- <CustomContainer> -->
-        <Row>
-        <!-- <Row class='mt-3'> -->
-            <Col>
-                {#if pageRequest.content && pageRequest.content.content}
-                    {#each pageRequest.content.content as section, position}
-                        <MovingContent 
-                            array={pageRequest.content.content} 
-                            position={position} 
-                            admin={admin} 
-                            updateMovedArray={updateMovedArray}
-                            addContent={addContent}
-                        >
-                            <DisplayCustomComponent 
-                                bind:value={section.value}
-                                bind:values={section.values}
-                                bind:styles={section.styles}
-                                type={section.type}
-                                updateContent={updateContent}
-                                admin={admin}
-                                edit={false}
-                                city={params.city}
-                            />   
-                        </MovingContent>
-                    {/each}
-                {/if}
-                {#if admin && pageRequest.content && !pageRequest.content.content.length}
-                    <div class="moving-container border-light rounded-3 mt-3 mb-1 p-3 bg-lavande shadow-lg text-center">
-                        <AddContent admin={admin} addContent={addContent}/>
-                    </div>
-                {/if}
-            </Col>
-
-            <SeoComponent 
-                pageContent={pageRequest.content}
-                page={page}
-                siteURL={SITE_URL}
-                admin={admin}
-                updateContent={updateContent}
-            />
-            
-        </Row>
-    <!-- </CustomContainer> -->
+    <Row>
+        <Col>
+            {#if pageRequest.content && pageRequest.content.content}
+                {#each pageRequest.content.content as section, position}
+                    <MovingContent 
+                        array={pageRequest.content.content} 
+                        position={position} 
+                        admin={admin} 
+                        updateMovedArray={updateMovedArray}
+                        addContent={addContent}
+                    >
+                        <DisplayCustomComponent 
+                            bind:value={section.value}
+                            bind:values={section.values}
+                            bind:styles={section.styles}
+                            type={section.type}
+                            updateContent={updateContent}
+                            admin={admin}
+                            edit={false}
+                            city={params.city}
+                        />   
+                    </MovingContent>
+                {/each}
+            {/if}
+            {#if admin && pageRequest.content && !pageRequest.content.content.length}
+                <div class="moving-container border-light rounded-3 mt-3 mb-1 p-3 bg-lavande shadow-lg text-center">
+                    <AddContent admin={admin} addContent={addContent}/>
+                </div>
+            {/if}
+        </Col>
+        <SeoComponent 
+            pageContent={pageRequest.content}
+            page={page}
+            siteURL={SITE_URL}
+            admin={admin}
+            updateContent={updateContent}
+        />  
+    </Row>
 {/if}
 
 

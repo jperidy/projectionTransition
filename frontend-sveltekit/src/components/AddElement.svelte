@@ -13,8 +13,6 @@
   export let copyStyles = [];
   export let copyType = '';
 
-  //let pastComponent = null;
-
   let type = '';
   let values = [];
   let styles = [];
@@ -22,61 +20,61 @@
   let past = false;
 
 
-    const toggle = async(save) => {
-        if (open && addContent && save) {
-            await addContent({type, values, styles }, position);
-        }
-        if (open && addToLayout && save) {
-            await addToLayout({type, values, styles }, position);
-        }
-        open = !open;
-        copy = false;
-        past = false;
-    };
-
-    const updateValues = () => {
-      if (copy) {
-        let newArrayCopy = JSON.parse(JSON.stringify(copyValues));
-        recursiveBlankMedias(newArrayCopy);
-        values = newArrayCopy;
-        console.log('valuesCopy', values);
-        styles = copyStyles;
-        type = copyType;
-      } else if (past) {
-        let newArrayPast = JSON.parse(JSON.stringify(get(copyComponent))).values;
-        recursiveBlankMedias(newArrayPast);
-        values = newArrayPast;
-        console.log('valuesPast', values);
-        styles = JSON.parse(JSON.stringify(get(copyComponent))).styles;
-        type = JSON.parse(JSON.stringify(get(copyComponent))).type;
-      } else {
-        values=[];
-        styles=[];
+  const toggle = async(save) => {
+      if (open && addContent && save) {
+          await addContent({type, values, styles }, position);
       }
-    }
-
-    const onChangeHandler = () => {
-        copy = false;
-        updateValues();
-    };
-
-    const toogleCopy = () => {
-      copy = !copy;
-      if (copy) past = false;
-      updateValues();
-    };
-
-    const tooglePast = () => {
-      past = !past;
-      if (past) copy = false;
-      updateValues();
-    };
-
-    const handleClick = (typeComponent) => {
-      type = typeComponent;
+      if (open && addToLayout && save) {
+          await addToLayout({type, values, styles }, position);
+      }
+      open = !open;
       copy = false;
-      updateValues();
-    };
+      past = false;
+  };
+
+  const updateValues = () => {
+    if (copy) {
+      let newArrayCopy = JSON.parse(JSON.stringify(copyValues));
+      recursiveBlankMedias(newArrayCopy);
+      values = newArrayCopy;
+      console.log('valuesCopy', values);
+      styles = copyStyles;
+      type = copyType;
+    } else if (past) {
+      let newArrayPast = JSON.parse(JSON.stringify(get(copyComponent))).values;
+      recursiveBlankMedias(newArrayPast);
+      values = newArrayPast;
+      console.log('valuesPast', values);
+      styles = JSON.parse(JSON.stringify(get(copyComponent))).styles;
+      type = JSON.parse(JSON.stringify(get(copyComponent))).type;
+    } else {
+      values=[];
+      styles=[];
+    }
+  }
+
+  // const onChangeHandler = () => {
+  //     copy = false;
+  //     updateValues();
+  // };
+
+  const toogleCopy = () => {
+    copy = !copy;
+    if (copy) past = false;
+    updateValues();
+  };
+
+  const tooglePast = () => {
+    past = !past;
+    if (past) copy = false;
+    updateValues();
+  };
+
+  const handleClick = (typeComponent) => {
+    type = typeComponent;
+    copy = false;
+    updateValues();
+  };
 
 </script>
 
@@ -97,7 +95,6 @@
               <label class="form-check-label" for="flexSwitchCopy">Copier la forme que vous venez de sélectionner</label>
             </div>
             {#if !past}
-
               <div class='mt-3 d-grid gap-2 d-sm-block'>
                 <h3>Standard components: </h3>
                 <button 

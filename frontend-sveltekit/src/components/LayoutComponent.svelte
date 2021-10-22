@@ -14,8 +14,6 @@
     export let updateContent;
     export let city='';
 
-    styles;
-
     let columnNumber = 1;
     let columnNumberMobile = 1;
     let md = 12;
@@ -23,7 +21,7 @@
 
     $:{
         if (values.length === 0) {
-            values.push({type:'layout', values:[]});
+            values.push({type:'layout', size: 4, sizeTablette: 4, sizeMobile: 12, values:[]});
         }
     };
     $:{
@@ -43,7 +41,7 @@
         if (number > values.length && number >=1) {
             const limit = 12
             while (values.length < number && values.length < limit) {
-                values.push({type:'layout', values:[]});
+                values.push({type:'layout', size: 4, sizeTablette: 4, sizeMobile: 12, values:[]});
             }
         } else {
             const limit = 0;
@@ -82,8 +80,15 @@
 
     const colors = ['primary', 'secondary', 'pomme', 'outremer', 'lavande', 'caraibe', 'tangerine', 'ambre', 'light', 'white', 'dark', 'black'];
 
+    $: xsSize = styles.filter(x => x.name === 'xsSize')[0] && styles.filter(x => x.name === 'xsSize')[0].value || 12;
+    $: smSize = styles.filter(x => x.name === 'smSize')[0] && styles.filter(x => x.name === 'smSize')[0].value || 12;
+    $: mdSize = styles.filter(x => x.name === 'mdSize')[0] && styles.filter(x => x.name === 'mdSize')[0].value || 12;
+    $: lgSize = styles.filter(x => x.name === 'lgSize')[0] && styles.filter(x => x.name === 'lgSize')[0].value || 10;
+    $: xlSize = styles.filter(x => x.name === 'xlSize')[0] && styles.filter(x => x.name === 'xlSize')[0].value || 10;
+    
     $: alignContent = styles.filter(x => x.name === 'align-items')[0] && styles.filter(x => x.name === 'align-items')[0].value;
     $: bgColor = styles.filter(x => x.name === 'backgroud-color')[0] && styles.filter(x => x.name === 'backgroud-color')[0].value;
+    $: backgroundHTML = styles.filter(x => x.name === 'backgroundHTML')[0] && styles.filter(x => x.name === 'backgroundHTML')[0].value || '';
     
     $: marginX = styles.filter(x => x.name === 'marginX')[0] && styles.filter(x => x.name === 'marginX')[0].value || 0;
     $: marginY = styles.filter(x => x.name === 'marginY')[0] && styles.filter(x => x.name === 'marginY')[0].value || 0;
@@ -93,7 +98,6 @@
     
     $: gutterX = styles.filter(x => x.name === 'gutterX')[0] && styles.filter(x => x.name === 'gutterX')[0].value || 2;
     $: gutterY = styles.filter(x => x.name === 'gutterY')[0] && styles.filter(x => x.name === 'gutterY')[0].value || 2;
-
 
     $: border = styles.filter(x => x.name === 'border')[0] && styles.filter(x => x.name === 'border')[0].value;
     $: borderColor = styles.filter(x => x.name === 'border-color')[0] && styles.filter(x => x.name === 'border-color')[0].value;
@@ -164,13 +168,19 @@
     
 </style>
 
-<CustomContainer size={{ 
+<!-- <CustomContainer size={{ 
     xs: values[0].xs ? values[0].xs : 12, 
-    sm: values[0].sm ? values[0].sm : 10, 
-    md: values[0].md ? values[0].md : 10, 
+    sm: values[0].sm ? values[0].sm : 12, 
+    md: values[0].md ? values[0].md : 12, 
     lg: values[0].lg ? values[0].lg : 10,
     xl: values[0].xl ? values[0].xl : 10,
-}}>
+}}> -->
+
+<CustomContainer 
+    size={{ xs: xsSize, sm: smSize, md: mdSize, lg: lgSize, xl: xlSize}}
+    backgroundColor={bgColor}
+    backgroundHTML={backgroundHTML}
+>
 
     <div class='content-container'>
 
@@ -187,122 +197,129 @@
         <Modal isOpen={edit} {toggle} size='lg' scrollable>
             <ModalHeader {toggle}>Editer le layout</ModalHeader>
             <ModalBody>
-                    <div class="row align-items-center my-2">
-                        <div class='col'>
-                            <label for="input-columns" class="form-label">Nombre de colonnes</label>
-                            <input type="number" class="form-control" id="input-columns" 
-                                aria-describedby="nombre de colonnes" 
-                                placeholder="Nombre de colonnes"
-                                min={1}
-                                required
-                                bind:value={columnNumber}
-                                on:change={(e) => columnChangeHandler(e.target.value, 'pc')}
-                            />
-                            <div class='row my-3'>
-                                <p>Largeur du layout en fonction de l'écran</p>
-                                <div class='col'>
-                                    <label for="xs-size">"xs screen (Mobile) (/12)"</label>
-                                    <input type="number" class="form-control" id="xs-size" min={1} max={12} bind:value={values[0].xs} on:change={updateContent}/>
-                                </div>
-                                <div class='col'>
-                                    <label for="sm-size">"sm screen (Tablette) (/12)"</label>
-                                    <input type="number" class="form-control" id="sm-size" min={1} max={12} bind:value={values[0].sm} on:change={updateContent}/>
-                                </div>
-                                <div class='col'>
-                                    <label for="md-size">"md screen (Tablette) (/12)"</label>
-                                    <input type="number" class="form-control" id="md-size" min={1} max={12} bind:value={values[0].md} on:change={updateContent}/>
-                                </div>
-                                <div class='col'>
-                                    <label for="lg-size">"lg screen (Desktop) (/12)"</label>
-                                    <input type="number" class="form-control" id="lg-size" min={1} max={12} bind:value={values[0].lg} on:change={updateContent}/>
-                                </div>
-                                <div class='col'>
-                                    <label for="xl-size">"xl screen (Ecran large) (/12)"</label>
-                                    <input type="number" class="form-control" id="xl-size" min={1} max={12} bind:value={values[0].xl} on:change={updateContent}/>
-                                </div>
+                <div class="row align-items-center my-2">
+                    <div class='col'>
+                        <label for="input-columns" class="form-label">Nombre de colonnes</label>
+                        <input type="number" class="form-control" id="input-columns" 
+                            aria-describedby="nombre de colonnes" 
+                            placeholder="Nombre de colonnes"
+                            min={1}
+                            required
+                            bind:value={columnNumber}
+                            on:change={(e) => columnChangeHandler(e.target.value, 'pc')}
+                        />
+                        <div class='row my-3'>
+                            <p>Largeur du layout en fonction de l'écran</p>
+                            <div class='col'>
+                                <label for="xs-size">"xs screen (Mobile) (/12)"</label>
+                                <input type="number" class="form-control" id="xs-size" min={1} max={12} value={xsSize} on:change={(e) => updateStyle({name:'xsSize', value:e.target.value})}/>
                             </div>
-                            <div class='row py-1 my-2'>
-                                <div class='col'>
-                                    <span>Alignement : </span>
-                                    <button class={`px-1 btn ${alignContent === "start" ? "btn-primary" : "btn-light"}`} on:click={() => updateStyle({name:'align-items', value:'start'})}><Icon name='align-top' /></button>
-                                    <button class={`px-1 btn ${alignContent === "center" ? "btn-primary" : "btn-light"}`} on:click={() => updateStyle({name:'align-items', value:'center'})}><Icon name='align-middle' /></button>
-                                    <button class={`px-1 btn ${alignContent === "end" ? "btn-primary" : "btn-light"}`} on:click={() => updateStyle({name:'align-items', value:'end'})}><Icon name='align-bottom' /></button>
-                                </div>
+                            <div class='col'>
+                                <label for="sm-size">"sm screen (Tablette) (/12)"</label>
+                                <input type="number" class="form-control" id="sm-size" min={1} max={12} value={smSize} on:change={(e) => updateStyle({name:'smSize', value:e.target.value})}/>
                             </div>
-                            <div class='row py-1 my-2'>
-                                <div class='col'>
-                                    <span>Fond : </span>
-                                    {#each colors as color}
-                                        <button class='px-1 btn btn-light' on:click={() => updateStyle({name:'backgroud-color', value:`bg-${color}`})}><Icon name='file-font-fill' class={`text-${color}`} /></button>
-                                    {/each}
-                                    <button class='px-1 btn btn-light' on:click={() => updateStyle({name:'backgroud-color', value:``})}>Transparent</button>
-                                </div>
+                            <div class='col'>
+                                <label for="md-size">"md screen (Tablette) (/12)"</label>
+                                <input type="number" class="form-control" id="md-size" min={1} max={12} value={mdSize} on:change={(e) => updateStyle({name:'mdSize', value:e.target.value})}/>
                             </div>
-                            <div class="row py-1 my-2">
-                                <div class='col'>
-                                    <span>Margin X : </span>
-                                    <input type='number' step={1} min={0} class='form-control' value={marginX} on:change={(e) => updateStyle({name:'marginX', value:e.target.value})} />
-                                </div>
-                                <div class='col'>
-                                    <span>Margin Y : </span>
-                                    <input type='number' step={1} min={0} class='form-control' value={marginY} on:change={(e) => updateStyle({name:'marginY', value:e.target.value})} />
-                                </div>
+                            <div class='col'>
+                                <label for="lg-size">"lg screen (Desktop) (/12)"</label>
+                                <input type="number" class="form-control" id="lg-size" min={1} max={12} value={lgSize} on:change={(e) => updateStyle({name:'lgSize', value:e.target.value})}/>
                             </div>
-                            <div class="row py-1 my-2">
-                                <div class='col'>
-                                    <span>Padding X : </span>
-                                    <input type='number' step={1} min={0} class='form-control' value={paddingX} on:change={(e) => updateStyle({name:'paddingX', value:e.target.value})} />
-                                </div>
-                                <div class='col'>
-                                    <span>Padding Y : </span>
-                                    <input type='number' step={1} min={0} class='form-control' value={paddingY} on:change={(e) => updateStyle({name:'paddingY', value:e.target.value})} />
-                                </div>
+                            <div class='col'>
+                                <label for="xl-size">"xl screen (Ecran large) (/12)"</label>
+                                <input type="number" class="form-control" id="xl-size" min={1} max={12} value={xlSize} on:change={(e) => updateStyle({name:'xlSize', value:e.target.value})}/>
                             </div>
-                            <div class="row py-1 my-2">
-                                <div class='col'>
-                                    <span>Gutter X : </span>
-                                    <input type='number' step={1} min={0} max={5} class='form-control' value={gutterX} on:change={(e) => updateStyle({name:'gutterX', value:e.target.value})} />
-                                </div>
-                                <div class='col'>
-                                    <span>Gutter Y : </span>
-                                    <input type='number' step={1} min={0} max={5} class='form-control' value={gutterY} on:change={(e) => updateStyle({name:'gutterY', value:e.target.value})} />
-                                </div>
+                        </div>
+                        <div class='row py-1 my-2'>
+                            <div class='col'>
+                                <span>Alignement : </span>
+                                <button class={`px-1 btn ${alignContent === "start" ? "btn-primary" : "btn-light"}`} on:click={() => updateStyle({name:'align-items', value:'start'})}><Icon name='align-top' /></button>
+                                <button class={`px-1 btn ${alignContent === "center" ? "btn-primary" : "btn-light"}`} on:click={() => updateStyle({name:'align-items', value:'center'})}><Icon name='align-middle' /></button>
+                                <button class={`px-1 btn ${alignContent === "end" ? "btn-primary" : "btn-light"}`} on:click={() => updateStyle({name:'align-items', value:'end'})}><Icon name='align-bottom' /></button>
                             </div>
-                            <div class='row py-1 my-2'>
-                                <div class='col'>
-                                    <span>Bordure arrondie : </span>
-                                    <button class={`btn px-1 rounded-0 ${rounded === "rounded-0" ? "btn-primary" : "btn-light"}`} on:click={() => updateStyle({name:'rounded', value:'rounded-0'})}><span>r-0</span></button>
-                                    <button class={`btn px-1 rounded-1 ${rounded === "rounded-1" ? "btn-primary" : "btn-light"}`} on:click={() => updateStyle({name:'rounded', value:'rounded-1'})}><span>r-1</span></button>
-                                    <button class={`btn px-1 rounded-2 ${rounded === "rounded-2" ? "btn-primary" : "btn-light"}`} on:click={() => updateStyle({name:'rounded', value:'rounded-2'})}><span>r-2</span></button>
-                                    <button class={`btn px-1 rounded-3 ${rounded === "rounded-3" ? "btn-primary" : "btn-light"}`} on:click={() => updateStyle({name:'rounded', value:'rounded-3'})}><span>r-3</span></button>
-                                </div>
+                        </div>
+                        <div class='row py-1 my-2 align-items-center'>
+                            <div class='col-8'>
+                                <span>Fond : </span>
+                                {#each colors as color}
+                                    <button class='px-1 btn btn-light' on:click={() => updateStyle({name:'backgroud-color', value:`bg-${color}`})}><Icon name='file-font-fill' class={`text-${color}`} /></button>
+                                {/each}
+                                <button class='px-1 btn btn-light' on:click={() => {
+                                    updateStyle({name:'backgroud-color', value:``});
+                                    updateStyle({name:'backgroundHTML', value:``});
+                                }}>Transparent</button>
                             </div>
-                            <div class='row py-1 my-2'>
-                                <div class='col'>
-                                    <span>Couleur de la bordure : </span>
-                                    {#each colors as color}
-                                        <button class='px-1 btn btn-light' on:click={() => {
-                                            updateStyle({name:'border-color', value:`border-${color}`});
-                                            updateStyle({name:'border', value:`border`});
-                                        }}>
-                                            <Icon name='border-outer' class={`text-${color}`} />
-                                        </button>                            
-                                    {/each}
-                                    <button class='px-1 btn btn-light' on:click={() => updateStyle({name:'border', value:''})}>Transparent</button>
+                            <div class="col-4">
+                                <div class="form-inline mb-3">
+                                    <label for="color-html">Others (HTML)</label>
+                                    <input class='form-control' id="color-html" type='text' placeholder="#FFFFFF" value={backgroundHTML} on:change={(e) => updateStyle({name:'backgroundHTML', value:e.target.value})} />
                                 </div>
                             </div>
                         </div>
-                    </div>
-
-                    <p class='my-3'><strong>Prévisualisation</strong></p>
-                    <div class={`row gx-${gutterX} gy-${gutterY} align-items-${alignContent} ${bgColor} ${marginX} ${marginY} ${rounded} ${border} ${borderColor}`} style={`margin-left: ${marginX}rem;margin-right: ${marginX}rem;margin-bottom: ${marginY}rem;margin-top: ${marginY}rem;padding-left: ${paddingX}rem;padding-right: ${paddingX}rem;padding-top: ${paddingY}rem;padding-bottom: ${paddingY}rem;`}>
-                        {#each values as column, position}
-                            <div class={`col-sm-${sm.toString()} col-md-${md.toString()} border border-light`} style={`min-height: 5vh;`};>
-                                Colonne {position}                                
+                        <div class="row py-1 my-2">
+                            <div class='col'>
+                                <span>Margin X : </span>
+                                <input type='number' step={1} min={0} class='form-control' value={marginX} on:change={(e) => updateStyle({name:'marginX', value:e.target.value})} />
                             </div>
-                        {/each}
+                            <div class='col'>
+                                <span>Margin Y : </span>
+                                <input type='number' step={1} min={0} class='form-control' value={marginY} on:change={(e) => updateStyle({name:'marginY', value:e.target.value})} />
+                            </div>
+                        </div>
+                        <div class="row py-1 my-2">
+                            <div class='col'>
+                                <span>Padding X : </span>
+                                <input type='number' step={1} min={0} class='form-control' value={paddingX} on:change={(e) => updateStyle({name:'paddingX', value:e.target.value})} />
+                            </div>
+                            <div class='col'>
+                                <span>Padding Y : </span>
+                                <input type='number' step={1} min={0} class='form-control' value={paddingY} on:change={(e) => updateStyle({name:'paddingY', value:e.target.value})} />
+                            </div>
+                        </div>
+                        <div class="row py-1 my-2">
+                            <div class='col'>
+                                <span>Gutter X : </span>
+                                <input type='number' step={1} min={0} max={5} class='form-control' value={gutterX} on:change={(e) => updateStyle({name:'gutterX', value:e.target.value})} />
+                            </div>
+                            <div class='col'>
+                                <span>Gutter Y : </span>
+                                <input type='number' step={1} min={0} max={5} class='form-control' value={gutterY} on:change={(e) => updateStyle({name:'gutterY', value:e.target.value})} />
+                            </div>
+                        </div>
+                        <div class='row py-1 my-2'>
+                            <div class='col'>
+                                <span>Bordure arrondie : </span>
+                                <button class={`btn px-1 rounded-0 ${rounded === "rounded-0" ? "btn-primary" : "btn-light"}`} on:click={() => updateStyle({name:'rounded', value:'rounded-0'})}><span>r-0</span></button>
+                                <button class={`btn px-1 rounded-1 ${rounded === "rounded-1" ? "btn-primary" : "btn-light"}`} on:click={() => updateStyle({name:'rounded', value:'rounded-1'})}><span>r-1</span></button>
+                                <button class={`btn px-1 rounded-2 ${rounded === "rounded-2" ? "btn-primary" : "btn-light"}`} on:click={() => updateStyle({name:'rounded', value:'rounded-2'})}><span>r-2</span></button>
+                                <button class={`btn px-1 rounded-3 ${rounded === "rounded-3" ? "btn-primary" : "btn-light"}`} on:click={() => updateStyle({name:'rounded', value:'rounded-3'})}><span>r-3</span></button>
+                            </div>
+                        </div>
+                        <div class='row py-1 my-2'>
+                            <div class='col'>
+                                <span>Couleur de la bordure : </span>
+                                {#each colors as color}
+                                    <button class='px-1 btn btn-light' on:click={() => {
+                                        updateStyle({name:'border-color', value:`border-${color}`});
+                                        updateStyle({name:'border', value:`border`});
+                                    }}>
+                                        <Icon name='border-outer' class={`text-${color}`} />
+                                    </button>                            
+                                {/each}
+                                <button class='px-1 btn btn-light' on:click={() => updateStyle({name:'border', value:''})}>Transparent</button>
+                            </div>
+                        </div>
                     </div>
-
+                </div>
+                <p class='my-3'><strong>Prévisualisation</strong></p>
+                <div class={`row gx-${gutterX} gy-${gutterY} align-items-${alignContent} ${marginX} ${marginY} ${rounded} ${border} ${borderColor}`} style={`margin-left: ${marginX}rem;margin-right: ${marginX}rem;margin-bottom: ${marginY}rem;margin-top: ${marginY}rem;padding-left: ${paddingX}rem;padding-right: ${paddingX}rem;padding-top: ${paddingY}rem;padding-bottom: ${paddingY}rem;`}>
+                    {#each values as column, position}
+                        <div class={`col-sm-${sm.toString()} col-md-${md.toString()} border border-light`} style={`min-height: 5vh;`};>
+                            Colonne {position}                                
+                        </div>
+                    {/each}
+                </div>
             </ModalBody>
             <ModalFooter>
                 <button class="btn btn-primary" on:click={toggle}>Enregistrer</button>
@@ -310,7 +327,7 @@
             </ModalFooter>
         </Modal> 
         
-        <div class={`row content gx-${gutterX} gy-${gutterY} align-items-${alignContent} ${bgColor} ${marginX} ${marginY} ${rounded} ${border} ${borderColor}`} style={`margin-left: ${marginX}rem;margin-right: ${marginX}rem;margin-bottom: ${marginY}rem;margin-top: ${marginY}rem;padding-left: ${paddingX}rem;padding-right: ${paddingX}rem;padding-top: ${paddingY}rem;padding-bottom: ${paddingY}rem;`}>
+        <div class={`row content gx-${gutterX} gy-${gutterY} align-items-${alignContent} ${marginX} ${marginY} ${rounded} ${border} ${borderColor}`} style={`margin-left: ${marginX}rem;margin-right: ${marginX}rem;margin-bottom: ${marginY}rem;margin-top: ${marginY}rem;padding-left: ${paddingX}rem;padding-right: ${paddingX}rem;padding-top: ${paddingY}rem;padding-bottom: ${paddingY}rem;`}>
             {#each values as column, position}
                 <div class={`col-${calculateCol(column.sizeMobile, position, values.length)} col-md-${calculateCol(column.sizeTablette, position, values.length)} col-xl-${calculateCol(column.size, position, values.length)}`} style={`min-height: 5vh;`};>
                     <MovingContent 
@@ -321,7 +338,7 @@
                         addContent={null}
                     >
                     {#if admin}
-                        <div class='row'>
+                        <div class='row align-items-end'>
                             <div class='col'>
                                 <label for="conf-desktop-size">Largeur (/12) PC</label>
                                 <input id='conf-desktop-size' class='form-control' type='number' bind:value={column.size} on:change={updateContent} min={1} max={12} />
