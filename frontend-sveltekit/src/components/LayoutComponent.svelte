@@ -234,9 +234,9 @@
                         <div class='row py-1 my-2'>
                             <div class='col'>
                                 <span>Alignement : </span>
-                                <button class={`px-1 btn ${alignContent === "start" ? "btn-primary border border-light" : "btn-light"}`} on:click={() => updateStyle({name:'align-items', value:'start'})}><Icon name='align-top' /></button>
-                                <button class={`px-1 btn ${alignContent === "center" ? "btn-primary border border-light" : "btn-light"}`} on:click={() => updateStyle({name:'align-items', value:'center'})}><Icon name='align-middle' /></button>
-                                <button class={`px-1 btn ${alignContent === "end" ? "btn-primary border border-light" : "btn-light"}`} on:click={() => updateStyle({name:'align-items', value:'end'})}><Icon name='align-bottom' /></button>
+                                <button class={`px-1 btn ${alignContent === "start" ? "btn-primary border border-secondary" : "btn-light"}`} on:click={() => updateStyle({name:'align-items', value:'start'})}><Icon name='align-top' /></button>
+                                <button class={`px-1 btn ${alignContent === "center" ? "btn-primary border border-secondary" : "btn-light"}`} on:click={() => updateStyle({name:'align-items', value:'center'})}><Icon name='align-middle' /></button>
+                                <button class={`px-1 btn ${alignContent === "end" ? "btn-primary border border-secondary" : "btn-light"}`} on:click={() => updateStyle({name:'align-items', value:'end'})}><Icon name='align-bottom' /></button>
                             </div>
                         </div>
                         <div class='row py-1 my-2 align-items-center'>
@@ -290,10 +290,10 @@
                         <div class='row py-1 my-2'>
                             <div class='col'>
                                 <span>Bordure arrondie : </span>
-                                <button class={`btn px-1 rounded-0 ${rounded === "rounded-0" ? "btn-primary border border-light" : "btn-light"}`} on:click={() => updateStyle({name:'rounded', value:'rounded-0'})}><span>r-0</span></button>
-                                <button class={`btn px-1 rounded-1 ${rounded === "rounded-1" ? "btn-primary border border-light" : "btn-light"}`} on:click={() => updateStyle({name:'rounded', value:'rounded-1'})}><span>r-1</span></button>
-                                <button class={`btn px-1 rounded-2 ${rounded === "rounded-2" ? "btn-primary border border-light" : "btn-light"}`} on:click={() => updateStyle({name:'rounded', value:'rounded-2'})}><span>r-2</span></button>
-                                <button class={`btn px-1 rounded-3 ${rounded === "rounded-3" ? "btn-primary border border-light" : "btn-light"}`} on:click={() => updateStyle({name:'rounded', value:'rounded-3'})}><span>r-3</span></button>
+                                <button class={`btn px-1 rounded-0 ${rounded === "rounded-0" ? "btn-primary border border-secondary" : "btn-light"}`} on:click={() => updateStyle({name:'rounded', value:'rounded-0'})}><span>r-0</span></button>
+                                <button class={`btn px-1 rounded-1 ${rounded === "rounded-1" ? "btn-primary border border-secondary" : "btn-light"}`} on:click={() => updateStyle({name:'rounded', value:'rounded-1'})}><span>r-1</span></button>
+                                <button class={`btn px-1 rounded-2 ${rounded === "rounded-2" ? "btn-primary border border-secondary" : "btn-light"}`} on:click={() => updateStyle({name:'rounded', value:'rounded-2'})}><span>r-2</span></button>
+                                <button class={`btn px-1 rounded-3 ${rounded === "rounded-3" ? "btn-primary border border-secondary" : "btn-light"}`} on:click={() => updateStyle({name:'rounded', value:'rounded-3'})}><span>r-3</span></button>
                             </div>
                         </div>
                         <div class='row py-1 my-2'>
@@ -315,7 +315,7 @@
                 <p class='my-3'><strong>Prévisualisation</strong></p>
                 <div class={`row gx-${gutterX} gy-${gutterY} align-items-${alignContent} ${marginX} ${marginY} ${rounded} ${border} ${borderColor}`} style={`margin-left: ${marginX}rem;margin-right: ${marginX}rem;margin-bottom: ${marginY}rem;margin-top: ${marginY}rem;padding-left: ${paddingX}rem;padding-right: ${paddingX}rem;padding-top: ${paddingY}rem;padding-bottom: ${paddingY}rem;`}>
                     {#each values as column, position}
-                        <div class={`col-sm-${sm.toString()} col-md-${md.toString()} border border-light`} style={`min-height: 5vh;`};>
+                        <div class={`col-sm-${sm.toString()} col-md-${md.toString()} border border-secondary`} style={`min-height: 5vh;`};>
                             Colonne {position}                                
                         </div>
                     {/each}

@@ -122,9 +122,9 @@
             <Input type='text' name='text' class='my-3' bind:value={values[0].redirection} placeholder='[option] url de redirection *'/>
             <p>* exemple : https://url_cible.com Pour une url externe au site <br>* exemple : /edito pour une url interne au site</p>
             <div class='row py-1'><div class='col'>
-                <button class={`px-1 btn ${textAlign === "text-start" ? "btn-primary border border-light" : "btn-light"}`} on:click={() => updateStyle({name:'text-align', value:'text-start'})}><Icon name='text-left' /></button>
-                <button class={`px-1 btn ${textAlign === "text-center" ? "btn-primary border border-light" : "btn-light"}`} on:click={() => updateStyle({name:'text-align', value:'text-center'})}><Icon name='text-center' /></button>
-                <button class={`px-1 btn ${textAlign === "text-end" ? "btn-primary border border-light" : "btn-light"}`} on:click={() => updateStyle({name:'text-align', value:'text-end'})}><Icon name='text-right' /></button>
+                <button class={`px-1 btn ${textAlign === "text-start" ? "btn-primary border border-secondary" : "btn-light"}`} on:click={() => updateStyle({name:'text-align', value:'text-start'})}><Icon name='text-left' /></button>
+                <button class={`px-1 btn ${textAlign === "text-center" ? "btn-primary border border-secondary" : "btn-light"}`} on:click={() => updateStyle({name:'text-align', value:'text-center'})}><Icon name='text-center' /></button>
+                <button class={`px-1 btn ${textAlign === "text-end" ? "btn-primary border border-secondary" : "btn-light"}`} on:click={() => updateStyle({name:'text-align', value:'text-end'})}><Icon name='text-right' /></button>
             </div></div>
             <div class='row py-1'>
                 <div class='col'>
