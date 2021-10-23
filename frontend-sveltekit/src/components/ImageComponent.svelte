@@ -108,6 +108,11 @@
         /* width: 100%;
         height: 100%; */
     }
+    figure {
+        object-fit: cover;
+        width: 100%;
+        height: 100%;
+    }
 </style>
 
 <Modal isOpen={edit} {toggle} size='lg' scrollable>
@@ -200,7 +205,7 @@
                             src={`${API_URL}${values[0].url}`} 
                             alt={values[0].substitution}
                             class={`figure-img m-0 p-0 ${rounded} ${shadow}`}
-                            style={`width:${width}%;heigth:auto;`}
+                            style={`width:${width}%;height:auto;`}
                             >
                         <figcaption class='figure-caption'>{values[0].caption}</figcaption>
                     </figure>
@@ -229,7 +234,7 @@
                             src={`${API_URL}${values[0].url}`} 
                             alt={values[0].substitution}
                             class={`figure-img m-0 p-0 ${rounded} ${shadow}`}
-                            style={`width:${width}%;heigth:auto;`}
+                            style={`width:${width}%;height:auto;`}
                             >
                         <figcaption class='figure-caption'>{values[0].caption}</figcaption>
                     </figure>
@@ -240,7 +245,7 @@
                         src={`${API_URL}${values[0].url}`} 
                         alt={values[0].substitution}
                         class={`figure-img m-0 p-0 ${rounded} ${shadow}`}
-                        style={`width:${width}%;heigth:auto;`}
+                        style={`width:${width}%;height:auto;`}
                         >
                     <figcaption class='figure-caption'>{values[0].caption}</figcaption>
                 </figure>

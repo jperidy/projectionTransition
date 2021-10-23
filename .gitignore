@@ -18,3 +18,4 @@ config.json
 docker-copy-backup.bash
 frontend-sveltekit/build
 test.bash
+frontend-sveltekit/.svelte-kit
