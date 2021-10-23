@@ -1,4 +1,5 @@
 <script>
+import { element } from "svelte/internal";
 import { recursiveFilmDelete } from "../actions/filmActions";
 
 import { recursiveDeleteAction } from "../utils/imageFunctions";
@@ -16,18 +17,24 @@ import { recursiveDeleteAction } from "../utils/imageFunctions";
     edit;
 
     const addToLayer = async(item, position) => {
-        values = [...values, {...item, top:0, left:0}];
+        values = [...values, {...item, top:0, left:0, width: ""}];
     };
 
     
     const handleMove = (e, pos) => {
         if (e.buttons) {
+            //console.log(e.currentTarget.offsetWidth);
             let layer = document.querySelector('.element_0');
             let maxWidth = layer.offsetWidth;
             let maxHeight = layer.offsetHeight;
             values[pos].left = values[pos].left + 100 * e.movementX / maxWidth ;
             values[pos].top = values[pos].top + 100 * e.movementY / maxHeight ;
-            //console.log(values[pos].left, values[pos].top);
+
+            // if (values[pos].left < 0) values[pos].left = 0;
+            // if (values[pos].left > (100 - maxWidth)) values[pos].left = 100 - maxWidth;
+            // if (values[pos].top < 0) values[pos].top = 0;
+            // if (values[pos].top < (100 - maxHeight)) values[pos].top = 100 - maxHeight;
+
             values = values;
         }
     };
@@ -44,9 +51,6 @@ import { recursiveDeleteAction } from "../utils/imageFunctions";
             values = values;
         }
     }
-
-    let top = 0;
-    let left = 0;
     
 </script>
 
@@ -55,9 +59,10 @@ import { recursiveDeleteAction } from "../utils/imageFunctions";
             {#if element.type}
                 {#if posElement}
                     <div 
-                        class="element_N" 
-                        style={`position:absolute;top:${element.top || '0'}%;left:${element.left || '0'}%;max-width:${100-element.left}%;max-height:${100-element.top}%;`}
+                        class={`element_N`}
+                        style={`position:absolute;top:${element.top || '0'}%;left:${element.left || '0'}%;max-width:${100-element.left}%;max-height:${100-element.top}%;width:${element.width ? element.width + '%' : null};`}
                     >            
+                        <div class={`${admin && "border"}`}>
                         <DisplayCustomComponent
                             bind:value={element.value}
                             bind:values={element.values}
@@ -67,10 +72,17 @@ import { recursiveDeleteAction } from "../utils/imageFunctions";
                             admin={admin}
                             edit={false}
                         />
+                        </div>
                         {#if admin}
                             <div class="tools" style="position: relative;">
                                 <button class='btn-danger' on:click={() => handleRemove(posElement)}><i class="bi bi-trash-fill"></i></button>
                                 <button class='btn-primary' on:mousemove={(e) => handleMove(e, posElement)}><i class="bi bi-hand-index-thumb"></i></button>
+                                <div class="form-floating">
+                                    <input type="number" class="form-control" style="width: auto;" id="floating-width" bind:value={element.width} min="0" max="100">
+                                    <label for="floating-width">Width (%)</label>
+                                </div>
+                                <span>top: {element.top.toFixed(2)}% | </span>
+                                <span>left: {element.left.toFixed(2)}%</span>
                             </div> 
                         {/if}
                     </div>

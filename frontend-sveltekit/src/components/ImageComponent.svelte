@@ -4,7 +4,6 @@
     import { uploadImage } from "../actions/imagesActions";
     import EditButton from "./EditButton.svelte";
     import config from '../config.json';
-
     const API_URL = config.SVELTE_ENV === 'dev' ? config.API_URL_DEV : config.SVELTE_ENV === 'preprod' ? config.API_URL_PREPROD : config.SVELTE_ENV === 'production' ? config.API_URL_PROD : config.API_URL_DEV;
 
     export let values=[];
@@ -116,7 +115,7 @@
     <ModalBody>
     <Row>
         <Col class={`col`}>
-            <Input type='file' name='image-url' on:change={(e) => onChangeHandler (0, e)} />
+            <Input type='file' name='image-url' on:change={(e) => onChangeHandler(0, e)} />
             <Input type='text' name='text' class='my-3' bind:value={values[0].caption} placeholder='[option] Légende'/>
             <Input type='text' name='text' class='my-3' bind:value={values[0].substitution} placeholder='Texte de substitution'/>
             <Input type='text' name='text' class='my-3' bind:value={values[0].redirection} placeholder='[option] url de redirection *'/>

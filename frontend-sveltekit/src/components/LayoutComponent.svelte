@@ -1,4 +1,6 @@
 <script>
+import { uploadImage } from "../actions/imagesActions";
+
 
     import { onMount } from "svelte";
     import { Icon, Modal, ModalBody, ModalFooter, ModalHeader } from "sveltestrap";
@@ -89,7 +91,8 @@
     $: alignContent = styles.filter(x => x.name === 'align-items')[0] && styles.filter(x => x.name === 'align-items')[0].value;
     $: bgColor = styles.filter(x => x.name === 'backgroud-color')[0] && styles.filter(x => x.name === 'backgroud-color')[0].value;
     $: backgroundHTML = styles.filter(x => x.name === 'backgroundHTML')[0] && styles.filter(x => x.name === 'backgroundHTML')[0].value || '';
-    
+    $: backgroundImage = styles.filter(x => x.name === 'backgroundImage')[0] && styles.filter(x => x.name === 'backgroundImage')[0].value || '';
+
     $: marginX = styles.filter(x => x.name === 'marginX')[0] && styles.filter(x => x.name === 'marginX')[0].value || 0;
     $: marginY = styles.filter(x => x.name === 'marginY')[0] && styles.filter(x => x.name === 'marginY')[0].value || 0;
     $: paddingX = styles.filter(x => x.name === 'paddingX')[0] && styles.filter(x => x.name === 'paddingX')[0].value || 0;
@@ -125,6 +128,20 @@
             }
         } else {
             return '4';
+        }
+    };
+
+    const onChangeFileHandler = async(index, e) => {
+        const data = new FormData();
+        data.append('file', e.target.files[0]);
+        const imageToReplace = backgroundImage;
+        const result = await uploadImage(data, imageToReplace);
+        if (result.status === 'Ok') {
+            // values[index].url = result.data;
+            updateStyle({name:'backgroundImage', value: result.data});
+            // values = values;
+        } else {
+            console.log('error', result.data);
         }
     };
 
@@ -180,6 +197,7 @@
     size={{ xs: xsSize, sm: smSize, md: mdSize, lg: lgSize, xl: xlSize}}
     backgroundColor={bgColor}
     backgroundHTML={backgroundHTML}
+    backgroundImage={backgroundImage}
 >
 
     <div class='content-container'>
@@ -246,7 +264,7 @@
                                     <button class='px-1 btn btn-light' on:click={() => updateStyle({name:'backgroud-color', value:`bg-${color}`})}><Icon name='file-font-fill' class={`text-${color}`} /></button>
                                 {/each}
                                 <button class='px-1 btn btn-light' on:click={() => {
-                                    updateStyle({name:'backgroud-color', value:``});
+                                    updateStyle({name:'backgroud-color', value:`bg-transparent`});
                                     updateStyle({name:'backgroundHTML', value:``});
                                 }}>Transparent</button>
                             </div>
@@ -255,6 +273,12 @@
                                     <label for="color-html">Others (HTML)</label>
                                     <input class='form-control' id="color-html" type='text' placeholder="#FFFFFF" value={backgroundHTML} on:change={(e) => updateStyle({name:'backgroundHTML', value:e.target.value})} />
                                 </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <span>Image de fond : </span>
+                                <input type="file" class="form-control" on:change={(e) => onChangeFileHandler(0, e)}/>
                             </div>
                         </div>
                         <div class="row py-1 my-2">

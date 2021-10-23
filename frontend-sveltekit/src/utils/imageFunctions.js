@@ -2,14 +2,12 @@ import { deleteImage } from "../actions/imagesActions";
 
 export const recursiveDeleteAction = async (objectToDelete) => {
 
-    //console.log('recursive delete', objectToDelete);
-
     // if no objectToDelete passed (partner case)
     if (objectToDelete.url && objectToDelete.url.values.length) {
-        recursiveDeleteAction(objectToDelete.url.values);
+        await recursiveDeleteAction(objectToDelete.url.values);
     }
     if (objectToDelete.values && objectToDelete.values.length) {
-        recursiveDeleteAction(objectToDelete.values);
+        await recursiveDeleteAction(objectToDelete.values);
     }
     
     for (let ind = 0 ; ind < objectToDelete.length ; ind++) {
@@ -19,10 +17,10 @@ export const recursiveDeleteAction = async (objectToDelete) => {
         }
           
         if (objectToDelete[ind].component && objectToDelete[ind].component.values && objectToDelete[ind].component.values.length) {
-            recursiveDeleteAction(objectToDelete[ind].component.values);
+            await recursiveDeleteAction(objectToDelete[ind].component.values);
         }
         if (objectToDelete[ind].values && objectToDelete[ind].values.length) {
-            recursiveDeleteAction(objectToDelete[ind].values);
+            await recursiveDeleteAction(objectToDelete[ind].values);
         }
     }
     return;
@@ -30,7 +28,6 @@ export const recursiveDeleteAction = async (objectToDelete) => {
 
 export const recursiveBlankMedias = (array) => {
 
-    // const arrayOut = [...arrayIn];
     for (let ind=0; ind<array.length; ind++) {
         if (array[ind].url) {
             if (typeof array[ind].url === "string") {
@@ -48,5 +45,47 @@ export const recursiveBlankMedias = (array) => {
             recursiveBlankMedias(array[ind].values);
         }
     }
-    //return array;
+};
+
+export const recursiveDeleteStyle = async (styleToDelete) => {
+    console.log("styleToDelete", styleToDelete);
+
+    if (styleToDelete.values && styleToDelete.values.length) {
+        for (let ind = 0 ; ind < styleToDelete.values.length ; ind++) {
+            const childObject = styleToDelete.values[ind];
+            await recursiveDeleteStyle(childObject);
+        }
+    }
+
+    if (styleToDelete.styles && styleToDelete.styles.length > 0) {
+        for (let ind = 0; ind < styleToDelete.styles.length; ind++) {
+            if (['backgroundImage'].includes(styleToDelete.styles[ind].name && typeof styleToDelete.styles[ind].value === "string")) {
+                await deleteImage(styleToDelete.styles[ind].value)
+            }
+        }
+    }
+
+
+    return;
+
+
+
+    // for (let ind=0; ind<styleToDelete.length; ind++) {
+    //     if (["backgroundImage"].includes(styleToDelete[ind].name)) {
+    //         if (typeof styleToDelete[ind].value === "string") {
+    //             //styleToDelete[ind].url = "";
+    //             await deleteImage(objectToDelete[ind].value);
+    //         } else {
+    //             if (styleToDelete[ind].url.values && styleToDelete[ind].url.values.length) {
+    //                 recursiveBlankMedias(styleToDelete[ind].url.values)
+    //             }
+    //         }
+    //     }
+    //     if (styleToDelete[ind].values && styleToDelete[ind].values.length) {
+    //         recursiveBlankMedias(styleToDelete[ind].values);
+    //     }
+    //     if (styleToDelete[ind].component && styleToDelete[ind].component.values && styleToDelete[ind].component.values.length) {
+    //         recursiveBlankMedias(styleToDelete[ind].component.values);
+    //     }
+    // }
 };
