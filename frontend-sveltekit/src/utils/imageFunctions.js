@@ -48,7 +48,7 @@ export const recursiveBlankMedias = (array) => {
 };
 
 export const recursiveDeleteStyle = async (styleToDelete) => {
-    console.log("styleToDelete", styleToDelete);
+    //console.log("styleToDelete", styleToDelete);
 
     if (styleToDelete.values && styleToDelete.values.length) {
         for (let ind = 0 ; ind < styleToDelete.values.length ; ind++) {

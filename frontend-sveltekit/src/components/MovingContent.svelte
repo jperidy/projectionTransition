@@ -41,8 +41,8 @@
         if (window.confirm('Attention cette action est irreversible !')) {
             const values = array[position];
             const copyValue = JSON.parse(JSON.stringify(values));
-            console.log(values === copyValue);
-            console.log(copyValue);
+            //console.log(values === copyValue);
+            //console.log(copyValue);
 
             // Delete any image tied to object
             await recursiveDeleteAction(values);
