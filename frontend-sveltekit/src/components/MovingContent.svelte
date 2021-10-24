@@ -41,8 +41,6 @@
         if (window.confirm('Attention cette action est irreversible !')) {
             const values = array[position];
             const copyValue = JSON.parse(JSON.stringify(values));
-            //console.log(values === copyValue);
-            //console.log(copyValue);
 
             // Delete any image tied to object
             await recursiveDeleteAction(values);
@@ -84,10 +82,14 @@
 	    transform: scale(0);
         transition: .5s ease;
         width: 0px;
+        /* position: absolute;
+        top: 0%;
+        left: 95%; */
     }
     .moving-container:hover .edition {
         -webkit-transform: scale(.7);
 	    transform: scale(.7) translateX(-3rem);
+	    /* transform: scale(.7); */
         transition: .5s ease;
         width: 5vh;
     }
@@ -119,7 +121,8 @@
         />
     {/if}
 
-    <div class='moving-container border-light rounded-3 my-1 mx-1 p-1 bg-transparent shadow-lg'>
+    <!-- my-1 mx-1 p-1  -->
+    <div class='moving-container border-light rounded-3 bg-transparent shadow-lg'>
         <div class='row align-items-center'>
             <div class="col">
                 <slot></slot>
