@@ -1,19 +1,25 @@
 <script context='module'>
     
     import { getArticle } from '../../actions/articleActions';
+    import { getSeo } from '../../actions/seoActions';
+
     
     export const prerender = true;
 
+    
     export async function load({page, fetch, session, context}){
-
+        
         const params = { id:null, category:null };
         let [category, id] = page.params.data.split('/');
         params.category = category ? category : '';
         params.id = id ? id : '';
-
+        
         //verify if login
         let redirection = page.path.split('/login');
         
+        //load default seo informations
+        const { seo } = await getSeo();
+
         //const pageRequest = await getContent(params.name);
         let articleRequest = { content: { content: [], name: '' }, loading: true, message: '' };
         if (redirection.length === 1) {
@@ -21,7 +27,7 @@
             articleRequest = await getArticle(id);
         }
 
-        return {props: {articleRequest, params, redirection}};
+        return {props: {articleRequest, params, redirection, defaultSeo: seo}};
     }
 
 </script>
@@ -45,6 +51,8 @@
     export let params;
     export let articleRequest;
     export let redirection;
+    export let defaultSeo;
+    defaultSeo ; // to use with SeoComponent if used 
 
     // redirect to login page if requested
     onMount(() => {
@@ -168,5 +176,6 @@
                 />
             </div>
         </div>
+        
     </CustomContainer>
 {/if}

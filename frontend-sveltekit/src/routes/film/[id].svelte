@@ -1,24 +1,26 @@
 <script context='module'>
 
     import { getFilm } from '../../actions/filmActions';
+    import { getSeo } from '../../actions/seoActions';
     
     export const prerender = true;
 
     export async function load({page, fetch, session, context}){
 
-        //verify if login
-        let redirection = page.path.split('/login');
+    //verify if login
+    let redirection = page.path.split('/login');
+    let filmRequest = {film:null, loading:true, message:''}
 
-        let filmRequest = {film:null, loading:true, message:''}
-        const id = page.params.id ? page.params.id : null;
-        
-        filmRequest = await getFilm(id);
-
-        if (redirection.length === 1) {
-            return {status:200, props: {filmRequest, id, page}};
-        } else {
-            return {status:307, redirect: `/login?redirection=${redirection[0]}`}
-        }
+    //load default seo informations
+    const { seo } = await getSeo();
+    
+    const id = page.params.id ? page.params.id : null;
+    filmRequest = await getFilm(id);
+    if (redirection.length === 1) {
+        return {status:200, props: {filmRequest, id, page, defaultSeo: seo}};
+    } else {
+        return {status:307, redirect: `/login?redirection=${redirection[0]}`}
+    }
     }
 
 </script>
@@ -32,7 +34,6 @@
     import Loading from '../../components/Loading.svelte';
     import CustomContainer from '../../components/CustomContainer.svelte';
     import TextComponent from '../../components/TextComponent.svelte';
-    import MovingContent from '../../components/MovingContent.svelte';
 
     import { userInfo, filmUpdateRequest } from '../../store';
     import { goto } from '$app/navigation';
@@ -42,11 +43,13 @@
     import SeoComponent from '../../components/SeoComponent.svelte';
     import { logout, verifyLocalToken } from '../../actions/userActions';
     import { onMount } from 'svelte';
+
     const SITE_URL = config.SVELTE_ENV === 'dev' ? config.SITE_URL_DEV : config.SVELTE_ENV === 'preprod' ? config.SITE_URL_PREPROD : config.SVELTE_ENV === 'production' ? config.SITE_URL_PROD : config.SITE_URL_DEV;
     
     export let filmRequest;
     export let id;
     export let page;
+    export let defaultSeo;
 
     $: isAuthenticate = $userInfo && $userInfo.profil === 'admin' ? true : false;
 
@@ -293,6 +296,7 @@
                 siteURL={SITE_URL}
                 admin={admin}
                 updateContent={updateFilm}
+                defaultSeo={defaultSeo}
             />
         </CustomContainer>
     {/if}

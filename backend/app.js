@@ -9,6 +9,9 @@ const articleRoutes = require('./routes/articleRoutes');
 const filmRoutes = require('./routes/filmRoutes');
 const emailRoutes = require('./routes/emailRoutes');
 const logsRoutes = require('./routes/logsRoutes');
+const navRoutes = require('./routes/navRoutes');
+const footerRoutes = require('./routes/footerRoutes');
+const seoRoutes = require('./routes/seoRoutes');
 
 const config = require('../config/config.json');
 
@@ -61,6 +64,9 @@ app.use('/api/article', articleRoutes);
 app.use('/api/film', filmRoutes);
 app.use('/api/emails', emailRoutes);
 app.use('/api/statistics', logsRoutes);
+app.use('/api/nav', navRoutes);
+app.use('/api/footer', footerRoutes);
+app.use('/api/seo', seoRoutes);
 
 
 // static route for developpement access to build repository

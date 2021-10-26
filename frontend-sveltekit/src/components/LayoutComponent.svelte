@@ -1,7 +1,5 @@
 <script>
-import { uploadImage } from "../actions/imagesActions";
-
-
+    import { uploadImage } from "../actions/imagesActions";
     import { onMount } from "svelte";
     import { Icon, Modal, ModalBody, ModalFooter, ModalHeader } from "sveltestrap";
     import AddContent from "./AddContent.svelte";

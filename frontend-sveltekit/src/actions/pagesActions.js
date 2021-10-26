@@ -1,5 +1,4 @@
 import axios from 'axios';
-//import { API_URL } from '../config/backend_api';
 import { get } from 'svelte/store';
 import { userInfo, pageRequest } from '../store';
 import config from '../config.json';

@@ -1,10 +1,11 @@
 <script context='module'>
 
     import { getContent } from '../actions/pagesActions';
+    import { getSeo } from '../actions/seoActions';
     
     export const prerender = true;
 
-    export async function load({page}){
+    export async function load({page}) {
 
         const params = { name: 'homeContent', city:'' }
         
@@ -15,13 +16,16 @@
         //verify if login is requested
         let redirection = page.path.split('/login');
 
+        //load default seo informations
+        const { seo } = await getSeo();
+
         //const pageRequest = await getContent(params.name);
         let pageRequest = { content: { content: [], name: '' }, loading: true, message: '' };
         if (redirection.length === 1) {
             let pageName = page.path.substring(1).replace('/','-');
             pageName = pageName === '' ? 'homeContent' : pageName;
             pageRequest = await getContent(pageName);
-            return {status:200, props: {pageRequest, params, page}};
+            return {status:200, props: {pageRequest, params, page, defaultSeo: seo}};
         } else {
             return { status: 307, redirect: `/login?redirection=${redirection[0]}`}
         }
@@ -34,8 +38,7 @@
     export let params;
     export let pageRequest;
     export let page;
-
-    //$: console.log('params', params);
+    export let defaultSeo;
 
     import { updateOrCreateContent } from '../actions/pagesActions';
 
@@ -146,6 +149,7 @@
             siteURL={SITE_URL}
             admin={admin}
             updateContent={updateContent}
+            defaultSeo={defaultSeo}
         />  
     </Row>
 {/if}
