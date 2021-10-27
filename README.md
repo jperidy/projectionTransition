@@ -21,7 +21,6 @@ A la racine du projet créer le dossier /config et insérer dedans le fichier co
 // /config/config.json //
 {
     "NODE_ENV": "dev",
-    "VERSION": "0.0.1",
     "PORT": 5000, 
     "JWT_SECRET": "", 
     "MONGO_URI_DEV": "",
@@ -38,7 +37,6 @@ A la racine du projet créer le dossier /config et insérer dedans le fichier co
 Description des différents attributs du fichier config.json
 
 - NODE_ENV : choisir entre "dev", "preprod" ou "production"
-- VERSION : numéro de version de votre backend
 - PORT : numéro de port sur lequel sera exposé le backend
 - JWT_SECRET : Clé aléatoire pour le secret d'authentification JWT (choisir une valeure et ne plus la changer)
 - MONGO_URI_DEV : utilisé si NODE_ENV = dev
@@ -64,121 +62,24 @@ Dans le docker frontend-sveltekit/src/ créer le fichier config.json suivant :
 
 {
     "SVELTE_ENV": "production",
-    "VERSION": "0.0.4",
     "API_URL_DEV": "http://localhost:5000",
     "API_URL_PREPROD": "https://dev.projtranapi.jprdev.ovh",
     "API_URL_PROD": "https://dev.projtranapi.jprdev.ovh",
     "SITE_URL_DEV": "https://localhost:3000",
     "SITE_URL_PREPROD": "https://dev.projtran.jprdev.ovh",
     "SITE_URL_PROD": "https://dev.projtran.jprdev.ovh",
-    "NAV_BAR": {
-        "TITLE": [
-            {"name": "Display name", "url": "/path", "SUBTITLE": []},
-        ],
-        "BRAND": {
-            "LOGO": {
-                "path": "/images/Logo_Principal.jpg", 
-                "alt": "Logo de votre marque", 
-                "style": "max-width: 20vh; height:auto;"
-            },
-            "NAME": ""
-        },
-        "SOCIAL_NETWORKS": [
-            {"name": "facebook", "icon": "/icones/FB.004.png", "alt": "icone pour être redirigé vers FB", "redirect": "/facebook", "target": "_blank"},
-        ],
-        "STYLE": {
-            "expand": "xl",
-            "color": "white",
-            "theme": "light",
-            "TITLE": { "bootstrapClass": "text-dark mx-2", "style": "font-family: omotenashi_2regular;font-size: 1.3rem;" },
-            "SOCIAL_NETWORKS": { "bootstrapClass": "", "style": "max-width: 6vh;height: auto;"}
-        }
-    },
-    "FOOTER": {
-        "TYPE": {
-            "navigation": true,
-            "copyright": true
-        },
-        "BRAND": {
-            "LOGO": {
-                "path": "/images/Logo_Principal.jpg", 
-                "alt": "Logo de votre marque pour remonter en haut de page",
-                "style" : "width: 100%; max-width:130px;"
-            },
-            "NAME": ""
-        },
-        "TITLE": [
-            {"name": "QUI SOMMES-NOUS", "url": "/qui-sommes-nous#up", "SUBTITLE": []},
-        ],
-        "SOCIAL_NETWORKS": [
-            {"name": "facebook", "icon": "/icones/FB.004.png", "alt": "icone pour consulter la page Facebook", "redirect": "https://www.facebook.com/yourMarque/", "target": "_blank"},
-        ],
-        "COPYRIGHT": {
-            "value": "©2021 Votre marque",
-            "style": "ont-size:1rem;",
-            "bootstrapClass": "mx-3"
-        },
-        "STYLE": {
-            "FOOTER": {"bootstrapClass": "bg-white text-dark align-items-center" , "style": ""},
-            "NAVIGATION": {"bootstrapClass": "row bg-white text-dark align-items-center px-3 py-2 " , "style": "min-height:15vh;"},
-            "COPYRIGHT": {"bootstrapClass": "row align-items-center my-1" , "style": ""},
-            "TITLE": {"bootstrapClass": "mx-3 fw-bold", "style": "font-size:1rem;cursor:pointer;"},
-            "SOCIAL_NETWORKS" : {"bootstrapClass": "", "style" : "max-width: 7vh;height: auto;"}
-        }
-    },
-    "SEO": {
-        "DEFAULT_TITLE": "My app name",
-        "DEFAULT_DESCRIPTION": "My app name - what I am doing",
-        "DEFAULT_OG_TITLE": "My app name - what I am doing",
-        "DEFAULT_OG_DESCRIPTION": "Information on my app",
-        "DEFAULT_OG_IMAGE": "/images/og_logo.jpg"
-    },
-    "SHEETS": {
-        "FAVICON": {
-            "_48_48": {"path": "/favicon_48x48.png"},
-            "_64_64": {"path": "/favicon_64x64.png"},
-            "_96_96": {"path": "/favicon_96x96.png"},
-            "_128_128": {"path": "/favicon_128x128.png"},
-            "_196_196": {"path": "/favicon_196x196.png"}
-        }
-    }
 }
 
 ```
 
 - SVELTE_ENV: choisir l'environnement entre "dev", "preprod" ou "production"
-- VERSION : numéro de version de votre application frontend
 - API_URL_DEV : url de l'API si SVELTE_ENV = 'dev' (ex. "http://localhost:5000")
 - API_URL_PREPROD : url de l'API si SVELTE_ENV = 'preprod' (ex. "https://preprod.monprojetapi.ovh") 
 - API_URL_PROD : url de l'API si SVELTE_ENV = 'production' (ex. "https://monprojetapi.ovh")
 - SITE_URL_DEV : url du site web si SVELTE_ENV = 'dev' (ex. "https://localhost:3000")
 - SITE_URL_PREPROD : url du site web si SVELTE_ENV = 'preprod' (ex. "https://preprod.monprojet:3000")
 - SITE_URL_PROD : url du site web si SVELTE_ENV = 'dev' (ex. "https://monprojet.ovh")
-- NAV_BAR : Description de la balise de navigation de l'application
-    - TITLE : Array pour décrire les onglets de navigation
-        - name : nom à affichier
-        - url : adresse de la page
-        - SUBTITLE : pas encore implémenté si besoin de sous onglets de navigation
-    - BRAND : Objet pour ajouter votre marque dans la navigation
-        - LOGO : {
-                    "path": "/images/Logo_Principal.jpg", 
-                    "alt": "Logo de votre marque pour remonter en haut de page",
-                    "style" : "width: 100%; max-width:130px;"
-                },
-        - NAME : "Nom de votre marque" (laisser vide si vous ne souhaitez pas l'afficher)
-    - SOCIAL_NETWORKS : Array pour décrire les réseaux sociaux sur lesquels vous êtes présents et les afficher dans la navigation
-    - STYLE : configuration du style de votre barre de navigation
-- FOOTER : Description de la balise footer de l'application. Cette balise est découpée en deux objets :
-    - TYPE : 
-        - navigation : laisser à true pour l'afficher. Permet de naviguer vers des pages du site web (par exemple les mentions légales)
-        - copyright : laisser à true pour l'afficher. Permet d'afficher un copyright en bas de page.
-    - BRAND : permet d'ajouter votre marque en bas de page. Cette marque inclus un lien vers le haut de votre page pour faciliter la navigation.
-    - TITLE : paramétrage des onglet si vous avez laissé TYPE.navigation à true
-    - SOCIAL_NETWORKS : paramétrer les liens vers les réseaux sociaux si vous avez laissé TYPE.navigation à true
-    - COPYRIGHT : paramétrer votre copyright si vous avez laiss TYPE.copyright à true
-    - STYLE : paramétrage de différents styles de votre balise footer.
-- SEO : Description par défaut de vos balises améliorant le SEO de votre page
-- SHEETS.FAVICON : lien vers les images aux différents formats à charger.
+
 
 ### Création du fichier mains.min.css
 Dans le répertoire /frontend-sveltekit/static ajouter votre feuille de style bootstrap customisée et donner lui le nom mains.min.css.
