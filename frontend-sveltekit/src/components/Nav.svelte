@@ -25,6 +25,7 @@
     import { uploadImage } from '../actions/imagesActions';
     import Message from './Message.svelte';
     import config from '../config.json';
+import EditFontsComponent from './EditFontsComponent.svelte';
     const API_URL = config.SVELTE_ENV === 'dev' ? config.API_URL_DEV : config.SVELTE_ENV === 'preprod' ? config.API_URL_PREPROD : config.SVELTE_ENV === 'production' ? config.API_URL_PROD : config.API_URL_DEV;
 
   
@@ -341,9 +342,9 @@ expand={expand}
         </Dropdown>
       {/each}
       {#if isAuthenticate}
-      <Dropdown nav inNavbar>
-        <button class="btn btn-light px-2" on:click={toggle}><i class="bi bi-pencil-square"></i></button>
-      </Dropdown>
+        <Dropdown nav inNavbar>
+          <button class="btn btn-light px-2" on:click={toggle}><i class="bi bi-pencil-square"></i></button>
+        </Dropdown>
       {/if}
     </Nav>
   </Collapse>
@@ -409,7 +410,11 @@ expand={expand}
             </div>
           {/each}
         </div>
+      </div>
 
+      <!-- fonts edition -->
+      <div class="row p-2">
+        <EditFontsComponent />
       </div>
 
       <!-- social network edition -->

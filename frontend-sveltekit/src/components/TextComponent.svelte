@@ -1,4 +1,6 @@
 <script>
+    import { getFonts } from "../actions/fontsActions";
+
     import SvelteMarkdown from "svelte-markdown";
 
     import { Icon, Modal, ModalBody, ModalFooter, ModalHeader } from "sveltestrap";
@@ -17,6 +19,17 @@
     export let updateContent;
 
     const colors = ['primary', 'secondary', 'pomme', 'outremer', 'lavande', 'caraibe', 'tangerine', 'ambre', 'light', 'white', 'dark', 'black'];
+    
+    let fonts = [];
+
+    $: {
+        if (edit && fonts.length === 0) {
+            // import font family
+            getFonts()
+                .then((result) => fonts = result.fonts)
+                .catch((error) => fonts = []);
+        }
+    }
 
     const toggle = async() => {
         if (edit && updateContent) {
@@ -28,9 +41,12 @@
     $: textAlign = styles.filter(x => x.name === 'text-align')[0] && styles.filter(x => x.name === 'text-align')[0].value;
     $: textColor = styles.filter(x => x.name === 'text-color')[0] && styles.filter(x => x.name === 'text-color')[0].value;
     $: bgColor = styles.filter(x => x.name === 'backgroud-color')[0] && styles.filter(x => x.name === 'backgroud-color')[0].value;
+    $: bgPrimaryText = styles.filter(x => x.name === 'bgPrimaryText')[0] && styles.filter(x => x.name === 'bgPrimaryText')[0].value;
     $: fontWeight = styles.filter(x => x.name === 'font-weight')[0] && styles.filter(x => x.name === 'font-weight')[0].value;
     $: fontStyle = styles.filter(x => x.name === 'font-style')[0] && styles.filter(x => x.name === 'font-style')[0].value;
-    $: bgPrimaryText = styles.filter(x => x.name === 'bgPrimaryText')[0] && styles.filter(x => x.name === 'bgPrimaryText')[0].value;
+    $: fontFamily = styles.filter(x => x.name === 'fontFamily')[0] && styles.filter(x => x.name === 'fontFamily')[0].value || "";
+    $: fontSize = styles.filter(x => x.name === 'fontSize')[0] && styles.filter(x => x.name === 'fontSize')[0].value || "";
+    
     //$: padding = styles.filter(x => x.name === 'padding')[0] && styles.filter(x => x.name === 'padding')[0].value;
     
     $: marginL = styles.filter(x => x.name === 'marginL')[0] && styles.filter(x => x.name === 'marginL')[0].value || 0;
@@ -142,6 +158,21 @@
                         <!-- <button class={`btn ${fontStyle === 'normal' ? 'btn-primary' : 'btn-light' } px-1`} on:click={() => updateStyle({name:'font-style', value:'normal'})}>I</button> -->
                         <button class={`btn ${fontStyle === 'italic' ? 'btn-primary' : 'btn-light' } px-1`} on:click={() => updateStyle({name:'font-style', value:'italic'})}><Icon name='type-italic' /></button>
                     </div></div>
+                    <div class="row py-1">
+                        <div class="col">
+                            <label for="select-font">Choisir la police : </label>
+                            <select class="form-control" id="select-font" value={fontFamily} on:change={(e) => updateStyle({name: 'fontFamily', value: e.target.value})}>
+                                <option value="">Default</option>
+                                {#each fonts as font}
+                                    <option value={font.name}>{font.name}</option>
+                                {/each}
+                            </select>
+                        </div>
+                        <div class="col">
+                            <label for="select-font">Taille de la police (rem) : </label>
+                            <input type="number" class="form-control" min={0} max={5} step={0.05} value={fontSize} on:change={(e) => updateStyle({name: 'fontSize', value: e.target.value})}>
+                        </div>
+                    </div>
                     <div class='row py-1'>
                         <div class='col'>
                             <button class='btn btn-light px-1' on:click={() => updateStyle({name:'bgPrimaryText', value:true})}><span class='bg-primary'>Background</span></button>
@@ -212,7 +243,7 @@
                     <p class='my-3'><strong>Prévisualisation</strong></p>
                     <div class='row'>
                         <div class='col'>
-                            <div class={`${textColor} ${bgColor} ${rounded}`} style={`text-align: ${textAlign};font-weight: ${fontWeight};font-style: ${fontStyle};transform: rotate(${transformR}deg);margin-left: ${marginL}rem;margin-right: ${marginR}rem;margin-top: ${marginT}rem;margin-bottom: ${marginB}rem;padding-left: ${paddingL}rem;padding-right: ${paddingR}rem;padding-top: ${paddingT}rem;padding-bottom: ${paddingB}rem;`}>
+                            <div class={`${textColor} ${bgColor} ${rounded}`} style={`text-align: ${textAlign}; font-family: ${fontFamily};${fontSize ? "font-size: " + fontSize + "rem"  : ""};font-weight: ${fontWeight};font-style: ${fontStyle};transform: rotate(${transformR}deg);margin-left: ${marginL}rem;margin-right: ${marginR}rem;margin-top: ${marginT}rem;margin-bottom: ${marginB}rem;padding-left: ${paddingL}rem;padding-right: ${paddingR}rem;padding-top: ${paddingT}rem;padding-bottom: ${paddingB}rem;`}>
                                 <SvelteMarkdown source={values[0] && values[0].value ? values[0].value : ''} renderers={{
                                     paragraph: ParagrapheMarkdown, 
                                     table: TableMarkdown, 
@@ -231,7 +262,7 @@
         </ModalFooter>
     </Modal>
     <div class='content' >
-        <div class={`${textColor} ${bgColor} ${rounded}`} style={`text-align: ${textAlign};font-weight: ${fontWeight};font-style: ${fontStyle};transform: rotate(${transformR}deg);margin-left: ${marginL}rem;margin-right: ${marginR}rem;margin-top: ${marginT}rem;margin-bottom: ${marginB}rem;padding-left: ${paddingL}rem;padding-right: ${paddingR}rem;padding-top: ${paddingT}rem;padding-bottom: ${paddingB}rem;`}>
+        <div class={`${textColor} ${bgColor} ${rounded}`} style={`text-align: ${textAlign}; font-family: ${fontFamily};${fontSize ? "font-size: " + fontSize + "rem"  : ""};font-weight: ${fontWeight};font-style: ${fontStyle};transform: rotate(${transformR}deg);margin-left: ${marginL}rem;margin-right: ${marginR}rem;margin-top: ${marginT}rem;margin-bottom: ${marginB}rem;padding-left: ${paddingL}rem;padding-right: ${paddingR}rem;padding-top: ${paddingT}rem;padding-bottom: ${paddingB}rem;`}>
             <SvelteMarkdown source={values[0] && values[0].value ? values[0].value : ''} renderers={{
                 paragraph: ParagrapheMarkdown, 
                 table: TableMarkdown, 
