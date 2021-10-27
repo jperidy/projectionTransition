@@ -35,8 +35,6 @@
     let messageUpdateFavicon = '';
 
     $: isAuthenticate = $userInfo && $userInfo.profil === 'admin' ? true : false;
-
-    const expand = config.NAV_BAR.STYLE.expand;
     
     let isOpen = false;
 
@@ -119,6 +117,8 @@
     }
     seo = seo;
   });
+
+  const expand = navBar.STYLE.expand;
 
   // Manage Brand
   const onSelectAnImageBrand = async(e) => {
@@ -426,7 +426,7 @@ expand={expand}
                 <label for="iconSN">Icon </label>
                 <input type="file" class="form-control" id="iconSN" on:change={(e) => onSelectAnImageSocialNetwork(-1, e)}/>
               </div>
-              <div class="col">
+              <div class="col bg-light">
                 <img class='img-fluid' src={API_URL + snIcon} alt={snAlt} />
               </div>
               <div class="col">

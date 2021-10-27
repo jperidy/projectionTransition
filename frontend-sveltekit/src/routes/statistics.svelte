@@ -4,6 +4,7 @@
     import { goto } from "$app/navigation";
 
     import config from "../config.json";
+    import packageConfig from "../../package.json"; 
 
     import { userInfo, statisticsSendRequest, statisticsAllPages } from "../store";
 
@@ -115,7 +116,7 @@
     </div>
 
     <h1>Application version</h1>
-    <p>frontend : {config.VERSION} in {config.SVELTE_ENV} mode</p>
+    <p>frontend : {packageConfig.version} in {config.SVELTE_ENV} mode</p>
     <p>backend : {$statisticsAllPages.application.version} in {$statisticsAllPages.application.mode} mode</p>
 
 </CustomContainer>

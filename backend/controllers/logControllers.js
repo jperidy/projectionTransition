@@ -1,6 +1,7 @@
 const asyncHandler = require('express-async-handler');
 const Logs = require('../models/logsModel');
 const config = require('../../config/config.json');
+const packageConfig = require('../../package.json');
 
 // @desc    log a request
 const logARequest = (type, target) => {
@@ -107,7 +108,7 @@ const getStatisticsParams = asyncHandler(async(req,res) =>{
     const logs = await Logs.find().sort({target: 1});
     let targets = logs.map(x => x.target);
     targets = [... new Set(targets)];
-    res.status(200).json({message: 'get all targets', data: targets, application: {version: config.VERSION, mode: config.NODE_ENV} });
+    res.status(200).json({message: 'get all targets', data: targets, application: {version: packageConfig.version, mode: config.NODE_ENV} });
     
 });
 

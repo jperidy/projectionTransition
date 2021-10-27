@@ -1,6 +1,6 @@
 {
   "name": "frontend-sveltekit",
-  "version": "0.0.1",
+  "version": "1.0.5",
   "scripts": {
     "sass": "node-sass -w --output-style compressed sass -o static ",
     "dev": "svelte-kit dev",
