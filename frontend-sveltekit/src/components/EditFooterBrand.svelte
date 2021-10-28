@@ -1,6 +1,8 @@
 <script>
+    import { uploadImage } from '../actions/imagesActions';
+
     import config from '../config.json';
-import Message from './Message.svelte';
+    import Message from './Message.svelte';
 
     export let footer;
     export let updateOrCreateFooter;
