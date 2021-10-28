@@ -81,17 +81,21 @@
 
 <div class="col">
     <form on:submit={addSocialNetwork}>
-      <div class="row align-items-end">
-        <div class="col">
-          <label for="nameSN">Name</label>
-          <input type="text" class="form-control" id="nameSN" bind:value={snName} placeholder="Ex. Facebook"/>
+      <div class="row align-items-end py-2">
+        <div class="col bg-light rounded">
+          {#if snIcon}
+              <img class='img-fluid' src={API_URL + snIcon} alt={snAlt} />
+          {:else}
+              <div class="bg-light text-center text-dark" style="min-height: 7vh;">No image</div>
+          {/if}
         </div>
         <div class="col">
           <label for="iconSN">Icon </label>
           <input type="file" class="form-control" id="iconSN" on:change={(e) => onSelectAnImageSocialNetwork(-1, e)}/>
         </div>
-        <div class="col bg-light">
-          <img class='img-fluid' src={API_URL + snIcon} alt={snAlt} />
+        <div class="col">
+          <label for="nameSN">Name</label>
+          <input type="text" class="form-control" id="nameSN" bind:value={snName} placeholder="Ex. Facebook"/>
         </div>
         <div class="col">
           <label for="altSN">Texte alternatif</label>
@@ -107,7 +111,7 @@
             <input type="checkbox" class="form-check-input" id="targetSN" bind:checked={newTarget} />
           </div>
         </div>
-        <div class="col">
+        <div class="col-2">
           <button type='submit' class="btn btn-primary">+</button>
         </div>
       </div>
@@ -115,15 +119,15 @@
 
     <!-- {"name": "", "icon": "", "alt": "", "redirect": "", "target": ""}, -->
     {#each navBar.SOCIAL_NETWORKS as item, ind}
-      <div class='row mt-1'>
-        <div class="col my-auto">
-          <input type="text" class="form-control" bind:value={item.name} >
+      <div class='row border-top border-light'>
+        <div class="col my-2 bg-light rounded">
+          <img class='img-fluid' src={API_URL + item.icon} alt={snAlt} />
         </div>
         <div class="col my-auto">
           <input type="file" class="form-control" on:change={(e) => onSelectAnImageSocialNetwork(ind, e)}>
         </div>
-        <div class="col my-auto bg-light">
-          <img class='img-fluid' src={API_URL + item.icon} alt={snAlt} />
+        <div class="col my-auto">
+          <input type="text" class="form-control" bind:value={item.name} >
         </div>
         <div class="col my-auto">
           <input type="text" class="form-control" bind:value={item.alt} >
@@ -134,10 +138,10 @@
         <div class="col my-auto">
           <input type="text" class="form-control" bind:value={item.target} >
         </div>
-        <div class="col my-auto">
-          <button class="btn btn-danger btn-sm" on:click={() => deleteSocialNetwork(ind)}>x</button>
-          <button class="btn btn-secondary btn-sm" on:click={() => upSocialNetwork(ind)}>Up</button>
-          <button class="btn btn-secondary btn-sm" on:click={() => downSocialNetwork(ind)}>Down</button>
+        <div class="col-2 my-auto">
+          <button class="btn btn-danger btn-sm" on:click={() => deleteSocialNetwork(ind)}><i class="bi bi-trash"></i></button>
+          <button class="btn btn-secondary btn-sm" on:click={() => upSocialNetwork(ind)}><i class="bi bi-caret-up-fill"></i></button>
+          <button class="btn btn-secondary btn-sm" on:click={() => downSocialNetwork(ind)}><i class="bi bi-caret-down-fill"></i></button>
         </div>
       </div>
     {/each}

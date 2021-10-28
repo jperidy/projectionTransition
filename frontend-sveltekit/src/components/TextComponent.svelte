@@ -46,9 +46,7 @@
     $: fontStyle = styles.filter(x => x.name === 'font-style')[0] && styles.filter(x => x.name === 'font-style')[0].value;
     $: fontFamily = styles.filter(x => x.name === 'fontFamily')[0] && styles.filter(x => x.name === 'fontFamily')[0].value || "";
     $: fontSize = styles.filter(x => x.name === 'fontSize')[0] && styles.filter(x => x.name === 'fontSize')[0].value || "";
-    
-    //$: padding = styles.filter(x => x.name === 'padding')[0] && styles.filter(x => x.name === 'padding')[0].value;
-    
+        
     $: marginL = styles.filter(x => x.name === 'marginL')[0] && styles.filter(x => x.name === 'marginL')[0].value || 0;
     $: marginR = styles.filter(x => x.name === 'marginR')[0] && styles.filter(x => x.name === 'marginR')[0].value || 0;
     $: marginT = styles.filter(x => x.name === 'marginT')[0] && styles.filter(x => x.name === 'marginT')[0].value || 0;
@@ -62,8 +60,6 @@
     $: rounded = styles.filter(x => x.name === 'rounded')[0] && styles.filter(x => x.name === 'rounded')[0].value;
 
     $: transformR = styles.filter(x => x.name === 'transformR')[0] ? styles.filter(x => x.name === 'transformR')[0].value : 0;
-    //$: transformX = styles.filter(x => x.name === 'transformX')[0] ? styles.filter(x => x.name === 'transformX')[0].value : 0;
-    //$: transformY = styles.filter(x => x.name === 'transformY')[0] ? styles.filter(x => x.name === 'transformY')[0].value : 0;
 
     const updateStyle = ({name, value}) => {
         const curentStyleItem = styles.filter(x => x.name === name);
@@ -155,7 +151,6 @@
                             updateStyle({name:'font-style', value:'normal'})
                         } }>N</button>
                         <button class={`btn ${fontWeight === 'bold' ? 'btn-primary' : 'btn-light' } px-1`} on:click={() => updateStyle({name:'font-weight', value:'bold'})}><Icon name='type-bold' /></button>
-                        <!-- <button class={`btn ${fontStyle === 'normal' ? 'btn-primary' : 'btn-light' } px-1`} on:click={() => updateStyle({name:'font-style', value:'normal'})}>I</button> -->
                         <button class={`btn ${fontStyle === 'italic' ? 'btn-primary' : 'btn-light' } px-1`} on:click={() => updateStyle({name:'font-style', value:'italic'})}><Icon name='type-italic' /></button>
                     </div></div>
                     <div class="row py-1">
@@ -179,16 +174,6 @@
                             <button class='btn btn-light px-1' on:click={() => updateStyle({name:'bgPrimaryText', value:false})}><span class='bg-transparent'>No Background</span></button>
                         </div>
                     </div>
-                    <!-- <div class='row py-1'>
-                        <div class='col'>
-                            <button class='btn btn-light p-0' on:click={() => updateStyle({name:'padding', value:'p-0'})}><span>p-0</span></button>
-                            <button class='btn btn-light p-1' on:click={() => updateStyle({name:'padding', value:'p-1'})}><span>p-1</span></button>
-                            <button class='btn btn-light p-2' on:click={() => updateStyle({name:'padding', value:'p-2'})}><span>p-2</span></button>
-                            <button class='btn btn-light p-3' on:click={() => updateStyle({name:'padding', value:'p-3'})}><span>p-3</span></button>
-                            <button class='btn btn-light p-4' on:click={() => updateStyle({name:'padding', value:'p-4'})}><span>p-4</span></button>
-                            <button class='btn btn-light p-5' on:click={() => updateStyle({name:'padding', value:'p-5'})}><span>p-5</span></button>
-                        </div>
-                    </div> -->
                     <div class="row py-1">
                         <div class='col'>
                             <span>Margin Left : </span>

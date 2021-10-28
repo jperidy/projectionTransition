@@ -109,29 +109,29 @@ light={navBar.STYLE.theme === "light"}
 dark={navBar.STYLE.theme === "dark"}
 expand={expand}
 >
-  <NavbarBrand on:click={() => navigateHandler('/')}>
-    <img class='img-fluid' style={navBar.BRAND.LOGO.style} src={API_URL + navBar.BRAND.LOGO.path} alt={navBar.BRAND.LOGO.alt}/>
-  </NavbarBrand>
-  <div class='mx-auto d-flex'>
-    {#each navBar.SOCIAL_NETWORKS as item}
-      <div class={`fw-bold ${navBar.STYLE.SOCIAL_NETWORKS.bootstrapClass}`}><a class="" target={item.target} href={item.redirect}><img class='icone-rs' style={navBar.STYLE.SOCIAL_NETWORKS.style} src={API_URL + item.icon} alt={item.alt} /></a></div>
+<NavbarBrand on:click={() => navigateHandler('/')}>
+  <img class='img-fluid' style={navBar.BRAND.LOGO.style} src={API_URL + navBar.BRAND.LOGO.path} alt={navBar.BRAND.LOGO.alt}/>
+</NavbarBrand>
+<div class='mx-auto d-flex'>
+  {#each navBar.SOCIAL_NETWORKS as item}
+    <div class={`fw-bold ${navBar.STYLE.SOCIAL_NETWORKS.bootstrapClass}`}><a class="" target={item.target} href={item.redirect}><img class='icone-rs' style={navBar.STYLE.SOCIAL_NETWORKS.style} src={API_URL + item.icon} alt={item.alt} /></a></div>
+  {/each}
+</div>
+<NavbarToggler on:click={() => (isOpen = !isOpen)} />
+<Collapse {isOpen} navbar expand={expand}>
+  <Nav class="ms-auto align-items-center" navbar>
+    {#each navBar.TITLE as item}
+      <Dropdown nav inNavbar>
+        <NavItem><NavLink class={navBar.STYLE.TITLE.bootstrapClass} style={navBar.STYLE.TITLE.style} on:click={() => navigateHandler(item.url)}><span >{item.name.toString()}</span></NavLink></NavItem>
+      </Dropdown>
     {/each}
-  </div>
-  <NavbarToggler on:click={() => (isOpen = !isOpen)} />
-  <Collapse {isOpen} navbar expand={expand}>
-    <Nav class="ms-auto align-items-center" navbar>
-      {#each navBar.TITLE as item}
-        <Dropdown nav inNavbar>
-          <NavItem><NavLink class={navBar.STYLE.TITLE.bootstrapClass} style={navBar.STYLE.TITLE.style} on:click={() => navigateHandler(item.url)}><span >{item.name.toString()}</span></NavLink></NavItem>
-        </Dropdown>
-      {/each}
-      {#if isAuthenticate}
-        <Dropdown nav inNavbar>
-          <button class="btn btn-light px-2" on:click={toggle}><i class="bi bi-pencil-square"></i></button>
-        </Dropdown>
-      {/if}
-    </Nav>
-  </Collapse>
+    {#if isAuthenticate}
+      <Dropdown nav inNavbar>
+        <button class="btn btn-light px-2" on:click={toggle}><i class="bi bi-pencil-square"></i></button>
+      </Dropdown>
+    {/if}
+  </Nav>
+</Collapse>
 </Navbar>
 
 <!-- Modal to edit navBar -->
