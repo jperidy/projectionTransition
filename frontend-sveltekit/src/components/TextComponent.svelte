@@ -243,7 +243,7 @@
                     <p class='my-3'><strong>Prévisualisation</strong></p>
                     <div class='row'>
                         <div class='col'>
-                            <div class={`${textColor} ${bgColor} ${rounded}`} style={`text-align: ${textAlign}; font-family: ${fontFamily};${fontSize ? "font-size: " + fontSize + "rem"  : ""};font-weight: ${fontWeight};font-style: ${fontStyle};transform: rotate(${transformR}deg);margin-left: ${marginL}rem;margin-right: ${marginR}rem;margin-top: ${marginT}rem;margin-bottom: ${marginB}rem;padding-left: ${paddingL}rem;padding-right: ${paddingR}rem;padding-top: ${paddingT}rem;padding-bottom: ${paddingB}rem;`}>
+                            <div class={`${textColor} ${bgColor} ${rounded}`} style={`text-align: ${textAlign}; font-family: ${fontFamily};${fontSize > 0 ? "font-size: " + fontSize + "rem"  : ""};font-weight: ${fontWeight};font-style: ${fontStyle};transform: rotate(${transformR}deg);margin-left: ${marginL}rem;margin-right: ${marginR}rem;margin-top: ${marginT}rem;margin-bottom: ${marginB}rem;padding-left: ${paddingL}rem;padding-right: ${paddingR}rem;padding-top: ${paddingT}rem;padding-bottom: ${paddingB}rem;`}>
                                 <SvelteMarkdown source={values[0] && values[0].value ? values[0].value : ''} renderers={{
                                     paragraph: ParagrapheMarkdown, 
                                     table: TableMarkdown, 
@@ -262,7 +262,7 @@
         </ModalFooter>
     </Modal>
     <div class='content' >
-        <div class={`${textColor} ${bgColor} ${rounded}`} style={`text-align: ${textAlign}; font-family: ${fontFamily};${fontSize ? "font-size: " + fontSize + "rem"  : ""};font-weight: ${fontWeight};font-style: ${fontStyle};transform: rotate(${transformR}deg);margin-left: ${marginL}rem;margin-right: ${marginR}rem;margin-top: ${marginT}rem;margin-bottom: ${marginB}rem;padding-left: ${paddingL}rem;padding-right: ${paddingR}rem;padding-top: ${paddingT}rem;padding-bottom: ${paddingB}rem;`}>
+        <div class={`${textColor} ${bgColor} ${rounded}`} style={`text-align: ${textAlign}; font-family: ${fontFamily};${fontSize > 0 ? "font-size: " + fontSize + "rem"  : ""};font-weight: ${fontWeight};font-style: ${fontStyle};transform: rotate(${transformR}deg);margin-left: ${marginL}rem;margin-right: ${marginR}rem;margin-top: ${marginT}rem;margin-bottom: ${marginB}rem;padding-left: ${paddingL}rem;padding-right: ${paddingR}rem;padding-top: ${paddingT}rem;padding-bottom: ${paddingB}rem;`}>
             <SvelteMarkdown source={values[0] && values[0].value ? values[0].value : ''} renderers={{
                 paragraph: ParagrapheMarkdown, 
                 table: TableMarkdown, 

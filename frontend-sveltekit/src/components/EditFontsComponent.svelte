@@ -49,8 +49,8 @@
     }
 </script>
 
+<h3>Ajout / Suppression des polices d'écriture</h3>
 <div class="col">
-    <p>Edit fonts you want to use</p>
     {#if messageUpdateOrCreate}
         <Message color='danger'>{messageUpdateOrCreate}</Message>
     {/if}
