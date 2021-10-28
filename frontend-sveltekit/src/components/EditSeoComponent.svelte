@@ -1,4 +1,6 @@
 <script>
+    import { uploadImage } from 'src/actions/imagesActions';
+
     export let seo;
     export let updateOrCreateSeo;
 
