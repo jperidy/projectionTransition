@@ -1,5 +1,5 @@
 <script>
-    import { uploadImage } from 'src/actions/imagesActions';
+    import { uploadImage } from '../actions/imagesActions';
 
     export let seo;
     export let updateOrCreateSeo;
