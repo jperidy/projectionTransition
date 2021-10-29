@@ -69,7 +69,7 @@
                     updateContent={updateContent}
                     />
                 </div>
-                <div class='bg-white rounded-3 event-container'>
+                <div class='bg-transparent rounded-3 event-container'>
                     <div class='image-container'>
                         <div class="image my-auto">
                             <ImageComponent

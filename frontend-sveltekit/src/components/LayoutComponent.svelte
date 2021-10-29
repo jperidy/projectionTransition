@@ -135,9 +135,7 @@
         const imageToReplace = backgroundImage;
         const result = await uploadImage(data, imageToReplace);
         if (result.status === 'Ok') {
-            // values[index].url = result.data;
             updateStyle({name:'backgroundImage', value: result.data});
-            // values = values;
         } else {
             console.log('error', result.data);
         }
@@ -170,26 +168,23 @@
         opacity: 1;
     }
     .moving-container {
-        -webkit-transform: scale(1);
-	    transform: scale(1);
+        -webkit-transform: scale(0);
+	    transform: scale(0);
+        width: 0;
+        height: 0;
         transition: .5s ease;
         border: dashed 1px;
     }
-    /* .moving-container:hover {
-        -webkit-transform: scale(1.03);
-	    transform: scale(1.03);
+    .content-container:hover .moving-container {
+        -webkit-transform: scale(1);
+	    transform: scale(1);
+        width: 100%;
+        height: 100%;
         transition: .5s ease;
-    } */
+        border: dashed 1px;
+    }
     
 </style>
-
-<!-- <CustomContainer size={{ 
-    xs: values[0].xs ? values[0].xs : 12, 
-    sm: values[0].sm ? values[0].sm : 12, 
-    md: values[0].md ? values[0].md : 12, 
-    lg: values[0].lg ? values[0].lg : 10,
-    xl: values[0].xl ? values[0].xl : 10,
-}}> -->
 
 <CustomContainer 
     size={{ xs: xsSize, sm: smSize, md: mdSize, lg: lgSize, xl: xlSize}}
@@ -345,7 +340,7 @@
             </ModalBody>
             <ModalFooter>
                 <button class="btn btn-primary" on:click={toggle}>Enregistrer</button>
-                <button class="btn btn-secondary" on:click={toggle}>Cancel</button>
+                <button class="btn btn-secondary" on:click={() => edit = !edit}>Annuler</button>
             </ModalFooter>
         </Modal> 
         

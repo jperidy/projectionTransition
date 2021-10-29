@@ -59,8 +59,6 @@
     const copyAction = () => {
         localStorage.setItem('copyComponent', JSON.stringify(array[position]));
         copyComponent.set(array[position]);
-        // localStorage.setItem('copyComponentValues', JSON.stringify(array[position].values));
-        // localStorage.setItem('copyComponentStyles', JSON.stringify(array[position].styles));
     };
 
 </script>
@@ -82,6 +80,7 @@
 	    transform: scale(0);
         transition: .5s ease;
         width: 0px;
+        height: 0px;
         /* position: absolute;
         top: 0%;
         left: 95%; */
@@ -92,6 +91,7 @@
 	    /* transform: scale(.7); */
         transition: .5s ease;
         width: 5vh;
+        height: auto;
     }
 </style>
 

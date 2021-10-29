@@ -60,11 +60,6 @@
     $: scaleXY = styles.filter(x => x.name === 'scaleXY')[0] ? styles.filter(x => x.name === 'scaleXY')[0].value : 1;
     $: width = styles.filter(x => x.name === 'width')[0] ? styles.filter(x => x.name === 'width')[0].value : 100;
 
-    // $: marginL = styles.filter(x => x.name === 'marginL')[0] && styles.filter(x => x.name === 'marginL')[0].value || 0;
-    // $: marginR = styles.filter(x => x.name === 'marginR')[0] && styles.filter(x => x.name === 'marginR')[0].value || 0;
-    // $: marginT = styles.filter(x => x.name === 'marginT')[0] && styles.filter(x => x.name === 'marginT')[0].value || 0;
-    // $: marginB = styles.filter(x => x.name === 'marginB')[0] && styles.filter(x => x.name === 'marginB')[0].value || 0;
-
     $: paddingL = styles.filter(x => x.name === 'paddingL')[0] && styles.filter(x => x.name === 'paddingL')[0].value || 0;
     $: paddingR = styles.filter(x => x.name === 'paddingR')[0] && styles.filter(x => x.name === 'paddingR')[0].value || 0;
     $: paddingT = styles.filter(x => x.name === 'paddingT')[0] && styles.filter(x => x.name === 'paddingT')[0].value || 0;
@@ -143,24 +138,6 @@
                     <Button class='px-1' color={`${rounded === "" ? "primary" : "light"}`} on:click={() => updateStyle({name:'rounded', value:''})}>No rounded</Button>
                 </div>
             </div>
-            <!-- <div class="row py-1">
-                <div class='col'>
-                    <span>Margin Left : </span>
-                    <input type='number' step={1} min={0} class='form-control' value={marginL} on:change={(e) => updateStyle({name:'marginL', value:e.target.value})} />
-                </div>
-                <div class='col'>
-                    <span>Margin Right : </span>
-                    <input type='number' step={1} min={0} class='form-control' value={marginR} on:change={(e) => updateStyle({name:'marginR', value:e.target.value})} />
-                </div>
-                <div class='col'>
-                    <span>Margin Top : </span>
-                    <input type='number' step={1} min={0} class='form-control' value={marginT} on:change={(e) => updateStyle({name:'marginT', value:e.target.value})} />
-                </div>
-                <div class='col'>
-                    <span>Margin Bottom : </span>
-                    <input type='number' step={1} min={0} class='form-control' value={marginB} on:change={(e) => updateStyle({name:'marginB', value:e.target.value})} />
-                </div>
-            </div> -->
             <div class="row py-1">
                 <div class='col'>
                     <span>Padding Left : </span>
@@ -206,7 +183,7 @@
                             src={`${API_URL}${values[0].url}`} 
                             alt={values[0].substitution}
                             class={`figure-img img-fluid m-0 p-0 ${rounded} ${shadow}`}
-                            style={`width:${width}%;height:auto;`}
+                            style={`width:${width}%;height:100%;`}
                             >
                         <figcaption class='figure-caption'>{values[0].caption}</figcaption>
                     </figure>
@@ -218,7 +195,7 @@
     </ModalBody>
     <ModalFooter>
         <Button color="primary" on:click={toggle}>Enregistrer</Button>
-        <Button color="secondary" on:click={toggle}>Cancel</Button>
+        <Button color="secondary" on:click={() => edit = !edit}>Annuler</Button>
     </ModalFooter>
 </Modal>
 
@@ -227,30 +204,32 @@
         <div class={`col ${textAlign}`}>   
             {#if !values[0].url}
                 <div class='bg-secondary text-center text-dark rounded-3' style='min-height:100px;'>Ajouter l'image</div>
-            {/if}
-            {#if values[0].redirection}
-                <a href={values[0].redirection} target={values[0].redirection.match(/^http/i) ? '_blank' : ''} >
+            {:else}
+                {#if values[0].redirection}
+                    <a href={values[0].redirection} target={values[0].redirection.match(/^http/i) ? '_blank' : ''} >
+                        <figure class='figure' style={`transform: rotate(${transformR}deg) scale(${scaleXY, scaleXY});padding-left: ${paddingL}rem;;padding-right: ${paddingR}rem;padding-top: ${paddingT}rem;;padding-bottom: ${paddingB}rem;`}>
+                            <img 
+                                src={`${API_URL}${values[0].url}`} 
+                                alt={values[0].substitution}
+                                class={`figure-img img-fluid m-0 p-0 ${rounded} ${shadow}`}
+                                style={`width:${width}%;height:100%;`}
+                                >
+                            <figcaption class='figure-caption'>{values[0].caption}</figcaption>
+                        </figure>
+                    </a>
+                {:else}
                     <figure class='figure' style={`transform: rotate(${transformR}deg) scale(${scaleXY, scaleXY});padding-left: ${paddingL}rem;;padding-right: ${paddingR}rem;padding-top: ${paddingT}rem;;padding-bottom: ${paddingB}rem;`}>
                         <img 
                             src={`${API_URL}${values[0].url}`} 
                             alt={values[0].substitution}
                             class={`figure-img img-fluid m-0 p-0 ${rounded} ${shadow}`}
-                            style={`width:${width}%;height:auto;`}
+                            style={`width:${width}%;height:100%;`}
                             >
                         <figcaption class='figure-caption'>{values[0].caption}</figcaption>
                     </figure>
-                </a>
-            {:else}
-                <figure class='figure' style={`transform: rotate(${transformR}deg) scale(${scaleXY, scaleXY});padding-left: ${paddingL}rem;;padding-right: ${paddingR}rem;padding-top: ${paddingT}rem;;padding-bottom: ${paddingB}rem;`}>
-                    <img 
-                        src={`${API_URL}${values[0].url}`} 
-                        alt={values[0].substitution}
-                        class={`figure-img img-fluid m-0 p-0 ${rounded} ${shadow}`}
-                        style={`width:${width}%;height:auto;`}
-                        >
-                    <figcaption class='figure-caption'>{values[0].caption}</figcaption>
-                </figure>
+                {/if}
             {/if}
+
         </div>
     </div>
 

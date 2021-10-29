@@ -136,14 +136,14 @@
                     </div></div>
                     <div class='row py-1'><div class='col'>
                         {#each colors as color}
-                            <btn class='px-1 btn btn-light' on:click={() => updateStyle({name:'text-color', value:`text-${color}`})}><Icon name='fonts' class={`text-${color}`} /></btn>
+                            <button class={`px-1 btn ${textColor === `text-${color}` ? "btn-primary" : "btn-light"}`} on:click={() => updateStyle({name:'text-color', value:`text-${color}`})}><Icon name='fonts' class={`text-${color}`} /></button>
                         {/each}
                     </div></div>
                     <div class='row py-1'><div class='col'>
                         {#each colors as color}
-                            <button class='px-1 btn btn-light' on:click={() => updateStyle({name:'backgroud-color', value:`bg-${color}`})}><Icon name='file-font-fill' class={`text-${color}`} /></button>
+                            <button class={`px-1 btn ${bgColor === `bg-${color}` ? "btn-primary" : "btn-light"}`} on:click={() => updateStyle({name:'backgroud-color', value:`bg-${color}`})}><Icon name='file-font-fill' class={`text-${color}`} /></button>
                         {/each}
-                        <button class='px-1 btn btn-light' on:click={() => updateStyle({name:'backgroud-color', value:``})}>Transparent</button>
+                        <button class={`px-1 btn ${bgColor === `` ? "btn-primary" : "btn-light"}`} on:click={() => updateStyle({name:'backgroud-color', value:``})}>Transparent</button>
                     </div></div>
                     <div class='row py-1'><div class='col'>
                         <button class={`btn ${fontWeight === 'normal' ? 'btn-primary' : 'btn-light' } px-1`} on:click={() => {
@@ -165,7 +165,7 @@
                         </div>
                         <div class="col">
                             <label for="select-font">Taille de la police (rem) : </label>
-                            <input type="number" class="form-control" min={0} max={5} step={0.05} value={fontSize} on:change={(e) => updateStyle({name: 'fontSize', value: e.target.value})}>
+                            <input type="number" class="form-control" placeholder="Default" min={0} max={5} step={0.05} value={fontSize} on:change={(e) => updateStyle({name: 'fontSize', value: e.target.value})}>
                         </div>
                     </div>
                     <div class='row py-1'>
@@ -243,7 +243,7 @@
         </ModalBody>
         <ModalFooter>
             <button class="btn btn-primary" on:click={toggle}>Enregistrer</button>
-            <button class="btn btn-secondary" on:click={toggle}>Cancel</button>
+            <button class="btn btn-secondary" on:click={() => edit = !edit}>Annuler</button>
         </ModalFooter>
     </Modal>
     <div class='content' >

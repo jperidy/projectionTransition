@@ -23,18 +23,11 @@ import { recursiveDeleteAction } from "../utils/imageFunctions";
     
     const handleMove = (e, pos) => {
         if (e.buttons) {
-            //console.log(e.currentTarget.offsetWidth);
             let layer = document.querySelector('.element_0');
             let maxWidth = layer.offsetWidth;
             let maxHeight = layer.offsetHeight;
             values[pos].left = values[pos].left + 100 * e.movementX / maxWidth ;
             values[pos].top = values[pos].top + 100 * e.movementY / maxHeight ;
-
-            // if (values[pos].left < 0) values[pos].left = 0;
-            // if (values[pos].left > (100 - maxWidth)) values[pos].left = 100 - maxWidth;
-            // if (values[pos].top < 0) values[pos].top = 0;
-            // if (values[pos].top < (100 - maxHeight)) values[pos].top = 100 - maxHeight;
-
             values = values;
         }
     };

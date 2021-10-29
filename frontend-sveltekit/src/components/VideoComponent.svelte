@@ -193,7 +193,7 @@ let local = false;
       
             <ModalFooter>
               <Button color="primary" on:click={toggle}>Enregistrer</Button>
-              <Button color="secondary" on:click={toggle}>Cancel</Button>
+              <Button color="secondary" on:click={() => edit = !edit}>Annuler</Button>
             </ModalFooter>
       
         </Modal>
