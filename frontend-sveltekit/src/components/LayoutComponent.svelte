@@ -172,16 +172,26 @@
 	    transform: scale(0);
         width: 0;
         height: 0;
-        transition: .5s ease;
         border: dashed 1px;
     }
-    .content-container:hover .moving-container {
+    .item-column:hover .moving-container {
         -webkit-transform: scale(1);
 	    transform: scale(1);
         width: 100%;
         height: 100%;
-        transition: .5s ease;
         border: dashed 1px;
+    }
+    .edit-column {
+        -webkit-transform: scale(0);
+	    transform: scale(0);
+        width: 0;
+        height: 0;
+    }
+    .item-column:hover .edit-column {
+        -webkit-transform: scale(1);
+	    transform: scale(1);
+        width: auto;
+        height: auto;
     }
     
 </style>
@@ -346,7 +356,7 @@
         
         <div class={`row content gx-${gutterX} gy-${gutterY} align-items-${alignContent} ${marginX} ${marginY} ${rounded} ${border} ${borderColor}`} style={`margin-left: ${marginX}rem;margin-right: ${marginX}rem;margin-bottom: ${marginY}rem;margin-top: ${marginY}rem;padding-left: ${paddingX}rem;padding-right: ${paddingX}rem;padding-top: ${paddingY}rem;padding-bottom: ${paddingY}rem;`}>
             {#each values as column, position}
-                <div class={`col-${calculateCol(column.sizeMobile, position, values.length)} col-md-${calculateCol(column.sizeTablette, position, values.length)} col-xl-${calculateCol(column.size, position, values.length)}`} style={`min-height: 5vh;`};>
+                <div class={`item-column col-${calculateCol(column.sizeMobile, position, values.length)} col-md-${calculateCol(column.sizeTablette, position, values.length)} col-xl-${calculateCol(column.size, position, values.length)}`} style={`min-height: 5vh;`};>
                     <MovingContent 
                         array={values} 
                         position={position} 
@@ -355,7 +365,7 @@
                         addContent={null}
                     >
                     {#if admin}
-                        <div class='row align-items-end'>
+                        <div class='edit-column row align-items-end'>
                             <div class='col'>
                                 <label for="conf-desktop-size">Largeur (/12) PC</label>
                                 <input id='conf-desktop-size' class='form-control' type='number' bind:value={column.size} on:change={updateContent} min={1} max={12} />
@@ -368,8 +378,8 @@
                                 <label for="conf-mobile-size">Largeur (/12) Mobile</label>
                                 <input id='conf-mobile-size' class='form-control' type='number' bind:value={column.sizeMobile} on:change={updateContent} min={1} max={12} />
                             </div>
+                            <p>{"* somme de la ligne < 12"}</p>
                         </div>
-                        <p>{"* somme de la ligne < 12"}</p>
                     {/if}
                     
                     {#each column.values as content, pos}
