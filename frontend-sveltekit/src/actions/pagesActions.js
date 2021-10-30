@@ -62,3 +62,27 @@ export const getContent = async (pageName) => {
     }
 
 };
+
+export const getAllPagesList = async () => {
+
+    const userInfoStored = get(userInfo);
+
+    try {
+
+        const config = {
+            headers: {
+                'Content-type': 'Application/json',
+                Authorization: `Bearer ${userInfoStored.token}`
+            }
+        };
+
+        const { data } = await axios.get(`${API_URL}/api/page/list`, config);
+
+        return { list: data.value, loading: false, message: '' };
+
+    } catch (error) {
+
+        return { list: [], loading: false, message: 'Error getting pages' };
+    }
+
+};

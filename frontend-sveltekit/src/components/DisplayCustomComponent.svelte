@@ -25,6 +25,7 @@
     export let city = '';
 </script>
 
+
 {#if type === 'textComponent'}
     <TextComponent
         bind:values={values}

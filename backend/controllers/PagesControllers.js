@@ -45,11 +45,6 @@ const updatePageContent = asyncHandler(async(req,res) =>{
                 for (let key in newContent) {
                     content[key] = newContent[key]
                 }
-                // content.content = newContent.content;
-                // content.titleSeo = newContent.titleSeo;
-                // content.descriptionSeo = newContent.descriptionSeo;
-                // content.titleOG = newContent.titleOG;
-                // content.descriptionOG = newContent.descriptionOG;
 
                 content.save()
                     .then((contentUpdated) => {
@@ -66,4 +61,24 @@ const updatePageContent = asyncHandler(async(req,res) =>{
 
 });
 
-module.exports = { getPageContent, updatePageContent };
+// @desc    get all pages name
+// @route   GET /api/page/list
+// @access  Privalte
+const getAllPages = asyncHandler(async(req,res) =>{
+    
+    Page.find().select("_id name").sort({name: 1})
+        .then((pages) => {
+            if(pages) {
+                res.status(200).json({message: '', value: pages});
+            } else {
+                res.status(404).json({
+                    message: `There is no pages already created`,
+                    value: []
+                });
+            }
+        })
+        .catch((error) => res.status(500).json({message: `Error fetching pages: ${error}`, value: []}));
+});
+
+
+module.exports = { getAllPages, getPageContent, updatePageContent };
