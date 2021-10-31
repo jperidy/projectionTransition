@@ -21,6 +21,7 @@
 
 
   const toggle = async(save) => {
+    console.log(save, open, addToLayout);
       if (open && addContent && save) {
           await addContent({type, values, styles }, position);
       }

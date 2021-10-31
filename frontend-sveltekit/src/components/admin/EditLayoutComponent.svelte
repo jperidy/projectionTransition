@@ -1,4 +1,6 @@
 <script>
+import { uploadImage } from '../../actions/imagesActions';
+
     import { Icon } from 'sveltestrap';
 
     export let values;
@@ -6,11 +8,19 @@
 
     import { updateStyle } from '../../utils/styleFunctions'; 
     import DisplayEditMenu from './DisplayEditMenu.svelte';
+    import AddElement from '../AddElement.svelte';
 
-    let columnNumber = 1;
-    $: columnNumber = values.length;
+    //$: columnNumber = values.length;
 
-    //$: console.log("values", values)
+    $: console.log('values', values);
+    
+    let openSelecteComponent = false;
+
+    const addToLayout = (column, position) => {
+        values[position].values[0] = { ...values[position].values[0], ...column}
+        values = values;
+        console.log(values);
+    };
 
     const columnChangeHandler = (number) => {
         if (number > values.length && number >=1) {
@@ -40,7 +50,6 @@
         }
     };
 
-
     const colors = ['primary', 'secondary', 'pomme', 'outremer', 'lavande', 'caraibe', 'tangerine', 'ambre', 'light', 'white', 'dark', 'black'];
 
     $: xsSize = styles.filter(x => x.name === 'xsSize')[0] && styles.filter(x => x.name === 'xsSize')[0].value || 12;
@@ -68,8 +77,8 @@
     
 </script>
 
-<div class="row align-items-center my-2">
-    <div class='row my-3'>
+<div class="row align-items-center">
+    <div class='row my-0'>
         <p class="my-0"><strong>Frame covering on screen (max cover is 12)</strong></p>
         <div class="d-flex justify-content-end my-1">
             <label for="xs-size" class="w-75">"xs screen (Mobile)"</label>
@@ -179,32 +188,61 @@
         />
     </div>
     
-    <div class="mt-3 border-top">
+    <div class="mt-1">
         {#each values as component, index}
-            <p>Column: {index + 1}</p>
-            <p>Column width depending on screen</p>
-            <div class="d-flex justify-content-end my-1">
-                <label for="xs-size" class="w-75">"Mobile"</label>
-                <input type="number" class="form-control" id="xs-size" min={1} max={12} bind:value={component.sizeMobile}/>
+            <div class="column-container border-top border-start border-2 rounded mt-3 pt-3 ps-1">
+                <div class="colum-index bg-dark text-light d-flex justify-content-center align-items-center">{index + 1}</div>
+                {#if component.values.length > 0}
+                    <DisplayEditMenu
+                        type={component.values[0].type}
+                        bind:values={component.values[0].values}
+                        bind:styles={component.values[0].styles}
+                        bind:pageContent={values}
+                        position={index}
+                    />
+                {:else}
+                    <button class='btn btn-secondary w-100 my-3' on:click={() => openSelecteComponent = true}>Select a component</button>
+                    {#if openSelecteComponent}
+                        <AddElement
+                            addContent={null}
+                            position={index}
+                            addToLayout={addToLayout}
+                            bind:open={openSelecteComponent}
+                            copyValues={[]}
+                            copyStyles={[]}
+                            copyType={''}
+                        />
+                    {/if}
+                {/if}
+                <p>Width of the column on :</p>
+                <div class="d-flex justify-content-end align-items-center text-end align-items-center text-end my-1">
+                    <label for="xs-size" class="w-75 me-3">Mobile</label>
+                    <input type="number" class="form-control" id="xs-size" min={1} max={12} bind:value={component.sizeMobile}/>
+                </div>
+                <div class="d-flex justify-content-end align-items-center text-end my-1">
+                    <label for="xs-size" class="w-75 me-3">Tablet</label>
+                    <input type="number" class="form-control" id="xs-size" min={1} max={12} bind:value={component.sizeTablette}/>
+                </div>
+                <div class="d-flex justify-content-end align-items-center text-end my-1">
+                    <label for="xs-size" class="w-75 me-3">Desktop</label>
+                    <input type="number" class="form-control" id="xs-size" min={1} max={12} bind:value={component.size}/>
+                </div>
             </div>
-            <div class="d-flex justify-content-end my-1">
-                <label for="xs-size" class="w-75">"Tablet"</label>
-                <input type="number" class="form-control" id="xs-size" min={1} max={12} bind:value={component.sizeTablette}/>
-            </div>
-            <div class="d-flex justify-content-end my-1">
-                <label for="xs-size" class="w-75">"Desktop"</label>
-                <input type="number" class="form-control" id="xs-size" min={1} max={12} bind:value={component.size}/>
-            </div>
-            {#if component.values.length > 0}
-                <DisplayEditMenu
-                    type={component.values[0].type}
-                    bind:values={component.values[0].values}
-                    bind:styles={component.values[0].styles}
-                />
-            {:else}
-                <p>TODO : select type of component</p>
-            {/if}
         {/each}
     </div>
     
 </div>
+
+<style>
+    .column-container{
+        position: relative;
+        margin-top: 2rem;
+    }
+    .colum-index {
+        position: absolute;
+        top:-0.8rem;
+        left:-0.8rem;
+        width: 1.6rem;
+        height: 1.6rem;
+    }
+</style>

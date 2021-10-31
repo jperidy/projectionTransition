@@ -13,6 +13,7 @@
     export let edit='false';
     export let updateContent;
     export let city='';
+    export let isSelected = false;
 
     let columnNumber = 1;
     let columnNumberMobile = 1;
@@ -354,9 +355,9 @@
             </ModalFooter>
         </Modal> 
         
-        <div class={`row content gx-${gutterX} gy-${gutterY} align-items-${alignContent} ${marginX} ${marginY} ${rounded} ${border} ${borderColor}`} style={`margin-left: ${marginX}rem;margin-right: ${marginX}rem;margin-bottom: ${marginY}rem;margin-top: ${marginY}rem;padding-left: ${paddingX}rem;padding-right: ${paddingX}rem;padding-top: ${paddingY}rem;padding-bottom: ${paddingY}rem;`}>
+        <div class={`row content gx-${gutterX} gy-${gutterY} align-items-${alignContent} ${marginX} ${marginY} ${rounded} ${border} ${borderColor} ${isSelected && "border rounded"}`} style={`margin-left: ${marginX}rem;margin-right: ${marginX}rem;margin-bottom: ${marginY}rem;margin-top: ${marginY}rem;padding-left: ${paddingX}rem;padding-right: ${paddingX}rem;padding-top: ${paddingY}rem;padding-bottom: ${paddingY}rem;`}>
             {#each values as column, position}
-                <div class={`item-column col-${calculateCol(column.sizeMobile, position, values.length)} col-md-${calculateCol(column.sizeTablette, position, values.length)} col-xl-${calculateCol(column.size, position, values.length)}`} style={`min-height: 5vh;`};>
+                <div class={`item-column col-${calculateCol(column.sizeMobile, position, values.length)} col-md-${calculateCol(column.sizeTablette, position, values.length)} col-xl-${calculateCol(column.size, position, values.length)} `} style={`min-height: 5vh;`};>
                     <MovingContent 
                         array={values} 
                         position={position} 
@@ -402,6 +403,7 @@
                                 admin={admin}
                                 edit={false}
                                 city={city}
+                                isSelected={isSelected}
                             />
                         </MovingContent>
                     {/each}

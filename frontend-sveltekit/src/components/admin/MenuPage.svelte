@@ -5,6 +5,7 @@
     import Message from "../Message.svelte";
 
     export let selectPageHandler;
+    export let currentPage;
 
     let pagesList = [];
     let message = '';
@@ -30,16 +31,26 @@
     <Message color="danger">{message}</Message>
 {/if}
 {#if pagesList && pagesList.length}
-    <div class='page-items d-grid gap-1'>
+    <div class='page-list d-grid gap-0'>
         {#each pagesList as page}
             <button 
-                class="btn btn-transparent text-start" 
+                class={`page-item btn ${page.name === currentPage ? "btn-primary" : "btn-transparent"} text-start text-break overflow-hidden`} 
                 type="button" 
                 on:click={() => selectPageHandler(page.name)}
                 data-bs-toggle="tooltip" 
                 data-bs-placement="top" 
                 title={page.name}
-            >> /{page.name}</button>
+            >{`{URL}/${page.name}`}</button>
         {/each}
     </div>
 {/if}
+
+<style>
+    .page-item {
+        transition: 0.5s;
+    }
+    .page-item:hover {
+        background-color: rgba(255, 255, 255, .5);
+        transition: 0.5s;
+    }
+</style>

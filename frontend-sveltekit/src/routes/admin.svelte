@@ -11,6 +11,7 @@
 
     let pageRequest = { content: { content: [], name: '' }, loading: true, message: '' };
     let componentIdSelected = "";
+    let currentPage = "";
     //$: console.log(componentIdSelected)
     
     let isAuthenticate = false;
@@ -20,12 +21,14 @@
     }
 
     onMount(async() => {
-        pageRequest = await getContent("homeContent");
+        currentPage = 'homeContent'
+        pageRequest = await getContent(currentPage);
     });
 
     //
     const selectPageHandler = async (pageName) => {
-        pageRequest = await getContent(pageName);
+        currentPage = pageName
+        pageRequest = await getContent(currentPage);
     };
 
     const updateContent = async() => {
@@ -39,14 +42,14 @@
 <div class="row">
     <!-- zone to list and select a page -->
     <div class="col-2 menu-page bg-dark shadow-lg overflow-auto">
-        <div class="p-2">
-            <MenuPage selectPageHandler={selectPageHandler} />
+        <div class="px-1 py-2">
+            <MenuPage currentPage={currentPage} selectPageHandler={selectPageHandler} />
         </div>
     </div>
 
     <!-- zone to edit components of selected page -->
     <div class="col-3 menu-edition bg-light shadow-lg overflow-auto text-dark">
-        <div class="p-2">
+        <div class="py-2">
             <MenuEdit 
                 bind:page={pageRequest.content}
                 bind:componentIdSelected={componentIdSelected}
@@ -56,7 +59,7 @@
     </div>
 
     <!-- zone to preview your page -->
-    <div class="col-7 p-0 preview overflow-auto">
+    <div class="col-7 p-0 preview ">
         <!-- select the screen size -->
         <div class="bandeau bg-dark border-light shadow px-3 py-auto d-flex align-items-center justify-content-center">
             <h3 class="my-0 mx-2">Previews </h3>
@@ -71,7 +74,7 @@
                 ><i class="bi bi-door-open"></i>Logout</button>
         </div>
         <!-- preview -->
-        <div class="display-preview">
+        <div class="display-preview overflow-auto">
             {#if pageRequest.content && pageRequest.content.content}
                 {#each pageRequest.content.content as section, position}
                     <div class={`${section._id === componentIdSelected ? 'border rounded-3 shadow' : ''}`}>
@@ -84,6 +87,7 @@
                             admin={false}
                             edit={false}
                             city={"city"}
+                            isSelected={section._id === componentIdSelected}
                         />   
                     </div>
                 {/each}
@@ -95,15 +99,15 @@
 
 <style>
     .menu-page {
-        height: 80vh;
+        height: 90vh;
     }
     .menu-edition {
-        height: 80vh;
+        height: 90vh;
     }
-    .preview {
+    .display-preview {
         height: 80vh;
     }
     .bandeau {
-        min-height: 10vh;
+        height: 10vh;
     }
 </style>

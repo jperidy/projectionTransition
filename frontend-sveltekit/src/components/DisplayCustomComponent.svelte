@@ -23,6 +23,7 @@
     export let values = [];
     export let edit = false;
     export let city = '';
+    export let isSelected = false;
 </script>
 
 
@@ -33,6 +34,7 @@
         updateContent={updateContent}
         admin={admin}
         edit={edit}
+        isSelected={isSelected}
     />
 {/if}
 
@@ -165,6 +167,7 @@
         admin={admin}
         edit={edit}
         city={city}
+        isSelected={isSelected}
     />
 {/if}
 
