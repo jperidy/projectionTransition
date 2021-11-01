@@ -12,6 +12,7 @@
     let pageRequest = { content: { content: [], name: '' }, loading: true, message: '' };
     let componentIdSelected = "";
     let currentPage = "";
+    let showMenuPage = true;
     //$: console.log(componentIdSelected)
     
     let isAuthenticate = false;
@@ -25,7 +26,6 @@
         pageRequest = await getContent(currentPage);
     });
 
-    //
     const selectPageHandler = async (pageName) => {
         currentPage = pageName
         pageRequest = await getContent(currentPage);
@@ -35,27 +35,40 @@
         pageRequest = await updateOrCreateContent(pageRequest.content);
     }
 
-    //$: console.log('pageRequest', pageRequest)
 </script>
 
 {#if isAuthenticate}
 <div class="row">
     <!-- zone to list and select a page -->
-    <div class="col-2 menu-page bg-dark shadow-lg overflow-auto">
-        <div class="px-1 py-2">
-            <MenuPage currentPage={currentPage} selectPageHandler={selectPageHandler} />
+    {#if showMenuPage}
+        <div class="col-2 menu-page bg-dark shadow-lg overflow-auto">
+            <div class="px-1 py-2">
+                <MenuPage currentPage={currentPage} selectPageHandler={selectPageHandler} />
+            </div>
         </div>
-    </div>
+    {/if}
 
     <!-- zone to edit components of selected page -->
-    <div class="col-3 menu-edition bg-light shadow-lg overflow-auto text-dark">
-        <div class="py-2">
-            <MenuEdit 
-                bind:page={pageRequest.content}
-                bind:componentIdSelected={componentIdSelected}
-                updateContent={updateContent}
-            />
+    <div class={`${showMenuPage ? "col-3" : "col-5"} bg-light shadow-lg text-dark position-relative`}>
+        <div class="overflow-scroll menu-edition">
+            <div class="py-1">
+                <MenuEdit 
+                    bind:page={pageRequest.content}
+                    bind:componentIdSelected={componentIdSelected}
+                    updateContent={updateContent}
+                />
+            </div>
         </div>
+        <button 
+            class="btn btn-dark btn-sm border border-3 rounded-circle position-absolute top-50 start-0 translate-middle"
+            on:click={() => showMenuPage = !showMenuPage}
+        >
+            {#if showMenuPage}
+                <i class="bi bi-chevron-left"></i>
+            {:else}
+                <i class="bi bi-chevron-right"></i>
+            {/if}
+        </button>
     </div>
 
     <!-- zone to preview your page -->
