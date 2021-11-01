@@ -11,6 +11,7 @@
     export let admin='false';
     export let edit='false';
     export let updateContent;
+    export let isSelected = false;
 
     const toggle = async () => {
         if (edit && updateContent) {
@@ -203,11 +204,13 @@
     <div class='row'>
         <div class={`col ${textAlign}`}>   
             {#if !values[0].url}
-                <div class='bg-secondary text-center text-dark rounded-3' style='min-height:100px;'>Ajouter l'image</div>
+                <div style={`transform: rotate(${transformR}deg) scale(${scaleXY, scaleXY});padding-left: ${paddingL}rem;;padding-right: ${paddingR}rem;padding-top: ${paddingT}rem;;padding-bottom: ${paddingB}rem;`}>
+                    <div class='bg-secondary text-center text-dark rounded-3 d-flex align-items-center justify-content-center' style="min-height:100px;">No image selected</div>
+                </div>
             {:else}
                 {#if values[0].redirection}
                     <a href={values[0].redirection} target={values[0].redirection.match(/^http/i) ? '_blank' : ''} >
-                        <figure class='figure' style={`transform: rotate(${transformR}deg) scale(${scaleXY, scaleXY});padding-left: ${paddingL}rem;;padding-right: ${paddingR}rem;padding-top: ${paddingT}rem;;padding-bottom: ${paddingB}rem;`}>
+                        <figure class={`figure ${isSelected && "border rounded"}`} style={`transform: rotate(${transformR}deg) scale(${scaleXY, scaleXY});padding-left: ${paddingL}rem;;padding-right: ${paddingR}rem;padding-top: ${paddingT}rem;;padding-bottom: ${paddingB}rem;`}>
                             <img 
                                 src={`${API_URL}${values[0].url}`} 
                                 alt={values[0].substitution}
@@ -218,7 +221,7 @@
                         </figure>
                     </a>
                 {:else}
-                    <figure class='figure' style={`transform: rotate(${transformR}deg) scale(${scaleXY, scaleXY});padding-left: ${paddingL}rem;;padding-right: ${paddingR}rem;padding-top: ${paddingT}rem;;padding-bottom: ${paddingB}rem;`}>
+                    <figure class={`figure ${isSelected && "border rounded"}`} style={`transform: rotate(${transformR}deg) scale(${scaleXY, scaleXY});padding-left: ${paddingL}rem;;padding-right: ${paddingR}rem;padding-top: ${paddingT}rem;;padding-bottom: ${paddingB}rem;`}>
                         <img 
                             src={`${API_URL}${values[0].url}`} 
                             alt={values[0].substitution}

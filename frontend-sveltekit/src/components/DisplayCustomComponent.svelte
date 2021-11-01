@@ -27,6 +27,18 @@
 </script>
 
 
+{#if type === 'layoutComponent'}
+    <LayoutComponent
+        bind:values={values}
+        bind:styles={styles}
+        updateContent={updateContent}
+        admin={admin}
+        edit={edit}
+        city={city}
+        isSelected={isSelected}
+    />
+{/if}
+
 {#if type === 'textComponent'}
     <TextComponent
         bind:values={values}
@@ -45,6 +57,7 @@
         updateContent={updateContent}
         admin={admin}
         edit={edit}
+        isSelected={isSelected}
     />
 {/if}
 
@@ -156,18 +169,6 @@
         updateContent={updateContent}
         admin={admin}
         edit={edit}
-    />
-{/if}
-
-{#if type === 'layoutComponent'}
-    <LayoutComponent
-        bind:values={values}
-        bind:styles={styles}
-        updateContent={updateContent}
-        admin={admin}
-        edit={edit}
-        city={city}
-        isSelected={isSelected}
     />
 {/if}
 

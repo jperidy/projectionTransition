@@ -7,6 +7,7 @@
 
     import EditLayoutComponent from "./EditLayoutComponent.svelte";
     import EditTextComponent from "./EditTextComponent.svelte";
+    import EditImageComponent from "./EditImageComponent.svelte";
 
     export let type;
     export let values;
@@ -121,6 +122,12 @@
             {/if}
             {#if type === 'textComponent'}
                 <EditTextComponent
+                    bind:values={values}
+                    bind:styles={styles}
+                />
+            {/if}
+            {#if type === 'imageComponent'}
+                <EditImageComponent
                     bind:values={values}
                     bind:styles={styles}
                 />
