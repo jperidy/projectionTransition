@@ -1,5 +1,4 @@
 <script>
-import { element } from "svelte/internal";
 import { recursiveFilmDelete } from "../actions/filmActions";
 
 import { recursiveDeleteAction } from "../utils/imageFunctions";

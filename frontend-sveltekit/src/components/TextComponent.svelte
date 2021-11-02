@@ -17,7 +17,7 @@
     export let admin='false';
     export let edit='false';
     export let updateContent;
-    export let isSelected = false;
+    export let isSelected = {select: false, position: null};
 
     const colors = ['primary', 'secondary', 'pomme', 'outremer', 'lavande', 'caraibe', 'tangerine', 'ambre', 'light', 'white', 'dark', 'black'];
     
@@ -247,7 +247,7 @@
             <button class="btn btn-secondary" on:click={() => edit = !edit}>Annuler</button>
         </ModalFooter>
     </Modal>
-    <div class={`content ${isSelected && "border rounded"}`} >
+    <div class={`content ${isSelected.select && "border border-3 rounded"}`} >
         <div class={`${textColor} ${bgColor} ${rounded}`} style={`text-align: ${textAlign}; font-family: ${fontFamily};${fontSize > 0 ? "font-size: " + fontSize + "rem"  : ""};font-weight: ${fontWeight};font-style: ${fontStyle};transform: rotate(${transformR}deg);margin-left: ${marginL}rem;margin-right: ${marginR}rem;margin-top: ${marginT}rem;margin-bottom: ${marginB}rem;padding-left: ${paddingL}rem;padding-right: ${paddingR}rem;padding-top: ${paddingT}rem;padding-bottom: ${paddingB}rem;`}>
             <SvelteMarkdown source={values[0] && values[0].value ? values[0].value : ''} renderers={{
                 paragraph: ParagrapheMarkdown, 

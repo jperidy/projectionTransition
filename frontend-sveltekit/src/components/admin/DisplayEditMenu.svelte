@@ -8,12 +8,16 @@
     import EditLayoutComponent from "./EditLayoutComponent.svelte";
     import EditTextComponent from "./EditTextComponent.svelte";
     import EditImageComponent from "./EditImageComponent.svelte";
+    import EditSousLigneComponent from "./EditSousLigneComponent.svelte";
+import EditMultiLayerComponent from "./EditMultiLayerComponent.svelte";
 
     export let type;
     export let values;
     export let styles;
     export let pageContent;
+    export let selectedComponentPosition = null;
     export let position;
+    export let displayInFrame = false;
 
     let visible = false;
 
@@ -44,7 +48,18 @@
     };
 
     const addContent = (component, position) => {
-        pageContent.splice(position, 0, component);
+        if (!displayInFrame) {
+            pageContent.splice(position, 0, component);
+        } else {
+            // Modelisation of frame to optimize >> major impact on already production website
+            pageContent.splice(position, 0, {
+                type:'layout', 
+                size: 4, 
+                sizeTablette: 4, 
+                sizeMobile: 12, 
+                values:[component] 
+            })
+        }
         pageContent = pageContent;  
     };
 
@@ -118,6 +133,7 @@
                 <EditLayoutComponent
                     bind:values={values}
                     bind:styles={styles}
+                    bind:selectedComponentPosition={selectedComponentPosition}
                 />
             {/if}
             {#if type === 'textComponent'}
@@ -128,6 +144,18 @@
             {/if}
             {#if type === 'imageComponent'}
                 <EditImageComponent
+                    bind:values={values}
+                    bind:styles={styles}
+                />
+            {/if}
+            {#if type === 'sousligneComponent'}
+                <EditSousLigneComponent
+                    bind:values={values}
+                    bind:styles={styles}
+                />
+            {/if}
+            {#if type === 'multiLayerComponent'}
+                <EditMultiLayerComponent
                     bind:values={values}
                     bind:styles={styles}
                 />

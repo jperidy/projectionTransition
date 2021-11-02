@@ -10,7 +10,7 @@
     import EditFooterBrand from "./EditFooterBrand.svelte";
     import EditFooterSocialNetworks from "./EditFooterSocialNetworks.svelte";
     import EditFooterCopyrightComponent from "./EditFooterCopyrightComponent.svelte";
-import EditFooterStyleComponent from "./EditFooterStyleComponent.svelte";
+    import EditFooterStyleComponent from "./EditFooterStyleComponent.svelte";
     const API_URL = config.SVELTE_ENV === 'dev' ? config.API_URL_DEV : config.SVELTE_ENV === 'preprod' ? config.API_URL_PREPROD : config.SVELTE_ENV === 'production' ? config.API_URL_PROD : config.API_URL_DEV;
 
     let edit=false;

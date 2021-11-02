@@ -10,10 +10,11 @@
     import { browser } from "$app/env";
 
     let pageRequest = { content: { content: [], name: '' }, loading: true, message: '' };
-    let componentIdSelected = "";
+    let selectedComponent = {id:"", position:null};
     let currentPage = "";
     let showMenuPage = true;
-    //$: console.log(componentIdSelected)
+    
+    //$: console.log(selectedComponent)
     
     let isAuthenticate = false;
     $: {
@@ -54,7 +55,7 @@
             <div class="py-1">
                 <MenuEdit 
                     bind:page={pageRequest.content}
-                    bind:componentIdSelected={componentIdSelected}
+                    bind:selectedComponent={selectedComponent}
                     updateContent={updateContent}
                 />
             </div>
@@ -90,7 +91,7 @@
         <div class="display-preview overflow-auto">
             {#if pageRequest.content && pageRequest.content.content}
                 {#each pageRequest.content.content as section, position}
-                    <div class={`${section._id === componentIdSelected ? 'border rounded-3 shadow' : ''}`}>
+                    <!-- <div class={`${section._id === selectedComponent.id ? 'border rounded-3 shadow' : ''}`}> -->
                         <DisplayCustomComponent 
                             bind:value={section.value}
                             bind:values={section.values}
@@ -100,9 +101,10 @@
                             admin={false}
                             edit={false}
                             city={"city"}
-                            isSelected={section._id === componentIdSelected}
+                            isSelected={{select: section._id === selectedComponent.id, position: selectedComponent.position}}
                         />   
-                    </div>
+                            <!-- isSelected={section._id === selectedComponent} -->
+                    <!-- </div> -->
                 {/each}
             {/if}
         </div>

@@ -5,14 +5,13 @@ import { uploadImage } from '../../actions/imagesActions';
 
     export let values;
     export let styles;
+    export let selectedComponentPosition;
 
     import { updateStyle } from '../../utils/styleFunctions'; 
     import DisplayEditMenu from './DisplayEditMenu.svelte';
     import AddElement from '../AddElement.svelte';
 
     //$: columnNumber = values.length;
-
-    $: console.log('values', values);
     
     let openSelecteComponent = false;
 
@@ -190,7 +189,7 @@ import { uploadImage } from '../../actions/imagesActions';
     
     <div class="mt-1">
         {#each values as component, index}
-            <div class="column-container border-top border-start border-2 rounded mt-3 pt-3 ps-1">
+            <div class="column-container border-top border-start border-2 rounded mt-3 pt-3 ps-1" on:mouseenter={() => selectedComponentPosition = index}>
                 <div class="colum-index bg-dark text-light d-flex justify-content-center align-items-center">{index + 1}</div>
                 {#if component.values.length > 0}
                     <DisplayEditMenu
@@ -199,6 +198,7 @@ import { uploadImage } from '../../actions/imagesActions';
                         bind:styles={component.values[0].styles}
                         bind:pageContent={values}
                         position={index}
+                        displayInFrame={true}
                     />
                 {:else}
                     <button class='btn btn-secondary w-100 my-3' on:click={() => openSelecteComponent = true}>Select a component</button>

@@ -23,7 +23,7 @@
     export let values = [];
     export let edit = false;
     export let city = '';
-    export let isSelected = false;
+    export let isSelected = {select: false, position: null};
 </script>
 
 
@@ -52,6 +52,17 @@
 
 {#if type === 'imageComponent'}
     <ImageComponent
+        bind:values={values}
+        bind:styles={styles}
+        updateContent={updateContent}
+        admin={admin}
+        edit={edit}
+        isSelected={isSelected}
+    />
+{/if}
+
+{#if type === 'sousligneComponent'}
+    <SouslligneComponent
         bind:values={values}
         bind:styles={styles}
         updateContent={updateContent}
@@ -164,16 +175,6 @@
 
 {#if type === 'contactComponent'}
     <ContactForm
-        bind:values={values}
-        bind:styles={styles}
-        updateContent={updateContent}
-        admin={admin}
-        edit={edit}
-    />
-{/if}
-
-{#if type === 'sousligneComponent'}
-    <SouslligneComponent
         bind:values={values}
         bind:styles={styles}
         updateContent={updateContent}

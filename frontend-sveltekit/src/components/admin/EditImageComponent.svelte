@@ -51,14 +51,14 @@ const API_URL = config.SVELTE_ENV === 'dev' ? config.API_URL_DEV : config.SVELTE
 <input class="form-control my-3" type='text' name='text' bind:value={values[0].redirection} placeholder='[option] url de redirection *'/>
 <p>* exemple : https://url_cible.com Pour une url externe au site <br>* exemple : /edito pour une url interne au site</p>
 <div class='row py-1'><div class='col'>
-    <button class={`px-1 border rounded btn ${textAlign === "text-start" ? "btn-primary border border-secondary" : "btn-light"}`} on:click={() => styles = updateStyle(styles, {name:'text-align', value:'text-start'})}><Icon name='text-left' /></button>
-    <button class={`px-1 border rounded btn ${textAlign === "text-center" ? "btn-primary border border-secondary" : "btn-light"}`} on:click={() => styles = updateStyle(styles, {name:'text-align', value:'text-center'})}><Icon name='text-center' /></button>
-    <button class={`px-1 border rounded btn ${textAlign === "text-end" ? "btn-primary border border-secondary" : "btn-light"}`} on:click={() => styles = updateStyle(styles, {name:'text-align', value:'text-end'})}><Icon name='text-right' /></button>
-    <button class={`px-1 border rounded btn ${shadow === "shadow" ? "btn-primary border border-secondary" : "btn-light"}`} on:click={() => styles = updateStyle(styles, {name:'shadow', value:'shadow'})}><Icon name='back' /></button>
-    <button class={`px-1 border rounded btn ${shadow === "" ? "btn-primary border border-secondary" : "btn-light"}`} on:click={() => styles = updateStyle(styles, {name:'shadow', value:''})}>No shadow</button>
-    <button class={`px-1 border rounded btn ${rounded === "" ? "btn-primary border border-secondary" : "btn-light"}`} on:click={() => styles = updateStyle(styles, {name:'rounded', value:''})}><Icon name='square' /></button>
-    <button class={`px-1 border rounded btn ${rounded === "rounded-3" ? "btn-primary border border-secondary" : "btn-light"}`} on:click={() => styles = updateStyle(styles, {name:'rounded', value:'rounded-3'})}><Icon name='app' /></button>
-    <button class={`px-1 border rounded btn ${rounded === "rounded-circle" ? "btn-primary border border-secondary" : "btn-light"}`} on:click={() => styles = updateStyle(styles, {name:'rounded', value:'rounded-circle'})}><Icon name='circle' /></button>
+    <button class={`px-2 border rounded btn ${textAlign === "text-start" ? "btn-primary border border-secondary" : "btn-light"}`} on:click={() => styles = updateStyle(styles, {name:'text-align', value:'text-start'})}><Icon name='text-left' /></button>
+    <button class={`px-2 border rounded btn ${textAlign === "text-center" ? "btn-primary border border-secondary" : "btn-light"}`} on:click={() => styles = updateStyle(styles, {name:'text-align', value:'text-center'})}><Icon name='text-center' /></button>
+    <button class={`px-2 border rounded btn ${textAlign === "text-end" ? "btn-primary border border-secondary" : "btn-light"}`} on:click={() => styles = updateStyle(styles, {name:'text-align', value:'text-end'})}><Icon name='text-right' /></button>
+    <button class={`px-2 border rounded btn ${shadow === "shadow" ? "btn-primary border border-secondary" : "btn-light"}`} on:click={() => styles = updateStyle(styles, {name:'shadow', value:'shadow'})}><Icon name='back' /></button>
+    <button class={`px-2 border rounded btn ${shadow === "" ? "btn-primary border border-secondary" : "btn-light"}`} on:click={() => styles = updateStyle(styles, {name:'shadow', value:''})}>No shadow</button>
+    <button class={`px-2 border rounded btn ${rounded === "" ? "btn-primary border border-secondary" : "btn-light"}`} on:click={() => styles = updateStyle(styles, {name:'rounded', value:''})}><Icon name='square' /></button>
+    <button class={`px-2 border rounded btn ${rounded === "rounded-3" ? "btn-primary border border-secondary" : "btn-light"}`} on:click={() => styles = updateStyle(styles, {name:'rounded', value:'rounded-3'})}><Icon name='app' /></button>
+    <button class={`px-2 border rounded btn ${rounded === "rounded-circle" ? "btn-primary border border-secondary" : "btn-light"}`} on:click={() => styles = updateStyle(styles, {name:'rounded', value:'rounded-circle'})}><Icon name='circle' /></button>
 </div></div>
 <div class="row py-2 gx-1">
     <p class="m-0 border-bottom">Padding</p>

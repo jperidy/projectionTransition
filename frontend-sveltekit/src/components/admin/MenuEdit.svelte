@@ -2,7 +2,7 @@
     import DisplayEditMenu from "./DisplayEditMenu.svelte";
 
     export let page;
-    export let componentIdSelected;
+    export let selectedComponent;
     export let updateContent;
 
 </script>
@@ -14,13 +14,15 @@
 <div class="mt-3">
     {#if page.content && page.content.length}
         {#each page.content as component, position}
-            <div on:mouseleave={() => componentIdSelected = ""} on:mouseenter={() => componentIdSelected = component._id}>
+            <div on:mouseleave={() => selectedComponent = {id:"", position:null}} on:mouseenter={() => selectedComponent = {id: component._id, position:null}}>
                 <DisplayEditMenu
                     type={component.type}
                     bind:values={component.values}
                     bind:styles={component.styles}
                     bind:pageContent={page.content}
+                    bind:selectedComponentPosition={selectedComponent.position}
                     position={position}
+                    displayInFrame={false}
                 />
             </div>
         {/each}
