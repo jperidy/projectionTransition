@@ -9,9 +9,10 @@ import { recursiveDeleteAction } from "../utils/imageFunctions";
 
     export let values=[];
     export let styles=[];
-    export let admin='false';
-    export let edit='false';
+    export let admin=false;
+    export let edit=false;
     export let updateContent;
+    export let isSelected = {select: false, position:null};
     styles;
     edit;
 
@@ -46,7 +47,7 @@ import { recursiveDeleteAction } from "../utils/imageFunctions";
     
 </script>
 
-    <div class="layer" style="position: relative;">
+    <div class={`layer ${isSelected.select && "border border-3 rounded"}`} style="position: relative;">
         {#each values as element, posElement}
             {#if element.type}
                 {#if posElement}
@@ -63,6 +64,7 @@ import { recursiveDeleteAction } from "../utils/imageFunctions";
                             updateContent={updateContent}
                             admin={admin}
                             edit={false}
+                            isSelected={{select: isSelected.select && isSelected.position === posElement, position: null}}
                         />
                         </div>
                         {#if admin}

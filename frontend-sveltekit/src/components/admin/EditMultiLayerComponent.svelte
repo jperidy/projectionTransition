@@ -5,6 +5,7 @@ import DisplayEditMenu from "./DisplayEditMenu.svelte";
 
     export let values=[];
     export let styles=[]; styles;
+    export let selectedComponentPosition;
 
 
     const addToLayer = async(item, position) => {
@@ -14,6 +15,10 @@ import DisplayEditMenu from "./DisplayEditMenu.svelte";
 
     const handleMove = (e, pos) => {
         if (e.buttons) {
+            // verify position inpu
+            if (!values[pos].left) values[pos].left = 0;
+            if (!values[pos].top) values[pos].top = 0;
+
             let layer = document.querySelector('.element_0');
             let maxWidth = layer.offsetWidth;
             let maxHeight = layer.offsetHeight;
@@ -27,21 +32,25 @@ import DisplayEditMenu from "./DisplayEditMenu.svelte";
 
 {#each values as element, posElement}
     {#if element.type}
-        <div class="column-container border-top border-start border-2 rounded mt-3 pt-3 ps-1">
+        <div class="column-container border-top border-start border-2 rounded mt-3 pt-3 ps-1" on:mouseenter={() => selectedComponentPosition = posElement}>
             <div class="colum-index bg-dark text-light d-flex justify-content-center align-items-center">{posElement + 1}</div>
-            {#if posElement > 0}
-                <div >
-                    <button class="btn btn-light" style="min-height: 5rem; width: 100%;"on:mousemove={(e) => handleMove(e, posElement)}><i class="bi bi-arrows-move" ></i></button>
-                </div>
-            {/if}
             <DisplayEditMenu
-                type={element.type}
+            type={element.type}
                 bind:values={element.values}
                 bind:styles={element.styles}
                 bind:pageContent={values}
                 position={posElement}
-                displayInFrame={true}
+                displayInFrame={false}
             />
+            {#if posElement > 0}
+                <div >
+                    <button class="btn btn-light shadow rounded-3 my-3" style="min-height: 5rem; width: 100%;"on:mousemove={(e) => handleMove(e, posElement)}><i class="bi bi-arrows-move" ></i></button>
+                </div>
+                <div class='d-flex align-items-center'>
+                    <label class="mx-2" for="floating-width">Width (%) :</label>
+                    <input type="number" class="form-control" style="width: auto;" id="floating-width" bind:value={element.width} min="0" max="100">
+                </div>
+            {/if}
         </div>
         <!-- {#if posElement}
             <div 

@@ -403,7 +403,7 @@
                                 admin={admin}
                                 edit={false}
                                 city={city}
-                                isSelected={{select: isSelected.position === position, position: null}}
+                                isSelected={{select: isSelected.select && isSelected.position === position, position: null}}
                             />
                         </MovingContent>
                     {/each}

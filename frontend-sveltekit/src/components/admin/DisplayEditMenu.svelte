@@ -9,7 +9,7 @@
     import EditTextComponent from "./EditTextComponent.svelte";
     import EditImageComponent from "./EditImageComponent.svelte";
     import EditSousLigneComponent from "./EditSousLigneComponent.svelte";
-import EditMultiLayerComponent from "./EditMultiLayerComponent.svelte";
+    import EditMultiLayerComponent from "./EditMultiLayerComponent.svelte";
 
     export let type;
     export let values;
@@ -136,6 +136,13 @@ import EditMultiLayerComponent from "./EditMultiLayerComponent.svelte";
                     bind:selectedComponentPosition={selectedComponentPosition}
                 />
             {/if}
+            {#if type === 'multiLayerComponent'}
+                <EditMultiLayerComponent
+                    bind:values={values}
+                    bind:styles={styles}
+                    bind:selectedComponentPosition={selectedComponentPosition}
+                />
+            {/if}
             {#if type === 'textComponent'}
                 <EditTextComponent
                     bind:values={values}
@@ -150,12 +157,6 @@ import EditMultiLayerComponent from "./EditMultiLayerComponent.svelte";
             {/if}
             {#if type === 'sousligneComponent'}
                 <EditSousLigneComponent
-                    bind:values={values}
-                    bind:styles={styles}
-                />
-            {/if}
-            {#if type === 'multiLayerComponent'}
-                <EditMultiLayerComponent
                     bind:values={values}
                     bind:styles={styles}
                 />

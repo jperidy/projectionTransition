@@ -88,26 +88,26 @@
                 ><i class="bi bi-door-open"></i>Logout</button>
         </div>
         <!-- preview -->
-        <div class="display-preview overflow-auto">
-            {#if pageRequest.content && pageRequest.content.content}
-                {#each pageRequest.content.content as section, position}
-                    <!-- <div class={`${section._id === selectedComponent.id ? 'border rounded-3 shadow' : ''}`}> -->
-                        <DisplayCustomComponent 
-                            bind:value={section.value}
-                            bind:values={section.values}
-                            bind:styles={section.styles}
-                            type={section.type}
-                            updateContent={null}
-                            admin={false}
-                            edit={false}
-                            city={"city"}
-                            isSelected={{select: section._id === selectedComponent.id, position: selectedComponent.position}}
-                        />   
-                            <!-- isSelected={section._id === selectedComponent} -->
-                    <!-- </div> -->
-                {/each}
-            {/if}
-        </div>
+            <div id="display-preview" class="display-preview overflow-auto">
+                {#if pageRequest.content && pageRequest.content.content}
+                    {#each pageRequest.content.content as section, position}
+                        <!-- <div class={`${section._id === selectedComponent.id ? 'border rounded-3 shadow' : ''}`}> -->
+                            <DisplayCustomComponent 
+                                bind:value={section.value}
+                                bind:values={section.values}
+                                bind:styles={section.styles}
+                                type={section.type}
+                                updateContent={null}
+                                admin={false}
+                                edit={false}
+                                city={"city"}
+                                isSelected={{select: section._id === selectedComponent.id, position: selectedComponent.position}}
+                            />   
+                                <!-- isSelected={section._id === selectedComponent} -->
+                        <!-- </div> -->
+                    {/each}
+                {/if}
+            </div>
     </div>
 </div>
 {/if}

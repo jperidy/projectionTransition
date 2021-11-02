@@ -11,6 +11,7 @@
     import TdMarkdown from "./markdown/TdMarkdown.svelte";
     import TextBgFillPrimaryMarkdown from "./markdown/TextBgFillPrimaryMarkdown.svelte";
     import TextMarkdown from "./markdown/TextMarkdown.svelte";
+import { onMount } from "svelte";
 
     export let values=[];
     export let styles=[];
@@ -18,6 +19,24 @@
     export let edit='false';
     export let updateContent;
     export let isSelected = {select: false, position: null};
+
+    const uniqueId = 'text_' + new Date().valueOf().toString();
+    
+    
+    // TO CONTINUE
+    $: if (isSelected.select) {
+        const currentElement = document.getElementById(uniqueId);
+        const currentDisplay = document.getElementById("display-preview");
+
+        currentElement.scrollIntoView()
+
+        // .scroll({
+        //     top: 100,
+        //     left: 0,
+        //     behavior: 'smooth'
+        // })
+        //console.log(document.getElementById("text-content"))
+    }
 
     const colors = ['primary', 'secondary', 'pomme', 'outremer', 'lavande', 'caraibe', 'tangerine', 'ambre', 'light', 'white', 'dark', 'black'];
     
@@ -247,7 +266,7 @@
             <button class="btn btn-secondary" on:click={() => edit = !edit}>Annuler</button>
         </ModalFooter>
     </Modal>
-    <div class={`content ${isSelected.select && "border border-3 rounded"}`} >
+    <div id={uniqueId} class={`content ${isSelected.select && "border border-3 rounded"}`} >
         <div class={`${textColor} ${bgColor} ${rounded}`} style={`text-align: ${textAlign}; font-family: ${fontFamily};${fontSize > 0 ? "font-size: " + fontSize + "rem"  : ""};font-weight: ${fontWeight};font-style: ${fontStyle};transform: rotate(${transformR}deg);margin-left: ${marginL}rem;margin-right: ${marginR}rem;margin-top: ${marginT}rem;margin-bottom: ${marginB}rem;padding-left: ${paddingL}rem;padding-right: ${paddingR}rem;padding-top: ${paddingT}rem;padding-bottom: ${paddingB}rem;`}>
             <SvelteMarkdown source={values[0] && values[0].value ? values[0].value : ''} renderers={{
                 paragraph: ParagrapheMarkdown, 

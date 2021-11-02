@@ -34,7 +34,18 @@
         updateContent={updateContent}
         admin={admin}
         edit={edit}
+        isSelected={isSelected}
         city={city}
+    />
+{/if}
+
+{#if type === 'multiLayerComponent'}
+    <MultiLayerComponent
+        bind:values={values}
+        bind:styles={styles}
+        updateContent={updateContent}
+        admin={admin}
+        edit={edit}
         isSelected={isSelected}
     />
 {/if}
@@ -84,16 +95,6 @@
 
 {#if type === 'compressComponent'}
     <CompressFileComponent
-        bind:values={values}
-        bind:styles={styles}
-        updateContent={updateContent}
-        admin={admin}
-        edit={edit}
-    />
-{/if}
-
-{#if type === 'multiLayerComponent'}
-    <MultiLayerComponent
         bind:values={values}
         bind:styles={styles}
         updateContent={updateContent}
