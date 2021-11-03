@@ -4,6 +4,7 @@
     import { uploadImage } from "../actions/imagesActions";
     import EditButton from "./EditButton.svelte";
     import config from '../config.json';
+import { scrollingToElement } from "../utils/scrollingFunctin";
     const API_URL = config.SVELTE_ENV === 'dev' ? config.API_URL_DEV : config.SVELTE_ENV === 'preprod' ? config.API_URL_PREPROD : config.SVELTE_ENV === 'production' ? config.API_URL_PROD : config.API_URL_DEV;
 
     export let values=[];
@@ -12,6 +13,9 @@
     export let edit='false';
     export let updateContent;
     export let isSelected = {select: false, position:null};
+
+    const uniqueId = 'image_' + new Date().valueOf().toString();
+    $: if (isSelected.select) scrollingToElement(uniqueId);
 
     const toggle = async () => {
         if (edit && updateContent) {
@@ -200,7 +204,7 @@
     </ModalFooter>
 </Modal>
 
-<div class='content-container'>
+<div id={uniqueId} class='content-container'>
     <div class='row'>
         <div class={`col ${textAlign}`}>   
             {#if !values[0].url}

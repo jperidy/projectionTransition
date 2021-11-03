@@ -11,7 +11,7 @@
     import TdMarkdown from "./markdown/TdMarkdown.svelte";
     import TextBgFillPrimaryMarkdown from "./markdown/TextBgFillPrimaryMarkdown.svelte";
     import TextMarkdown from "./markdown/TextMarkdown.svelte";
-import { onMount } from "svelte";
+    import { scrollingToElement } from "..//utils/scrollingFunctin";
 
     export let values=[];
     export let styles=[];
@@ -21,22 +21,7 @@ import { onMount } from "svelte";
     export let isSelected = {select: false, position: null};
 
     const uniqueId = 'text_' + new Date().valueOf().toString();
-    
-    
-    // TO CONTINUE
-    $: if (isSelected.select) {
-        const currentElement = document.getElementById(uniqueId);
-        const currentDisplay = document.getElementById("display-preview");
-
-        currentElement.scrollIntoView()
-
-        // .scroll({
-        //     top: 100,
-        //     left: 0,
-        //     behavior: 'smooth'
-        // })
-        //console.log(document.getElementById("text-content"))
-    }
+    $: if (isSelected.select) scrollingToElement(uniqueId);
 
     const colors = ['primary', 'secondary', 'pomme', 'outremer', 'lavande', 'caraibe', 'tangerine', 'ambre', 'light', 'white', 'dark', 'black'];
     

@@ -1,4 +1,6 @@
 <script>
+import { scrollingToElement } from "../utils/scrollingFunctin";
+
 import { Icon, Modal, ModalBody, ModalFooter, ModalHeader } from "sveltestrap";
 
 import EditButton from "./EditButton.svelte";
@@ -10,6 +12,9 @@ import EditButton from "./EditButton.svelte";
     export let edit='false';
     export let updateContent;
     export let isSelected = {select: false, position:null};
+
+    const uniqueId = 'sousLigne_' + new Date().valueOf().toString();
+    $: if (isSelected.select) scrollingToElement(uniqueId);
 
     
     $:{
@@ -55,7 +60,7 @@ import EditButton from "./EditButton.svelte";
 
 </script>
 
-<div class={`content-container row ${isSelected.select && "border border-3 rounded"}`}>
+<div id={uniqueId} class={`content-container row ${isSelected.select && "border border-3 rounded"}`}>
     <div class="col">
         <div 
             class={`border-top border-5 ${textColor}`}
