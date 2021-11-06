@@ -10,9 +10,6 @@
 
     export let values=[];
     export let styles=[];
-    export let admin=false;admin; // to remove
-    export let edit=false;edit; // to remove
-    export let updateContent;updateContent; // to remove
     export let isSelected = {select: false, position: null};
     
 

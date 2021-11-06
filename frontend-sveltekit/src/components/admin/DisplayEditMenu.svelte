@@ -11,6 +11,7 @@
     import EditSousLigneComponent from "./EditSousLigneComponent.svelte";
     import EditMultiLayerComponent from "./EditMultiLayerComponent.svelte";
     import EditCompressFileComponent from "./EditCompressFileComponent.svelte";
+import EditVideoComponent from "./EditVideoComponent.svelte";
 
     export let type;
     export let values;
@@ -86,13 +87,13 @@
 
 </script>
 
-<div class="d-grid">
+<div class="my-2 p-1 shadow-sm item rounded">
     <div class="d-flex justify-content-between">
         <button class="edit-component btn btn-md btn-transparent px-0 text-start text-dark" on:click={() => visible = !visible}>
             {#if visible}
-                <i class="bi bi-dash-square"></i>
+                <i class="bi bi-dash-square me-3 ms-2"></i>
             {:else}
-                <i class="bi bi-plus-square"></i>
+                <i class="bi bi-plus-square me-3 ms-2"></i>
             {/if}
             {type.toUpperCase()}
         </button>
@@ -168,6 +169,12 @@
                     bind:styles={styles}
                 />
             {/if}
+            {#if type === 'videoComponent'}
+                <EditVideoComponent
+                    bind:values={values}
+                    bind:styles={styles}
+                />
+            {/if}
         </div>
     {/if}
 </div>
@@ -196,5 +203,8 @@
 <style>
     .edit-component:hover {
         font-weight: bold;
+    }
+    .item:hover {
+        transform: scale(1.01);
     }
 </style>

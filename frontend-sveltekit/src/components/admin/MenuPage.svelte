@@ -31,10 +31,10 @@
     <Message color="danger">{message}</Message>
 {/if}
 {#if pagesList && pagesList.length}
-    <div class='page-list d-grid gap-0'>
+    <div class='page-list d-grid gap-2'>
         {#each pagesList as page}
             <button 
-                class={`page-item btn ${page.name === currentPage ? "btn-primary" : "btn-transparent"} text-start text-break overflow-hidden`} 
+                class={`page-item btn ${page.name === currentPage ? "btn-primary" : "btn-transparent"} text-start text-break overflow-hidden shadow-sm p-2`} 
                 type="button" 
                 on:click={() => selectPageHandler(page.name)}
                 data-bs-toggle="tooltip" 

@@ -35,25 +35,20 @@
 
 <div id={uniqueId}>
 
+    <!-- Unit components -->
     {#if type === 'layoutComponent'}
-    <LayoutComponent
-        bind:values={values}
-        bind:styles={styles}
-        updateContent={updateContent}
-        admin={admin}
-        edit={edit}
-        isSelected={isSelected}
-        city={city}
-    />
+        <LayoutComponent
+            bind:values={values}
+            bind:styles={styles}
+            isSelected={isSelected}
+            city={city}
+        />
     {/if}
 
     {#if type === 'multiLayerComponent'}
         <MultiLayerComponent
             bind:values={values}
             bind:styles={styles}
-            updateContent={updateContent}
-            admin={admin}
-            edit={edit}
             isSelected={isSelected}
         />
     {/if}
@@ -62,9 +57,6 @@
         <TextComponent
             bind:values={values}
             bind:styles={styles}
-            updateContent={updateContent}
-            admin={admin}
-            edit={edit}
             isSelected={isSelected}
         />
     {/if}
@@ -73,9 +65,6 @@
         <ImageComponent
             bind:values={values}
             bind:styles={styles}
-            updateContent={updateContent}
-            admin={admin}
-            edit={edit}
             isSelected={isSelected}
         />
     {/if}
@@ -84,9 +73,6 @@
         <SouslligneComponent
             bind:values={values}
             bind:styles={styles}
-            updateContent={updateContent}
-            admin={admin}
-            edit={edit}
             isSelected={isSelected}
         />
     {/if}
@@ -95,9 +81,6 @@
         <CompressFileComponent
             bind:values={values}
             bind:styles={styles}
-            updateContent={updateContent}
-            admin={admin}
-            edit={edit}
             isSelected={isSelected}
         />
     {/if}
@@ -106,14 +89,13 @@
         <VideoComponent
             bind:values={values}
             bind:styles={styles}
-            updateContent={updateContent}
-            admin={admin}
-            edit={edit}
+            isSelected={isSelected}
         />
     {/if}
 
-    {#if type === 'carouselComponent'}
-        <CarouselComponent
+    <!-- to add to new BO -->
+    {#if type === 'contactComponent'}
+        <ContactForm
             bind:values={values}
             bind:styles={styles}
             updateContent={updateContent}
@@ -122,36 +104,7 @@
         />
     {/if}
 
-    {#if type === 'editoComponent'}
-        <EditoComponent
-            bind:values={values}
-            bind:styles={styles}
-            updateContent={updateContent}
-            admin={admin}
-            edit={edit}
-        />
-    {/if}
-
-    {#if type === 'articlesComponent'}
-        <ArticlesComponent
-            bind:values={values}
-            bind:styles={styles}
-            updateContent={updateContent}
-            admin={admin}
-            edit={edit}
-        />
-    {/if}
-
-    {#if type === 'partenairesComponent'}
-        <PartenairesComponent
-            bind:values={values}
-            bind:styles={styles}
-            updateContent={updateContent}
-            admin={admin}
-            edit={edit}
-        />
-    {/if}
-
+    <!-- extract unit component Map and Dropdown -->
     {#if type === 'infoComponent'}
         <LieuxComponent
             bind:values={values}
@@ -162,6 +115,27 @@
         />
     {/if}
 
+    <!-- Extrat unit component switch -->
+    {#if type === 'carouselComponent'}
+        <CarouselComponent
+            bind:values={values}
+            bind:styles={styles}
+            updateContent={updateContent}
+            admin={admin}
+            edit={edit}
+        />
+    {/if}
+
+    <!-- custom components with automatics process -->
+    {#if type === 'articlesComponent'}
+        <ArticlesComponent
+            bind:values={values}
+            bind:styles={styles}
+            updateContent={updateContent}
+            admin={admin}
+            edit={edit}
+        />
+    {/if}
     {#if type === 'programmationComponent'}
         <ProgrammationComponent
             bind:values={values}
@@ -173,6 +147,27 @@
         />
     {/if}
 
+
+
+    <!-- Do not use this component >> combien Layout and unit components -->
+    {#if type === 'editoComponent'}
+        <EditoComponent
+            bind:values={values}
+            bind:styles={styles}
+            updateContent={updateContent}
+            admin={admin}
+            edit={edit}
+        />
+    {/if}
+    {#if type === 'partenairesComponent'}
+        <PartenairesComponent
+            bind:values={values}
+            bind:styles={styles}
+            updateContent={updateContent}
+            admin={admin}
+            edit={edit}
+        />
+    {/if}
     {#if type === 'equipeComponent'}
         <EquipeComponent
             bind:values={values}
@@ -183,17 +178,4 @@
         />
     {/if}
 
-    {#if type === 'contactComponent'}
-        <ContactForm
-            bind:values={values}
-            bind:styles={styles}
-            updateContent={updateContent}
-            admin={admin}
-            edit={edit}
-        />
-{/if}
-
 </div>
-
-
-

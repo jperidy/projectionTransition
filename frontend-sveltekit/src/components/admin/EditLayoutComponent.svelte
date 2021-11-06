@@ -18,7 +18,6 @@ import { uploadImage } from '../../actions/imagesActions';
     const addToLayout = (column, position) => {
         values[position].values[0] = { ...values[position].values[0], ...column}
         values = values;
-        console.log(values);
     };
 
     const columnChangeHandler = (number) => {

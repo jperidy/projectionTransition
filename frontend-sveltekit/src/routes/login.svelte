@@ -21,7 +21,8 @@
 
     $: {
         let isAuthenticate = $userInfo && $userInfo.profil === 'admin' ? true : false;
-        if (browser && isAuthenticate) { goto(redirection); }
+        //if (browser && isAuthenticate) { goto(redirection); }
+        if (browser && isAuthenticate) { goto("/admin"); }
     }
 
 

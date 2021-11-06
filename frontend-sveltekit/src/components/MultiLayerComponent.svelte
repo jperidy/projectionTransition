@@ -3,10 +3,7 @@
     import DisplayCustomComponent from "./DisplayCustomComponent.svelte";
 
     export let values=[];
-    export let styles=[]; styles;
-    export let admin=false;
-    export let edit=false; edit;
-    export let updateContent;
+    export let styles=[];styles;
     export let isSelected = {select: false, position:null};
 
 </script>
@@ -19,18 +16,18 @@
                     class={`element_N`}
                     style={`position:absolute;top:${element.top || '0'}%;left:${element.left || '0'}%;max-width:${100-element.left}%;max-height:${100-element.top}%;width:${element.width ? element.width + '%' : null};`}
                 >            
-                    <div class={`${admin && "border"}`}>
+                    <!-- <div class={`${admin && "border"}`}> -->
                         <DisplayCustomComponent
                             bind:value={element.value}
                             bind:values={element.values}
                             bind:styles={element.styles}
                             type={element.type}
-                            updateContent={updateContent}
-                            admin={admin}
+                            updateContent={null}
+                            admin={false}
                             edit={false}
                             isSelected={{select: isSelected.select && isSelected.position === posElement, position: null}}
                         />
-                    </div>
+                    <!-- </div> -->
                 </div>
             {:else}
                 <div 
@@ -42,8 +39,8 @@
                         bind:values={element.values}
                         bind:styles={element.styles}
                         type={element.type}
-                        updateContent={updateContent}
-                        admin={admin}
+                        updateContent={null}
+                        admin={false}
                         edit={false}
                     />
                 </div>
