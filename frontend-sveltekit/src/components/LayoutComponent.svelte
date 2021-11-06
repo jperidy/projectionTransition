@@ -23,7 +23,7 @@
     $: smSize = styles.filter(x => x.name === 'smSize')[0] && styles.filter(x => x.name === 'smSize')[0].value || 12;
     $: mdSize = styles.filter(x => x.name === 'mdSize')[0] && styles.filter(x => x.name === 'mdSize')[0].value || 12;
     $: lgSize = styles.filter(x => x.name === 'lgSize')[0] && styles.filter(x => x.name === 'lgSize')[0].value || 10;
-    $: xlSize = styles.filter(x => x.name === 'xlSize')[0] && styles.filter(x => x.name === 'xlSize')[0].value || 8;
+    $: xlSize = styles.filter(x => x.name === 'xlSize')[0] && styles.filter(x => x.name === 'xlSize')[0].value || 10;
     
     $: alignContent = styles.filter(x => x.name === 'align-items')[0] && styles.filter(x => x.name === 'align-items')[0].value;
     $: bgColor = styles.filter(x => x.name === 'backgroud-color')[0] && styles.filter(x => x.name === 'backgroud-color')[0].value;

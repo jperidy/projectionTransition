@@ -93,14 +93,11 @@
         />
     {/if}
 
-    <!-- to add to new BO -->
     {#if type === 'contactComponent'}
         <ContactForm
             bind:values={values}
             bind:styles={styles}
-            updateContent={updateContent}
-            admin={admin}
-            edit={edit}
+            isSelected={isSelected}
         />
     {/if}
 

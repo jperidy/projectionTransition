@@ -3,16 +3,11 @@
     import { sendContactEmail } from '../actions/emailsActions';
     import { emailSendRequest } from '../store';
 
-    import TextComponent from "./TextComponent.svelte";
     import Loading from "./Loading.svelte";
     import CustomContainer from "./CustomContainer.svelte";
     export let values=[];
-    export let styles=[];
-    export let admin='false';
-    export let edit='false';
-    export let updateContent;
-
-    styles;
+    export let styles=[];styles;
+    export let isSelected = {select: false, position:null};
 
     let subject = '';
     let email = '';
@@ -39,26 +34,19 @@
 
 </script>
 
-<CustomContainer size={{xs: 12, sm:12, md:12, lg:8}}>
-    <div class='mt-5'>
-        <div class='text-center my-3'>
+<CustomContainer size={{xs: 12, sm:12, md:12, lg:12}}>
+    <div class={`contact-form ${isSelected.select && "border border-3 rounded"}`}>
+        
+        <!-- Be carrefoul some regression to be aware -->
+        <!-- <div class='text-center my-3'>
             <TextComponent 
                 bind:values={values[0].title.values}
                 bind:styles={values[0].title.styles}
-                edit={edit}
-                admin={admin}
-                updateContent={updateContent}
+                edit={false}
+                admin={false}
+                updateContent={null}
             />
-        </div>
-
-        {#if admin}
-            <label for="type-of-contact">Sélectionner le destinataire</label>
-            <select class='form-control' name="type-of-contact" id="type-of-contact" bind:value={values[0].type} on:change={updateContent}>
-                <option value="">--selectionner--</option>
-                <option value="contact">Contact</option>
-                <option value="dev">Développeur</option>
-            </select>
-        {/if}
+        </div> -->
     
         <form id='contact' class="row contact-form" on:submit={sendEmailHandler}>
             

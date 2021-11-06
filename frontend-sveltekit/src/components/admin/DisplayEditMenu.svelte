@@ -11,7 +11,8 @@
     import EditSousLigneComponent from "./EditSousLigneComponent.svelte";
     import EditMultiLayerComponent from "./EditMultiLayerComponent.svelte";
     import EditCompressFileComponent from "./EditCompressFileComponent.svelte";
-import EditVideoComponent from "./EditVideoComponent.svelte";
+    import EditVideoComponent from "./EditVideoComponent.svelte";
+import EditContactComponent from "./EditContactComponent.svelte";
 
     export let type;
     export let values;
@@ -171,6 +172,12 @@ import EditVideoComponent from "./EditVideoComponent.svelte";
             {/if}
             {#if type === 'videoComponent'}
                 <EditVideoComponent
+                    bind:values={values}
+                    bind:styles={styles}
+                />
+            {/if}
+            {#if type === 'contactComponent'}
+                <EditContactComponent
                     bind:values={values}
                     bind:styles={styles}
                 />
