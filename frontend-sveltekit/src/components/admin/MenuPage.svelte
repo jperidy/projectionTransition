@@ -22,7 +22,7 @@
 
 </script>
 
-<h3>Pages</h3>
+<h3 class="mt-2">Pages</h3>
 
 {#if loading}
     <Loading number={1} color="secondary" />

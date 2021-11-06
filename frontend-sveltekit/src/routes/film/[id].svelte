@@ -294,8 +294,6 @@
                 pageContent={filmRequest.film}
                 page={page}
                 siteURL={SITE_URL}
-                admin={admin}
-                updateContent={updateFilm}
                 defaultSeo={defaultSeo}
             />
         </CustomContainer>

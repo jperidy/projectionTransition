@@ -1,15 +1,33 @@
 <script>
+    import { pageRequest } from "../../store";
     import DisplayEditMenu from "./DisplayEditMenu.svelte";
 
     export let page;
     export let selectedComponent;
     export let updateContent;
 
+    $:hasBeenModified = !(JSON.stringify(page) === JSON.stringify($pageRequest.content));
+
 </script>
 
-<div class='d-flex justify-content-between align-content-center flex-wrap'>
+<div class='mt-2 d-flex justify-content-between align-items-center flex-wrap'>
     <h3 class="p-0 m-0">Edition</h3>
-    <button class="btn btn-primary" on:click={updateContent}>Save changes</button>
+    {#if $pageRequest.loading}
+        <button class="btn btn-primary text-dark" type="button" disabled>
+            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+            Loading...
+        </button>
+    {:else}
+        {#if hasBeenModified}
+            <button class="btn btn-warning text-light" type="button" on:click={updateContent}>
+                Save changes
+            </button>
+        {:else}
+            <button class="btn btn-primary text-dark" type="button" on:click={updateContent}>
+                Up to date
+            </button>
+        {/if}
+    {/if}
 </div>
 <div class="mt-3">
     {#if page.content && page.content.length}

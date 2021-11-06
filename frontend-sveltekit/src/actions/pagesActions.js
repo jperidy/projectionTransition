@@ -24,7 +24,7 @@ export const updateOrCreateContent = async (content) => {
 
         const { data } = await axios.post(`${API_URL}/api/page/${content.name}`, content, config);
 
-        pageRequest.set({ content: data.value, loading: false, message: '' });
+        pageRequest.set({ content: JSON.parse(JSON.stringify(data.value)), loading: false, message: '' });
         return { content: data.value, loading: false, message: '' };
 
     } catch (error) {
@@ -49,7 +49,7 @@ export const getContent = async (pageName) => {
 
         const { data } = await axios.get(`${API_URL}/api/page/${pageName}`, config);
 
-        pageRequest.set({ content: data.value, loading: false, message: '' });
+        pageRequest.set({ content: JSON.parse(JSON.stringify(data.value)) , loading: false, message: '' });
 
         //console.log(data.value);
         return { content: data.value, loading: false, message: '' };

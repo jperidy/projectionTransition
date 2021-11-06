@@ -8,13 +8,14 @@
     import { logout } from "../actions/userActions";
     import { goto } from "$app/navigation";
     import { browser } from "$app/env";
+    import EditSeoComponent from "../components/admin/EditSeoComponent.svelte";
 
     let pageRequest = { content: { content: [], name: '' }, loading: true, message: '' };
     let selectedComponent = {id:"", position:null};
     let currentPage = "";
     let showMenuPage = true;
     
-    //$: console.log(selectedComponent)
+    $: console.log(pageRequest.content)
     
     let isAuthenticate = false;
     $: {
@@ -58,6 +59,9 @@
                     bind:selectedComponent={selectedComponent}
                     updateContent={updateContent}
                 />
+            </div>
+            <div class="py-1">
+                <EditSeoComponent bind:pageContent={pageRequest.content} />
             </div>
         </div>
         <button 

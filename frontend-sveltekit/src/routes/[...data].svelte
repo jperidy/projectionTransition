@@ -147,8 +147,6 @@
             pageContent={pageRequest.content}
             page={page}
             siteURL={SITE_URL}
-            admin={admin}
-            updateContent={updateContent}
             defaultSeo={defaultSeo}
         />  
     </Row>

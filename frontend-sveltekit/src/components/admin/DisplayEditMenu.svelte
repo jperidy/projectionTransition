@@ -12,7 +12,7 @@
     import EditMultiLayerComponent from "./EditMultiLayerComponent.svelte";
     import EditCompressFileComponent from "./EditCompressFileComponent.svelte";
     import EditVideoComponent from "./EditVideoComponent.svelte";
-import EditContactComponent from "./EditContactComponent.svelte";
+    import EditContactComponent from "./EditContactComponent.svelte";
 
     export let type;
     export let values;
