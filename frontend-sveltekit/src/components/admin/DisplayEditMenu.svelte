@@ -10,6 +10,7 @@
     import EditImageComponent from "./EditImageComponent.svelte";
     import EditSousLigneComponent from "./EditSousLigneComponent.svelte";
     import EditMultiLayerComponent from "./EditMultiLayerComponent.svelte";
+    import EditCompressFileComponent from "./EditCompressFileComponent.svelte";
 
     export let type;
     export let values;
@@ -157,6 +158,12 @@
             {/if}
             {#if type === 'sousligneComponent'}
                 <EditSousLigneComponent
+                    bind:values={values}
+                    bind:styles={styles}
+                />
+            {/if}
+            {#if type === 'compressComponent'}
+                <EditCompressFileComponent
                     bind:values={values}
                     bind:styles={styles}
                 />

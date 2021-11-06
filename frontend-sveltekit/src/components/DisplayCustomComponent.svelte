@@ -91,18 +91,19 @@
         />
     {/if}
 
-    {#if type === 'videoComponent'}
-        <VideoComponent
+    {#if type === 'compressComponent'}
+        <CompressFileComponent
             bind:values={values}
             bind:styles={styles}
             updateContent={updateContent}
             admin={admin}
             edit={edit}
+            isSelected={isSelected}
         />
     {/if}
 
-    {#if type === 'compressComponent'}
-        <CompressFileComponent
+    {#if type === 'videoComponent'}
+        <VideoComponent
             bind:values={values}
             bind:styles={styles}
             updateContent={updateContent}

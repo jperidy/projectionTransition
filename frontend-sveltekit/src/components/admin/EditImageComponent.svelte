@@ -7,7 +7,7 @@ const API_URL = config.SVELTE_ENV === 'dev' ? config.API_URL_DEV : config.SVELTE
 
 
     export let values;
-    export let styles; styles;
+    export let styles;
 
     $: shadow = styles.filter(x => x.name === 'shadow')[0] && styles.filter(x => x.name === 'shadow')[0].value;
     $: rounded = styles.filter(x => x.name === 'rounded')[0] && styles.filter(x => x.name === 'rounded')[0].value;
