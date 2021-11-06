@@ -7,7 +7,7 @@
     import DisplayCustomComponent from "./DisplayCustomComponent.svelte";
     import EditButton from "./EditButton.svelte";
     import MovingContent from "./MovingContent.svelte";
-    import { scrollingToElement } from "../utils/scrollingFunctin";
+
     export let values=[];
     export let styles=[];
     export let admin='false';
@@ -20,9 +20,6 @@
     let columnNumberMobile = 1;
     let md = 12;
     let sm = 12;
-
-    const uniqueId = 'layout_' + new Date().valueOf().toString();
-    $: if (isSelected.select) scrollingToElement(uniqueId);
 
     $:{
         if (values.length === 0) {
@@ -359,7 +356,7 @@
             </ModalFooter>
         </Modal> 
         
-        <div id={uniqueId} class={`row content gx-${gutterX} gy-${gutterY} align-items-${alignContent} ${marginX} ${marginY} ${rounded} ${border} ${borderColor}`} style={`margin-left: ${marginX}rem;margin-right: ${marginX}rem;margin-bottom: ${marginY}rem;margin-top: ${marginY}rem;padding-left: ${paddingX}rem;padding-right: ${paddingX}rem;padding-top: ${paddingY}rem;padding-bottom: ${paddingY}rem;`}>
+        <div class={`row content gx-${gutterX} gy-${gutterY} align-items-${alignContent} ${marginX} ${marginY} ${rounded} ${border} ${borderColor}`} style={`margin-left: ${marginX}rem;margin-right: ${marginX}rem;margin-bottom: ${marginY}rem;margin-top: ${marginY}rem;padding-left: ${paddingX}rem;padding-right: ${paddingX}rem;padding-top: ${paddingY}rem;padding-bottom: ${paddingY}rem;`}>
             {#each values as column, position}
                 <div class={`item-column col-${calculateCol(column.sizeMobile, position, values.length)} col-md-${calculateCol(column.sizeTablette, position, values.length)} col-xl-${calculateCol(column.size, position, values.length)} `} style={`min-height: 5vh;`};>
                     <MovingContent 

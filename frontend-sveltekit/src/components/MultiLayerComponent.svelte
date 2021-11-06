@@ -1,5 +1,4 @@
 <script>
-import { scrollingToElement } from "../utils/scrollingFunctin";
 
 import { recursiveFilmDelete } from "../actions/filmActions";
 
@@ -15,9 +14,6 @@ import { recursiveDeleteAction } from "../utils/imageFunctions";
     export let edit=false; edit;
     export let updateContent;
     export let isSelected = {select: false, position:null};
-
-    const uniqueId = 'multiLayer_' + new Date().valueOf().toString();
-    $: if (isSelected.select) scrollingToElement(uniqueId);
 
     const addToLayer = async(item, position) => {
         values = [...values, {...item, top:0, left:0, width: ""}];
@@ -50,7 +46,7 @@ import { recursiveDeleteAction } from "../utils/imageFunctions";
     
 </script>
 
-    <div id={uniqueId} class={`layer ${isSelected.select && "border border-3 rounded"}`} style="position: relative;">
+    <div class={`layer ${isSelected.select && "border border-3 rounded"}`} style="position: relative;">
         {#each values as element, posElement}
             {#if element.type}
                 {#if posElement}
