@@ -1,9 +1,9 @@
 <script>
     export let navBar;
-    export let updateOrCreateNavBar;
+    //export let updateOrCreateNavBar;
 
-    import config from '../config.json';
-    import Message from './Message.svelte';
+    import config from '../../config.json';
+    import Message from '../Message.svelte';
     const API_URL = config.SVELTE_ENV === 'dev' ? config.API_URL_DEV : config.SVELTE_ENV === 'preprod' ? config.API_URL_PREPROD : config.SVELTE_ENV === 'production' ? config.API_URL_PROD : config.API_URL_DEV;
 
     // Manage Social Network
@@ -13,7 +13,7 @@
     let snRedirect = '';
     let newTarget = true;
 
-    let messageUpdateNav = "";
+    let messageUploadImage = "";
 
     const arrayMove = (arr, fromIndex, toIndex) => {
         var element = arr[fromIndex];
@@ -31,16 +31,16 @@
         snAlt = "";
         snRedirect = "";
         newTarget = true;
-        updateOrCreateNavBar(navBar)
-        .then((result) => navBar = result.navBar)
-        .catch((error) => messageUpdateNav = error);
+        // updateOrCreateNavBar(navBar)
+        // .then((result) => navBar = result.navBar)
+        // .catch((error) => messageUpdateNav = error);
     };
     const deleteSocialNetwork = (index) => {
         navBar.SOCIAL_NETWORKS.splice(index, 1);
         navBar = navBar;
-        updateOrCreateNavBar(navBar)
-        .then((result) => navBar = result.navBar)
-        .catch((error) => messageUpdateNav = error);
+        // updateOrCreateNavBar(navBar)
+        // .then((result) => navBar = result.navBar)
+        // .catch((error) => messageUpdateNav = error);
     };
     const upSocialNetwork = (index) => {
         if (index > 0) {
@@ -62,9 +62,9 @@
         } else { // update
             navBar.SOCIAL_NETWORKS[index].icon = result.data;
             navBar = navBar;
-            updateOrCreateNavBar(navBar)
-            .then((result) => navBar = result.navBar)
-            .catch((error) => messageUpdateNav = error);
+            // updateOrCreateNavBar(navBar)
+            // .then((result) => navBar = result.navBar)
+            // .catch((error) => messageUpdateNav = error);
         }
             messageUploadImage = '';
         } else {
@@ -73,20 +73,20 @@
     };
 </script>
 
-<h3>Edition des pictos réseaux sociaux</h3>
+<h3 class="border-bottom mb-3 pb-2">Social network thumbnail</h3>
 
-{#if messageUpdateNav}
-  <Message color='danger'>{messageUpdateNav}</Message>
+{#if messageUploadImage}
+  <Message color='danger'>{messageUploadImage}</Message>
 {/if}
 
 <div class="col">
     <form on:submit={addSocialNetwork}>
       <div class="row align-items-end py-2">
-        <div class="col bg-light rounded">
+        <div class="col text-center">
           {#if snIcon}
-              <img class='img-fluid' src={API_URL + snIcon} alt={snAlt} />
+              <img class='img-fluid bg-light rounded' src={API_URL + snIcon} alt={snAlt} style="width: 5vh;" />
           {:else}
-              <div class="bg-light text-center text-dark" style="min-height: 7vh;">No image</div>
+              <div class="bg-light rounded text-center text-dark d-flex align-items-center justify-content-center" style="height: 5vh; width: 5vh;">X</div>
           {/if}
         </div>
         <div class="col">
@@ -98,16 +98,16 @@
           <input type="text" class="form-control" id="nameSN" bind:value={snName} placeholder="Ex. Facebook"/>
         </div>
         <div class="col">
-          <label for="altSN">Texte alternatif</label>
+          <label for="altSN">Alt</label>
           <input type="text" class="form-control" id="altSN" bind:value={snAlt} placeholder="Ex. Lien vers Facebook"/>
         </div>
         <div class="col">
-          <label for="redirectSN">Redirection vers </label>
+          <label for="redirectSN">Navigation to</label>
           <input type="text" class="form-control" id="redirectSN" bind:value={snRedirect} placeholder="Ex. https://facebook.com"/>
         </div>
         <div class="col">
           <div class="form-check form-switch align-items-center">
-            <label for="targetSN">Nouvel onglet </label>
+            <label for="targetSN">New page</label>
             <input type="checkbox" class="form-check-input" id="targetSN" bind:checked={newTarget} />
           </div>
         </div>
@@ -120,8 +120,8 @@
     <!-- {"name": "", "icon": "", "alt": "", "redirect": "", "target": ""}, -->
     {#each navBar.SOCIAL_NETWORKS as item, ind}
       <div class='row border-top border-light'>
-        <div class="col my-2 bg-light rounded">
-          <img class='img-fluid' src={API_URL + item.icon} alt={snAlt} />
+        <div class="col my-2 rounded">
+          <img class='img-fluid bg-light rounded' src={API_URL + item.icon} alt={snAlt} style="width: 5vh;" />
         </div>
         <div class="col my-auto">
           <input type="file" class="form-control" on:change={(e) => onSelectAnImageSocialNetwork(ind, e)}>
@@ -140,8 +140,8 @@
         </div>
         <div class="col-2 my-auto">
           <button class="btn btn-danger btn-sm" on:click={() => deleteSocialNetwork(ind)}><i class="bi bi-trash"></i></button>
-          <button class="btn btn-secondary btn-sm" on:click={() => upSocialNetwork(ind)}><i class="bi bi-caret-up-fill"></i></button>
-          <button class="btn btn-secondary btn-sm" on:click={() => downSocialNetwork(ind)}><i class="bi bi-caret-down-fill"></i></button>
+          <button class="btn btn-secondary btn-sm" on:click={() => upSocialNetwork(ind)}><i class="bi bi-chevron-compact-up"></i></button>
+          <button class="btn btn-secondary btn-sm" on:click={() => downSocialNetwork(ind)}><i class="bi bi-chevron-compact-down"></i></button>
         </div>
       </div>
     {/each}

@@ -4,47 +4,22 @@
 
 <script>
   import { goto } from '$app/navigation';
-  import { userInfo } from '../store';
-  import { getNavBar, updateOrCreateNavBar } from '../actions/navActions';
-  import { getSeo, updateOrCreateSeo } from '../actions/seoActions';
-  import { Collapse, Navbar, NavbarToggler, NavbarBrand, Nav, NavItem, NavLink, Dropdown, Modal, ModalHeader, ModalBody, ModalFooter } from 'sveltestrap';
+  import { getNavBar } from '../actions/navActions';
+  import { getSeo } from '../actions/seoActions';
+  import { Collapse, Navbar, NavbarToggler, NavbarBrand, Nav, NavItem, NavLink, Dropdown } from 'sveltestrap';
   import { onMount } from 'svelte';
   import Message from './Message.svelte';
-  import EditFontsComponent from './EditFontsComponent.svelte';
-  import EditNavMenuComponent from './EditNavMenuComponent.svelte';
-  import EditNavBrandComponent from './EditNavBrandComponent.svelte';
   import config from '../config.json';
-  import EditNavSocialNetworks from './EditNavSocialNetworks.svelte';
-  import EditSeoComponent from './EditSeoComponent.svelte';
-  import EditFaviconComponent from './EditFaviconComponent.svelte';
-  import EditNavStylesComponent from './EditNavStylesComponent.svelte';
   const API_URL = config.SVELTE_ENV === 'dev' ? config.API_URL_DEV : config.SVELTE_ENV === 'preprod' ? config.API_URL_PREPROD : config.SVELTE_ENV === 'production' ? config.API_URL_PROD : config.API_URL_DEV;
-
   
-  let edit=false;
   let messageUpdateNav = '';
   let messageUpdateSeo = '';
-
-  $: isAuthenticate = $userInfo && $userInfo.profil === 'admin' ? true : false;
     
   let isOpen = false;
 
   const navigateHandler = (url) => {
       isOpen = false;
       goto(url);
-  };
-
-  // Add to edit the nav bar
-  const toggle = async() => {
-      if (edit) {
-          updateOrCreateNavBar(navBar)
-            .then((result) => navBar = result.navBar)
-            .catch((error) => messageUpdateNav = error);
-          updateOrCreateSeo(seo)
-            .then((result) => seo = result.seo)
-            .catch((error) => messageUpdateSeo = error);
-      }
-      edit = !edit;
   };
 
   // DEFAULT navBar
@@ -125,50 +100,6 @@ expand={expand}
         <NavItem><NavLink class={navBar.STYLE.TITLE.bootstrapClass} style={navBar.STYLE.TITLE.style} on:click={() => navigateHandler(item.url)}><span >{item.name.toString()}</span></NavLink></NavItem>
       </Dropdown>
     {/each}
-    {#if isAuthenticate}
-      <Dropdown nav inNavbar>
-        <button class="btn btn-light px-2" on:click={toggle}><i class="bi bi-pencil-square"></i></button>
-      </Dropdown>
-    {/if}
   </Nav>
 </Collapse>
 </Navbar>
-
-<!-- Modal to edit navBar -->
-<Modal isOpen={edit} {toggle} size='lg' scrollable>
-  <ModalHeader {toggle}>Editer la barre de navigation</ModalHeader>
-  <ModalBody>
-      <!-- brand edition -->
-      <div class="row p-2">
-        <EditNavBrandComponent bind:navBar={navBar} updateOrCreateNavBar={updateOrCreateNavBar} />
-      </div>
-      <!-- menu edition -->
-      <div class="row p-2">
-        <EditNavMenuComponent bind:navBar={navBar} updateOrCreateNavBar={updateOrCreateNavBar} />
-      </div>
-      <!-- fonts edition -->
-      <div class="row p-2">
-        <EditFontsComponent />
-      </div>
-      <!-- social network edition -->
-      <div class='row p-2'>
-        <EditNavSocialNetworks bind:navBar={navBar} updateOrCreateNavBar={updateOrCreateNavBar} />
-      </div>
-      <!-- styles edition -->
-      <div class="row p-2">
-        <EditNavStylesComponent bind:navBar={navBar} />
-      </div>
-      <!-- Seo edition -->
-      <div class='row p-2 align-items-end'>
-        <EditSeoComponent bind:seo={seo} updateOrCreateSeo={updateOrCreateSeo} />
-      </div>
-      <!-- favicon edition -->
-      <div class='row p-2 align-items-top'>
-        <EditFaviconComponent bind:seo={seo} updateOrCreateSeo={updateOrCreateSeo} />
-      </div>
-  </ModalBody>
-  <ModalFooter>
-      <button class="btn btn-primary" on:click={toggle}>Enregistrer</button>
-      <button class="btn btn-secondary" on:click={() => edit = !edit}>Cancel</button>
-  </ModalFooter>
-</Modal> 

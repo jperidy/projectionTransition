@@ -1,8 +1,7 @@
 <script>
-import Message from "./Message.svelte";
-
+    import Message from "./Message.svelte";
     export let footer;
-    export let updateOrCreateFooter;
+    // export let updateOrCreateFooter;
 
     let messageUpdateFooter;
 
@@ -22,32 +21,32 @@ import Message from "./Message.svelte";
         footer = footer;
         navName = '';
         navUrl = '';
-        updateOrCreateFooter(footer)
-        .then((result) => footer = result.footer)
-        .catch((error) => messageUpdateFooter = error);
+        // updateOrCreateFooter(footer)
+        // .then((result) => footer = result.footer)
+        // .catch((error) => messageUpdateFooter = error);
     };
 
     const deleteNavigation = (index) => {
-    footer.TITLE.splice(index, 1);
-    footer = footer;
-    updateOrCreateFooter(footer)
-      .then((result) => footer = result.footer)
-      .catch((error) => messageUpdateFooter = error);
+        footer.TITLE.splice(index, 1);
+        footer = footer;
+    // updateOrCreateFooter(footer)
+    //   .then((result) => footer = result.footer)
+    //   .catch((error) => messageUpdateFooter = error);
     };
     const upNavigation = (index) => {
         if (index > 0) {
         footer.TITLE = arrayMove(footer.TITLE, index, index - 1);
-        updateOrCreateFooter(footer)
-            .then((result) => footer = result.footer)
-            .catch((error) => messageUpdateFooter = error);
+        // updateOrCreateFooter(footer)
+        //     .then((result) => footer = result.footer)
+        //     .catch((error) => messageUpdateFooter = error);
         }
     };
     const downNavigation = (index) => {
         if (index < footer.TITLE.length - 1) {
         footer.TITLE = arrayMove(footer.TITLE, index, index + 1);
-        updateOrCreateFooter(footer)
-            .then((result) => footer = result.footer)
-            .catch((error) => messageUpdateFooter = error);
+        // updateOrCreateFooter(footer)
+        //     .then((result) => footer = result.footer)
+        //     .catch((error) => messageUpdateFooter = error);
         }
     };
 </script>
@@ -56,7 +55,7 @@ import Message from "./Message.svelte";
     <Message color='danger'>{messageUpdateFooter}</Message>
 {/if}
 
-<h3>Ajouter / Supprimer la navigation en bas de page</h3>
+<h3 class="border-bottom mb-3 pb-2">Navigation items</h3>
 <div class="col">
     <form on:submit={addNavigation}>
         <div class="row align-items-end">
@@ -83,9 +82,9 @@ import Message from "./Message.svelte";
             <input type="text" class="form-control" id={`url-${ind}`} bind:value={itemFooter.url} >
         </div>
         <div class="col">
-            <button class="btn btn-danger btn-sm" on:click={() => deleteNavigation(ind)}>x</button>
-            <button class="btn btn-secondary btn-sm" on:click={() => upNavigation(ind)}>Up</button>
-            <button class="btn btn-secondary btn-sm" on:click={() => downNavigation(ind)}>Down</button>
+            <button class="btn btn-danger btn-sm" on:click={() => deleteNavigation(ind)}><i class="bi bi-trash"></i></button>
+            <button class="btn btn-secondary btn-sm" on:click={() => upNavigation(ind)}><i class="bi bi-chevron-compact-up"></i></button>
+            <button class="btn btn-secondary btn-sm" on:click={() => downNavigation(ind)}><i class="bi bi-chevron-compact-down"></i></button>
         </div>
         </div>
     {/each}

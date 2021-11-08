@@ -104,7 +104,7 @@
                     data-bs-toggle="tooltip" 
                     data-bs-placement="top" 
                     title={page.name}
-                >{`{URL}/${page.name}`}</button>
+                >{`/${page.name}`}</button>
                 <button
                     class="btn btn-sm btn-transparent text-light"
                     on:click={() => removePageHandler(page.name)}

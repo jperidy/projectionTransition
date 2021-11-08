@@ -5,7 +5,7 @@
     import Message from './Message.svelte';
 
     export let footer;
-    export let updateOrCreateFooter;
+    // export let updateOrCreateFooter;
 
     const API_URL = config.SVELTE_ENV === 'dev' ? config.API_URL_DEV : config.SVELTE_ENV === 'preprod' ? config.API_URL_PREPROD : config.SVELTE_ENV === 'production' ? config.API_URL_PROD : config.API_URL_DEV;
     let messageUpdateBrand;
@@ -19,35 +19,39 @@
             footer.BRAND.LOGO.path = result.data;
             footer = footer;
             messageUpdateBrand = '';
-            updateOrCreateFooter(footer)
-                .then((result) => footer = result.footer)
-                .catch((error) => messageUpdateBrand = error);
+            // updateOrCreateFooter(footer)
+            //     .then((result) => footer = result.footer)
+            //     .catch((error) => messageUpdateBrand = error);
         } else {
             messageUpdateBrand = result.data;
         }
     };
 </script>
 
-<h3>Ajouter / Supprimer le logo en bas de page</h3>
+<h3 class="border-bottom mb-3 pb-2">Brand on footer</h3>
 {#if messageUpdateBrand}
     <Message color='danger'>{messageUpdateBrand}</Message>
 {/if}
-<div class="col">
-    <label for="logo-footer">Upload file</label>
-    <input type="file" id="logo-footer" class="form-control" on:change={(e) => onSelectAnImageBrand(e)}>
+<div class="row align-items-center gx-3 gy-2">
+    <div class="col-2">
+        <img class="img-fluid rounded" src={API_URL + footer.BRAND.LOGO.path} alt={footer.BRAND.LOGO.alt}>
+    </div>
+    <div class="col">
+        <label for="logo-footer">Upload a file</label>
+        <input type="file" id="logo-footer" class="form-control" on:change={(e) => onSelectAnImageBrand(e)}>
+    </div>
+    <div class="col">
+        <label for="logo-footer-alt">Alt</label>
+        <input type="text" id="logo-footer-alt" class="form-control" bind:value={footer.BRAND.LOGO.alt}>
+    </div>
 </div>
-<div class="col">
-    <img class="img-fluid" src={API_URL + footer.BRAND.LOGO.path} alt={footer.BRAND.LOGO.alt}>
-</div>
-<div class="col">
-    <label for="logo-footer-alt">Alt</label>
-    <input type="text" id="logo-footer-alt" class="form-control" bind:value={footer.BRAND.LOGO.alt}>
-</div>
-<div class="col">
-    <label for="logo-footer-style">Styles (css)</label>
-    <input type="text" id="logo-footer-style" class="form-control" bind:value={footer.BRAND.LOGO.style}>
-</div>
-<div class="col">
-    <label for="brand-footer">Marque</label>
-    <input type="text" id="brand-footer" class="form-control" bind:value={footer.BRAND.NAME}>
+<div class="row mt-3">        
+    <div class="col">
+        <label for="logo-footer-style">Styles (css)</label>
+        <textarea type="text" id="logo-footer-style" class="form-control" bind:value={footer.BRAND.LOGO.style} />
+    </div>
+    <div class="col">
+        <label for="brand-footer">[option] Brand name</label>
+        <input type="text" id="brand-footer" class="form-control" bind:value={footer.BRAND.NAME}>
+    </div>
 </div>

@@ -6,28 +6,23 @@
     import Message from "./Message.svelte";
     import { userInfo } from "../store";
     import { onMount } from "svelte";
-    import EditFooterNavigation from "./EditFooterNavigation.svelte";
-    import EditFooterBrand from "./EditFooterBrand.svelte";
-    import EditFooterSocialNetworks from "./EditFooterSocialNetworks.svelte";
-    import EditFooterCopyrightComponent from "./EditFooterCopyrightComponent.svelte";
-    import EditFooterStyleComponent from "./EditFooterStyleComponent.svelte";
     const API_URL = config.SVELTE_ENV === 'dev' ? config.API_URL_DEV : config.SVELTE_ENV === 'preprod' ? config.API_URL_PREPROD : config.SVELTE_ENV === 'production' ? config.API_URL_PROD : config.API_URL_DEV;
 
     let edit=false;
     let messageUpdateFooter = "";
-    let messageUpdateBrand = ""
+    let messageUpdateBrand = "";
 
     $: isAuthenticate = $userInfo && $userInfo.profil === 'admin' ? true : false;
 
     // Add to edit the footer
-    const toggle = async() => {
-        if (edit) {
-            updateOrCreateFooter(footer)
-              .then((result) => footer = result.footer)
-              .catch((error) => messageUpdateFooter = error);
-        }
-        edit = !edit;
-    };
+    // const toggle = async() => {
+    //     if (edit) {
+    //         updateOrCreateFooter(footer)
+    //           .then((result) => footer = result.footer)
+    //           .catch((error) => messageUpdateFooter = error);
+    //     }
+    //     edit = !edit;
+    // };
 
     // Default footer
     let footer = {
@@ -78,9 +73,7 @@
 
 </script>
 
-{#if messageUpdateFooter}
-  <Message color='danger'>{messageUpdateFooter}</Message>
-{/if}
+
 
 <!-- display the footer -->
 <div class={`row ${footer.STYLE.FOOTER.bootstrapClass}`}>
@@ -127,68 +120,4 @@
             </div>
         </div>
     {/if}
-    {#if isAuthenticate}
-        <button class="btn btn-light px-2" on:click={toggle}><i class="bi bi-pencil-square"></i></button>
-    {/if}
 </div>
-
-<!-- Edit the footer -->
-<Modal isOpen={edit} {toggle} size='lg' scrollable>
-    <ModalHeader {toggle}>Editer le pied de page</ModalHeader>
-    <ModalBody>
-        <div class="row gx-0">
-            <div class="col p-2">
-
-                {#if messageUpdateBrand}
-                  <Message color='danger'>{messageUpdateBrand}</Message>
-                {/if}
-        
-                <!-- Navigation -->
-                <div class="row p-2">
-                    <div class="form-check form-switch align-items-center">
-                        <label for="switch-navigation">Ajouter des liens de navigation </label>
-                        <input type="checkbox" class="form-check-input" id="switch-navigation" bind:checked={footer.TYPE.navigation} />
-                    </div>
-                    {#if footer.TYPE.navigation}
-                        <!-- Brand edition -->
-                        <div class="row p-2">
-                            <EditFooterBrand bind:footer={footer} updateOrCreateFooter={updateOrCreateFooter} />
-                        </div>
-            
-                        <!-- Navigation edition -->
-                        <div class='row p-2'>
-                            <EditFooterNavigation bind:footer={footer} updateOrCreateFooter={updateOrCreateFooter} />
-                        </div> 
-            
-                        <!-- social network edition -->
-                        <div class='row p-2'>
-                            <EditFooterSocialNetworks bind:footer={footer} updateOrCreateFooter={updateOrCreateFooter} />
-                        </div>
-                    {/if}
-                </div>
-        
-                <div class="row p-2">
-                    <div class="form-check form-switch align-items-center">
-                        <label for="switch-navigation">Ajouter le copyrigth </label>
-                        <input type="checkbox" class="form-check-input" id="switch-navigation" bind:checked={footer.TYPE.copyright} />
-                    </div>
-        
-                    {#if footer.TYPE.copyright}
-                        <div class="row p-2">
-                            <EditFooterCopyrightComponent bind:footer={footer} />
-                        </div>
-                    {/if}
-                </div>
-
-                <div class="row p-2">
-                    <EditFooterStyleComponent bind:footer={footer} />
-                </div>
-
-            </div>
-        </div>
-    </ModalBody>
-    <ModalFooter>
-        <button class="btn btn-primary" on:click={toggle}>Enregistrer</button>
-        <button class="btn btn-secondary" on:click={() => edit = !edit}>Cancel</button>
-    </ModalFooter>
-  </Modal> 

@@ -1,7 +1,7 @@
 <script>
 
     export let navBar;
-    export let updateOrCreateNavBar;
+    //export let updateOrCreateNavBar;
 
     // Manage navigation
     const arrayMove = (arr, fromIndex, toIndex) => {
@@ -19,37 +19,38 @@
         navBar = navBar;
         navName = '';
         navUrl = '';
-        updateOrCreateNavBar(navBar)
-        .then((result) => navBar = result.navBar)
-        .catch((error) => messageUpdateNav = error);
+        // updateOrCreateNavBar(navBar)
+        // .then((result) => navBar = result.navBar)
+        // .catch((error) => messageUpdateNav = error);
     };
     const deleteNavigation = (index) => {
         navBar.TITLE.splice(index, 1);
         navBar = navBar;
-        updateOrCreateNavBar(navBar)
-        .then((result) => navBar = result.navBar)
-        .catch((error) => messageUpdateNav = error);
+        // updateOrCreateNavBar(navBar)
+        // .then((result) => navBar = result.navBar)
+        // .catch((error) => messageUpdateNav = error);
     };
     const upNavigation = (index) => {
         if (index > 0) {
         navBar.TITLE = arrayMove(navBar.TITLE, index, index - 1);
-        updateOrCreateNavBar(navBar)
-            .then((result) => navBar = result.navBar)
-            .catch((error) => messageUpdateNav = error);
+        // updateOrCreateNavBar(navBar)
+        //     .then((result) => navBar = result.navBar)
+        //     .catch((error) => messageUpdateNav = error);
         }
     };
     const downNavigation = (index) => {
         if (index < navBar.TITLE.length - 1) {
         navBar.TITLE = arrayMove(navBar.TITLE, index, index + 1);
-        updateOrCreateNavBar(navBar)
-            .then((result) => navBar = result.navBar)
-            .catch((error) => messageUpdateNav = error);
+        // updateOrCreateNavBar(navBar)
+        //     .then((result) => navBar = result.navBar)
+        //     .catch((error) => messageUpdateNav = error);
         }
     };
 
 </script>
 
-<h3>Ajout / Suppression de liens de navigation</h3>
+<h3 class="border-bottom mb-3 pb-2">Navigation</h3>
+
 <div class="col">
   <form on:submit={addNavigation}>
     <div class="row align-items-end">
@@ -75,9 +76,9 @@
         <input type="text" class="form-control" id={`url-${ind}`} bind:value={menu.url} >
       </div>
       <div class="col">
-        <button class="btn btn-danger btn-sm" on:click={() => deleteNavigation(ind)}>x</button>
-        <button class="btn btn-secondary btn-sm" on:click={() => upNavigation(ind)}>Up</button>
-        <button class="btn btn-secondary btn-sm" on:click={() => downNavigation(ind)}>Down</button>
+        <button class="btn btn-danger btn-sm" on:click={() => deleteNavigation(ind)}><i class="bi bi-trash"></i></button>
+        <button class="btn btn-secondary btn-sm" on:click={() => upNavigation(ind)}><i class="bi bi-chevron-compact-up"></i></button>
+        <button class="btn btn-secondary btn-sm" on:click={() => downNavigation(ind)}><i class="bi bi-chevron-compact-down"></i></button>
       </div>
     </div>
   {/each}

@@ -9,11 +9,22 @@
     import { goto } from "$app/navigation";
     import { browser } from "$app/env";
     import EditSeoComponent from "../components/admin/EditSeoComponent.svelte";
+    import MenuParamGlobal from "../components/admin/MenuParamGlobal.svelte";
+    import EditNavigationNavBar from "../components/admin/EditNavigationNavBar.svelte";
+    import EditFontsComponent from "../components/admin/EditFontsComponent.svelte";
+    import EditDefaultSeoComponent from "../components/admin/EditDefaultSeoComponent.svelte";
+    import EditFaviconComponent from "../components/admin/EditFaviconComponent.svelte";
+    import EditFooter from "../components/admin/EditFooter.svelte";
 
     let pageRequest = { content: { content: [], name: '' }, loading: true, message: '' };
     let selectedComponent = {id:"", position:null};
     let currentPage = "";
     let showMenuPage = true;
+    let showNavigationBar = false;
+    let showFooter = false;
+    let showFonts = false;
+    let showDefaultSeo = false;
+    let showFavicon = false;
     
     //$: console.log(pageRequest.content)
     
@@ -35,7 +46,16 @@
 
     const updateContent = async() => {
         pageRequest = await updateOrCreateContent(pageRequest.content);
+    };
+
+    const showPageHandler = () => {
+        showNavigationBar = false;
+        showFooter = false;
+        showFonts = false;
+        showDefaultSeo = false;
+        showFavicon = false;
     }
+
 
 </script>
 
@@ -45,7 +65,16 @@
     {#if showMenuPage}
         <div class="col-2 menu-page bg-dark shadow-lg overflow-auto">
             <div class="px-1 py-2">
-                <MenuPage currentPage={currentPage} selectPageHandler={selectPageHandler} />
+                <div on:click={showPageHandler}>
+                    <MenuPage currentPage={currentPage} selectPageHandler={selectPageHandler} />
+                </div>
+                <MenuParamGlobal 
+                    bind:showNavigationBar={showNavigationBar}
+                    bind:showFooter={showFooter}
+                    bind:showFonts={showFonts}
+                    bind:showDefaultSeo={showDefaultSeo}
+                    bind:showFavicon={showFavicon}
+                />
             </div>
         </div>
     {/if}
@@ -92,7 +121,24 @@
                 ><i class="bi bi-door-open"></i>Logout</button>
         </div>
         <!-- preview -->
-            <div id="display-preview" class="display-preview overflow-auto">
+
+        <div id="display-preview" class="display-preview overflow-auto">
+            {#if showNavigationBar}
+                <EditNavigationNavBar />
+            {/if}
+            {#if showFonts}
+                <EditFontsComponent />
+            {/if}
+            {#if showDefaultSeo}
+                <EditDefaultSeoComponent />
+            {/if}
+            {#if showFavicon}
+                <EditFaviconComponent />
+            {/if}
+            {#if showFooter}
+                <EditFooter />
+            {/if}
+            {#if (!showNavigationBar && !showFooter && !showFonts && !showDefaultSeo && !showFavicon)}
                 {#if pageRequest.content && pageRequest.content.content}
                     {#each pageRequest.content.content as section, position}
                         <!-- <div class={`${section._id === selectedComponent.id ? 'border rounded-3 shadow' : ''}`}> -->
@@ -111,7 +157,8 @@
                         <!-- </div> -->
                     {/each}
                 {/if}
-            </div>
+            {/if}
+        </div>
     </div>
 </div>
 {/if}
