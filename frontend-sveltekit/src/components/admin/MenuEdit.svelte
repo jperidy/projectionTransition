@@ -1,5 +1,6 @@
 <script>
     import { pageRequest } from "../../store";
+    import AddElement from "../AddElement.svelte";
     import DisplayEditMenu from "./DisplayEditMenu.svelte";
 
     export let page;
@@ -7,6 +8,17 @@
     export let updateContent;
 
     $:hasBeenModified = !(JSON.stringify(page) === JSON.stringify($pageRequest.content));
+
+
+    let addWindow = false;
+    const addContent = (component, position) => {
+        page.content.splice(position, 0, component);
+        page.content = page.content;  
+    };
+
+    const createFirstComponentHandler = () => {
+        addWindow = true;
+    };
 
 </script>
 
@@ -44,5 +56,24 @@
                 />
             </div>
         {/each}
+    {:else}
+        <div class="create-first-component d-flex justify-content-center">
+            <button 
+                class="btn btn-outline-dark w-50"
+                on:click={createFirstComponentHandler}
+            >
+                First component
+            </button>
+        </div>
     {/if}
 </div>
+
+<AddElement
+    addContent={addContent}
+    position={0}      
+    bind:open={addWindow}
+    addToLayout={''}
+    copyValues={null}
+    copyStyles={null}
+    copyType={null}
+/>

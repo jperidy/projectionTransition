@@ -15,7 +15,7 @@
     let currentPage = "";
     let showMenuPage = true;
     
-    $: console.log(pageRequest.content)
+    //$: console.log(pageRequest.content)
     
     let isAuthenticate = false;
     $: {

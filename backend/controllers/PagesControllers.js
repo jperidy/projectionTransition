@@ -18,7 +18,28 @@ const getPageContent = asyncHandler(async(req,res) =>{
                 });
             }
         })
-        .catch((error) => res.status(500).json({message: `Error fetching page: ${req.params.nam}`, value: {name: req.params.name, content:[]}}));
+        .catch((error) => res.status(500).json({message: `Error fetching page: ${req.params.name}`, value: {name: req.params.name, content:[]}}));
+});
+
+// @desc    delete a page
+// @route   DELETE /api/page/:name
+// @access  Public
+const deleteOnePage = asyncHandler(async(req,res) =>{
+    
+    Page.findOne({name: req.params.name})
+        .then((content) => {
+            if(content) {
+                content.remove()
+                    .then((result) => res.status(200).json({message: 'page removed', value: content}))
+                    .catch((error) => res.status(500).json({message: 'page not removed', values: error}));
+            } else {
+                res.status(404).json({
+                    message: `Page content not found. Page name requested: ${req.params.name}`,
+                    value: {name: req.params.name, content:[]}
+                });
+            }
+        })
+        .catch((error) => res.status(500).json({message: `Error removing page: ${req.params.name}`, value: error}));
 });
 
 // @desc    update (or create) content for a specific page name
@@ -61,6 +82,33 @@ const updatePageContent = asyncHandler(async(req,res) =>{
 
 });
 
+// @desc    create a page
+// @route   POST /api/page
+// @access  Public
+const createPage = asyncHandler(async(req,res) =>{
+    
+    // rewrite with async function
+    const pageToCreate = req.body;
+    Page.findOne({name: pageToCreate.name})
+        .then((content) => {
+            if (!content) {
+                Page.create(pageToCreate)
+                    .then((contentCreated) => {
+                        if (contentCreated) {
+                            res.status(200).json({ message: 'contentCreated', value: contentCreated});
+                        } else {
+                            res.status(500).json({ message: `Error: ${pageToCreate.name} not created`, value:[] })
+                        }
+                    })
+                    .catch((error) => res.status(500).json({message: `Error creating content in database: ${error}`, value:[]}))   
+            } else {
+                res.status(401).json({message: "Not authorized : this page already exist", value:[]});
+            }
+        })
+        .catch((error) => res.status(500).json({message: `Error creating the page in database: ${error}`, value: []}))
+
+});
+
 // @desc    get all pages name
 // @route   GET /api/page/list
 // @access  Privalte
@@ -81,4 +129,4 @@ const getAllPages = asyncHandler(async(req,res) =>{
 });
 
 
-module.exports = { getAllPages, getPageContent, updatePageContent };
+module.exports = { getAllPages, getPageContent, updatePageContent, createPage, deleteOnePage };

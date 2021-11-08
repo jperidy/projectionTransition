@@ -86,3 +86,53 @@ export const getAllPagesList = async () => {
     }
 
 };
+
+export const createAPage = async (page) => {
+
+    const userInfoStored = get(userInfo);
+
+    try {
+
+        const config = {
+            headers: {
+                'Content-type': 'Application/json',
+                Authorization: `Bearer ${userInfoStored.token}`
+            }
+        };
+
+        const { data } = await axios.post(`${API_URL}/api/page`, page, config);
+
+        return { page: data.value, loading: false, message: '' };
+
+    } catch (error) {
+
+        return { page:[], loading: false, message: 'Error creating page ' + error };
+
+    }
+
+};
+
+export const deleteAPage = async (pageName) => {
+
+    const userInfoStored = get(userInfo);
+
+    try {
+
+        const config = {
+            headers: {
+                'Content-type': 'Application/json',
+                Authorization: `Bearer ${userInfoStored.token}`
+            }
+        };
+
+        const { data } = await axios.delete(`${API_URL}/api/page/${pageName}`, config);
+
+        return { page: data.value, loading: false, message: '' };
+
+    } catch (error) {
+
+        return { page:[], loading: false, message: 'Error creating page ' + error };
+
+    }
+
+};

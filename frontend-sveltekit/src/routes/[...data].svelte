@@ -19,7 +19,6 @@
         //load default seo informations
         const { seo } = await getSeo();
 
-        //const pageRequest = await getContent(params.name);
         let pageRequest = { content: { content: [], name: '' }, loading: true, message: '' };
         if (redirection.length === 1) {
             let pageName = page.path.substring(1).replace('/','-');
