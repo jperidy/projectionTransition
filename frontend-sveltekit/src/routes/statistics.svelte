@@ -14,6 +14,7 @@
     import Loading from "../components/Loading.svelte";
     import Chart from "chart.js/auto/auto.js";
     import { onMount } from "svelte";
+import A from "./[...data].svelte";
 
     $: {
         let isAuthenticate = $userInfo && $userInfo.profil === 'admin' ? true : false;
@@ -30,7 +31,9 @@
 
     onMount(() => {
 
-        getAllpages();
+        // upload in the store all the pages
+        //getAllpages();
+        getStatistics("", "", []);
 
         ctx = document.getElementById('statisticsChart').getContext('2d');
         statisticsChart = new Chart(ctx, {
@@ -51,9 +54,26 @@
     $:{
         if ($statisticsSendRequest.success) {
             statisticsChart.data = $statisticsSendRequest.data;
+            if ($statisticsSendRequest.data && $statisticsSendRequest.data.datasets.length > 0) {
+                $statisticsSendRequest.data.datasets.sort((first, second) => {
+                    const occurenceFirst = first.data.reduce((prev, current) => prev + current);
+                    const occurenceSecond = second.data.reduce((prev, current) => prev + current);
+                    if (occurenceSecond > occurenceFirst) {
+                        return 1;
+                    } else if (occurenceSecond < occurenceFirst) {
+                        return -1;
+                    } else {
+                        return 0;
+                    }
+                });
+            }
+            console.log($statisticsSendRequest);
+            //startDate = $statisticsSendRequest.data.labels[0];
+            //endDate = $statisticsSendRequest.data.labels[$statisticsSendRequest.data.labels.length-1];
+            //endDate = $statisticsSendRequest.data.end.substring(0,10);
             statisticsChart.update();
         }
-    }
+    };
 
     const submitHandler = (e) => {
         const form = e.currentTarget;
@@ -67,7 +87,6 @@
 </script>
 
 <CustomContainer>
-    
     
     <h1 class='mt-2'>Statistics</h1>
 
@@ -84,7 +103,18 @@
                 <input type="date" class="form-control" id="endDateInput" required bind:value={endDate}>
             </div>
         </div>
-        {#if $statisticsAllPages.data}
+        {#if $statisticsSendRequest.data.datasets}
+            <div class='row mb-3'>
+                <div class="col">
+                    <select class="form-select" multiple aria-label="multiple select pages" bind:value={selectedPages}>
+                        {#each $statisticsSendRequest.data.datasets as page}
+                            <option value={page.label}>{page.label} ({page.data.reduce((prev, current) => prev + current)} views)</option>
+                        {/each}
+                    </select>
+                </div>
+            </div>
+        {/if}
+        <!-- {#if $statisticsAllPages.data}
             <div class='row mb-3'>
                 <div class="col">
                     <select class="form-select" multiple aria-label="multiple select pages" bind:value={selectedPages}>
@@ -94,7 +124,7 @@
                     </select>
                 </div>
             </div>
-        {/if}
+        {/if} -->
         
         <div class='row'>
             <div class='col text-start'>

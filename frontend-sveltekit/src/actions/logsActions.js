@@ -9,7 +9,7 @@ export const getStatistics = async (start, end, pages) => {
 
     try {
 
-        statisticsSendRequest.set({loading:true, message:'', data:null});
+        statisticsSendRequest.set({loading:true, message:'', data:{}});
 
         const userInfoStored = get(userInfo);
         const config = {
@@ -23,7 +23,7 @@ export const getStatistics = async (start, end, pages) => {
         statisticsSendRequest.set({loading:false, success: true, message:'success', data:data.data});
                 
     } catch (error) {
-        statisticsSendRequest.set({ loading:false, success: false, message: 'Error fetching statistics ' + error, data:null });
+        statisticsSendRequest.set({ loading:false, success: false, message: 'Error fetching statistics ' + error, data:{} });
     }
 };
 
