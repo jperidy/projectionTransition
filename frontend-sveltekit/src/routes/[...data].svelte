@@ -24,7 +24,11 @@
             let pageName = page.path.substring(1).replace('/','-');
             pageName = pageName === '' ? 'homeContent' : pageName;
             pageRequest = await getContent(pageName);
-            return {status:200, props: {pageRequest, params, page, defaultSeo: seo}};
+            if (pageRequest.content.content.length === 0) {
+                return { status: 308, redirect: `/`}
+            } else {
+                return {status:200, props: {pageRequest, params, page, defaultSeo: seo}};
+            }
         } else {
             return { status: 307, redirect: `/login?redirection=${redirection[0]}`}
         }
@@ -39,18 +43,17 @@
     export let page;
     export let defaultSeo;
 
-    import { updateOrCreateContent } from '../actions/pagesActions';
+    // import { updateOrCreateContent } from '../actions/pagesActions';
 
     import { Col, Row } from 'sveltestrap';
-    import AdminButton from '../components/AdminButton.svelte';
-    import MovingContent from '../components/MovingContent.svelte';
-    import AddContent from '../components/AddContent.svelte';
+    // import AdminButton from '../components/AdminButton.svelte';
+    // import MovingContent from '../components/MovingContent.svelte';
+    // import AddContent from '../components/AddContent.svelte';
 
     import config from '../config.json';
     const SITE_URL = config.SVELTE_ENV === 'dev' ? config.SITE_URL_DEV : config.SVELTE_ENV === 'preprod' ? config.SITE_URL_PREPROD : config.SVELTE_ENV === 'production' ? config.SITE_URL_PROD : config.SITE_URL_DEV;
 
-
-    import { userInfo } from '../store';
+    // import { userInfo } from '../store';
     
     import DisplayCustomComponent from '../components/DisplayCustomComponent.svelte';
     import Message from '../components/Message.svelte';
@@ -58,52 +61,57 @@
     import { goto } from '$app/navigation';
     import { browser } from '$app/env';
     import SeoComponent from '../components/SeoComponent.svelte';
-    import { onMount } from 'svelte';
-    import { get } from 'svelte/store';
-    import { logout, verifyLocalToken } from '../actions/userActions';
+    // import { onMount } from 'svelte';
+    // import { get } from 'svelte/store';
+    // import { logout, verifyLocalToken } from '../actions/userActions';
 
-    onMount(async() => {
-        const userInfoStored = get(userInfo);
-        
-        if (userInfoStored && userInfoStored.token) {
-            const tokenValid = await verifyLocalToken(userInfoStored.token);
-            if (tokenValid.status === 'Error') {
-                await logout();
-            }
-        }
-    });
+    // onMount(async() => {
+    //     const userInfoStored = get(userInfo);
+    //     if (userInfoStored && userInfoStored.token) {
+    //         const tokenValid = await verifyLocalToken(userInfoStored.token);
+    //         if (tokenValid.status === 'Error') {
+    //             await logout();
+    //         }
+    //     }
+    // });
 
-    $: isAuthenticate = $userInfo && $userInfo.profil === 'admin' ? true : false;
+    // $: isAuthenticate = $userInfo && $userInfo.profil === 'admin' ? true : false;
+    // $: {
+    //     if (browser && pageRequest.message && !isAuthenticate) {
+    //         goto('/');
+    //     }
+    // }
+
     $: {
-        if (browser && pageRequest.message && !isAuthenticate) {
+        if (browser && pageRequest.message) {
             goto('/');
         }
     }
 
-    let admin = false;
+    // To delete
+    // let admin = false;
+    // const updateContent = async() => {
+    //     pageRequest = await updateOrCreateContent(pageRequest.content);
+    // }
 
-    const updateContent = async() => {
-        pageRequest = await updateOrCreateContent(pageRequest.content);
-    }
+    // const updateMovedArray = async(array) => {
+    //     const tempPageRequest = pageRequest
+    //     tempPageRequest.content.content = array;
+    //     pageRequest = await updateOrCreateContent(pageRequest.content);
+    // }
+    // const addContent = async(item, position) => {
+    //     pageRequest.content.content.splice(position, 0, item);
+    //     pageRequest = await updateOrCreateContent(pageRequest.content);
+    // };
 
-    const updateMovedArray = async(array) => {
-        const tempPageRequest = pageRequest
-        tempPageRequest.content.content = array;
-        pageRequest = await updateOrCreateContent(pageRequest.content);
-    }
-
-    const addContent = async(item, position) => {
-        pageRequest.content.content.splice(position, 0, item);
-        pageRequest = await updateOrCreateContent(pageRequest.content);
-    };
 </script>
 
-{#if isAuthenticate}
+<!-- {#if isAuthenticate}
     <AdminButton 
         bind:admin={admin}
         isAuthenticate={isAuthenticate}
     />
-{/if}
+{/if} -->
 
 {#if pageRequest.message}
     <Message color='warning'>{pageRequest.message}</Message>
@@ -116,14 +124,24 @@
         <Col>
             {#if pageRequest.content && pageRequest.content.content}
                 {#each pageRequest.content.content as section, position}
-                    <MovingContent 
+                    <!-- <MovingContent 
                         array={pageRequest.content.content} 
                         position={position} 
                         admin={admin} 
                         updateMovedArray={updateMovedArray}
                         addContent={addContent}
-                    >
+                    > -->
                         <DisplayCustomComponent 
+                            bind:value={section.value}
+                            bind:values={section.values}
+                            bind:styles={section.styles}
+                            type={section.type}
+                            updateContent={null}
+                            admin={false}
+                            edit={false}
+                            city={params.city}
+                        />
+                        <!-- <DisplayCustomComponent 
                             bind:value={section.value}
                             bind:values={section.values}
                             bind:styles={section.styles}
@@ -132,15 +150,15 @@
                             admin={admin}
                             edit={false}
                             city={params.city}
-                        />   
-                    </MovingContent>
+                        />    -->
+                    <!-- </MovingContent> -->
                 {/each}
             {/if}
-            {#if admin && pageRequest.content && !pageRequest.content.content.length}
+            <!-- {#if admin && pageRequest.content && !pageRequest.content.content.length}
                 <div class="moving-container border-light rounded-3 mt-3 mb-1 p-3 bg-lavande shadow-lg text-center">
                     <AddContent admin={admin} addContent={addContent}/>
                 </div>
-            {/if}
+            {/if} -->
         </Col>
         <SeoComponent 
             pageContent={pageRequest.content}
@@ -152,7 +170,7 @@
 {/if}
 
 
-<style>
+<!-- <style>
     .moving-container {
         -webkit-transform: scale(1);
 	    transform: scale(1);
@@ -164,4 +182,4 @@
 	    transform: scale(1.03);
         transition: .5s ease;
     }
-</style>
+</style> -->
