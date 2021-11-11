@@ -1,5 +1,5 @@
 const express = require('express');
-const { getPageContent, updatePageContent, getAllPages, createPage, deleteOnePage } = require('../controllers/PagesControllers');
+const { getPageContent, updatePageContent, getAllPages, createPage, deleteOnePage, duplicatePage } = require('../controllers/PagesControllers');
 const router = express.Router();
 
 const { protect } = require('../middleware/authMiddleware');
@@ -9,6 +9,9 @@ router.route('/')
 
 router.route('/list')
     .get(protect, getAllPages);
+
+router.route('/duplicate')
+    .post(protect, duplicatePage);
 
 router.route('/:name')
     .get(getPageContent)

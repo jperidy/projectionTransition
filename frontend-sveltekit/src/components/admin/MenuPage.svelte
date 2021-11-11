@@ -1,5 +1,5 @@
 <script>
-    import { createAPage, deleteAPage, getAllPagesList } from "../../actions/pagesActions";
+    import { createAPage, deleteAPage, duplicateAPage, getAllPagesList } from "../../actions/pagesActions";
     import { onMount } from "svelte";
     import Loading from "../Loading.svelte";
     import Message from "../Message.svelte";
@@ -7,7 +7,9 @@
     export let selectPageHandler;
     export let currentPage;
 
-    let pagesList = [];
+    export let pagesList = [];
+    export let getPages;
+    
     let message = '';
     let loading = false;
     let loadingCreate = false;
@@ -15,18 +17,18 @@
 
     let pageNameToCreate = "";
 
-    const getPages = async () => {
-        loading = true;
-        const pagesListRequest = await getAllPagesList();
-        pagesList = pagesListRequest.list;
-        message = pagesListRequest.message;
-        loading = false;
-    };
+    // const getPages = async () => {
+    //     loading = true;
+    //     const pagesListRequest = await getAllPagesList();
+    //     pagesList = pagesListRequest.list;
+    //     message = pagesListRequest.message;
+    //     loading = false;
+    // };
 
-    onMount(() => {
-        // get all existing pages
-        getPages();
-    });
+    // onMount(() => {
+    //     // get all existing pages
+    //     getPages();
+    // });
 
     const transformUrl = (url) => {
         // supprimer le premier /
@@ -56,6 +58,11 @@
             await deleteAPage(pageName);
             getPages();
         }
+    };
+
+    const duplicatePageHandler = async(pageName) => {
+        await duplicateAPage(pageName);
+        getPages();
     };
 
 </script>
@@ -105,6 +112,11 @@
                     data-bs-placement="top" 
                     title={page.name}
                 >{`/${page.name}`}</button>
+                <button
+                    class="btn btn-sm btn-transparent text-light"
+                    on:click={() => duplicatePageHandler(page.name)}
+                ><i class="bi bi-files"></i>
+                </button>
                 <button
                     class="btn btn-sm btn-transparent text-light"
                     on:click={() => removePageHandler(page.name)}

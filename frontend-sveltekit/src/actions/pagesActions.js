@@ -10,7 +10,6 @@ export const updateOrCreateContent = async (content) => {
     const userInfoStored = get(userInfo);
     const currentPageRequest = get(pageRequest);
 
-    //pageRequest.set({ content: { content: [], name: content.name }, loading: true, message: '' });
     pageRequest.set({ ...currentPageRequest, loading: true, message: '' });
 
     try {
@@ -107,6 +106,31 @@ export const createAPage = async (page) => {
     } catch (error) {
 
         return { page:[], loading: false, message: 'Error creating page ' + error };
+
+    }
+
+};
+
+export const duplicateAPage = async (pageName) => {
+
+    const userInfoStored = get(userInfo);
+
+    try {
+
+        const config = {
+            headers: {
+                'Content-type': 'Application/json',
+                Authorization: `Bearer ${userInfoStored.token}`
+            }
+        };
+
+        const { data } = await axios.post(`${API_URL}/api/page/duplicate`, {pageName}, config);
+
+        return { page: data.value, loading: false, message: '' };
+
+    } catch (error) {
+
+        return { page:[], loading: false, message: 'Error duplicate page ' + error };
 
     }
 

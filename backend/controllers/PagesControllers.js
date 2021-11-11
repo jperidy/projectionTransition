@@ -49,7 +49,7 @@ const updatePageContent = asyncHandler(async(req,res) =>{
     
     // rewrite with async function
     const newContent = req.body;
-    Page.findOne({name: req.params.name})
+    Page.findById(req.body._id)
         .then((content) => {
             if (!content) {
                 Page.create(newContent)
@@ -66,6 +66,9 @@ const updatePageContent = asyncHandler(async(req,res) =>{
                 for (let key in newContent) {
                     content[key] = newContent[key]
                 }
+
+                // url can't have spaces
+                content.name = content.name.replaceAll(/[<>'"\$#%{} ]/g, '_');
 
                 content.save()
                     .then((contentUpdated) => {
@@ -84,7 +87,7 @@ const updatePageContent = asyncHandler(async(req,res) =>{
 
 // @desc    create a page
 // @route   POST /api/page
-// @access  Public
+// @access  Private
 const createPage = asyncHandler(async(req,res) =>{
     
     // rewrite with async function
@@ -109,9 +112,39 @@ const createPage = asyncHandler(async(req,res) =>{
 
 });
 
+// @desc    duplicate a page
+// @route   POST /api/page/duplicate
+// @access  Private
+const duplicatePage = asyncHandler(async(req,res) =>{
+    
+    const pageToDuplicate = req.body.pageName;
+    console.log("[debug]", pageToDuplicate);
+    Page.findOne({name: pageToDuplicate})
+        .then((content) => {
+            if (content) {
+                const objectToCreate = JSON.parse(JSON.stringify(content));
+                objectToCreate.name = objectToCreate.name + "_copy";
+                delete objectToCreate._id;
+                Page.create(objectToCreate)
+                    .then((contentCreated) => {
+                        if (contentCreated) {
+                            res.status(200).json({ message: 'contentDuplicated', value: contentCreated});
+                        } else {
+                            res.status(500).json({ message: `Error: ${pageToDuplicate.name} not duplicated`, value:[] })
+                        }
+                    })
+                    .catch((error) => res.status(500).json({message: `Error duplicating content in database: ${error}`, value:[]}))   
+            } else {
+                res.status(401).json({message: "Not authorized : you can't duplicate non existing page", value:[]});
+            }
+        })
+        .catch((error) => res.status(500).json({message: `Error duplicating the page in database: ${error}`, value: []}))
+
+});
+
 // @desc    get all pages name
 // @route   GET /api/page/list
-// @access  Privalte
+// @access  Private
 const getAllPages = asyncHandler(async(req,res) =>{
     
     Page.find().select("_id name").sort({name: 1})
@@ -129,4 +162,4 @@ const getAllPages = asyncHandler(async(req,res) =>{
 });
 
 
-module.exports = { getAllPages, getPageContent, updatePageContent, createPage, deleteOnePage };
+module.exports = { getAllPages, getPageContent, updatePageContent, createPage, deleteOnePage, duplicatePage };

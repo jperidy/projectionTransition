@@ -43,6 +43,7 @@
 </div>
 <div class="mt-3">
     {#if page.content && page.content.length}
+        <input class="form-control" bind:value={page.name} />
         {#each page.content as component, position}
             <div on:mouseleave={() => selectedComponent = {id:"", position:null}} on:mouseenter={() => selectedComponent = {id: component._id, position:null}}>
                 <DisplayEditMenu

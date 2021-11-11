@@ -12,7 +12,7 @@
 </script>
 
 <script>
-    import { getContent, updateOrCreateContent } from "../../actions/pagesActions";
+    import { getAllPagesList, getContent, updateOrCreateContent } from "../../actions/pagesActions";
     import { onMount } from "svelte";
     import DisplayCustomComponent from "../../components/DisplayCustomComponent.svelte";
     import MenuPage from "../../components/admin/MenuPage.svelte";
@@ -57,9 +57,19 @@
     $: {
         isAuthenticate = $userInfo && $userInfo.profil === 'admin' ? true : false;
         if (browser && !isAuthenticate) { goto('/login'); }
-    }
+    };
+
+    let pagesList = [];
+    const getPages = async () => {
+        //loading = true;
+        const pagesListRequest = await getAllPagesList();
+        pagesList = pagesListRequest.list;
+        //message = pagesListRequest.message;
+        //loading = false;
+    };
 
     onMount(async() => {
+        getPages();
         currentPage = 'homeContent'
         pageRequest = await getContent(currentPage);
     });
@@ -71,6 +81,8 @@
 
     const updateContent = async() => {
         pageRequest = await updateOrCreateContent(pageRequest.content);
+        currentPage = pageRequest.content.name;
+        getPages();
     };
 
     const showPageHandler = () => {
@@ -114,7 +126,7 @@
                 <div class="col-2 menu-page bg-dark shadow-lg overflow-auto">
                     <div class="px-1 py-2">
                         <div on:click={showPageHandler}>
-                            <MenuPage currentPage={currentPage} selectPageHandler={selectPageHandler} />
+                            <MenuPage pagesList={pagesList} getPages={getPages} currentPage={currentPage} selectPageHandler={selectPageHandler} />
                         </div>
                         <MenuParamGlobal 
                             bind:showNavigationBar={showNavigationBar}
