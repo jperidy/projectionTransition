@@ -7,7 +7,7 @@
         const { seo } = await getSeo();
         // load default fonts
         const { fonts } = await getFonts();
-        return {status:200, props: {defaultSeo: seo, fonts: fonts}};
+        return {status:200, props: {defaultSeo: seo, fonts: fonts, page}};
     };
 </script>
 
@@ -31,9 +31,12 @@
     import config from '../../config.json';
     import Footer from '../../components/Footer.svelte';
     import Nav from '../../components/Nav.svelte';
+    import SeoComponent from '../../components/SeoComponent.svelte';
+    const SITE_URL = config.SVELTE_ENV === 'dev' ? config.SITE_URL_DEV : config.SVELTE_ENV === 'preprod' ? config.SITE_URL_PREPROD : config.SVELTE_ENV === 'production' ? config.SITE_URL_PROD : config.SITE_URL_DEV;
 
     export let defaultSeo;
     export let fonts;
+    export let page;
 
     const API_URL = config.SVELTE_ENV === 'dev' ? config.API_URL_DEV : config.SVELTE_ENV === 'preprod' ? config.API_URL_PREPROD : config.SVELTE_ENV === 'production' ? config.API_URL_PROD : config.API_URL_DEV;
 
@@ -107,104 +110,110 @@
 <main>
     <Nav navBar={navBar} />
     {#if isAuthenticate}
-    <div class="row">
-        <!-- zone to list and select a page -->
-        {#if showMenuPage}
-            <div class="col-2 menu-page bg-dark shadow-lg overflow-auto">
-                <div class="px-1 py-2">
-                    <div on:click={showPageHandler}>
-                        <MenuPage currentPage={currentPage} selectPageHandler={selectPageHandler} />
+        <div class="row">
+            <!-- zone to list and select a page -->
+            {#if showMenuPage}
+                <div class="col-2 menu-page bg-dark shadow-lg overflow-auto">
+                    <div class="px-1 py-2">
+                        <div on:click={showPageHandler}>
+                            <MenuPage currentPage={currentPage} selectPageHandler={selectPageHandler} />
+                        </div>
+                        <MenuParamGlobal 
+                            bind:showNavigationBar={showNavigationBar}
+                            bind:showFooter={showFooter}
+                            bind:showFonts={showFonts}
+                            bind:showDefaultSeo={showDefaultSeo}
+                            bind:showFavicon={showFavicon}
+                        />
                     </div>
-                    <MenuParamGlobal 
-                        bind:showNavigationBar={showNavigationBar}
-                        bind:showFooter={showFooter}
-                        bind:showFonts={showFonts}
-                        bind:showDefaultSeo={showDefaultSeo}
-                        bind:showFavicon={showFavicon}
-                    />
                 </div>
-            </div>
-        {/if}
-    
-        <!-- zone to edit components of selected page -->
-        <div class={`${showMenuPage ? "col-3" : "col-5"} bg-light shadow-lg text-dark position-relative`}>
-            <div class="overflow-scroll menu-edition">
-                <div class="py-1">
-                    <MenuEdit 
-                        bind:page={pageRequest.content}
-                        bind:selectedComponent={selectedComponent}
-                        updateContent={updateContent}
-                    />
+            {/if}
+        
+            <!-- zone to edit components of selected page -->
+            <div class={`${showMenuPage ? "col-3" : "col-5"} bg-light shadow-lg text-dark position-relative`}>
+                <div class="overflow-scroll menu-edition">
+                    <div class="py-1">
+                        <MenuEdit 
+                            bind:page={pageRequest.content}
+                            bind:selectedComponent={selectedComponent}
+                            updateContent={updateContent}
+                        />
+                    </div>
+                    <div class="py-1">
+                        <EditSeoComponent bind:pageContent={pageRequest.content} />
+                    </div>
                 </div>
-                <div class="py-1">
-                    <EditSeoComponent bind:pageContent={pageRequest.content} />
-                </div>
-            </div>
-            <button 
-                class="btn btn-dark btn-sm border border-3 rounded-circle position-absolute top-50 start-0 translate-middle"
-                on:click={() => showMenuPage = !showMenuPage}
-            >
-                {#if showMenuPage}
-                    <i class="bi bi-chevron-left"></i>
-                {:else}
-                    <i class="bi bi-chevron-right"></i>
-                {/if}
-            </button>
-        </div>
-    
-        <!-- zone to preview your page -->
-        <div class="col-7 p-0 preview ">
-            <!-- select the screen size -->
-            <div class="bandeau bg-dark border-light shadow px-3 py-auto d-flex align-items-center justify-content-center">
-                <h3 class="my-0 mx-2">Previews </h3>
-                <button class="btn btn-primary mx-2">Desktop</button>
-                <button class="btn btn-primary mx-2">Tablet</button>
-                <button class="btn btn-primary mx-2">Mobile</button>
-                <button
-                        class='btn btn-light'
-                        style='margin-left:auto'
-                        on:click={() => logout()}
-                        block
-                    ><i class="bi bi-door-open"></i>Logout</button>
-            </div>
-
-            <!-- preview -->    
-            <div id="display-preview" class="display-preview overflow-auto">
-                {#if showNavigationBar}
-                    <EditNavigationNavBar bind:navBar={navBar} />
-                {/if}
-                {#if showFonts}
-                    <EditFontsComponent bind:fonts={fonts}/>
-                {/if}
-                {#if showDefaultSeo}
-                    <EditDefaultSeoComponent bind:seo={defaultSeo} />
-                {/if}
-                {#if showFavicon}
-                    <EditFaviconComponent bind:seo={defaultSeo} />
-                {/if}
-                {#if showFooter}
-                    <EditFooter bind:footer={footer}/>
-                {/if}
-                {#if (!showNavigationBar && !showFooter && !showFonts && !showDefaultSeo && !showFavicon)}
-                    {#if pageRequest.content && pageRequest.content.content}
-                        {#each pageRequest.content.content as section, position}
-                            <DisplayCustomComponent 
-                                bind:value={section.value}
-                                bind:values={section.values}
-                                bind:styles={section.styles}
-                                type={section.type}
-                                updateContent={null}
-                                admin={false}
-                                edit={false}
-                                city={"city"}
-                                isSelected={{select: section._id === selectedComponent.id, position: selectedComponent.position}}
-                            />   
-                        {/each}
+                <button 
+                    class="btn btn-dark btn-sm border border-3 rounded-circle position-absolute top-50 start-0 translate-middle"
+                    on:click={() => showMenuPage = !showMenuPage}
+                >
+                    {#if showMenuPage}
+                        <i class="bi bi-chevron-left"></i>
+                    {:else}
+                        <i class="bi bi-chevron-right"></i>
                     {/if}
-                {/if}
+                </button>
+            </div>
+        
+            <!-- zone to preview your page -->
+            <div class="col-7 p-0 preview ">
+                <!-- select the screen size -->
+                <div class="bandeau bg-dark border-light shadow px-3 py-auto d-flex align-items-center justify-content-center">
+                    <h3 class="my-0 mx-2">Previews </h3>
+                    <button class="btn btn-primary mx-2">Desktop</button>
+                    <button class="btn btn-primary mx-2">Tablet</button>
+                    <button class="btn btn-primary mx-2">Mobile</button>
+                    <button
+                            class='btn btn-light'
+                            style='margin-left:auto'
+                            on:click={() => logout()}
+                            block
+                        ><i class="bi bi-door-open"></i>Logout</button>
+                </div>
+
+                <!-- preview -->    
+                <div id="display-preview" class="display-preview overflow-auto">
+                    {#if showNavigationBar}
+                        <EditNavigationNavBar bind:navBar={navBar} />
+                    {/if}
+                    {#if showFonts}
+                        <EditFontsComponent bind:fonts={fonts}/>
+                    {/if}
+                    {#if showDefaultSeo}
+                        <EditDefaultSeoComponent bind:seo={defaultSeo} />
+                    {/if}
+                    {#if showFavicon}
+                        <EditFaviconComponent bind:seo={defaultSeo} />
+                    {/if}
+                    {#if showFooter}
+                        <EditFooter bind:footer={footer}/>
+                    {/if}
+                    {#if (!showNavigationBar && !showFooter && !showFonts && !showDefaultSeo && !showFavicon)}
+                        {#if pageRequest.content && pageRequest.content.content}
+                            {#each pageRequest.content.content as section, position}
+                                <DisplayCustomComponent 
+                                    bind:value={section.value}
+                                    bind:values={section.values}
+                                    bind:styles={section.styles}
+                                    type={section.type}
+                                    updateContent={null}
+                                    admin={false}
+                                    edit={false}
+                                    city={"city"}
+                                    isSelected={{select: section._id === selectedComponent.id, position: selectedComponent.position}}
+                                />   
+                            {/each}
+                        {/if}
+                    {/if}
+                </div>
             </div>
         </div>
-    </div>
+        <SeoComponent 
+            pageContent={pageRequest.content}
+            page={page}
+            siteURL={SITE_URL}
+            defaultSeo={defaultSeo}
+        />  
     {/if} 
 </main>
 
