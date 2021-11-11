@@ -7,10 +7,8 @@ import DisplayEditMenu from "./DisplayEditMenu.svelte";
     export let styles=[]; styles;
     export let selectedComponentPosition;
 
-
     const addToLayer = async(item, position) => {
         values = [...values, {...item, top:0, left:0, width: ""}];
-        console.log('values', values);
     };
 
     const handleMove = (e, pos) => {

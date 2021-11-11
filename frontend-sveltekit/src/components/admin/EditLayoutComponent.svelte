@@ -14,15 +14,15 @@ import { uploadImage } from '../../actions/imagesActions';
     //$: columnNumber = values.length;
     
     let openSelecteComponent = false;
+    let positionToCreate = 0;
 
     const addToLayout = (column, position) => {
-        values[position].values[0] = { ...values[position].values[0], ...column}
+        values[position].values[0] = column;
         values = values;
     };
 
     const columnChangeHandler = (number) => {
         if (number > values.length && number >=1) {
-            //const limit = 12
             while (values.length < number) {
                 values.push({type:'layout', size: 4, sizeTablette: 4, sizeMobile: 12, values:[]});
             }
@@ -200,18 +200,10 @@ import { uploadImage } from '../../actions/imagesActions';
                         displayInFrame={true}
                     />
                 {:else}
-                    <button class='btn btn-secondary w-100 my-3' on:click={() => openSelecteComponent = true}>Select a component</button>
-                    {#if openSelecteComponent}
-                        <AddElement
-                            addContent={null}
-                            position={index}
-                            addToLayout={addToLayout}
-                            bind:open={openSelecteComponent}
-                            copyValues={[]}
-                            copyStyles={[]}
-                            copyType={''}
-                        />
-                    {/if}
+                    <button class='btn btn-secondary w-100 my-3' on:click={() => {
+                        openSelecteComponent = true;
+                        positionToCreate = index;
+                    }}>Select a component</button> 
                 {/if}
                 <p>Width of the column on :</p>
                 <div class="d-flex justify-content-end align-items-center text-end align-items-center text-end my-1">
@@ -229,6 +221,15 @@ import { uploadImage } from '../../actions/imagesActions';
             </div>
         {/each}
     </div>
+
+    {#if openSelecteComponent}
+        <AddElement
+            addContent={null}
+            position={positionToCreate}
+            addToLayout={addToLayout}
+            bind:open={openSelecteComponent}
+        />
+    {/if}
     
 </div>
 

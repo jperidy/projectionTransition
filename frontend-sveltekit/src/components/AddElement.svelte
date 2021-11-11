@@ -9,43 +9,43 @@
   export let position = 0;
   export let addToLayout = null;
   export let open = false;
-  export let copyValues = [];
-  export let copyStyles = [];
-  export let copyType = '';
+  //export let copyValues = [];
+  //export let copyStyles = [];
+  //export let copyType = '';
 
   let type = '';
   let values = [];
   let styles = [];
-  let copy = false;
+  //let copy = false;
   let past = false;
 
 
   const toggle = async(save) => {
     //console.log(save, open, addToLayout);
       if (open && addContent && save) {
-          await addContent({type, values, styles }, position);
+        await addContent({type, values, styles }, position);
       }
       if (open && addToLayout && save) {
-          await addToLayout({type, values, styles }, position);
+        await addToLayout({type, values, styles }, position);
       }
       open = !open;
-      copy = false;
+      //copy = false;
       past = false;
   };
 
   const updateValues = () => {
-    if (copy) {
-      let newArrayCopy = JSON.parse(JSON.stringify(copyValues));
-      recursiveBlankMedias(newArrayCopy);
-      values = newArrayCopy;
-      console.log('valuesCopy', values);
-      styles = copyStyles;
-      type = copyType;
-    } else if (past) {
+    // if (copy) {
+    //   let newArrayCopy = JSON.parse(JSON.stringify(copyValues));
+    //   recursiveBlankMedias(newArrayCopy);
+    //   values = newArrayCopy;
+    //   console.log('valuesCopy', values);
+    //   styles = copyStyles;
+    //   type = copyType;
+    // } else 
+    if (past) {
       let newArrayPast = JSON.parse(JSON.stringify(get(copyComponent))).values;
       recursiveBlankMedias(newArrayPast);
       values = newArrayPast;
-      console.log('valuesPast', values);
       styles = JSON.parse(JSON.stringify(get(copyComponent))).styles;
       type = JSON.parse(JSON.stringify(get(copyComponent))).type;
     } else {
@@ -59,21 +59,21 @@
   //     updateValues();
   // };
 
-  const toogleCopy = () => {
-    copy = !copy;
-    if (copy) past = false;
-    updateValues();
-  };
+  // const toogleCopy = () => {
+  //   copy = !copy;
+  //   if (copy) past = false;
+  //   updateValues();
+  // };
 
   const tooglePast = () => {
     past = !past;
-    if (past) copy = false;
+    //if (past) copy = false;
     updateValues();
   };
 
   const handleClick = (typeComponent) => {
     type = typeComponent;
-    copy = false;
+    //copy = false;
     updateValues();
   };
 
@@ -91,10 +91,10 @@
                 <label class="form-check-label" for="flexSwitchPast">Coller ici la forme que vous avez auparavant copié</label>
               </div>  
             {/if}
-            <div class="form-check form-switch mt-3">
+            <!-- <div class="form-check form-switch mt-3">
               <input class="form-check-input" type="checkbox" id="flexSwitchCopy" checked={copy} on:change={toogleCopy}>
               <label class="form-check-label" for="flexSwitchCopy">Copier la forme que vous venez de sélectionner</label>
-            </div>
+            </div> -->
             {#if !past}
               <div class='mt-3 d-grid gap-2 d-sm-block'>
                 <h3>Standard components: </h3>

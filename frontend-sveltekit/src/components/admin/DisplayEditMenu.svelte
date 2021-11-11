@@ -13,6 +13,7 @@
     import EditCompressFileComponent from "./EditCompressFileComponent.svelte";
     import EditVideoComponent from "./EditVideoComponent.svelte";
     import EditContactComponent from "./EditContactComponent.svelte";
+    import { copyComponent } from "../../store";
 
     export let type;
     export let values;
@@ -86,6 +87,11 @@
         }
     };
 
+    const copyAction = () => {
+        //localStorage.setItem('copyComponent', JSON.stringify({type, values, styles}));
+        copyComponent.set({type, values, styles});
+    };
+
 </script>
 
 <div class="my-2 p-1 shadow-sm item rounded">
@@ -105,7 +111,7 @@
             <button class="btn btn-transparent m-0 p-0" on:click={downAction}>
                 <i class="bi bi-chevron-down text-dark"></i>
             </button>
-            <button class="btn btn-transparent m-0 p-0" >
+            <button class="btn btn-transparent m-0 p-0" on:click={copyAction}>
                 <i class="bi bi-files text-dark"></i>
             </button>
             <button class="btn btn-transparent m-0 p-0" on:click={deleteAction}>

@@ -6,8 +6,8 @@
     import { Icon } from "sveltestrap";
     import { updateStyle } from '../../utils/styleFunctions'; 
 
-    export let values;
-    export let styles;
+    export let values=[];
+    export let styles=[];
 
     const colors = ['primary', 'secondary', 'pomme', 'outremer', 'lavande', 'caraibe', 'tangerine', 'ambre', 'light', 'white', 'dark', 'black'];
     let fonts = [];

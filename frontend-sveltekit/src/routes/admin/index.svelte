@@ -53,7 +53,6 @@
     let navBar;
     let footer;
     
-    
     let isAuthenticate = false;
     $: {
         isAuthenticate = $userInfo && $userInfo.profil === 'admin' ? true : false;
@@ -81,7 +80,6 @@
         showDefaultSeo = false;
         showFavicon = false;
     }
-
 
 </script>
 
