@@ -14,7 +14,7 @@
     let messageUpdateBrand = "";
 
     // Default footer
-    let footer = {
+    export let footer = {
         name: "footer",
         "TYPE": {
             "navigation": true,

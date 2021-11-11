@@ -23,7 +23,7 @@
   };
 
   // DEFAULT navBar
-  let navBar = {
+  export let navBar = {
     name:"nav",
     "TITLE": [{"name": "MENU 1", "url": "", "SUBTITLE": []}],
     "BRAND": {"LOGO": {"path": "", "alt": "", "style": "max-width: 20vh; height:auto;"},"NAME": ""},

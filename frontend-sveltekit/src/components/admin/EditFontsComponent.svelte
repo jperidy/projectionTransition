@@ -3,7 +3,8 @@
     import { onMount } from "svelte";
     import Message from "../Message.svelte";
 
-    let fonts = [];
+    export let fonts = [];
+    
     let messageUpdateOrCreate = "";
 
     onMount(async () => {
@@ -42,10 +43,28 @@
         fonts.splice(index, 1);
         fonts = fonts;
     };
-    const updateFont = (font) => {
-        updateOrCreateFont(font)
-            .then((result) => messageUpdateOrCreate = "")
-            .catch((error) => messageUpdateOrCreate = error);
+
+    const extractFontName = (input) => {
+      let family = input.split('family=');
+      if (family.length > 1) {
+        family = family[1].split(/&|:/)[0];
+      } else {
+        family = "";
+      }
+      const fontExtractName = `'${family.replaceAll('+', ' ')}'`;
+      return fontExtractName;
+    }
+
+    const updateFont = (font, ind) => {
+      fonts[ind].name = extractFontName(font.href);
+      fonts = fonts;
+      updateOrCreateFont(font)
+          .then((result) => messageUpdateOrCreate = "")
+          .catch((error) => messageUpdateOrCreate = error);
+    };
+
+    const updateNameHandler = (input) => {
+      fontName = extractFontName(input)
     }
 </script>
 
@@ -57,9 +76,13 @@
       {/if}
       <form on:submit={addFont}>
         <div class="row align-items-end">
+          <div class="col-4">
+              <label for="hrefFont">href</label>
+              <input type="text" class="form-control" id="hrefFont" bind:value={href} placeholder="href from googleapis" on:change={(e) => updateNameHandler(e.target.value)}/>
+          </div>
           <div class="col">
             <label for="nameFont">Font Name</label>
-            <input type="text" class="form-control" id="nameFont" bind:value={fontName} placeholder="Ex. Ubuntu"/>
+            <input type="text" class="form-control-plaintext" id="nameFont" value={fontName} placeholder="[automatic]" readonly/>
           </div>
           <div class="col">
               <div class="form-check align-items-center">
@@ -74,27 +97,23 @@
               </div>
           </div>
           <div class="col">
-              <label for="hrefFont">href</label>
-              <input type="text" class="form-control" id="hrefFont" bind:value={href} placeholder="href from googleapis"/>
-          </div>
-          <div class="col">
             <button type='submit' class="btn btn-primary">+</button>
           </div>
         </div>
       </form>
       {#each fonts as font, ind}
         <div class='row mt-1 align-items-center'>
-          <div class="col">
-            <input type="text" class="form-control" bind:value={font.name} on:change={() => updateFont(font)}>
+          <div class="col-4">
+            <input type="text" class="form-control" bind:value={font.href} on:change={() => updateFont(font, ind)}>
           </div>
           <div class="col">
-              <input type="checkbox" class="form-check-input" bind:checked={font.defaultHeader} on:change={() => updateFont(font)}/>
+            <input type="text" class="form-control-plaintext" value={font.name} readonly>
           </div>
           <div class="col">
-              <input type="checkbox" class="form-check-input" bind:checked={font.defaultBody} on:change={() => updateFont(font)}/>
+              <input type="checkbox" class="form-check-input" bind:checked={font.defaultHeader} on:change={() => updateFont(font, ind)}/>
           </div>
           <div class="col">
-            <input type="text" class="form-control" bind:value={font.href} on:change={() => updateFont(font)}>
+              <input type="checkbox" class="form-check-input" bind:checked={font.defaultBody} on:change={() => updateFont(font, ind)}/>
           </div>
           <div class="col">
             <button class="btn btn-danger btn-sm" on:click={() => deleteFont(ind)}><i class="bi bi-trash"></i></button>

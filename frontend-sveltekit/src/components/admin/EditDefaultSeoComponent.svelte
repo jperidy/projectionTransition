@@ -14,7 +14,7 @@ import { onMount } from 'svelte';
     let messageUpdateSeo = "";
 
     // Default SEO
-    let seo = {
+    export let seo = {
         "name": "seo",
         "DEFAULT_TITLE": "",
         "DEFAULT_DESCRIPTION": "",

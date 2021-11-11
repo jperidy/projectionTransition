@@ -1,31 +1,12 @@
 <script>
     import { goto } from "$app/navigation";
-    import { getFooter, updateOrCreateFooter } from "../actions/footerActions";
-    import { Modal, ModalBody, ModalFooter, ModalHeader } from "sveltestrap";
+    import { getFooter } from "../actions/footerActions";
     import config from '../config.json';
-    import Message from "./Message.svelte";
-    import { userInfo } from "../store";
     import { onMount } from "svelte";
     const API_URL = config.SVELTE_ENV === 'dev' ? config.API_URL_DEV : config.SVELTE_ENV === 'preprod' ? config.API_URL_PREPROD : config.SVELTE_ENV === 'production' ? config.API_URL_PROD : config.API_URL_DEV;
 
-    let edit=false;
-    let messageUpdateFooter = "";
-    let messageUpdateBrand = "";
-
-    $: isAuthenticate = $userInfo && $userInfo.profil === 'admin' ? true : false;
-
-    // Add to edit the footer
-    // const toggle = async() => {
-    //     if (edit) {
-    //         updateOrCreateFooter(footer)
-    //           .then((result) => footer = result.footer)
-    //           .catch((error) => messageUpdateFooter = error);
-    //     }
-    //     edit = !edit;
-    // };
-
     // Default footer
-    let footer = {
+    export let footer = {
         name: "footer",
         "TYPE": {
             "navigation": true,
@@ -72,8 +53,6 @@
     });
 
 </script>
-
-
 
 <!-- display the footer -->
 <div class={`row ${footer.STYLE.FOOTER.bootstrapClass}`}>
