@@ -68,7 +68,7 @@ const updatePageContent = asyncHandler(async(req,res) =>{
                 }
 
                 // url can't have spaces
-                content.name = content.name.replaceAll(/[<>'"\$#%{} ]/g, '_');
+                content.name = content.name.replaceAll(/[<>'"\$#%{}\[\]\(\) ]/g, '_');
 
                 content.save()
                     .then((contentUpdated) => {
@@ -83,6 +83,18 @@ const updatePageContent = asyncHandler(async(req,res) =>{
         })
         .catch((error) => res.status(500).json({message: `Error fetching the page in database: ${error}`, value: []}))
 
+});
+
+// @desc    create a page
+// @route   PUT /api/page/pageName
+// @access  Private
+const updatePage = asyncHandler(async(req,res) =>{
+    
+    const updateData = req.body;
+    await Page.findOneAndUpdate({ name: req.params.name}, updateData)
+        .then(() => res.status(200).json({ message: 'pageUpdated', value: ''}))
+        .catch((error) => res.status(500).json({ message: `Error: ${req.params.name} not updated`, value: error }))
+    
 });
 
 // @desc    create a page
@@ -147,7 +159,7 @@ const duplicatePage = asyncHandler(async(req,res) =>{
 // @access  Private
 const getAllPages = asyncHandler(async(req,res) =>{
     
-    Page.find().select("_id name").sort({name: 1})
+    Page.find().select("_id name display").sort({name: 1})
         .then((pages) => {
             if(pages) {
                 res.status(200).json({message: '', value: pages});
@@ -162,4 +174,4 @@ const getAllPages = asyncHandler(async(req,res) =>{
 });
 
 
-module.exports = { getAllPages, getPageContent, updatePageContent, createPage, deleteOnePage, duplicatePage };
+module.exports = { getAllPages, getPageContent, updatePageContent, createPage, deleteOnePage, duplicatePage, updatePage };

@@ -22,7 +22,7 @@
 
 </script>
 
-<div class='mt-2 d-flex justify-content-between align-items-center flex-wrap'>
+<div class='mt-2 mx-2 d-flex justify-content-between align-items-center flex-wrap'>
     <h3 class="p-0 m-0">Edition</h3>
     {#if $pageRequest.loading}
         <button class="btn btn-primary text-dark" type="button" disabled>

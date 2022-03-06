@@ -24,11 +24,16 @@
             let pageName = page.path.substring(1).replace('/','-');
             pageName = pageName === '' ? 'homeContent' : pageName;
             pageRequest = await getContent(pageName);
+            
             if (pageRequest.content.content.length === 0) {
                 return { status: 308, redirect: `/`}
-            } else {
-                return {status:200, props: {pageRequest, params, page, defaultSeo: seo}};
             }
+
+            if (!pageRequest.content.display) {
+                return { status: 308, redirect: `/`}
+            }
+            
+            return {status:200, props: {pageRequest, params, page, defaultSeo: seo}};
         } else {
             return { status: 307, redirect: `/login?redirection=${redirection[0]}`}
         }

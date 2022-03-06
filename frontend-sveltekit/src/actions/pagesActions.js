@@ -35,6 +35,27 @@ export const updateOrCreateContent = async (content) => {
 
 };
 
+export const updateDisplayState = async (pageName, displayState) => {
+    const userInfoStored = get(userInfo);
+
+    try {
+
+        const config = {
+            headers: {
+                'Content-type': 'application/json',
+                Authorization: `Bearer ${userInfoStored.token}`
+            }
+        }
+
+        const { data } = await axios.put(`${API_URL}/api/page/${pageName}`, { display: displayState}, config);
+
+        return { content: data.value, loading: false, message: 'Display state updated' };
+
+    } catch (error) {
+        return { content: { content: [], name: pageName }, loading: false, message: 'Error updating display state ' + pageName + ' ' + error };
+    }
+}
+
 export const getContent = async (pageName) => {
 
     try {

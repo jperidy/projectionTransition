@@ -61,11 +61,8 @@
 
     let pagesList = [];
     const getPages = async () => {
-        //loading = true;
         const pagesListRequest = await getAllPagesList();
         pagesList = pagesListRequest.list;
-        //message = pagesListRequest.message;
-        //loading = false;
     };
 
     onMount(async() => {
@@ -125,9 +122,6 @@
             {#if showMenuPage}
                 <div class="col-2 menu-page bg-dark shadow-lg overflow-auto">
                     <div class="px-1 py-2">
-                        <div on:click={showPageHandler}>
-                            <MenuPage pagesList={pagesList} getPages={getPages} currentPage={currentPage} selectPageHandler={selectPageHandler} />
-                        </div>
                         <MenuParamGlobal 
                             bind:showNavigationBar={showNavigationBar}
                             bind:showFooter={showFooter}
@@ -135,13 +129,16 @@
                             bind:showDefaultSeo={showDefaultSeo}
                             bind:showFavicon={showFavicon}
                         />
+                        <div on:click={showPageHandler}>
+                            <MenuPage pagesList={pagesList} getPages={getPages} currentPage={currentPage} selectPageHandler={selectPageHandler} />
+                        </div>
                     </div>
                 </div>
             {/if}
         
             <!-- zone to edit components of selected page -->
-            <div class={`${showMenuPage ? "col-3" : "col-5"} bg-light shadow-lg text-dark position-relative`}>
-                <div class="overflow-scroll menu-edition">
+            <div class={`${showMenuPage ? "col-3" : "col-5"} bg-light shadow-lg text-dark position-relative px-0`}>
+                <div class="overflow-auto menu-edition">
                     <div class="py-1">
                         <MenuEdit 
                             bind:page={pageRequest.content}
@@ -170,9 +167,6 @@
                 <!-- select the screen size -->
                 <div class="bandeau bg-dark border-light shadow px-3 py-auto d-flex align-items-center justify-content-center">
                     <h3 class="my-0 mx-2">Previews </h3>
-                    <button class="btn btn-primary mx-2">Desktop</button>
-                    <button class="btn btn-primary mx-2">Tablet</button>
-                    <button class="btn btn-primary mx-2">Mobile</button>
                     <button
                             class='btn btn-light'
                             style='margin-left:auto'

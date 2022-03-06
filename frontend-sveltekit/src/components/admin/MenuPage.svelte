@@ -1,6 +1,5 @@
 <script>
-    import { createAPage, deleteAPage, duplicateAPage, getAllPagesList } from "../../actions/pagesActions";
-    import { onMount } from "svelte";
+    import { createAPage, deleteAPage, duplicateAPage, getAllPagesList, updateDisplayState } from "../../actions/pagesActions";
     import Loading from "../Loading.svelte";
     import Message from "../Message.svelte";
 
@@ -16,19 +15,6 @@
     let messageCreate = false;
 
     let pageNameToCreate = "";
-
-    // const getPages = async () => {
-    //     loading = true;
-    //     const pagesListRequest = await getAllPagesList();
-    //     pagesList = pagesListRequest.list;
-    //     message = pagesListRequest.message;
-    //     loading = false;
-    // };
-
-    // onMount(() => {
-    //     // get all existing pages
-    //     getPages();
-    // });
 
     const transformUrl = (url) => {
         // supprimer le premier /
@@ -64,6 +50,11 @@
         await duplicateAPage(pageName);
         getPages();
     };
+
+    const updateDisplayStatus = async (pageName, displayState) => {
+        await updateDisplayState(pageName, displayState)
+        getPages();
+    }
 
 </script>
 
@@ -111,7 +102,18 @@
                     data-bs-toggle="tooltip" 
                     data-bs-placement="top" 
                     title={page.name}
-                >{`/${page.name}`}</button>
+                >{`/${page.name}`}
+                </button>
+                <button
+                    class="btn btn-sm btn-transparent text-light"
+                    on:click={() => updateDisplayStatus(page.name, !page.display)}
+                >
+                    {#if page.display}
+                        <i class="bi bi-eye-fill"></i>
+                    {:else}
+                        <i class="bi bi-eye-slash-fill"></i>
+                    {/if}
+                </button>
                 <button
                     class="btn btn-sm btn-transparent text-light"
                     on:click={() => duplicatePageHandler(page.name)}

@@ -1,9 +1,8 @@
 const mongoose = require('mongoose');
-const Page = require('../models/pageModels');
+// const Page = require('../models/pageModels');
 const config = require('../../config/config.json');
 
-const connectDB = async () => {
-    
+const getDatabaseUri = () => {
     let uri = '';
     
     if (['dev'].includes(config.NODE_ENV)) {
@@ -15,8 +14,12 @@ const connectDB = async () => {
     } else {
         console.log('Unknow environment: ' + config.NODE_ENV);
     }
+    return uri;
+}
 
-    mongoose.connect(uri, {
+const connectDB = async () => {
+    
+    mongoose.connect(getDatabaseUri(), {
         useNewUrlParser: true,
         useUnifiedTopology: true,
         useFindAndModify: false,
@@ -31,4 +34,4 @@ const connectDB = async () => {
 
 require('../models/pageModels');
 
-module.exports = connectDB;
+module.exports = { connectDB, getDatabaseUri};

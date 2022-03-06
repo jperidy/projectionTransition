@@ -16,17 +16,14 @@ const fontRoutes = require('./routes/fontRoutes');
 
 const config = require('../config/config.json');
 
-const connectDB = require('./config/db');
+const { connectDB } = require('./config/db');
 const { logARequest } = require('./controllers/logControllers');
 
 const app = express();
 
 if (config.NODE_ENV === 'dev' ) {
     app.use(morgan('dev'));
-} 
-// else {
-//     app.use(morgan('common'));
-// }
+}
 
 connectDB();
 
@@ -39,7 +36,7 @@ app.use((req, res, next) => {
 
 app.use(express.json());
 
-// login in database
+// logs stored in database
 // https://expressjs.com/en/5x/api.html#req
 app.use((req, res, next) => {
     const url = req.url;

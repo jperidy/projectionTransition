@@ -34,7 +34,6 @@ A la racine du projet créer le dossier /config et insérer dedans le fichier co
     "MAIL_PASS": ""
 }
 ```
-Description des différents attributs du fichier config.json
 
 - NODE_ENV : choisir entre "dev", "preprod" ou "production"
 - PORT : numéro de port sur lequel sera exposé le backend
@@ -53,6 +52,11 @@ Description des différents attributs du fichier config.json
 
 ### Attention sécurité
 Le fichier /config/config.json contient des informations sensibles à ne pas exposer directement sur internet, assurez vous d'ajouter ce fichier dans votre .gitignore et .dockerignore (le cas échéant).
+
+## Application des fichiers de migration
+```
+migrate-mongo up
+```
 
 ## Configuration du frontend
 ### Création du fichier config.json

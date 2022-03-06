@@ -10,7 +10,8 @@ const pageSchema = mongoose.Schema({
         values: [],
         styles: [],
         components: []
-    }]
+    }],
+    display: { type: Boolean },
 
 }, {timestamps: true});
 
