@@ -1,13 +1,11 @@
 <script>
 
     import { page } from '$app/stores'
-    let redirection = $page.query.get('redirection');
+    let redirection = $page.url.searchParams.get('redirection');
     if (!redirection) {
         redirection='/';
     }
 
-
-    import { Button, Col, Form, FormGroup, Input, Label, Row } from "sveltestrap";
     import CustomContainer from "../components/CustomContainer.svelte";
     import Message from '../components/Message.svelte';
     import { login } from '../actions/userActions';
@@ -53,28 +51,28 @@
 </svelte:head>
 
 <CustomContainer size ={{ xs: 12, sm:6, md:6, lg:6 }}>
-    <Row class='my-5'>
-        <Col>
+    <div class='row my-5'>
+        <div class="col">
             <h3>Login</h3>
-            <Form on:submit={submitHandler}>
-                <FormGroup>
-                    <Label for='email-input'>Email :</Label>
-                    <Input type='email' name='mail' id='email-input' bind:value={email} placeholder='Enter your email' />
-                </FormGroup>
-                <FormGroup>
-                    <Label for='password-input'>Password :</Label>
-                    <Input type='password' name="password" id='password-input' bind:value={password} placeholder='Enter your password'/>
-                </FormGroup>
-                <Button type='submit' color='primary'>Submit</Button>
-            </Form>
-        </Col>
-    </Row>
+            <form on:submit={submitHandler}>
+                <div class='mb-3'>
+                    <label class='form-label' for='email-input'>Email :</label>
+                    <input class='form-control' type='email' name='mail' id='email-input' bind:value={email} placeholder='Enter your email' />
+                </div>
+                <div class='mb-3'>
+                    <label class='form-label' for='password-input'>Password :</label>
+                    <input class='form-control' type='password' name="password" id='password-input' bind:value={password} placeholder='Enter your password'/>
+                </div>
+                <button type='submit' color='primary'>Submit</button>
+            </form>
+        </div>
+    </div>
     
     {#if message.value}
-        <Row>
-            <Col>
+        <div class='row'>
+            <div class='col'>
                 <Message color={message.color}>{message.value}</Message>
-            </Col>
-        </Row>
+            </div>
+        </div>
     {/if}
 </CustomContainer>

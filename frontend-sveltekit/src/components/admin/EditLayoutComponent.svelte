@@ -1,8 +1,6 @@
 <script>
-import { uploadImage } from '../../actions/imagesActions';
-
-    import { Icon } from 'sveltestrap';
-
+    import { uploadImage } from '../../actions/imagesActions';
+    
     export let values;
     export let styles;
     export let selectedComponentPosition;
@@ -101,9 +99,9 @@ import { uploadImage } from '../../actions/imagesActions';
     </div>
     <div class='my-1'>
         <div class='col'>
-            <button class={`px-2 border btn ${alignContent === "start" ? "btn-primary border border-secondary" : "btn-light"}`} on:click={() => styles = updateStyle(styles, {name:'align-items', value:'start'})}><Icon name='align-top' /></button>
-            <button class={`px-2 border btn ${alignContent === "center" ? "btn-primary border border-secondary" : "btn-light"}`} on:click={() => styles = updateStyle(styles, {name:'align-items', value:'center'})}><Icon name='align-middle' /></button>
-            <button class={`px-2 border btn ${alignContent === "end" ? "btn-primary border border-secondary" : "btn-light"}`} on:click={() => styles = updateStyle(styles, {name:'align-items', value:'end'})}><Icon name='align-bottom' /></button>
+            <button class={`px-2 border btn ${alignContent === "start" ? "btn-primary border border-secondary" : "btn-light"}`} on:click={() => styles = updateStyle(styles, {name:'align-items', value:'start'})}><i class='bi bi-align-top' /></button>
+            <button class={`px-2 border btn ${alignContent === "center" ? "btn-primary border border-secondary" : "btn-light"}`} on:click={() => styles = updateStyle(styles, {name:'align-items', value:'center'})}><i class='bi bi-align-middle' /></button>
+            <button class={`px-2 border btn ${alignContent === "end" ? "btn-primary border border-secondary" : "btn-light"}`} on:click={() => styles = updateStyle(styles, {name:'align-items', value:'end'})}><i class='bi bi-align-bottom' /></button>
             <button class={`btn px-2 border rounded-0 ${rounded === "rounded-0" ? "btn-primary border border-secondary" : "btn-light"}`} on:click={() => styles = updateStyle(styles, {name:'rounded', value:'rounded-0'})}><span>r-0</span></button>
             <button class={`btn px-2 border rounded-1 ${rounded === "rounded-1" ? "btn-primary border border-secondary" : "btn-light"}`} on:click={() => styles = updateStyle(styles, {name:'rounded', value:'rounded-1'})}><span>r-1</span></button>
             <button class={`btn px-2 border rounded-2 ${rounded === "rounded-2" ? "btn-primary border border-secondary" : "btn-light"}`} on:click={() => styles = updateStyle(styles, {name:'rounded', value:'rounded-2'})}><span>r-2</span></button>

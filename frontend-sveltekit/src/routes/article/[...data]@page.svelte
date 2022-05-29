@@ -43,7 +43,6 @@
     import Message from '../../components/Message.svelte';
     import Loading from '../../components/Loading.svelte';
     import CustomContainer from '../../components/CustomContainer.svelte';
-    import { Input } from 'sveltestrap';
     import { onMount } from 'svelte';
     import { goto } from '$app/navigation';
 
@@ -144,7 +143,7 @@
                     </div>
                     <div class='col text-start'>
                         {#if admin}
-                            <Input type='date' bind:value={articleRequest.article.createdAt} on:change={updateArticle} />
+                            <input type='date' bind:value={articleRequest.article.createdAt} on:change={updateArticle} />
                         {:else}
                             <p>{articleRequest.article.createdAt.toString().substring(0,10)}</p>
                         {/if}

@@ -1,5 +1,4 @@
 <script>
-    import { Input, Label } from "sveltestrap";
     import TextComponent from "./TextComponent.svelte";
     import ImageComponent from "./ImageComponent.svelte";
     import { createArticleRequest, deleteArticleRequest, getAllArticles } from "../actions/articleActions";
@@ -7,7 +6,7 @@
     import Loading from "./Loading.svelte";
     import Message from "./Message.svelte";
     import { recursiveDeleteAction } from '../utils/imageFunctions'
-import { goto } from "$app/navigation";
+    import { goto } from "$app/navigation";
 
     export let values=[];
     export let styles=[];
@@ -93,8 +92,8 @@ import { goto } from "$app/navigation";
                     <div class="row px-5">
                         <h3 class='pt-3'>Global configurations:</h3>
                         <div class='col'>
-                            <Label for="category">Category: </Label>
-                            <Input 
+                            <label for="category">Category: </label>
+                            <input 
                                 type='text' 
                                 name='category' 
                                 id='category' 
@@ -104,8 +103,8 @@ import { goto } from "$app/navigation";
                         </div>
 
                         <div class='col'>
-                            <Label for="maxSize">Max display articles </Label>
-                            <Input 
+                            <label for="maxSize">Max display articles </label>
+                            <input 
                                 type='number'
                                 min={0}
                                 step={1}

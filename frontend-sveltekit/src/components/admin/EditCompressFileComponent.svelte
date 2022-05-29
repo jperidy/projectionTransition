@@ -1,7 +1,6 @@
 <script>
     import { updateStyle } from "../../utils/styleFunctions";
     import { uploadCompress } from "../../actions/compressActions";
-    import { Icon } from "sveltestrap";
 
     export let values;
     export let styles;
@@ -40,9 +39,9 @@
         <div class='row py-1'>
             <p>Styles</p>
             <div class='col d-flex align-items-center'>
-                <button class={`px-1 btn btn-ligth border rounded ${textAlign === "start" ? "btn-primary" : "btn-light"}`} on:click={() => styles = updateStyle(styles, {name:'text-align', value:'start'})}><Icon name='text-left' /></button>
-                <button class={`px-1 btn btn-ligth border rounded ${textAlign === "center" ? "btn-primary" : "btn-light"}`} on:click={() => styles = updateStyle(styles, {name:'text-align', value:'center'})}><Icon name='text-center' /></button>
-                <button class={`px-1 btn btn-ligth border rounded ${textAlign === "end" ? "btn-primary" : "btn-light"}`} on:click={() => styles = updateStyle(styles, {name:'text-align', value:'end'})}><Icon name='text-right' /></button>
+                <button class={`px-1 btn btn-ligth border rounded ${textAlign === "start" ? "btn-primary" : "btn-light"}`} on:click={() => styles = updateStyle(styles, {name:'text-align', value:'start'})}><i class='bi bi-text-left' /></button>
+                <button class={`px-1 btn btn-ligth border rounded ${textAlign === "center" ? "btn-primary" : "btn-light"}`} on:click={() => styles = updateStyle(styles, {name:'text-align', value:'center'})}><i class='bi bi-text-center' /></button>
+                <button class={`px-1 btn btn-ligth border rounded ${textAlign === "end" ? "btn-primary" : "btn-light"}`} on:click={() => styles = updateStyle(styles, {name:'text-align', value:'end'})}><i class='bi bi-text-right' /></button>
                 <p class='p-0 my-0 mx-2'>Color</p>
                 <select class='form-control' value={btnColor.split('-').length > 0 ? btnColor.split('-')[1] : ""} on:click={(e) => styles = updateStyle(styles, {name:'btn-color', value:`btn-${e.target.value}`})}>
                     <option value="">--select--</option>

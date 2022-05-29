@@ -3,10 +3,8 @@
 </script>
 
 <script>
-  import { goto } from '$app/navigation';
   import { getNavBar } from '../actions/navActions';
   import { getSeo } from '../actions/seoActions';
-  import { Collapse, Navbar, NavbarToggler, NavbarBrand, Nav, NavItem, NavLink, Dropdown } from 'sveltestrap';
   import { onMount } from 'svelte';
   import Message from './Message.svelte';
   import config from '../config.json';
@@ -14,13 +12,6 @@
   
   let messageUpdateNav = '';
   let messageUpdateSeo = '';
-    
-  let isOpen = false;
-
-  const navigateHandler = (url) => {
-      isOpen = false;
-      goto(url);
-  };
 
   // DEFAULT navBar
   export let navBar = {
@@ -78,28 +69,32 @@
 {/if}
 
 <!-- NavBar to display -->
-<Navbar 
-color={navBar.STYLE.color}
-light={navBar.STYLE.theme === "light"}
-dark={navBar.STYLE.theme === "dark"}
-expand={expand}
->
-<NavbarBrand on:click={() => navigateHandler('/')}>
-  <img class='img-fluid' style={navBar.BRAND.LOGO.style} src={API_URL + navBar.BRAND.LOGO.path} alt={navBar.BRAND.LOGO.alt}/>
-</NavbarBrand>
-<div class='mx-auto d-flex'>
-  {#each navBar.SOCIAL_NETWORKS as item}
-    <div class={`fw-bold ${navBar.STYLE.SOCIAL_NETWORKS.bootstrapClass}`}><a class="" target={item.target} href={item.redirect}><img class='icone-rs' style={navBar.STYLE.SOCIAL_NETWORKS.style} src={API_URL + item.icon} alt={item.alt} /></a></div>
-  {/each}
-</div>
-<NavbarToggler on:click={() => (isOpen = !isOpen)} />
-<Collapse {isOpen} navbar expand={expand}>
-  <Nav class="ms-auto align-items-center" navbar>
-    {#each navBar.TITLE as item}
-      <Dropdown nav inNavbar>
-        <NavItem><NavLink class={navBar.STYLE.TITLE.bootstrapClass} style={navBar.STYLE.TITLE.style} on:click={() => navigateHandler(item.url)}><span >{item.name.toString()}</span></NavLink></NavItem>
-      </Dropdown>
-    {/each}
-  </Nav>
-</Collapse>
-</Navbar>
+<nav class={`navbar navbar-expand-${expand} navbar-${navBar.STYLE.color} bg-${navBar.STYLE.theme}`}>
+  <div class="container-fluid">
+    <a class='navbar-brand' href="/">
+      <img class='img-fluid' style={navBar.BRAND.LOGO.style} src={API_URL + navBar.BRAND.LOGO.path} alt={navBar.BRAND.LOGO.alt}/>
+    </a>
+    <div class='mx-auto d-flex'>
+      {#each navBar.SOCIAL_NETWORKS as item}
+        <div class={`fw-bold ${navBar.STYLE.SOCIAL_NETWORKS.bootstrapClass}`}><a class="" target={item.target} href={item.redirect}><img class='icone-rs' style={navBar.STYLE.SOCIAL_NETWORKS.style} src={API_URL + item.icon} alt={item.alt} /></a></div>
+      {/each}
+    </div>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"><i class="bi bi-list"></i></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ms-auto align-items-center">
+        {#each navBar.TITLE as item}
+        <li class="nav-item">
+          <a 
+            class={`nav-link active ${navBar.STYLE.TITLE.bootstrapClass}`}
+            style={navBar.STYLE.TITLE.style}
+            aria-current="page" 
+            href={item.url}
+          >{item.name.toString()}</a>
+        </li>
+        {/each}
+      </ul>
+    </div>
+  </div>
+</nav>

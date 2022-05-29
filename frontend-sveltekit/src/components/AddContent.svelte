@@ -1,7 +1,5 @@
 <script>
-  import { Button, Col, FormGroup, Label, Row, Modal, ModalHeader, ModalBody, ModalFooter } from "sveltestrap";
   import AddElement from "./AddElement.svelte";
-  //import DisplayCustomComponent from "./DisplayCustomComponent.svelte";
 
   export let admin = false;
   export let addContent = null;
@@ -35,8 +33,8 @@
   addToLayout={addToLayout}
 />
 
-<Row class='my-1 py-1'>
-  <Col>
-    <Button color="primary" class='my-1 p-2' on:click={toggle}>Ajouter un contenu</Button>
-  </Col>
-</Row>
+<div class='row my-1 py-1'>
+  <div class='col'>
+    <button color="primary" class='my-1 p-2' on:click={toggle}>Ajouter un contenu</button>
+  </div>
+</div>

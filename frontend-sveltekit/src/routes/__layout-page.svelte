@@ -2,10 +2,8 @@
     export const prerender = true;
     import { getSeo } from '../actions/seoActions';
     import { getFonts } from '../actions/fontsActions';
-    export async function load({page}) {
-        // load default seo informations
+    export async function load({}) {
         const { seo } = await getSeo();
-        // load default fonts
         const { fonts } = await getFonts();
         return {status:200, props: {defaultSeo: seo, fonts: fonts}};
     };
@@ -24,6 +22,8 @@
 </script>
 
 <svelte:head>
+    <!-- JavaScript Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
     <link rel="stylesheet" href="/mains.min.css">
     <link rel="icon" type="image/png" href={API_URL + defaultSeo.FAVICON_48_48} sizes="48x48" />

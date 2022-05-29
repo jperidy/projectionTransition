@@ -1,5 +1,5 @@
-const mongoose = require('mongoose');
-const bcrypt = require('bcryptjs');
+import mongoose from 'mongoose';
+import bcrypt from 'bcryptjs';
 
 const userSchema = mongoose.Schema({
     name: {
@@ -34,11 +34,6 @@ const userSchema = mongoose.Schema({
     timestamps: true,
 });
 
-// method to verify password
-userSchema.methods.matchPassword = async function(enteredPassword){
-    return await bcrypt.compare(enteredPassword, this.password);
-};
-
 // method to execut before any save in database if password is modified
 userSchema.pre('save', async function (next) {
 
@@ -52,4 +47,4 @@ userSchema.pre('save', async function (next) {
 
 const User = mongoose.model('User', userSchema);
 
-module.exports = User;
+export default User;

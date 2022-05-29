@@ -11,7 +11,6 @@ const emailRoutes = require('./routes/emailRoutes');
 const logsRoutes = require('./routes/logsRoutes');
 const navRoutes = require('./routes/navRoutes');
 const footerRoutes = require('./routes/footerRoutes');
-const seoRoutes = require('./routes/seoRoutes');
 const fontRoutes = require('./routes/fontRoutes');
 
 const config = require('../config/config.json');
@@ -64,7 +63,6 @@ app.use('/api/emails', emailRoutes);
 app.use('/api/statistics', logsRoutes);
 app.use('/api/nav', navRoutes);
 app.use('/api/footer', footerRoutes);
-app.use('/api/seo', seoRoutes);
 app.use('/api/font', fontRoutes);
 
 

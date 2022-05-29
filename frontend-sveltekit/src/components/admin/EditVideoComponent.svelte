@@ -1,6 +1,5 @@
 <script>
     import { uploadVideo } from "../../actions/videosActions";
-    import { Icon } from "sveltestrap";
     import { updateStyle } from "../../utils/styleFunctions";
 
     export let values;
@@ -63,9 +62,9 @@
 </div>
 <div class="row mt-3">
     <div class="col d-flex align-items-center justify-content-center">
-        <button class='px-2 btn btn-light border rounded' on:click={() => styles = updateStyle(styles, {name:'text-align', value:'margin-right: auto;'})}><Icon name='text-left' /></button>
-        <button class='px-2 btn btn-light border rounded' on:click={() => styles = updateStyle(styles, {name:'text-align', value:'margin-left: auto;margin-right: auto'})}><Icon name='text-center' /></button>
-        <button class='px-2 btn btn-light border rounded' on:click={() => styles = updateStyle(styles, {name:'text-align', value:'margin-left: auto'})}><Icon name='text-right' /></button>
+        <button class='px-2 btn btn-light border rounded' on:click={() => styles = updateStyle(styles, {name:'text-align', value:'margin-right: auto;'})}><i class="bi bi-text-right"></i></button>
+        <button class='px-2 btn btn-light border rounded' on:click={() => styles = updateStyle(styles, {name:'text-align', value:'margin-left: auto;margin-right: auto'})}><i class='bi bi-text-center' /></button>
+        <button class='px-2 btn btn-light border rounded' on:click={() => styles = updateStyle(styles, {name:'text-align', value:'margin-left: auto'})}><i class='bi bi-text-right' /></button>
         <label class="mx-1" for='select-size'>Size (px): </label>
         <input class="form-control" type="number" min={0} value={size.split("px").length > 0 ? size.split("px")[0] : 500} on:change={(e) => styles = updateStyle(styles, {name:'maxWidth', value:`${e.target.value}px`})} />
     </div>

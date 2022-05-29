@@ -2,7 +2,6 @@
     import config from '../config.json';
     const API_URL = config.SVELTE_ENV === 'dev' ? config.API_URL_DEV : config.SVELTE_ENV === 'preprod' ? config.API_URL_PREPROD : config.SVELTE_ENV === 'production' ? config.API_URL_PROD : config.API_URL_DEV;
 
-    // import { Container, Row, Col } from 'sveltestrap';
     export let size = { xs: 12, sm:12, md:12, lg:10, xl:10 };
     export let backgroundColor = 'bg-transparent';
     export let backgroundHTML = null;
@@ -16,18 +15,3 @@
         </div>
     </div>
 </div>
-
-
-<!-- <Container fluid>
-    <Row>
-        <Col 
-            xs={{size:size.xs, offset:(12-size.xs)/2}}
-            sm={{size:size.sm, offset:(12-size.sm)/2}}
-            md={{size:size.md, offset:(12-size.md)/2}}
-            lg={{size:size.lg, offset:(12-size.lg)/2}}
-            xl={{size:size.xl, offset:(12-size.xl)/2}}
-        >
-            <slot></slot>
-        </Col>
-    </Row>
-</Container> -->

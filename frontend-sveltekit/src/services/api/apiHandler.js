@@ -1,8 +1,9 @@
-import User from "src/database/models/userModels";
-import { CustomApiError, handleErrorsAndFinaliseHttpResponse } from "./customError";
+import User from "../../database/models/userModels";
+import { CustomApiError } from "./customError";
+// import { CustomApiError, handleErrorsAndFinaliseHttpResponse } from "./customError";
 import jwt from 'jsonwebtoken';
 import config from '../../config.json';
-import connectDB from "src/database/db";
+// import connectDB from "../../database/db";
 
 
 const verifyJWTLocal = (token) => {
@@ -14,7 +15,7 @@ const verifyJWTLocal = (token) => {
     }
 }
 
-const verifyAuthentication = async (req) => {
+export const verifyAuthentication = async (req) => {
     let token;
     if(req.headers.authorization && req.headers.authorization.startsWith('Bearer')){
         token = req.headers.authorization.split(' ')[1];
@@ -23,27 +24,30 @@ const verifyAuthentication = async (req) => {
             throw new CustomApiError(401, 'Not authorized');
         }
         req.user = await User.findById(decoded_local.id).select('-password');
+        return true;
     }
+    return false;
 };
 
-export const apiHandler = (handlers) => async (req) => {
-    try {
-        await connectDB();
-        const handler = handlers[req.method.toLowerCase()];
-        if (!handler) {
-            throw new CustomApiError(405, 'Method not allowed');
-        }
+// export const apiHandler = (handlers) => async (req) => {
+//     console.log('__req', req)
+//     try {
+//         await connectDB();
+//         const handler = handlers[req.method.toLowerCase()];
+//         if (!handler) {
+//             throw new CustomApiError(405, 'Method not allowed');
+//         }
         
-        if (handler.authenticated) {
-            await verifyAuthentication(req);
-        }
+//         if (handler.authenticated) {
+//             await verifyAuthentication(req);
+//         }
         
-        if (handler.joiSchema) {
-            await handler.joiSchema.validateAsync(req.body);
-        }
+//         if (handler.joiSchema) {
+//             await handler.joiSchema.validateAsync(req.body);
+//         }
         
-        return await handler.fn(req);
-    } catch (error) {
-        return handleErrorsAndFinaliseHttpResponse(error, req);
-    }
-};
+//         return await handler.fn(req);
+//     } catch (error) {
+//         return handleErrorsAndFinaliseHttpResponse(error, req);
+//     }
+// };

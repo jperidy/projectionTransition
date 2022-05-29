@@ -1,5 +1,4 @@
 <script>
-import { Icon } from "sveltestrap";
 
 import { updateStyle } from "../../utils/styleFunctions";
 
@@ -42,9 +41,9 @@ import { updateStyle } from "../../utils/styleFunctions";
         </div>
     </div>
     <div class='py-1 d-flex align-items-center'>
-        <button class={`px-2 border rounded btn ${textAlign === "margin-right:auto;" ? "btn-primary" : "btn-light"}`} on:click={() => styles = updateStyle(styles, {name:'text-align', value:'margin-right:auto;'})}><Icon name='text-left' /></button>
-        <button class={`px-2 border rounded btn ${textAlign === "margin-right:auto;margin-left:auto;" ? "btn-primary" : "btn-light"}`} on:click={() => styles = updateStyle(styles, {name:'text-align', value:'margin-right:auto;margin-left:auto;'})}><Icon name='text-center' /></button>
-        <button class={`px-2 border rounded btn ${textAlign === "margin-left:auto;" ? "btn-primary" : "btn-light"}`} on:click={() => styles = updateStyle(styles, {name:'text-align', value:'margin-left:auto;'})}><Icon name='text-right' /></button>
+        <button class={`px-2 border rounded btn ${textAlign === "margin-right:auto;" ? "btn-primary" : "btn-light"}`} on:click={() => styles = updateStyle(styles, {name:'text-align', value:'margin-right:auto;'})}><i class='bi bi-text-left' /></button>
+        <button class={`px-2 border rounded btn ${textAlign === "margin-right:auto;margin-left:auto;" ? "btn-primary" : "btn-light"}`} on:click={() => styles = updateStyle(styles, {name:'text-align', value:'margin-right:auto;margin-left:auto;'})}><i class='bi bi-text-center' /></button>
+        <button class={`px-2 border rounded btn ${textAlign === "margin-left:auto;" ? "btn-primary" : "btn-light"}`} on:click={() => styles = updateStyle(styles, {name:'text-align', value:'margin-left:auto;'})}><i class='bi bi-text-right' /></button>
         <label for="select-color" class="mx-2">Color: </label>
         <select id="select-color" class="form-control" value={textColor.split('-').length > 1 ? textColor.split('-')[1] : "primary"} on:change={(e) => styles = updateStyle(styles, {name:'text-color', value:`border-${e.target.value}`})}>
             <option value="primary">"Default (primary)"</option>

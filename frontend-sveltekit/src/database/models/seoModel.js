@@ -1,4 +1,5 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
+
 const seoSchema = mongoose.Schema({
     name: {type: String},
     "DEFAULT_TITLE": {type: String},
@@ -16,4 +17,4 @@ const seoSchema = mongoose.Schema({
 
 const Seo = mongoose.model('Seo', seoSchema);
 
-module.exports = Seo;
+export default Seo;

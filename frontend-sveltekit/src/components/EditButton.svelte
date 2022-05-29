@@ -1,6 +1,5 @@
 <script>
 
-    import { Button, Col, Icon, Row } from "sveltestrap";
     export let updateContent;
     export let admin = false;
     export let edit = false;
@@ -15,15 +14,15 @@
 </script>
 
 {#if admin}
-    <Row class='text-end'>
-        <Col>
-            <Button 
+    <div class='row text-end'>
+        <div class='col'>
+            <button 
                 size='sm'
                 color='ambre'
                 on:click={() => modifyEdit()}
-            ><Icon name={edit ? 'arrow-counterclockwise' : 'box-arrow-up-left'}/>
+            ><i class={edit ? 'bi bi-arrow-counterclockwise' : 'bi bi-box-arrow-up-left'}/>
                 {edit ? 'Save' : 'Edit'}
-            </Button>
-        </Col>
-    </Row>
+            </button>
+        </div>
+    </div>
 {/if}

@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import config from '../config.josn';
+import config from '../config.json';
 
 const getDatabaseUri = () => {
     let uri = '';
@@ -21,8 +21,6 @@ const connectDB = async () => {
     mongoose.connect(uri, {
         useNewUrlParser: true,
         useUnifiedTopology: true,
-        useFindAndModify: false,
-        useCreateIndex: true
     })
         .then((conn) => console.log(`MongoDB connected: ${conn.connection.host}`))
         .catch((error) => {

@@ -3,7 +3,6 @@
 
     import { onMount } from "svelte";
 
-    import { Icon } from "sveltestrap";
     import { updateStyle } from '../../utils/styleFunctions'; 
 
     export let values=[];
@@ -48,16 +47,16 @@
 
 <div class='row py-1'>
     <div class='col'>
-        <button class={`px-2 border btn ${textAlign === "start" ? "btn-primary border border-secondary" : "btn-light"}`} on:click={() => styles = updateStyle(styles, {name:'text-align', value:'start'})}><Icon name='text-left' /></button>
-        <button class={`px-2 border btn ${textAlign === "center" ? "btn-primary border border-secondary" : "btn-light"}`} on:click={() => styles = updateStyle(styles, {name:'text-align', value:'center'})}><Icon name='text-center' /></button>
-        <button class={`px-2 border btn ${textAlign === "justify" ? "btn-primary border border-secondary" : "btn-light"}`} on:click={() => styles = updateStyle(styles, {name:'text-align', value:'justify'})}><Icon name='justify-left' /></button>
-        <button class={`px-2 border btn ${textAlign === "end" ? "btn-primary border border-secondary" : "btn-light"}`} on:click={() => styles = updateStyle(styles, {name:'text-align', value:'end'})}><Icon name='text-right' /></button>
+        <button class={`px-2 border btn ${textAlign === "start" ? "btn-primary border border-secondary" : "btn-light"}`} on:click={() => styles = updateStyle(styles, {name:'text-align', value:'start'})}><i class='bi bi-text-left' /></button>
+        <button class={`px-2 border btn ${textAlign === "center" ? "btn-primary border border-secondary" : "btn-light"}`} on:click={() => styles = updateStyle(styles, {name:'text-align', value:'center'})}><i class='bi bi-text-center' /></button>
+        <button class={`px-2 border btn ${textAlign === "justify" ? "btn-primary border border-secondary" : "btn-light"}`} on:click={() => styles = updateStyle(styles, {name:'text-align', value:'justify'})}><i class='bi bi-justify-left' /></button>
+        <button class={`px-2 border btn ${textAlign === "end" ? "btn-primary border border-secondary" : "btn-light"}`} on:click={() => styles = updateStyle(styles, {name:'text-align', value:'end'})}><i class='bi bi-text-right' /></button>
         <button class={`px-2 border btn ${fontWeight === 'normal' ? 'btn-primary' : 'btn-light' } px-1`} on:click={() => {
             styles = updateStyle(styles, {name:'font-weight', value:'normal'});
             styles = updateStyle(styles, {name:'font-style', value:'normal'})
         } }>N</button>
-        <button class={`px-2 border btn ${fontWeight === 'bold' ? 'btn-primary' : 'btn-light' } px-1`} on:click={() => styles = updateStyle(styles, {name:'font-weight', value:'bold'})}><Icon name='type-bold' /></button>
-        <button class={`px-2 border btn ${fontStyle === 'italic' ? 'btn-primary' : 'btn-light' } px-1`} on:click={() => styles = updateStyle(styles, {name:'font-style', value:'italic'})}><Icon name='type-italic' /></button>
+        <button class={`px-2 border btn ${fontWeight === 'bold' ? 'btn-primary' : 'btn-light' } px-1`} on:click={() => styles = updateStyle(styles, {name:'font-weight', value:'bold'})}><i class='bi bi-type-bold' /></button>
+        <button class={`px-2 border btn ${fontStyle === 'italic' ? 'btn-primary' : 'btn-light' } px-1`} on:click={() => styles = updateStyle(styles, {name:'font-style', value:'italic'})}><i class='bi bi-type-italic' /></button>
     </div>
 </div>
 <div class='row py-1'>
