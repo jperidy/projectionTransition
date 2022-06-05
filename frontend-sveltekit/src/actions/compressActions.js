@@ -18,10 +18,10 @@ export const uploadCompress = async(file, compressToDelete) => {
         };
         
         if (compressToDelete) {
-            await axios.delete(`${API_URL}/api/upload/compress?url=${compressToDelete}`, config);
+            await axios.delete(`/api/upload-files?url=${compressToDelete}`, config);
         }
 
-        const { data } = await axios.post(`${API_URL}/api/upload/compress`, file, config);
+        const { data } = await axios.post(`${API_URL}/api/uploads`, file, config);
 
         return { status: 'Ok', data: `${data.path}` };
         
@@ -44,7 +44,7 @@ export const deleteCompress = async(compressPath) => {
             }
         };
 
-        const { data } = await axios.delete(`${API_URL}/api/upload/compress?url=${compressPath}`, config);
+        const { data } = await axios.delete(`/api/upload-files?url=${compressPath}`, config);
 
         return { status: 'Ok', data: data};
 

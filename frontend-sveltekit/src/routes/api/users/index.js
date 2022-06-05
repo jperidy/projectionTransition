@@ -4,7 +4,7 @@ import { generateToken } from '../../../services/token/utils';
 /** @type {import('./__types/items').RequestHandler} */
 export async function post({ request }) {
 
-    const { name, email, password } = request.body;
+    const { name, email, password } = await request.json();
 
     const user = await User.findOne({ email });
     if (user) {

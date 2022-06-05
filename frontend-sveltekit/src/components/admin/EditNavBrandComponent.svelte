@@ -5,12 +5,29 @@
     const API_URL = config.SVELTE_ENV === 'dev' ? config.API_URL_DEV : config.SVELTE_ENV === 'preprod' ? config.API_URL_PREPROD : config.SVELTE_ENV === 'production' ? config.API_URL_PROD : config.API_URL_DEV;
 
     export let navBar;
-    //export let updateOrCreateNavBar;
 
     let messageUploadImage = "";
 
+    // const uploadImageHandler = async (imgBase64) => {
+    //   const imgData = imgBase64.split(',');
+    //   const result = await uploadImage(imgData[1], navBar.BRAND.LOGO.path);
+    //   if (result.status === 'Ok') {
+    //       navBar.BRAND.LOGO.path = result.data;
+    //       navBar = navBar;
+    //       messageUploadImage = '';
+    //   } else {
+    //       messageUploadImage = result.data;
+    //   }
+    // };
     // Manage Brand
     const onSelectAnImageBrand = async(e) => {
+      // const reader = new FileReader();
+	    // reader.onload = (e) => {
+		  //   uploadImageHandler(e.target.files[0]);
+	    // };
+	    // reader.readAsDataURL(image);
+      
+      
         const data = new FormData();
         data.append('file', e.target.files[0]);
         const result = await uploadImage(data, navBar.BRAND.LOGO.path);
@@ -18,9 +35,6 @@
             navBar.BRAND.LOGO.path = result.data;
             navBar = navBar;
             messageUploadImage = '';
-            // updateOrCreateNavBar(navBar)
-            // .then((result) => navBar = result.navBar)
-            // .catch((error) => messageUpdateNav = error);
         } else {
             messageUploadImage = result.data;
         }

@@ -19,10 +19,10 @@ export const uploadVideo = async(file, videoToDelete) => {
         };
         
         if (videoToDelete) {
-            await axios.delete(`${API_URL}/api/upload/videos?url=${videoToDelete}`, config);
+            await axios.delete(`/api/upload-files?url=${videoToDelete}`, config);
         }
 
-        const { data } = await axios.post(`${API_URL}/api/upload/videos`, file, config);
+        const { data } = await axios.post(`${API_URL}/api/uploads`, file, config);
 
         return { status: 'Ok', data: `${data.path}` };
         
@@ -45,7 +45,7 @@ export const deleteImage = async(imagePath) => {
             }
         };
 
-        const { data } = await axios.delete(`${API_URL}/api/upload/images?url=${imagePath}`, config);
+        const { data } = await axios.delete(`/api/upload-files?url=${imagePath}`, config);
 
         return { status: 'Ok', data: data};
 

@@ -14,7 +14,6 @@
     import Loading from "../components/Loading.svelte";
     import Chart from "chart.js/auto/auto.js";
     import { onMount } from "svelte";
-import A from "./[...data]@page.svelte";
 
     $: {
         let isAuthenticate = $userInfo && $userInfo.profil === 'admin' ? true : false;

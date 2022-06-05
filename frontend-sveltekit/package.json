@@ -27,9 +27,11 @@
     "bcryptjs": "^2.4.3",
     "bootstrap-icons": "^1.8.3",
     "chart.js": "^3.5.1",
+    "fs": "^0.0.1-security",
     "jsonwebtoken": "^8.5.1",
     "leaflet": "^1.7.1",
     "mongoose": "^6.3.4",
+    "path": "^0.12.7",
     "sirv-cli": "^1.0.14",
     "svelte-markdown": "^0.2.2"
   }

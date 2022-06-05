@@ -2,10 +2,15 @@
     export const prerender = true;
     import { getSeo } from '../../actions/seoActions';
     import { getFonts } from '../../actions/fontsActions';
+    import { getNavBar } from '../../actions/navActions';
+    import { getFooter } from "../../actions/footerActions";
+    
     export async function load({url}) {
+        const { navBar } = await getNavBar();
+        const { footer } = await getFooter();
         const { seo } = await getSeo();
         const { fonts } = await getFonts();
-        return {status:200, props: {defaultSeo: seo, fonts: fonts, url}};
+        return {status:200, props: {defaultSeo: seo, navBar, footer, fonts, url}};
     };
 </script>
 
@@ -35,6 +40,8 @@
     export let defaultSeo;
     export let fonts;
     export let url;
+    export let navBar;
+    export let footer;
 
     const API_URL = config.SVELTE_ENV === 'dev' ? config.API_URL_DEV : config.SVELTE_ENV === 'preprod' ? config.API_URL_PREPROD : config.SVELTE_ENV === 'production' ? config.API_URL_PROD : config.API_URL_DEV;
 
@@ -47,9 +54,6 @@
     let showFonts = false;
     let showDefaultSeo = false;
     let showFavicon = false;
-
-    let navBar;
-    let footer;
     
     let isAuthenticate = false;
     $: {
@@ -66,12 +70,12 @@
     onMount(async() => {
         getPages();
         currentPage = 'homeContent'
-        pageRequest = await getContent(currentPage);
+        pageRequest = await getContent(currentPage.split('/pages/')[1]);
     });
 
     const selectPageHandler = async (pageName) => {
         currentPage = pageName
-        pageRequest = await getContent(currentPage);
+        pageRequest = await getContent(currentPage.split('/pages/')[1]);
     };
 
     const updateContent = async() => {

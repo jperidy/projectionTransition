@@ -3,7 +3,7 @@ import { get } from 'svelte/store';
 import { userInfo, pageRequest } from '../store';
 import config from '../config.json';
 
-const API_URL = config.SVELTE_ENV === 'dev' ? config.API_URL_DEV : config.SVELTE_ENV === 'preprod' ? config.API_URL_PREPROD : config.SVELTE_ENV === 'production' ? config.API_URL_PROD : config.API_URL_DEV;
+const API_URL = config.API_URL;
 
 export const updateOrCreateContent = async (content) => {
 
@@ -21,14 +21,13 @@ export const updateOrCreateContent = async (content) => {
             }
         };
 
-        const { data } = await axios.post(`${API_URL}/api/page/${content.name}`, content, config);
+        const { data } = await axios.post(`${API_URL}/api/pages`, content, config);
 
         pageRequest.set({ content: JSON.parse(JSON.stringify(data.value)), loading: false, message: '' });
         return { content: data.value, loading: false, message: '' };
 
     } catch (error) {
 
-        //pageRequest.set({ content: { content: [], name: content.name }, loading: false, message: 'Error updating page ' + error });
         pageRequest.set({ ...currentPageRequest, loading: false, message: 'Error updating page ' + error });
         return { ...currentPageRequest, loading: false, message: 'Error updating page ' + error };
     }
@@ -47,7 +46,7 @@ export const updateDisplayState = async (pageName, displayState) => {
             }
         }
 
-        const { data } = await axios.put(`${API_URL}/api/page/${pageName}`, { display: displayState}, config);
+        const { data } = await axios.put(`${API_URL}/api/pages/${pageName}`, { display: displayState}, config);
 
         return { content: data.value, loading: false, message: 'Display state updated' };
 
@@ -64,14 +63,14 @@ export const getContent = async (pageName) => {
         const config = {
             headers: {
                 'Content-type': 'application/json',
+                'accept': 'application/json'
             }
-        }
+        };
 
-        const { data } = await axios.get(`${API_URL}/api/page/${pageName}`, config);
+        const { data } = await axios.get(`${API_URL}/api/pages/${pageName}`, config);
 
         pageRequest.set({ content: JSON.parse(JSON.stringify(data.value)) , loading: false, message: '' });
 
-        //console.log(data.value);
         return { content: data.value, loading: false, message: '' };
 
     } catch (error) {
@@ -96,7 +95,7 @@ export const getAllPagesList = async () => {
             }
         };
 
-        const { data } = await axios.get(`${API_URL}/api/page/list`, config);
+        const { data } = await axios.get(`${API_URL}/api/pages`, config);
 
         return { list: data.value, loading: false, message: '' };
 
@@ -120,7 +119,7 @@ export const createAPage = async (page) => {
             }
         };
 
-        const { data } = await axios.post(`${API_URL}/api/page`, page, config);
+        const { data } = await axios.post(`${API_URL}/api/pages`, page, config);
 
         return { page: data.value, loading: false, message: '' };
 
@@ -145,7 +144,7 @@ export const duplicateAPage = async (pageName) => {
             }
         };
 
-        const { data } = await axios.post(`${API_URL}/api/page/duplicate`, {pageName}, config);
+        const { data } = await axios.post(`${API_URL}/api/pages/duplicate`, {pageName}, config);
 
         return { page: data.value, loading: false, message: '' };
 
@@ -170,7 +169,7 @@ export const deleteAPage = async (pageName) => {
             }
         };
 
-        const { data } = await axios.delete(`${API_URL}/api/page/${pageName}`, config);
+        const { data } = await axios.delete(`${API_URL}/api/pages/${pageName}`, config);
 
         return { page: data.value, loading: false, message: '' };
 

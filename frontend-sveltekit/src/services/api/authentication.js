@@ -16,9 +16,12 @@ const verifyJWTLocal = (token) => {
 }
 
 export const verifyAuthentication = async (req) => {
-    let token;
-    if(req.headers.authorization && req.headers.authorization.startsWith('Bearer')){
-        token = req.headers.authorization.split(' ')[1];
+    console.log('authorization', req.headers.get('authorization'));
+    if(
+        req.headers.get('authorization') 
+        && req.headers.get('authorization').startsWith('Bearer')
+    ){
+        const token = req.headers.get('authorization').split(' ')[1];
         const decoded_local = verifyJWTLocal(token);
         if (!decoded_local) {
             throw new CustomApiError(401, 'Not authorized');

@@ -52,7 +52,7 @@
     };
 
     const updateDisplayStatus = async (pageName, displayState) => {
-        await updateDisplayState(pageName, displayState)
+        await updateDisplayState(pageName.split('/pages/')[1], displayState)
         getPages();
     }
 
@@ -102,7 +102,7 @@
                     data-bs-toggle="tooltip" 
                     data-bs-placement="top" 
                     title={page.name}
-                >{`/${page.name}`}
+                >{`${page.name}`}
                 </button>
                 <button
                     class="btn btn-sm btn-transparent text-light"

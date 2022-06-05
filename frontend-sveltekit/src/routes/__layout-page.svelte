@@ -1,23 +1,36 @@
 <script context='module'>
-    export const prerender = true;
+    
     import { getSeo } from '../actions/seoActions';
     import { getFonts } from '../actions/fontsActions';
+    import { getNavBar } from '../actions/navActions';
+    import { getFooter } from "../actions/footerActions";
+    
     export async function load({}) {
+
+        const { navBar } = await getNavBar();
+        const { footer } = await getFooter();
         const { seo } = await getSeo();
         const { fonts } = await getFonts();
-        return {status:200, props: {defaultSeo: seo, fonts: fonts}};
+        return { 
+            status: 200, 
+            props: {
+                seo, 
+                fonts,
+                navBar,
+                footer
+            }
+        };
     };
 </script>
 
 <script>
     import Nav from '../components/Nav.svelte';
     import Footer from '../components/Footer.svelte';
-    import config from '../config.json';
-    import { userInfo } from '../store';
-    const API_URL = config.SVELTE_ENV === 'dev' ? config.API_URL_DEV : config.SVELTE_ENV === 'preprod' ? config.API_URL_PREPROD : config.SVELTE_ENV === 'production' ? config.API_URL_PROD : config.API_URL_DEV;
 
-    export let defaultSeo;
+    export let seo;
     export let fonts;
+    export let navBar;
+    export let footer;
 
 </script>
 
@@ -26,11 +39,11 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
     <link rel="stylesheet" href="/mains.min.css">
-    <link rel="icon" type="image/png" href={API_URL + defaultSeo.FAVICON_48_48} sizes="48x48" />
-    <link rel="icon" type="image/png" href={API_URL + defaultSeo.FAVICON_64_64} sizes="64x64" />
-    <link rel="icon" type="image/png" href={API_URL + defaultSeo.FAVICON_48_48} sizes="96x96" />
-    <link rel="icon" type="image/png" href={API_URL + defaultSeo.FAVICON_48_48} sizes="128x128" />
-    <link rel="icon" type="image/png" href={API_URL + defaultSeo.FAVICON_48_48} sizes="196x196" />
+    <link rel="icon" type="image/png" href={seo.FAVICON_48_48} sizes="48x48" />
+    <link rel="icon" type="image/png" href={seo.FAVICON_64_64} sizes="64x64" />
+    <link rel="icon" type="image/png" href={seo.FAVICON_96_96} sizes="96x96" />
+    <link rel="icon" type="image/png" href={seo.FAVICON_128_128} sizes="128x128" />
+    <link rel="icon" type="image/png" href={seo.FAVICON_196_196} sizes="196x196" />
     
     <!-- work in progress to add fonts from googleapis -->
     {#if fonts && fonts.length > 0}
@@ -45,10 +58,10 @@
 <div id='up'></div>
 
 <main>
-    <Nav />
+    <Nav navBar={navBar}/>
     <slot></slot>
 </main>
 
 <footer>
-	<Footer />
+	<Footer footer={footer} />
 </footer>

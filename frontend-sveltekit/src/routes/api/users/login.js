@@ -4,7 +4,6 @@ import bcrypt from 'bcryptjs';
 
 
 const matchPassword = async (enteredPassword, reccordedPassword) => {
-    console.log('__test', enteredPassword, reccordedPassword);
     return await bcrypt.compare(enteredPassword, reccordedPassword);
 };
 

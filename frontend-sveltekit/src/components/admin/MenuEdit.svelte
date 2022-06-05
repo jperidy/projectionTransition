@@ -8,7 +8,7 @@
     export let updateContent;
 
     $:hasBeenModified = !(JSON.stringify(page) === JSON.stringify($pageRequest.content));
-
+    
 
     let addWindow = false;
     const addContent = (component, position) => {

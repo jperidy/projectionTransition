@@ -18,8 +18,8 @@ export async function get() {
 }
 
 /** @type {import('./__types/[id]').RequestHandler} */
-export async function post({ RequestHandler: req}) {
-    const updatedSeo = req.body;
+export async function post({ request: req}) {
+    const updatedSeo = await req.json();
 
     const storedSeo = await Seo.findOne({ name: "seo" });
     if (!storedSeo) {

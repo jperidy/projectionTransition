@@ -3,7 +3,7 @@ import { get } from 'svelte/store';
 import { userInfo } from '../store';
 import config from '../config.json';
 
-const API_URL = config.SVELTE_ENV === 'dev' ? config.API_URL_DEV : config.SVELTE_ENV === 'preprod' ? config.API_URL_PREPROD : config.SVELTE_ENV === 'production' ? config.API_URL_PROD : config.API_URL_DEV;
+const API_URL = config.API_URL;
 
 export const getNavBar = async () => {
 
@@ -15,7 +15,7 @@ export const getNavBar = async () => {
             }
         };
 
-        const { data } = await axios.get(`${API_URL}/api/nav`, config);
+        const { data } = await axios.get(`${API_URL}/api/navs`, config);
 
         return { navBar: data.value, loading: false, message: data.message };
 
@@ -39,7 +39,7 @@ export const updateOrCreateNavBar = async (navBar) => {
             }
         };
 
-        const { data } = await axios.post(`${API_URL}/api/nav`, navBar, config);
+        const { data } = await axios.post(`${API_URL}/api/navs`, navBar, config);
 
         return { navBar: data.value, loading: false, message: data.message };
 

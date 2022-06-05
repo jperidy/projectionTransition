@@ -4,16 +4,6 @@ import adapter from '@sveltejs/adapter-auto';
 const config = {
 	kit: {
 		adapter: adapter(),
-		// vite: () => ({
-		// 	server: {
-		// 		proxy: {
-		// 			'/api': {
-		// 				target: 'http://localhost:5000',
-		// 				changeOrigin: true,
-		// 			},
-		// 		}
-		// 	},
-		// }),
 	}
 };
 
