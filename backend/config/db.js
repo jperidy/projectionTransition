@@ -19,7 +19,8 @@ const getDatabaseUri = () => {
 
 const connectDB = async () => {
     
-    mongoose.connect(getDatabaseUri(), {
+    const uri = getDatabaseUri();
+    mongoose.connect(getDatabaseUri(uri), {
         useNewUrlParser: true,
         useUnifiedTopology: true,
     })

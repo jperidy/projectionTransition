@@ -23,7 +23,7 @@ const getPageContent = asyncHandler(async(req,res) =>{
 
 // @desc    delete a page
 // @route   DELETE /api/page/:name
-// @access  Public
+// @access  Private
 const deleteOnePage = asyncHandler(async(req,res) =>{
     
     Page.findOne({name: req.params.name})

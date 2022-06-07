@@ -53,6 +53,10 @@ A la racine du projet créer le dossier /config et insérer dedans le fichier co
 ### Attention sécurité
 Le fichier /config/config.json contient des informations sensibles à ne pas exposer directement sur internet, assurez vous d'ajouter ce fichier dans votre .gitignore et .dockerignore (le cas échéant).
 
+## Créer un fichier de migration
+```
+migrate-mongo create file_name
+```
 ## Application des fichiers de migration
 ```
 migrate-mongo up
