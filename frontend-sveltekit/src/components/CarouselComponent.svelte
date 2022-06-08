@@ -104,13 +104,13 @@
                         </div> 
                         <div class="row">
                             <div class="col">
-                                <label>Image</label>
+                                <div>Image</div>
                                 <ImageComponent
-                                bind:values={item.component.values}
-                                bind:styles={item.component.styles}
-                                admin={admin}
-                                edit={false}
-                                updateContent={null}
+                                    bind:values={item.component.values}
+                                    bind:styles={item.component.styles}
+                                    admin={admin}
+                                    edit={false}
+                                    updateContent={null}
                                 />
                             </div>
                         </div>

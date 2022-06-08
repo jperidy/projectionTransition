@@ -2,10 +2,6 @@
     
     import { getArticle } from '../../actions/articleActions';
     import { getSeo } from '../../actions/seoActions';
-
-    
-    export const prerender = true;
-
     
     export async function load({page, fetch, session, context}){
         

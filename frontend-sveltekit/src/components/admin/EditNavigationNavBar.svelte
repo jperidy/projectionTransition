@@ -1,10 +1,9 @@
 <script>
-    import { getNavBar, updateOrCreateNavBar } from "../../actions/navActions";
+    import { updateOrCreateNavBar } from "../../actions/navActions";
     import EditNavMenuComponent from "./EditNavMenuComponent.svelte";
     import EditNavSocialNetworks from "./EditNavSocialNetworks.svelte";
     import EditNavStylesComponent from "./EditNavStylesComponent.svelte";
     import EditNavBrandComponent from "./EditNavBrandComponent.svelte";
-    import { onMount } from "svelte";
     import Message from "../Message.svelte";
 
     let messageUpdate = "";
@@ -19,26 +18,14 @@
         "STYLE": {"expand": "xl","color": "white","theme": "light","TITLE": { "bootstrapClass": "text-dark mx-2", "style": "font-family: omotenashi_2regular;font-size: 1.3rem;" },"SOCIAL_NETWORKS": { "bootstrapClass": "", "style": "max-width: 6vh;height: auto;"}}
     };
 
-    const getNavBarRequest = async() => {
-        let navRequest = await getNavBar();
-        if (navRequest && navRequest.navBar) {
-        for (let key in navRequest.navBar) {
-            navBar[key] = navRequest.navBar[key];
-        }
-        }
-        navBar = navBar;
-    };
-
-    onMount(async () => {
-        // load navBar
-        getNavBarRequest();
-    });
-
     const updateHandler = () => {
         messageUpdate = "";
         loadingUpdate = true;
         updateOrCreateNavBar(navBar)
-            .then((result) => {navBar = result.navBar; loadingUpdate = false})
+            .then((result) => {
+                navBar = result.navBar;
+                loadingUpdate = false
+            })
             .catch((error) => {messageUpdate = error; loadingUpdate = false});
     };
 

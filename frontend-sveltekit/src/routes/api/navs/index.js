@@ -16,7 +16,7 @@ export async function get() {
 }
 
 /** @type {import('./__types/[id]').RequestHandler} */
-export async function put({ request: req }) {
+export async function post({ request: req }) {
     const updatedNavBar = await req.json();
 
     const navBar = await Nav.findOne({ name: 'nav' });

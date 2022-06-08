@@ -11,7 +11,7 @@ const admins = [
     { methods: ['PUT'], uri: /^\/api\/fonts$/ },
     { methods: ['DELETE'], uri: /^\/api\/fonts\/[a-zA-Z-_]*$/ },
     { methods: ['PUT'], uri: /^\/api\/footers$/ },
-    { methods: ['PUT'], uri: /^\/api\/navs$/ },
+    { methods: ['POST'], uri: /^\/api\/navs$/ },
     { methods: ['POST'], uri: /^\/api\/upload-files$/ },
     { methods: ['POST'], uri: /^\/api\/users$/ },
     { methods: ['POST'], uri: /^\/api\/users\/verify$/ },

@@ -3,8 +3,6 @@
     import { getFilm } from '../../actions/filmActions';
     import { getSeo } from '../../actions/seoActions';
     
-    export const prerender = true;
-
     export async function load({page, fetch, session, context}){
 
     //verify if login

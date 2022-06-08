@@ -1,9 +1,7 @@
 import User from "../../database/models/userModels";
 import { CustomApiError } from "./customError";
-// import { CustomApiError, handleErrorsAndFinaliseHttpResponse } from "./customError";
 import jwt from 'jsonwebtoken';
 import config from '../../config.json';
-// import connectDB from "../../database/db";
 
 
 const verifyJWTLocal = (token) => {
@@ -16,7 +14,6 @@ const verifyJWTLocal = (token) => {
 }
 
 export const verifyAuthentication = async (req) => {
-    console.log('authorization', req.headers.get('authorization'));
     if(
         req.headers.get('authorization') 
         && req.headers.get('authorization').startsWith('Bearer')

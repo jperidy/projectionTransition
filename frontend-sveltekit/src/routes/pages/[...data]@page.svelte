@@ -3,8 +3,6 @@
     import { getContent } from '../../actions/pagesActions';
     import { getSeo } from '../../actions/seoActions';
     
-    // export const prerender = true;
-
     export async function load({ url, params }) {
         
         let [name, city] = params.data.split('/');

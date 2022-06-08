@@ -45,7 +45,7 @@ export const updateOrCreateNavBar = async (navBar) => {
 
     } catch (error) {
 
-        return { navBar: {}, loading: false, message: 'Error updating footer ' + error };
+        return { navBar: {}, loading: false, message: 'Error updating navBar ' + error };
     }
 
 };
