@@ -1,4 +1,6 @@
 <script>
+import { uploadFile } from "../../actions/uploadActions";
+
     import { videosFormats } from "../../constants/files";
     import { updateStyle } from "../../utils/styleFunctions";
     import Loading from "../Loading.svelte";
@@ -38,10 +40,10 @@
         const res = await uploadFile(file, fileName, values[index].url, videosFormats);
 
         if (res.map(x => x.status).find(y => y === 'Error')) {
-        messageUploadVideo = res
-            .filter(x => x.status === 'Error')
-            .map(x => x.data)
-            .join(', ');
+            messageUploadVideo = res
+                .filter(x => x.status === 'Error')
+                .map(x => x.data)
+                .join(', ');
         } else {
             messageUploadVideo = null;
             values[index].url = `/uploads/${fileName}`;
@@ -70,7 +72,7 @@
     {#if messageUploadVideo}
         <Message color='danger'>{messageUploadVideo}</Message>
     {/if}
-    {#if messageUploadVideo}
+    {#if loadingVideo}
       <Loading />
     {/if}
 </div>
