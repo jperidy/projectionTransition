@@ -1,76 +1,87 @@
 <script>
-    export let navBar;
-    //export let updateOrCreateNavBar;
+  import { uploadFile } from '../../actions/uploadActions';
 
-    import config from '../../config.json';
-    import Message from '../Message.svelte';
-    const API_URL = config.SVELTE_ENV === 'dev' ? config.API_URL_DEV : config.SVELTE_ENV === 'preprod' ? config.API_URL_PREPROD : config.SVELTE_ENV === 'production' ? config.API_URL_PROD : config.API_URL_DEV;
+  export let navBar;
 
-    // Manage Social Network
-    let snName = '';
-    let snIcon = '';
-    let snAlt = '';
-    let snRedirect = '';
-    let newTarget = true;
+  import config from '../../config.json';
+import { imagesFormats } from '../../constants/files';
+  import Loading from '../Loading.svelte';
+  import Message from '../Message.svelte';
+  const API_URL = config.SVELTE_ENV === 'dev' ? config.API_URL_DEV : config.SVELTE_ENV === 'preprod' ? config.API_URL_PREPROD : config.SVELTE_ENV === 'production' ? config.API_URL_PROD : config.API_URL_DEV;
 
-    let messageUploadImage = "";
+  // Manage Social Network
+  let snName = '';
+  let snIcon = '';
+  let snAlt = '';
+  let snRedirect = '';
+  let newTarget = true;
 
-    const arrayMove = (arr, fromIndex, toIndex) => {
-        var element = arr[fromIndex];
-        arr.splice(fromIndex, 1);
-        arr.splice(toIndex, 0, element);
-        return arr;
-    };
+  let messageUploadImage = null;
+  let loadingImage = false;
 
-    const addSocialNetwork = (e) => {
-        e.preventDefault();
-        navBar.SOCIAL_NETWORKS = [ ...navBar.SOCIAL_NETWORKS, {"name": snName, "icon": snIcon, "alt": snAlt, "redirect": snRedirect, "target": newTarget ? '_blank' : ''}];
-        navBar = navBar;
-        snName = "";
-        snIcon = "";
-        snAlt = "";
-        snRedirect = "";
-        newTarget = true;
-        // updateOrCreateNavBar(navBar)
-        // .then((result) => navBar = result.navBar)
-        // .catch((error) => messageUpdateNav = error);
-    };
-    const deleteSocialNetwork = (index) => {
-        navBar.SOCIAL_NETWORKS.splice(index, 1);
-        navBar = navBar;
-        // updateOrCreateNavBar(navBar)
-        // .then((result) => navBar = result.navBar)
-        // .catch((error) => messageUpdateNav = error);
-    };
-    const upSocialNetwork = (index) => {
-        if (index > 0) {
-        navBar.SOCIAL_NETWORKS = arrayMove(navBar.SOCIAL_NETWORKS, index, index - 1);
-        }
-    };
-    const downSocialNetwork = (index) => {
-        if (index < navBar.SOCIAL_NETWORKS.length - 1) {
-        navBar.SOCIAL_NETWORKS = arrayMove(navBar.SOCIAL_NETWORKS, index, index + 1);
-        }
-    };
-    const onSelectAnImageSocialNetwork = async(index, e) => {
-        const data = new FormData();
-        data.append('file', e.target.files[0]);
-        const result = await uploadImage(data, index === -1 ? '' : navBar.SOCIAL_NETWORKS[index].icon);
-        if (result.status === 'Ok') {
-        if (index === -1) { // create
-            snIcon = result.data;
-        } else { // update
-            navBar.SOCIAL_NETWORKS[index].icon = result.data;
-            navBar = navBar;
-            // updateOrCreateNavBar(navBar)
-            // .then((result) => navBar = result.navBar)
-            // .catch((error) => messageUpdateNav = error);
-        }
-            messageUploadImage = '';
-        } else {
-            messageUploadImage = result.data;
-        }
-    };
+  const arrayMove = (arr, fromIndex, toIndex) => {
+      var element = arr[fromIndex];
+      arr.splice(fromIndex, 1);
+      arr.splice(toIndex, 0, element);
+      return arr;
+  };
+
+  const addSocialNetwork = (e) => {
+      e.preventDefault();
+      navBar.SOCIAL_NETWORKS = [ ...navBar.SOCIAL_NETWORKS, {"name": snName, "icon": snIcon, "alt": snAlt, "redirect": snRedirect, "target": newTarget ? '_blank' : ''}];
+      navBar = navBar;
+      snName = "";
+      snIcon = "";
+      snAlt = "";
+      snRedirect = "";
+      newTarget = true;
+  };
+
+  const deleteSocialNetwork = (index) => {
+      navBar.SOCIAL_NETWORKS.splice(index, 1);
+      navBar = navBar;
+  };
+
+  const upSocialNetwork = (index) => {
+      if (index > 0) {
+      navBar.SOCIAL_NETWORKS = arrayMove(navBar.SOCIAL_NETWORKS, index, index - 1);
+      }
+  };
+
+  const downSocialNetwork = (index) => {
+      if (index < navBar.SOCIAL_NETWORKS.length - 1) {
+      navBar.SOCIAL_NETWORKS = arrayMove(navBar.SOCIAL_NETWORKS, index, index + 1);
+      }
+  };
+
+  const onSelectAnImageSocialNetwork = async(index, e) => {
+    loadingImage = true;
+    const file = e.target.files[0];
+    const fileName = Date.now() + '_' + file.name;
+    
+    const res = await uploadFile(
+      file, 
+      fileName, 
+      index === -1 ? '' : navBar.SOCIAL_NETWORKS[index].icon, 
+      imagesFormats
+    );
+    if (res.map(x => x.status).find(y => y === 'Error')) {
+      messageUploadImage = res
+        .filter(x => x.status === 'Error')
+        .map(x => x.data)
+        .join(', ');
+    } else {
+      if (index === -1) { 
+          snIcon = `/uploads/${fileName}`;
+      } else { 
+          navBar.SOCIAL_NETWORKS[index].icon = `/uploads/${fileName}`;
+          navBar = navBar;
+      }
+      messageUploadImage = null;
+
+    }
+    loadingImage = false;
+  };
 </script>
 
 <h3 class="border-bottom mb-3 pb-2">Social network thumbnail</h3>
@@ -84,7 +95,11 @@
       <div class="row align-items-end py-2">
         <div class="col text-center">
           {#if snIcon}
+            {#if loadingImage}
+              <Loading />
+            {:else}
               <img class='img-fluid bg-light rounded' src={API_URL + snIcon} alt={snAlt} style="width: 5vh;" />
+            {/if}
           {:else}
               <div class="bg-light rounded text-center text-dark d-flex align-items-center justify-content-center" style="height: 5vh; width: 5vh;">X</div>
           {/if}
@@ -121,7 +136,11 @@
     {#each navBar.SOCIAL_NETWORKS as item, ind}
       <div class='row border-top border-light'>
         <div class="col my-2 rounded">
-          <img class='img-fluid bg-light rounded' src={API_URL + item.icon} alt={snAlt} style="width: 5vh;" />
+          {#if loadingImage}
+            <Loading />
+          {:else}
+            <img class='img-fluid bg-light rounded' src={API_URL + item.icon} alt={snAlt} style="width: 5vh;" />
+          {/if}
         </div>
         <div class="col my-auto">
           <input type="file" class="form-control" on:change={(e) => onSelectAnImageSocialNetwork(ind, e)}>

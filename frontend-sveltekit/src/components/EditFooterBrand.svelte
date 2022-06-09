@@ -1,30 +1,36 @@
 <script>
-    import { uploadImage } from '../actions/imagesActions';
+    import { imagesFormats } from '../constants/files';
 
     import config from '../config.json';
     import Message from './Message.svelte';
+    import Loading from './Loading.svelte';
+    import { uploadFile } from '../actions/uploadActions';
 
     export let footer;
-    // export let updateOrCreateFooter;
 
     const API_URL = config.SVELTE_ENV === 'dev' ? config.API_URL_DEV : config.SVELTE_ENV === 'preprod' ? config.API_URL_PREPROD : config.SVELTE_ENV === 'production' ? config.API_URL_PROD : config.API_URL_DEV;
     let messageUpdateBrand;
+    let loadingImage = false;
 
     // Manage Brand
     const onSelectAnImageBrand = async(e) => {
-        const data = new FormData();
-        data.append('file', e.target.files[0]);
-        const result = await uploadImage(data, footer.BRAND.LOGO.path);
-        if (result.status === 'Ok') {
-            footer.BRAND.LOGO.path = result.data;
-            footer = footer;
-            messageUpdateBrand = '';
-            // updateOrCreateFooter(footer)
-            //     .then((result) => footer = result.footer)
-            //     .catch((error) => messageUpdateBrand = error);
+        loadingImage = true;
+        const file = e.target.files[0];
+        const fileName = Date.now() + '_' + file.name;
+
+        const result = await uploadFile(file, fileName, footer.BRAND.LOGO.path, imagesFormats);
+      
+        if (result.map(x => x.status).find(y => y === 'Error')) {
+            messageUpdateBrand = result
+                .filter(x => x.status === 'Error')
+                .map(x => x.data)
+                .join(', ');
         } else {
-            messageUpdateBrand = result.data;
+            messageUpdateBrand = null;
+            footer.BRAND.LOGO.path = `/uploads/${fileName}`;
+            footer = footer;
         }
+        loadingImage = false;
     };
 </script>
 
@@ -34,7 +40,11 @@
 {/if}
 <div class="row align-items-center gx-3 gy-2">
     <div class="col-2">
-        <img class="img-fluid rounded" src={API_URL + footer.BRAND.LOGO.path} alt={footer.BRAND.LOGO.alt}>
+        {#if loadingImage}
+            <Loading />
+        {:else}
+            <img class="img-fluid rounded" src={API_URL + footer.BRAND.LOGO.path} alt={footer.BRAND.LOGO.alt}>
+        {/if}
     </div>
     <div class="col">
         <label for="logo-footer">Upload a file</label>

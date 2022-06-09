@@ -1,6 +1,4 @@
 <script>
-    import { uploadImage } from '../../actions/imagesActions';
-    
     export let values;
     export let styles;
     export let selectedComponentPosition;
@@ -8,11 +6,16 @@
     import { updateStyle } from '../../utils/styleFunctions'; 
     import DisplayEditMenu from './DisplayEditMenu.svelte';
     import AddElement from '../AddElement.svelte';
-
-    //$: columnNumber = values.length;
+    import Message from '../Message.svelte';
+    import Loading from '../Loading.svelte';
+    import { uploadFile } from '../../actions/uploadActions';
+import { imagesFormats } from '../../constants/files';
     
     let openSelecteComponent = false;
     let positionToCreate = 0;
+
+    let loadingImage = false;
+    let messageUploadImage = null;
 
     const addToLayout = (column, position) => {
         values[position].values[0] = column;
@@ -31,19 +34,25 @@
             }
         }
         values = values;
-        //updateContent && updateContent();
     };
 
     const onChangeFileHandler = async(index, e) => {
-        const data = new FormData();
-        data.append('file', e.target.files[0]);
-        const imageToReplace = backgroundImage;
-        const result = await uploadImage(data, imageToReplace);
-        if (result.status === 'Ok') {
-            styles = updateStyle(styles, {name:'backgroundImage', value: result.data});
+        loadingImage = true;
+        const file = e.target.files[0];
+        const fileName = Date.now() + '_' + file.name;
+        
+        const res = await uploadFile(file, fileName, backgroundImage, imagesFormats);
+
+        if (res.map(x => x.status).find(y => y === 'Error')) {
+            messageUploadImage = res
+                .filter(x => x.status === 'Error')
+                .map(x => x.data)
+                .join(', ');
         } else {
-            console.log('error', result.data);
+            styles = updateStyle(styles, { name:'backgroundImage', value: `/uploads/${fileName}` });
+            messageUploadImage = null;            
         }
+        loadingImage = false;
     };
 
     const colors = ['primary', 'secondary', 'pomme', 'outremer', 'lavande', 'caraibe', 'tangerine', 'ambre', 'light', 'white', 'dark', 'black'];
@@ -139,6 +148,12 @@
         <div class="col">
             <span>Image de fond : </span>
             <input type="file" class="form-control" on:change={(e) => onChangeFileHandler(0, e)}/>
+            {#if messageUploadImage}
+                <Message color='danger'>{messageUploadImage}</Message>
+            {/if}
+            {#if loadingImage}
+                <Loading />
+            {/if}
         </div>
     </div>
     <div class="row my-1">

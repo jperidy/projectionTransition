@@ -1,9 +1,14 @@
 <script>
-    import { uploadVideo } from "../../actions/videosActions";
+    import { videosFormats } from "../../constants/files";
     import { updateStyle } from "../../utils/styleFunctions";
+    import Loading from "../Loading.svelte";
+    import Message from "../Message.svelte";
 
     export let values;
     export let styles;
+
+    let loadingVideo = false;
+    let messageUploadVideo;
 
     $: textAlign = styles.filter(x => x.name === 'text-align')[0] && styles.filter(x => x.name === 'text-align')[0].value;
     $: size = styles.filter(x => x.name === 'maxWidth')[0] && styles.filter(x => x.name === 'maxWidth')[0].value || "normal";
@@ -26,20 +31,23 @@
     };
 
     const onChangeHandler = async(index, e) => {
-        const data = new FormData();
-
-        data.append('video', e.target.files[0]);
-
-        const videoToReplace = values[index].url;
+        loadingVideo = true;
+        const file = e.target.files[0];
+        const fileName = Date.now() + '_' + file.name;
         
-        const result = await uploadVideo(data, videoToReplace);
+        const res = await uploadFile(file, fileName, values[index].url, videosFormats);
 
-        if (result.status === 'Ok') {
-            values[index].url = result.data;
-            values = values;
+        if (res.map(x => x.status).find(y => y === 'Error')) {
+        messageUploadVideo = res
+            .filter(x => x.status === 'Error')
+            .map(x => x.data)
+            .join(', ');
         } else {
-            console.log('error', result.data);
+            messageUploadVideo = null;
+            values[index].url = `/uploads/${fileName}`;
+            values = values;
         }
+        loadingVideo = false;
     };
 
 </script>
@@ -59,6 +67,12 @@
     <div class="col-8">
         <input class="form-control" type='file' on:change={(e) => onChangeHandler (1, e)}/>
     </div>
+    {#if messageUploadVideo}
+        <Message color='danger'>{messageUploadVideo}</Message>
+    {/if}
+    {#if messageUploadVideo}
+      <Loading />
+    {/if}
 </div>
 <div class="row mt-3">
     <div class="col d-flex align-items-center justify-content-center">

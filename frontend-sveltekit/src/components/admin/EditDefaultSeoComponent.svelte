@@ -1,17 +1,18 @@
 <script>
-import { getSeo, updateOrCreateSeo } from '../../actions/seoActions';
-
-import { onMount } from 'svelte';
-
-    import { uploadImage } from '../../actions/imagesActions';
-
+    import { getSeo, updateOrCreateSeo } from '../../actions/seoActions';
+    import { onMount } from 'svelte';
     import config from '../../config.json';
     import Message from '../Message.svelte';
+    import Loading from '../Loading.svelte';
+import { uploadFile } from '../../actions/uploadActions';
+import { imagesFormats } from '../../constants/files';
+    
     const API_URL = config.SVELTE_ENV === 'dev' ? config.API_URL_DEV : config.SVELTE_ENV === 'preprod' ? config.API_URL_PREPROD : config.SVELTE_ENV === 'production' ? config.API_URL_PROD : config.API_URL_DEV;
 
     let messageUploadImage = "";
     let loadingUpdateSeo = false;
     let messageUpdateSeo = "";
+    let loadingImage = false;
 
     // Default SEO
     export let seo = {
@@ -48,20 +49,24 @@ import { onMount } from 'svelte';
 
     // Manage OG
     const onSelectAnImageOg = async(e) => {
-        const data = new FormData();
-        data.append('file', e.target.files[0]);
-        const result = await uploadImage(data, seo.DEFAULT_OG_IMAGE);
-        if (result.status === 'Ok') {
-            seo.DEFAULT_OG_IMAGE = result.data;
+        loadingImage = true;
+        const file = e.target.files[0];
+        const fileName = Date.now() + '_' + file.name;
+        
+        const res = await uploadFile(file, fileName, seo.DEFAULT_OG_IMAGE, imagesFormats);
+
+        if (res.map(x => x.status).find(y => y === 'Error')) {
+            messageUploadImage = res
+            .filter(x => x.status === 'Error')
+            .map(x => x.data)
+            .join(', ');
+        } else {
+            messageUploadImage = null;
+            seo.DEFAULT_OG_IMAGE = `/uploads/${fileName}`;
             seo = seo;
             updateOrCreateHandler();
-            // messageUploadImage = '';
-            // updateOrCreateSeo(seo)
-            // .then((result) => seo = result.seo)
-            // .catch((error) => messageUpdateSeo = error);
-        } else {
-            messageUploadImage = result.data;
         }
+        loadingImage = false;
     };
 
 </script>
@@ -84,7 +89,11 @@ import { onMount } from 'svelte';
     <h3 class="border-bottom mb-3 pb-2">Default SEO</h3>
     <div class="row gx-3 gy-2 align-items-center">
         <div class="col-3">
-            <img class='img-fluid rounded bg-light' style="min-height: 5vh;" id="default-og-image" src={API_URL + seo.DEFAULT_OG_IMAGE} alt={seo.DEFAULT_OG_TITLE} />
+            {#if loadingImage}
+                <Loading />
+            {:else}
+                <img class='img-fluid rounded bg-light' style="min-height: 5vh;" id="default-og-image" src={API_URL + seo.DEFAULT_OG_IMAGE} alt={seo.DEFAULT_OG_TITLE} />
+            {/if}
         </div>
         <div class="col-auto">
             <label for="seo-default-OG-image">Upload an image</label>

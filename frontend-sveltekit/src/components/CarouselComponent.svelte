@@ -1,5 +1,5 @@
 <script>
-    import { deleteImage } from "../actions/imagesActions";
+    import { deleteFile } from "../actions/uploadActions";
     import EditButton from "./EditButton.svelte";
     import ImageComponent from "./ImageComponent.svelte";
     
@@ -31,11 +31,10 @@
     };
     
     const removeAnItem = async (index) => {
-        // delete Image in database
         const imageToDelete = values[index].component.values[0] && values[index].component.values[0].url;
         
         if (imageToDelete && imageToDelete.length) {
-            await deleteImage(values[index].component.values[0].url);
+            await deleteFile(values[index].component.values[0].url);
         }
         
         values.splice(index,1);

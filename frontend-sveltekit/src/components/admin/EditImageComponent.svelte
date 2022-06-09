@@ -1,13 +1,18 @@
 <script>
-    import { uploadImage } from "../../actions/imagesActions";
     import { updateStyle } from "../../utils/styleFunctions";
     import config from '../../config.json';
+    import Message from "../Message.svelte";
+    import Loading from "../Loading.svelte";
+    import { uploadFile } from "../../actions/uploadActions";
+import { imagesFormats } from "../../constants/files";
     
     const API_URL = config.SVELTE_ENV === 'dev' ? config.API_URL_DEV : config.SVELTE_ENV === 'preprod' ? config.API_URL_PREPROD : config.SVELTE_ENV === 'production' ? config.API_URL_PROD : config.API_URL_DEV;
 
-
     export let values;
     export let styles;
+
+    let messageUploadImage = null;
+    let loadingImage = false;
 
     $: shadow = styles.filter(x => x.name === 'shadow')[0] && styles.filter(x => x.name === 'shadow')[0].value;
     $: rounded = styles.filter(x => x.name === 'rounded')[0] && styles.filter(x => x.name === 'rounded')[0].value;
@@ -24,23 +29,34 @@
 
 
     const onChangeHandler = async(index, e) => {
-        const data = new FormData();
 
-        data.append('file', e.target.files[0]);
-
-        const imageToReplace = values[index].url;
+        loadingImage = true;
+        const file = e.target.files[0];
+        const fileName = Date.now() + '_' + file.name;
         
-        const result = await uploadImage(data, imageToReplace);
+        const res = await uploadFile(file, fileName, values[index].url, imagesFormats);
 
-        if (result.status === 'Ok') {
-            values[index].url = result.data;
-            values = values;
+        if (res.map(x => x.status).find(y => y === 'Error')) {
+            messageUploadImage = res
+                .filter(x => x.status === 'Error')
+                .map(x => x.data)
+                .join(', ');
         } else {
-            console.log('error', result.data);
+            messageUploadImage = null;
+            values[index].url = `/uploads/${fileName}`;
+            values = values;
         }
+        loadingImage = false;
     };
 
 </script>
+
+{#if messageUploadImage}
+    <Message color='danger'>{messageUploadImage}</Message>
+{/if}
+{#if loadingImage}
+      <Loading />
+{/if}
 
 <input class="form-control" type='file' name='image-url' on:change={(e) => onChangeHandler(0, e)} />
 <input class="form-control my-3" type='text' name='text' bind:value={values[0].caption} placeholder='[option] Légende'/>

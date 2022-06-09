@@ -1,13 +1,15 @@
 <script>
   import { getSeo, updateOrCreateSeo } from "../../actions/seoActions";
-
-  import { uploadImage } from "../../actions/imagesActions";
   import config from '../../config.json';
   import Message from "../Message.svelte";
   import { onMount } from "svelte";
+  import Loading from "../Loading.svelte";
+  import { uploadFile } from "../../actions/uploadActions";
+import { imagesFormats } from "../../constants/files";
   const API_URL = config.SVELTE_ENV === 'dev' ? config.API_URL_DEV : config.SVELTE_ENV === 'preprod' ? config.API_URL_PREPROD : config.SVELTE_ENV === 'production' ? config.API_URL_PROD : config.API_URL_DEV;
 
     let messageUpdateFavicon;
+    let loadingImage;
 
     // Default SEO
     export let seo = {
@@ -36,27 +38,37 @@
 
     // Manage Favicon
     const onSelectAnImageFavicon = async(e, name) => {
-        const data = new FormData();
-        data.append('file', e.target.files[0]);
-        const result = await uploadImage(data, seo[name]);
-        if (result.status === 'Ok') {
-            seo[name] = result.data;
-            seo = seo;
-            messageUpdateFavicon = '';
-            updateOrCreateSeo(seo)
-            .then((result) => seo = result.seo)
-            .catch((error) => messageUpdateSeo = error);
-        } else {
-            messageUpdateFavicon = result.data;
-        }
+      loadingImage = true;
+      const file = e.target.files[0];
+      const fileName = Date.now() + '_' + file.name;
+      
+      const res = await uploadFile(file, fileName, seo[name], imagesFormats);
+
+      if (res.map(x => x.status).find(y => y === 'Error')) {
+        messageUpdateFavicon = res
+          .filter(x => x.status === 'Error')
+          .map(x => x.data)
+          .join(', ');
+      } else {
+        messageUpdateFavicon = null;
+        seo[name] = `/uploads/${fileName}`;
+        seo = seo;
+        updateOrCreateSeo(seo)
+          .then((result) => seo = result.seo)
+          .catch((error) => messageUpdateSeo = error);
+      }
+      loadingImage = false;
     };
 
 </script>
 
 <div class="px-5 py-3">
-{#if messageUpdateFavicon}
-  <Message color='danger'>{messageUpdateFavicon}</Message>
-{/if}
+  {#if messageUpdateFavicon}
+    <Message color='danger'>{messageUpdateFavicon}</Message>
+  {/if}
+  {#if loadingImage}
+      <Loading />
+  {/if}
 
   <div class="row">
     <h3 class="border-bottom mb-3 pb-2">Favicon</h3>

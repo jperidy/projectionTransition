@@ -5,7 +5,40 @@ import config from '../config.json';
 
 const API_URL = config.API_URL;
 
-export const uploadFile = async (file, fileName, fileToDelete) => {
+const upload = async(fileName, CHUNK, fileToDelete) => {
+    try {
+        const userInfoStored = get(userInfo);
+        const config = {
+            headers: {
+                Authorization: `Bearer ${userInfoStored.token}`,
+                'content-type': "application/octet-stream",
+            }
+        };
+
+        if (fileToDelete) {
+            await axios.delete(`${API_URL}/api/upload-files?url=${fileToDelete}`, config);
+        }
+        
+        const { data } = await axios.post(`${API_URL}/api/upload-files?fileName=${fileName}`, CHUNK, config);
+
+        return { status: 'Ok', data: `${data.storage}` };
+        
+    } catch (error) {
+        return { status: 'Error', data: error.response && error.response.data.message
+            ? error.response.data.message
+            : error.message
+        }
+    }
+}
+
+export const uploadFile = async (file, fileName, fileToDelete, types) => {
+    if (!types.includes(file.type)) {
+        return [{
+            status: 'Error',
+            data: `Please select valid format to upload: ${types.join(', ')}`
+        }]
+    }
+
     const fileReader = new FileReader();
     const results = [];
 
@@ -26,28 +59,26 @@ export const uploadFile = async (file, fileName, fileToDelete) => {
     }) 
 }
 
-export const upload = async(fileName, CHUNK, fileToDelete) => {
+export const deleteFile = async(path) => {
+
     try {
         const userInfoStored = get(userInfo);
+        
         const config = {
             headers: {
-                Authorization: `Bearer ${userInfoStored.token}`,
-                'content-type': "application/octet-stream",
+                Authorization: `Bearer ${userInfoStored.token}`
             }
         };
 
-        if (fileToDelete) {
-            await axios.delete(`/api/upload-files?url=${fileToDelete}`, config);
-        }
-        
-        const { data } = await axios.post(`${API_URL}/api/upload-files?fileName=${fileName}`, CHUNK, config);
+        const { data } = await axios.delete(`${API_URL}/api/upload-files?url=${path}`, config);
 
-        return { status: 'Ok', data: `${data.storage}` };
-        
+        return { status: 'Ok', data: data};
+
     } catch (error) {
         return { status: 'Error', data: error.response && error.response.data.message
             ? error.response.data.message
             : error.message
         }
     }
-}
+
+};

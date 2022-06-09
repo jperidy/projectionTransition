@@ -1,4 +1,4 @@
-import { deleteImage } from "../actions/imagesActions";
+import { deleteFile } from "../actions/uploadActions";
 
 export const recursiveDeleteAction = async (objectToDelete) => {
 
@@ -13,7 +13,7 @@ export const recursiveDeleteAction = async (objectToDelete) => {
     for (let ind = 0 ; ind < objectToDelete.length ; ind++) {
         
         if (objectToDelete[ind].url && objectToDelete[ind].url.length) {
-            await deleteImage(objectToDelete[ind].url);
+            await deleteFile(objectToDelete[ind].url);
         }
           
         if (objectToDelete[ind].component && objectToDelete[ind].component.values && objectToDelete[ind].component.values.length) {
@@ -60,32 +60,9 @@ export const recursiveDeleteStyle = async (styleToDelete) => {
     if (styleToDelete.styles && styleToDelete.styles.length > 0) {
         for (let ind = 0; ind < styleToDelete.styles.length; ind++) {
             if (['backgroundImage'].includes(styleToDelete.styles[ind].name && typeof styleToDelete.styles[ind].value === "string")) {
-                await deleteImage(styleToDelete.styles[ind].value)
+                await deleteFile(styleToDelete.styles[ind].value)
             }
         }
     }
-
-
     return;
-
-
-
-    // for (let ind=0; ind<styleToDelete.length; ind++) {
-    //     if (["backgroundImage"].includes(styleToDelete[ind].name)) {
-    //         if (typeof styleToDelete[ind].value === "string") {
-    //             //styleToDelete[ind].url = "";
-    //             await deleteImage(objectToDelete[ind].value);
-    //         } else {
-    //             if (styleToDelete[ind].url.values && styleToDelete[ind].url.values.length) {
-    //                 recursiveBlankMedias(styleToDelete[ind].url.values)
-    //             }
-    //         }
-    //     }
-    //     if (styleToDelete[ind].values && styleToDelete[ind].values.length) {
-    //         recursiveBlankMedias(styleToDelete[ind].values);
-    //     }
-    //     if (styleToDelete[ind].component && styleToDelete[ind].component.values && styleToDelete[ind].component.values.length) {
-    //         recursiveBlankMedias(styleToDelete[ind].component.values);
-    //     }
-    // }
 };

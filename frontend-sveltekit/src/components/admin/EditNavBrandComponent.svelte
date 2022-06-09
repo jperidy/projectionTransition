@@ -1,45 +1,37 @@
 <script>
-    import { uploadImage } from "../../actions/imagesActions";
-    import { uploadFile } from "../../actions/uploadActions";
-    import Message from "../Message.svelte";
-    import config from '../../config.json';
-import Loading from "../Loading.svelte";
-    const API_URL = config.API_URL;
+  import { uploadFile } from "../../actions/uploadActions";
+  import Message from "../Message.svelte";
+  import config from '../../config.json';
+  import Loading from "../Loading.svelte";
+  import { imagesFormats } from "../../constants/files";
 
-    export let navBar;
+  const API_URL = config.API_URL;
 
-    let messageUploadImage = "";
-    let loadingImage = false;
+  export let navBar;
+
+  let messageUploadImage = "";
+  let loadingImage = false;
     
 
-    const onSelectAnImageBrand = async(e) => {
-      loadingImage = true;
-      const file = e.target.files[0];
-      const fileName = Date.now() + '_' + file.name;
-      const res = await uploadFile(file, fileName, navBar.BRAND.LOGO.path);
+  const onSelectAnImageBrand = async(e) => {
+    loadingImage = true;
+    const file = e.target.files[0];
+    const fileName = Date.now() + '_' + file.name;
+      
+    const res = await uploadFile(file, fileName, navBar.BRAND.LOGO.path, imagesFormats);
 
-      if (res.map(x => x.status).find(y => y === 'Error')) {
-        messageUploadImage = res
-          .filter(x => x.status === 'Error')
-          .map(x => x.data)
-          .join(', ');
-      }
+    if (res.map(x => x.status).find(y => y === 'Error')) {
+      messageUploadImage = res
+        .filter(x => x.status === 'Error')
+        .map(x => x.data)
+        .join(', ');
+    } else {
+      messageUploadImage = null;
       navBar.BRAND.LOGO.path = `/uploads/${fileName}`;
       navBar = navBar;
-      loadingImage = false;
-
-      // const data = new FormData();
-      // data.append('file', e.target.files[0]);
-      // const result = await uploadImage(data, navBar.BRAND.LOGO.path);
-      // if (result.status === 'Ok') {
-      //     navBar.BRAND.LOGO.path = result.data;
-      //     navBar = navBar;
-      //     messageUploadImage = '';
-      // } else {
-      //     messageUploadImage = result.data;
-      // }
-    };
-
+    }
+    loadingImage = false;
+  };
 </script>
 <h3 class="border-bottom mb-3 pb-2">Brand</h3>
 

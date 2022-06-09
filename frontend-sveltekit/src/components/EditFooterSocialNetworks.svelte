@@ -1,11 +1,13 @@
 <script>
     import Message from "./Message.svelte";
     import config from '../config.json';
-    import { uploadImage } from "../actions/imagesActions";
-    const API_URL = config.SVELTE_ENV === 'dev' ? config.API_URL_DEV : config.SVELTE_ENV === 'preprod' ? config.API_URL_PREPROD : config.SVELTE_ENV === 'production' ? config.API_URL_PROD : config.API_URL_DEV;
+    import { uploadFile } from "../actions/uploadActions";
+    import Loading from "./Loading.svelte";
+import { imagesFormats } from "../constants/files";
+    
+    const API_URL = config.API_URL;
 
     export let footer;
-    //export let updateOrCreateFooter;
 
     // Manage Social Network
     let snName = '';
@@ -15,6 +17,7 @@
     let newTarget = true;
 
     let messageUpdateFooter = "";
+    let loadingImage = false;
 
     const arrayMove = (arr, fromIndex, toIndex) => {
         var element = arr[fromIndex];
@@ -32,16 +35,10 @@
         snAlt = "";
         snRedirect = "";
         newTarget = true;
-        // updateOrCreateFooter(footer)
-        // .then((result) => footer = result.footer)
-        // .catch((error) => messageUpdateFooter = error);
     };
     const deleteSocialNetwork = (index) => {
         footer.SOCIAL_NETWORKS.splice(index, 1);
         footer = footer;
-        // updateOrCreateFooter(footer)
-        // .then((result) => footer = result.footer)
-        // .catch((error) => messageUpdateFooter = error);
     };
     const upSocialNetwork = (index) => {
         if (index > 0) {
@@ -54,23 +51,32 @@
         }
     };
     const onSelectAnImageSocialNetwork = async(index, e) => {
-        const data = new FormData();
-        data.append('file', e.target.files[0]);
-        const result = await uploadImage(data, index === -1 ? '' : footer.SOCIAL_NETWORKS[index].icon);
-        if (result.status === 'Ok') {
-        if (index === -1) { // create
-            snIcon = result.data;
-        } else { // update
-            footer.SOCIAL_NETWORKS[index].icon = result.data;
-            footer = footer;
-            // updateOrCreateFooter(footer)
-            // .then((result) => footer = result.footer)
-            // .catch((error) => messageUpdateFooter = error);
-        }
-            messageUpdateBrand = '';
+        loadingImage = true;
+        const file = e.target.files[0];
+        const fileName = Date.now() + '_' + file.name;
+        
+        const res = await uploadFile(
+            file, 
+            fileName, 
+            index === -1 ? '' : footer.SOCIAL_NETWORKS[index].icon, 
+            imagesFormats
+        );
+
+        if (res.map(x => x.status).find(y => y === 'Error')) {
+            messageUpdateBrand = res
+            .filter(x => x.status === 'Error')
+            .map(x => x.data)
+            .join(', ');
         } else {
-            messageUpdateBrand = result.data;
+            if (index === -1) { 
+                snIcon = `/uploads/${fileName}`;
+            } else { 
+                footer.SOCIAL_NETWORKS[index].icon = `/uploads/${fileName}`;
+                footer = footer;
+            }
+            messageUpdateBrand = null;
         }
+        loadingImage = false;
     };
 
 </script>
@@ -85,7 +91,11 @@
             <div class="row align-items-end py-2">
                 <div class="col">
                     {#if snIcon}
-                        <img class='img-fluid bg-light rounded' src={API_URL + snIcon} alt={snAlt} style="width:7vh;height:7vh;" />
+                        {#if loadingImage}
+                            <Loading />
+                        {:else}
+                            <img class='img-fluid bg-light rounded' src={API_URL + snIcon} alt={snAlt} style="width:7vh;height:7vh;" />
+                        {/if}
                     {:else}
                         <div class="d-flex bg-light rounded justify-content-center text-center align-items-center text-dark" style="height: 7vh;width:7vh;">No image</div>
                     {/if}
@@ -122,7 +132,11 @@
         {#each footer.SOCIAL_NETWORKS as item, ind}
             <div class='row border-top border-light'>
                 <div class="col my-2">
-                    <img class='img-fluid bg-light rounded' src={API_URL + item.icon} alt={snAlt} style="width:7vh;height:7vh;"/>
+                    {#if loadingImage}
+                        <Loading />
+                    {:else}
+                        <img class='img-fluid bg-light rounded' src={API_URL + item.icon} alt={snAlt} style="width:7vh;height:7vh;"/>
+                    {/if}
                 </div>
                 <div class="col my-auto">
                     <input type="file" class="form-control" on:change={(e) => onSelectAnImageSocialNetwork(ind, e)}>
