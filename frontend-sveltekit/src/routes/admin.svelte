@@ -42,7 +42,7 @@
     export let navBar;
     export let footer;
 
-    const API_URL = config.SVELTE_ENV === 'dev' ? config.API_URL_DEV : config.SVELTE_ENV === 'preprod' ? config.API_URL_PREPROD : config.SVELTE_ENV === 'production' ? config.API_URL_PROD : config.API_URL_DEV;
+    const API_URL = config.API_URL;
 
     let pageRequest = { content: { content: [], name: '' }, loading: true, message: '' };
     let selectedComponent = {id:"", position:null};
@@ -101,11 +101,10 @@
     <link rel="stylesheet" href="/mains.min.css">
     <link rel="icon" type="image/png" href={API_URL + defaultSeo.FAVICON_48_48} sizes="48x48" />
     <link rel="icon" type="image/png" href={API_URL + defaultSeo.FAVICON_64_64} sizes="64x64" />
-    <link rel="icon" type="image/png" href={API_URL + defaultSeo.FAVICON_48_48} sizes="96x96" />
-    <link rel="icon" type="image/png" href={API_URL + defaultSeo.FAVICON_48_48} sizes="128x128" />
-    <link rel="icon" type="image/png" href={API_URL + defaultSeo.FAVICON_48_48} sizes="196x196" />
+    <link rel="icon" type="image/png" href={API_URL + defaultSeo.FAVICON_96_96} sizes="96x96" />
+    <link rel="icon" type="image/png" href={API_URL + defaultSeo.FAVICON_128_128} sizes="128x128" />
+    <link rel="icon" type="image/png" href={API_URL + defaultSeo.FAVICON_196_196} sizes="196x196" />
     
-    <!-- work in progress to add fonts from googleapis -->
     {#if fonts && fonts.length > 0}
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>

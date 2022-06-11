@@ -49,7 +49,7 @@
   
 </script>
 
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="addElementModal" tabindex="-1" aria-labelledby="addElementModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-scrollable">
     <div class="modal-content">
       <div class="modal-header">
@@ -196,8 +196,18 @@
         </div>
       </div>
       <div class=modal-footer>
-        <button type="button" class="btn btn-primary" on:click={() => toggle(true)}>Enregistrer</button>
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" on:click={() => toggle(false)}>Cancel</button>
+        <button 
+          type="button" 
+          class="btn btn-primary" 
+          on:click={() => toggle(true)}
+          data-bs-dismiss="modal"
+        >Add</button>
+        <button 
+          type="button" 
+          class="btn btn-secondary" 
+          data-bs-dismiss="modal" 
+          on:click={() => toggle(false)}
+        >Cancel</button>
       </div>
     </div>
   </div>

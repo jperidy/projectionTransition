@@ -8,16 +8,11 @@
     export let updateContent;
 
     $:hasBeenModified = !(JSON.stringify(page) === JSON.stringify($pageRequest.content));
-    
 
     let addWindow = false;
     const addContent = (component, position) => {
         page.content.splice(position, 0, component);
         page.content = page.content;  
-    };
-
-    const createFirstComponentHandler = () => {
-        addWindow = true;
     };
 
 </script>
@@ -61,7 +56,8 @@
         <div class="create-first-component d-flex justify-content-center">
             <button 
                 class="btn btn-outline-dark w-50"
-                on:click={createFirstComponentHandler}
+                data-bs-toggle="modal" 
+                data-bs-target="#addElementModal"
             >
                 First component
             </button>

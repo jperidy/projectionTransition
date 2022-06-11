@@ -213,10 +213,15 @@ import { imagesFormats } from '../../constants/files';
                         displayInFrame={true}
                     />
                 {:else}
-                    <button class='btn btn-secondary w-100 my-3' on:click={() => {
-                        openSelecteComponent = true;
-                        positionToCreate = index;
-                    }}>Select a component</button> 
+                    <button 
+                        class='btn btn-secondary w-100 my-3' 
+                        on:click={() => {
+                            openSelecteComponent = true;
+                            positionToCreate = index;
+                        }}
+                        data-bs-toggle="modal" 
+                        data-bs-target="#addElementModal"
+                    >Select a component</button> 
                 {/if}
                 <p>Width of the column on :</p>
                 <div class="d-flex justify-content-end align-items-center text-end align-items-center text-end my-1">
@@ -240,7 +245,6 @@ import { imagesFormats } from '../../constants/files';
             addContent={null}
             position={positionToCreate}
             addToLayout={addToLayout}
-            bind:open={openSelecteComponent}
         />
     {/if}
     
