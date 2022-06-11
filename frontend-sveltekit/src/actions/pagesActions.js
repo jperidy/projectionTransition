@@ -34,7 +34,7 @@ export const updateOrCreateContent = async (content) => {
 
 };
 
-export const updateDisplayState = async (pageName, displayState) => {
+export const updateDisplayState = async (id, displayState) => {
     const userInfoStored = get(userInfo);
 
     try {
@@ -46,12 +46,12 @@ export const updateDisplayState = async (pageName, displayState) => {
             }
         }
 
-        const { data } = await axios.put(`${API_URL}/api/pages/${pageName}`, { display: displayState}, config);
+        const { data } = await axios.put(`${API_URL}/api/pages/${id}`, { display: displayState}, config);
 
         return { content: data.value, loading: false, message: 'Display state updated' };
 
     } catch (error) {
-        return { content: { content: [], name: pageName }, loading: false, message: 'Error updating display state ' + pageName + ' ' + error };
+        return { content: {}, loading: false, message: 'Error updating display state ' + id + ' ' + error };
     }
 }
 
@@ -156,7 +156,7 @@ export const duplicateAPage = async (pageName) => {
 
 };
 
-export const deleteAPage = async (pageName) => {
+export const deleteAPage = async (id) => {
 
     const userInfoStored = get(userInfo);
 
@@ -169,7 +169,7 @@ export const deleteAPage = async (pageName) => {
             }
         };
 
-        const { data } = await axios.delete(`${API_URL}/api/pages/${pageName}`, config);
+        const { data } = await axios.delete(`${API_URL}/api/pages/${id}`, config);
 
         return { page: data.value, loading: false, message: '' };
 

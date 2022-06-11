@@ -5,60 +5,59 @@
   import { onMount } from "svelte";
   import Loading from "../Loading.svelte";
   import { uploadFile } from "../../actions/uploadActions";
-import { imagesFormats } from "../../constants/files";
-  const API_URL = config.SVELTE_ENV === 'dev' ? config.API_URL_DEV : config.SVELTE_ENV === 'preprod' ? config.API_URL_PREPROD : config.SVELTE_ENV === 'production' ? config.API_URL_PROD : config.API_URL_DEV;
+  import { imagesFormats } from "../../constants/files";
+  const API_URL = config.API_URL;
 
-    let messageUpdateFavicon;
-    let loadingImage;
+  let messageUpdateFavicon;
+  let loadingImage;
 
-    // Default SEO
-    export let seo = {
-        "name": "seo",
-        "DEFAULT_TITLE": "",
-        "DEFAULT_DESCRIPTION": "",
-        "DEFAULT_OG_TITLE": "",
-        "DEFAULT_OG_DESCRIPTION": "",
-        "DEFAULT_OG_IMAGE": "",
-        "FAVICON_48_48": "",
-        "FAVICON_64_64": "",
-        "FAVICON_96_96": "",
-        "FAVICON_128_128": "",
-        "FAVICON_196_196": ""
-    }
+  // Default SEO
+  export let seo = {
+      "name": "seo",
+      "DEFAULT_TITLE": "",
+      "DEFAULT_DESCRIPTION": "",
+      "DEFAULT_OG_TITLE": "",
+      "DEFAULT_OG_DESCRIPTION": "",
+      "DEFAULT_OG_IMAGE": "",
+      "FAVICON_48_48": "",
+      "FAVICON_64_64": "",
+      "FAVICON_96_96": "",
+      "FAVICON_128_128": "",
+      "FAVICON_196_196": ""
+  }
 
-    onMount(async() => {
-        let seoRequest = await getSeo();
-        if (seoRequest && seoRequest.seo) {
-        for (let key in seoRequest.seo) {
-            seo[key] = seoRequest.seo[key];
-        }
-        }
-        seo = seo;
-    });
-
-    // Manage Favicon
-    const onSelectAnImageFavicon = async(e, name) => {
-      loadingImage = true;
-      const file = e.target.files[0];
-      const fileName = Date.now() + '_' + file.name;
-      
-      const res = await uploadFile(file, fileName, seo[name], imagesFormats);
-
-      if (res.map(x => x.status).find(y => y === 'Error')) {
-        messageUpdateFavicon = res
-          .filter(x => x.status === 'Error')
-          .map(x => x.data)
-          .join(', ');
-      } else {
-        messageUpdateFavicon = null;
-        seo[name] = `/uploads/${fileName}`;
-        seo = seo;
-        updateOrCreateSeo(seo)
-          .then((result) => seo = result.seo)
-          .catch((error) => messageUpdateSeo = error);
+  onMount(async() => {
+      let seoRequest = await getSeo();
+      if (seoRequest && seoRequest.seo) {
+      for (let key in seoRequest.seo) {
+          seo[key] = seoRequest.seo[key];
       }
-      loadingImage = false;
-    };
+      }
+      seo = seo;
+  });
+
+  // Manage Favicon
+  const onSelectAnImageFavicon = async(e, name) => {
+    loadingImage = true;
+    const file = e.target.files[0];
+    const fileName = Date.now() + '_' + file.name;
+    
+    const res = await uploadFile(file, fileName, seo[name], imagesFormats);
+    if (res.map(x => x.status).find(y => y === 'Error')) {
+      messageUpdateFavicon = res
+        .filter(x => x.status === 'Error')
+        .map(x => x.data)
+        .join(', ');
+    } else {
+      messageUpdateFavicon = null;
+      seo[name] = `/uploads/${fileName}`;
+      seo = seo;
+      updateOrCreateSeo(seo)
+        .then((result) => seo = result.seo)
+        .catch((error) => messageUpdateSeo = error);
+    }
+    loadingImage = false;
+  };
 
 </script>
 

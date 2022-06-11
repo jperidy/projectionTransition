@@ -48,7 +48,7 @@
     export let defaultSeo;
 
     import config from '../../config.json';
-    const SITE_URL = config.SVELTE_ENV === 'dev' ? config.SITE_URL_DEV : config.SVELTE_ENV === 'preprod' ? config.SITE_URL_PREPROD : config.SVELTE_ENV === 'production' ? config.SITE_URL_PROD : config.SITE_URL_DEV;
+    const SITE_URL = config.API_URL;
     
     import DisplayCustomComponent from '../../components/DisplayCustomComponent.svelte';
     import Message from '../../components/Message.svelte';

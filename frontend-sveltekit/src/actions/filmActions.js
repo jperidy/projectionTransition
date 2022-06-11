@@ -3,7 +3,7 @@ import axios from 'axios';
 import { filmAllRequest, filmRequest, filmUpdateRequest, filmCreateRequest, userInfo, filmDeleteRequest } from '../store';
 import { get } from 'svelte/store';
 import config from '../config.json';
-const API_URL = config.SVELTE_ENV === 'dev' ? config.API_URL_DEV : config.SVELTE_ENV === 'preprod' ? config.API_URL_PREPROD : config.SVELTE_ENV === 'production' ? config.API_URL_PROD : config.API_URL_DEV;
+const API_URL = config.API_URL;
 
 export const getAllFilms = async (location) => {
 
@@ -69,7 +69,7 @@ export const updateFilmRequest = async (id, film) => {
             }
         };
 
-        const { data } = await axios.put(`${API_URL}/api/film/${id}`, film, config);
+        await axios.put(`${API_URL}/api/film/${id}`, film, config);
         
         filmUpdateRequest.set({success:true, loading:false, message:'film updated'});
 
@@ -127,7 +127,7 @@ export const deleteFilmRequest = async (id) => {
             }
         };
 
-        const { data } = await axios.delete(`${API_URL}/api/film/${id}`, config);
+        await axios.delete(`${API_URL}/api/film/${id}`, config);
         
         filmDeleteRequest.set({success:true, loading:false, message:'film deleted'});
 

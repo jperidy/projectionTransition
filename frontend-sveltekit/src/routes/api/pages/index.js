@@ -22,6 +22,7 @@ export async function get() {
 export async function post({request: req}) {
 
     const newContent = await req.json();
+    console.log('_newContent', newContent);
     
     const content = await Page.findById(newContent._id);
 

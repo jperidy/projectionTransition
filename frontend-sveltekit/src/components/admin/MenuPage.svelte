@@ -16,20 +16,21 @@
 
     let pageNameToCreate = "";
 
-    const transformUrl = (url) => {
-        // supprimer le premier /
-        if(url.match(/^\//i)) {
-            url = url.substr(1);
+    const transformPageName = (name) => {
+        if (!name.startsWith('/')) {
+            name = '/' + name;
         }
-        url = url.replace('/', '-');
-        return url;
+        if (!name.startsWith('/pages')) {
+            name = '/pages' + name;
+        }
+        return name;
     };
 
     const createPageHandler = async(e) => {
         e.preventDefault();
         loadingCreate = true;
         const pageCreateResult = await createAPage({
-            name: transformUrl(pageNameToCreate),
+            name: transformPageName(pageNameToCreate),
             content: []
         });
         messageCreate = pageCreateResult.message;
@@ -39,9 +40,9 @@
         }
     };
 
-    const removePageHandler = async(pageName) => {
+    const removePageHandler = async(id) => {
         if (window.confirm('Attention cette action est irreversible !')) {
-            await deleteAPage(pageName);
+            await deleteAPage(id);
             getPages();
         }
     };
@@ -51,8 +52,8 @@
         getPages();
     };
 
-    const updateDisplayStatus = async (pageName, displayState) => {
-        await updateDisplayState(pageName.split('/pages/')[1], displayState)
+    const updateDisplayStatus = async (id, displayState) => {
+        await updateDisplayState(id, displayState);
         getPages();
     }
 
@@ -106,7 +107,7 @@
                 </button>
                 <button
                     class="btn btn-sm btn-transparent text-light"
-                    on:click={() => updateDisplayStatus(page.name, !page.display)}
+                    on:click={() => updateDisplayStatus(page._id, !page.display)}
                 >
                     {#if page.display}
                         <i class="bi bi-eye-fill"></i>
@@ -121,7 +122,7 @@
                 </button>
                 <button
                     class="btn btn-sm btn-transparent text-light"
-                    on:click={() => removePageHandler(page.name)}
+                    on:click={() => removePageHandler(page._id)}
                 >
                     <i class="bi bi-trash"></i>
                 </button>

@@ -4,7 +4,7 @@ import { articleAllRequest, articleRequest, articleUpdateRequest, articleCreateR
 import { get } from 'svelte/store';
 import config from '../config.json';
 
-const API_URL = config.SVELTE_ENV === 'dev' ? config.API_URL_DEV : config.SVELTE_ENV === 'preprod' ? config.API_URL_PREPROD : config.SVELTE_ENV === 'production' ? config.API_URL_PROD : config.API_URL_DEV;
+const API_URL = config.API_URL;
 
 export const getAllArticles = async (category, size, page, keyword) => {
 
@@ -70,7 +70,7 @@ export const updateArticleRequest = async (id, article) => {
             }
         };
 
-        const { data } = await axios.put(`${API_URL}/api/article/${id}`, article, config);
+        await axios.put(`${API_URL}/api/article/${id}`, article, config);
         
         articleUpdateRequest.set({success:true, loading:false, message:'Article updated'});
 
@@ -93,7 +93,7 @@ export const createArticleRequest = async (article) => {
             }
         };
 
-        const { data } = await axios.post(`${API_URL}/api/article`, article, config);
+        await axios.post(`${API_URL}/api/article`, article, config);
         
         articleCreateRequest.set({success:true, loading:false, message:'Article updated'});
 
@@ -116,7 +116,7 @@ export const deleteArticleRequest = async (id) => {
             }
         };
 
-        const { data } = await axios.delete(`${API_URL}/api/article/${id}`, config);
+        await axios.delete(`${API_URL}/api/article/${id}`, config);
         
         articleDeleteRequest.set({success:true, loading:false, message:'Article deleted'});
 

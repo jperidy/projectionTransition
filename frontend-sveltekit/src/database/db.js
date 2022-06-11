@@ -1,23 +1,8 @@
 import mongoose from 'mongoose';
 import config from '../config.json';
 
-const getDatabaseUri = () => {
-    let uri = '';
-    
-    if (['dev'].includes(config.NODE_ENV)) {
-        uri = config.MONGO_URI_DEV;
-    } else if (['preprod'].includes(config.NODE_ENV)) {
-        uri = config.MONGO_URI_PREPROD;
-    } else if (['production'].includes(config.NODE_ENV)) {
-        uri = config.MONGO_URI_PROD;
-    } else {
-        console.log('Unknow environment: ' + config.NODE_ENV);
-    }
-    return uri;
-}
-
 const connectDB = async () => {
-    const uri = getDatabaseUri()
+    const uri = config.MONGO_URI;
     mongoose.connect(uri, {
         useNewUrlParser: true,
         useUnifiedTopology: true,
