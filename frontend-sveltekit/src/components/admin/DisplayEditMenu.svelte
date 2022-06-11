@@ -25,6 +25,9 @@
 
     let visible = false;
 
+    const modalIdUp = 'displayEditMenuModalUp';
+    const modalIdDown = 'displayEditMenuModalDown';
+
     const upAction = () => {
         if (position > 0) {
             pageContent = arrayMove(pageContent, position, position - 1);
@@ -37,19 +40,6 @@
     };
 
     let selectPosition = false;
-    let addUp = false;
-    let addDown = false;
-    const addAction = (addPosition) => {
-        if (addPosition === 'up') {
-            addUp = true;
-            addDown = false;
-        }
-        if (addPosition === 'down') {
-            addUp = false;
-            addDown = true;
-        }
-        selectPosition = false;
-    };
 
     const addContent = (component, position) => {
         if (!displayInFrame) {
@@ -120,15 +110,28 @@
 
             <div class="d-grid">
                 {#if selectPosition}
-                    <button class="btn btn-transparent m-0 p-0" on:click={() => addAction('up')}>
+                    <button 
+                        class="btn btn-transparent m-0 p-0" 
+                        on:click={() => selectPosition = false}
+                        data-bs-toggle="modal" 
+                        data-bs-target={`#${modalIdUp}`}
+                    >
                         <i class="bi bi-caret-up text-dark"></i>
                     </button>
                 {/if}
-                <button class="btn btn-transparent m-0 p-0" on:click={() => selectPosition = !selectPosition}>
+                <button 
+                    class="btn btn-transparent m-0 p-0" 
+                    on:click={() => selectPosition = !selectPosition}
+                >
                     <i class="bi bi-plus-circle text-dark"></i>
                 </button>
                 {#if selectPosition}
-                    <button class="btn btn-transparent m-0 p-0" on:click={() => addAction('down')}>
+                    <button 
+                        class="btn btn-transparent m-0 p-0" 
+                        on:click={() => selectPosition = false}
+                        data-bs-toggle="modal" 
+                        data-bs-target={`#${modalIdDown}`}
+                    >
                         <i class="bi bi-caret-down text-dark">
                     </i></button>
                 {/if}
@@ -194,23 +197,21 @@
 
 <!-- open if addUp is true -->
 <AddElement
-    addContent={addContent}
+    action={addContent}
     position={position}      
-    bind:open={addUp}
-    addToLayout={''}
     copyValues={null}
     copyStyles={null}
     copyType={null}
+    modalId={modalIdUp}
 />
 <!-- open if addDown is true -->
 <AddElement 
-    addContent={addContent}
+    action={addContent}
     position={position + 1}      
-    bind:open={addDown}
-    addToLayout={''}
     copyValues={null}
     copyStyles={null}
     copyType={null}
+    modalId={modalIdDown}
 />
 
 <style>

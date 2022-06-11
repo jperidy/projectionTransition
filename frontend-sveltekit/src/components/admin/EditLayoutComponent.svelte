@@ -9,13 +9,14 @@
     import Message from '../Message.svelte';
     import Loading from '../Loading.svelte';
     import { uploadFile } from '../../actions/uploadActions';
-import { imagesFormats } from '../../constants/files';
+    import { imagesFormats } from '../../constants/files';
     
-    let openSelecteComponent = false;
     let positionToCreate = 0;
 
     let loadingImage = false;
     let messageUploadImage = null;
+
+    const modalId = 'editLayoutComponentModal';
 
     const addToLayout = (column, position) => {
         values[position].values[0] = column;
@@ -64,7 +65,6 @@ import { imagesFormats } from '../../constants/files';
     $: xlSize = styles.filter(x => x.name === 'xlSize')[0] && styles.filter(x => x.name === 'xlSize')[0].value || 10;
     
     $: alignContent = styles.filter(x => x.name === 'align-items')[0] && styles.filter(x => x.name === 'align-items')[0].value;
-    $: bgColor = styles.filter(x => x.name === 'backgroud-color')[0] && styles.filter(x => x.name === 'backgroud-color')[0].value;
     $: backgroundHTML = styles.filter(x => x.name === 'backgroundHTML')[0] && styles.filter(x => x.name === 'backgroundHTML')[0].value || '';
     $: backgroundImage = styles.filter(x => x.name === 'backgroundImage')[0] && styles.filter(x => x.name === 'backgroundImage')[0].value || '';
 
@@ -78,7 +78,6 @@ import { imagesFormats } from '../../constants/files';
     $: gutterY = styles.filter(x => x.name === 'gutterY')[0] && styles.filter(x => x.name === 'gutterY')[0].value || 2;
 
     $: border = styles.filter(x => x.name === 'border')[0] && styles.filter(x => x.name === 'border')[0].value;
-    $: borderColor = styles.filter(x => x.name === 'border-color')[0] && styles.filter(x => x.name === 'border-color')[0].value;
     
 </script>
 
@@ -86,23 +85,23 @@ import { imagesFormats } from '../../constants/files';
     <div class='row my-0'>
         <p class="my-0"><strong>Frame covering on screen (max cover is 12)</strong></p>
         <div class="d-flex justify-content-end my-1">
-            <label for="xs-size" class="w-75">"xs screen (Mobile)"</label>
+            <label for="xs-size" class="w-75">On Mobile</label>
             <input type="number" class="form-control" id="xs-size" min={1} max={12} value={xsSize} on:change={(e) => styles = updateStyle(styles, {name:'xsSize', value:e.target.value})}/>
         </div>
         <div class="d-flex justify-content-end my-1">
-            <label for="sm-size" class="w-75">"sm screen (Tablet)"</label>
+            <label for="sm-size" class="w-75">On small tablet</label>
             <input type="number" class="form-control" id="sm-size" min={1} max={12} value={smSize} on:change={(e) => styles = updateStyle(styles, {name:'smSize', value:e.target.value})}/>
         </div>
         <div class="d-flex justify-content-end my-1">
-            <label for="md-size" class="w-75">"md screen (Tablet)"</label>
+            <label for="md-size" class="w-75">On large tablet</label>
             <input type="number" class="form-control" id="md-size" min={1} max={12} value={mdSize} on:change={(e) => styles = updateStyle(styles, {name:'mdSize', value:e.target.value})}/>
         </div>
         <div class="d-flex justify-content-end my-1">
-            <label for="lg-size" class="w-75">"lg screen (Desktop)"</label>
+            <label for="lg-size" class="w-75">On regular desktop</label>
             <input type="number" class="form-control" id="lg-size" min={1} max={12} value={lgSize} on:change={(e) => styles = updateStyle(styles, {name:'lgSize', value:e.target.value})}/>
         </div>
         <div class="d-flex justify-content-end my-1">
-            <label for="xl-size" class="w-75">"xl screen (Desktop) (/12)"</label>
+            <label for="xl-size" class="w-75">On large desktop</label>
             <input type="number" class="form-control" id="xl-size" min={1} max={12} value={xlSize} on:change={(e) => styles = updateStyle(styles, {name:'xlSize', value:e.target.value})}/>
         </div>
     </div>
@@ -216,11 +215,10 @@ import { imagesFormats } from '../../constants/files';
                     <button 
                         class='btn btn-secondary w-100 my-3' 
                         on:click={() => {
-                            openSelecteComponent = true;
                             positionToCreate = index;
                         }}
                         data-bs-toggle="modal" 
-                        data-bs-target="#addElementModal"
+                        data-bs-target={`#${modalId}`}
                     >Select a component</button> 
                 {/if}
                 <p>Width of the column on :</p>
@@ -238,17 +236,14 @@ import { imagesFormats } from '../../constants/files';
                 </div>
             </div>
         {/each}
-    </div>
-
-    {#if openSelecteComponent}
-        <AddElement
-            addContent={null}
-            position={positionToCreate}
-            addToLayout={addToLayout}
-        />
-    {/if}
-    
+    </div>    
 </div>
+
+<AddElement
+    position={positionToCreate}
+    action={addToLayout}
+    modalId={modalId}
+/>
 
 <style>
     .column-container{

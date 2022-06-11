@@ -139,7 +139,7 @@
             {/if}
         
             <!-- zone to edit components of selected page -->
-            <div class={`${showMenuPage ? "col-3" : "col-5"} bg-light shadow-lg text-dark position-relative px-0`}>
+            <div class={`${showMenuPage ? "col-4" : "col-6"} bg-light shadow-lg text-dark position-relative px-0`}>
                 <div class="overflow-auto menu-edition">
                     <div class="py-1">
                         <MenuEdit 
@@ -165,7 +165,7 @@
             </div>
         
             <!-- zone to preview your page -->
-            <div class="col-7 p-0 preview ">
+            <div class="col-6 p-0 preview ">
                 <!-- select the screen size -->
                 <div class="bandeau bg-dark border-light shadow px-3 py-auto d-flex align-items-center justify-content-center">
                     <h3 class="my-0 mx-2">Previews </h3>

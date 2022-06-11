@@ -12,6 +12,9 @@
     export let updateMovedArray;
     export let addContent;
 
+    const modalIdUp = 'movingContentModalUp';
+    const modalIdDown = 'movingContentModalDown';
+
     let addUp = false;
     let addDown = false;
 
@@ -97,27 +100,24 @@
 
 
 {#if admin}
-
     {#if addContent}
         <!-- open if addUp is true -->
         <AddElement 
-            addContent={addContent}
+            action={addContent}
             position={position}      
-            bind:open={addUp}
-            addToLayout={''}
             copyValues={array[position].values}
             copyStyles={array[position].styles}
             copyType={array[position].type}
+            modalId={`#${modalIdUp}`}
         />
         <!-- open if addDown is true -->
         <AddElement 
-            addContent={addContent}
+            action={addContent}
             position={position + 1}      
-            bind:open={addDown}
-            addToLayout={''}
             copyValues={array[position].values}
             copyStyles={array[position].styles}
             copyType={array[position].type}
+            modalId={`#${modalIdDown}`}
         />
     {/if}
 
@@ -130,16 +130,49 @@
             <div class='edition text-center'>
                 <div class="d-grid gap-2">
                     {#if addContent}
-                    <button class='btn btn-primary btn-sm' on:click={() => addUp = true} data-bs-toggle="tooltip" data-bs-placement="left" title="Ajouter au dessus"><i class="bi bi-plus-circle-dotted"></i></button>
+                        <button 
+                            class='btn btn-primary btn-sm' 
+                            title="Ajouter au dessus"
+                            data-bs-toggle="modal" 
+                            data-bs-target={`#${modalIdUp}`}
+                        ><i class="bi bi-plus-circle-dotted"></i></button>
                     {/if}
-                    <button class='btn btn-secondary btn-sm' on:click={() => upAction()} data-bs-toggle="tooltip" data-bs-placement="left" title="Déplacer vers le haut"><i class='bi bi-caret-up'/></button>
+                    <button 
+                        class='btn btn-secondary btn-sm' on:click={() => upAction()} 
+                        data-bs-toggle="tooltip" 
+                        data-bs-placement="left" 
+                        title="Déplacer vers le haut"
+                    ><i class='bi bi-caret-up'/></button>
                     <span class='d-flex gap-2'>
-                        <button class='btn btn-danger btn-sm' on:click={async() => await deleteAction()} data-bs-toggle="tooltip" data-bs-placement="left" title="Supprimer"><i class='bi bi-trash'/></button>
-                        <button class='btn btn-info btn-sm' on:click={async() => copyAction()} data-bs-toggle="tooltip" data-bs-placement="left" title="Copier"><i class='bi bi-files'/></button>
+                        <button 
+                            class='btn btn-danger btn-sm' 
+                            on:click={async() => await deleteAction()} 
+                            data-bs-toggle="tooltip" 
+                            data-bs-placement="left" 
+                            title="Supprimer"
+                        ><i class='bi bi-trash'/></button>
+                        <button 
+                            class='btn btn-info btn-sm' 
+                            on:click={async() => copyAction()} 
+                            data-bs-toggle="tooltip" 
+                            data-bs-placement="left" 
+                            title="Copier"
+                        ><i class='bi bi-files'/></button>
                     </span>
-                    <button class='btn btn-secondary btn-sm' on:click={() => downAction()} data-bs-toggle="tooltip" data-bs-placement="left" title="Déplacer vers le bas"><i class='bi bi-caret-down'/></button>
+                    <button 
+                        class='btn btn-secondary btn-sm' 
+                        on:click={() => downAction()} 
+                        data-bs-toggle="tooltip" 
+                        data-bs-placement="left" 
+                        title="Déplacer vers le bas"
+                    ><i class='bi bi-caret-down'/></button>
                     {#if addContent}
-                    <button class='btn btn-primary btn-sm' on:click={() => addDown = true} data-bs-toggle="tooltip" data-bs-placement="left" title="Ajouter en dessous"><i class="bi bi-plus-circle-dotted"></i></button>
+                        <button 
+                            class='btn btn-primary btn-sm' 
+                            title="Ajouter en dessous"
+                            data-bs-toggle="modal" 
+                            data-bs-target={`#${modalIdDown}`}
+                        ><i class="bi bi-plus-circle-dotted"></i></button>
                     {/if}
                 </div>
             </div>

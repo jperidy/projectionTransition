@@ -4,9 +4,9 @@
   import { copyComponent } from "../store";
   import { get } from "svelte/store";
   
-  export let addContent = null;
+  export let action = null;
   export let position = 0;
-  export let addToLayout = null;
+  export let modalId = null;
   
   let type = '';
   let values = [];
@@ -15,11 +15,8 @@
   
   
   const toggle = async(save) => {
-    if (addContent && save) {
-      await addContent({type, values, styles }, position);
-    }
-    if (addToLayout && save) {
-      await addToLayout({type, values, styles }, position);
+    if (action && save) {
+      await action({type, values, styles }, position);
     }
     past = false;
   };
@@ -49,7 +46,13 @@
   
 </script>
 
-<div class="modal fade" id="addElementModal" tabindex="-1" aria-labelledby="addElementModalLabel" aria-hidden="true">
+<div 
+  class="modal fade" 
+  id={modalId} 
+  tabindex="-1" 
+  aria-labelledby={`${modalId}Label`} 
+  aria-hidden="true"
+>
   <div class="modal-dialog modal-dialog-scrollable">
     <div class="modal-content">
       <div class="modal-header">

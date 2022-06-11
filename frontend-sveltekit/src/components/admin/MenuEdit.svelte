@@ -9,7 +9,8 @@
 
     $:hasBeenModified = !(JSON.stringify(page) === JSON.stringify($pageRequest.content));
 
-    let addWindow = false;
+    const modalId = 'menuEditModal'
+
     const addContent = (component, position) => {
         page.content.splice(position, 0, component);
         page.content = page.content;  
@@ -57,7 +58,7 @@
             <button 
                 class="btn btn-outline-dark w-50"
                 data-bs-toggle="modal" 
-                data-bs-target="#addElementModal"
+                data-bs-target={`#${modalId}`}
             >
                 First component
             </button>
@@ -66,11 +67,10 @@
 </div>
 
 <AddElement
-    addContent={addContent}
+    action={addContent}
     position={0}      
-    bind:open={addWindow}
-    addToLayout={''}
     copyValues={null}
     copyStyles={null}
     copyType={null}
+    modalId={modalId}
 />

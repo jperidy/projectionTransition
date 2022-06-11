@@ -1,12 +1,14 @@
 <script>
-    import AddContent from "../AddContent.svelte";
+    import AddElement from "../AddElement.svelte";
     import DisplayEditMenu from "./DisplayEditMenu.svelte";
 
     export let values=[];
     export let styles=[]; styles;
     export let selectedComponentPosition;
 
-    const addToLayer = async(item, position) => {
+    const modalId = 'editMultiLayerComponentModal';
+
+    const addALayer = async(item) => {
         values = [...values, {...item, top:0, left:0, width: ""}];
     };
 
@@ -31,7 +33,7 @@
         <div class="column-container border-top border-start border-2 rounded mt-3 pt-3 ps-1" on:mouseenter={() => selectedComponentPosition = posElement}>
             <div class="colum-index bg-dark text-light d-flex justify-content-center align-items-center">{posElement + 1}</div>
             <DisplayEditMenu
-            type={element.type}
+                type={element.type}
                 bind:values={element.values}
                 bind:styles={element.styles}
                 bind:pageContent={values}
@@ -52,11 +54,23 @@
 {/each}
 
 <div class="moving-container border-light rounded-3 my-1 py-1 px-3 bg-transparent shadow-lg text-center">
-    <AddContent
-        position={0}
-        addToLayout={addToLayer}
-    />
+    <div class='row my-1 py-1'>
+        <div class='col'>
+            <button 
+            color="primary" 
+            class='my-1 p-2' 
+            data-bs-toggle="modal"
+            data-bs-target={`#${modalId}`}
+            >Add an element</button>
+        </div>
+    </div>
 </div>
+
+<AddElement
+    position={0}      
+    action={addALayer}
+    modalId={modalId}
+/>
 
 <style>
     .column-container{
