@@ -28,6 +28,12 @@
 
 </script>
 
+<AddElement
+    position={0}      
+    action={addALayer}
+    modalId={modalId}
+/>
+
 {#each values as element, posElement}
     {#if element.type}
         <div class="column-container border-top border-start border-2 rounded mt-3 pt-3 ps-1" on:mouseenter={() => selectedComponentPosition = posElement}>
@@ -65,12 +71,6 @@
         </div>
     </div>
 </div>
-
-<AddElement
-    position={0}      
-    action={addALayer}
-    modalId={modalId}
-/>
 
 <style>
     .column-container{

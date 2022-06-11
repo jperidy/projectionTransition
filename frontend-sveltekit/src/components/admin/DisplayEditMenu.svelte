@@ -84,6 +84,25 @@
 
 </script>
 
+<!-- open if addUp is true -->
+<AddElement
+    action={addContent}
+    position={position}      
+    copyValues={null}
+    copyStyles={null}
+    copyType={null}
+    modalId={modalIdUp}
+/>
+<!-- open if addDown is true -->
+<AddElement 
+    action={addContent}
+    position={position + 1}      
+    copyValues={null}
+    copyStyles={null}
+    copyType={null}
+    modalId={modalIdDown}
+/>
+
 <div class="my-2 p-1 shadow-sm item rounded">
     <div class="d-flex justify-content-between">
         <button class="edit-component btn btn-md btn-transparent px-0 text-start text-dark" on:click={() => visible = !visible}>
@@ -194,25 +213,6 @@
         </div>
     {/if}
 </div>
-
-<!-- open if addUp is true -->
-<AddElement
-    action={addContent}
-    position={position}      
-    copyValues={null}
-    copyStyles={null}
-    copyType={null}
-    modalId={modalIdUp}
-/>
-<!-- open if addDown is true -->
-<AddElement 
-    action={addContent}
-    position={position + 1}      
-    copyValues={null}
-    copyStyles={null}
-    copyType={null}
-    modalId={modalIdDown}
-/>
 
 <style>
     .edit-component:hover {
