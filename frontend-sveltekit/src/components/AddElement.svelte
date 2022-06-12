@@ -56,7 +56,7 @@
   <div class="modal-dialog modal-dialog-scrollable">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="staticBackdropLabel">Ajouter un contenu</h5>
+        <h3 class="modal-title" id="staticBackdropLabel">Ajouter un contenu</h3>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
@@ -200,14 +200,16 @@
       </div>
       <div class=modal-footer>
         <button 
+          id="modal-add-button"
           type="button" 
-          class="btn btn-primary" 
+          class="btn" 
           on:click={() => toggle(true)}
           data-bs-dismiss="modal"
         >Add</button>
         <button 
+          id="modal-cancel-button"
           type="button" 
-          class="btn btn-secondary" 
+          class="btn" 
           data-bs-dismiss="modal" 
           on:click={() => toggle(false)}
         >Cancel</button>
@@ -215,3 +217,18 @@
     </div>
   </div>
 </div>
+
+<style>
+.modal-content {
+    color: white;
+    background-color: rgb(88,88,88);
+  }
+  #modal-add-button {
+    background-color: white;
+    color: rgb(88, 88, 88);
+  }
+  #modal-cancel-button {
+    background-color: #d1d1d1;
+    color: rgb(88, 88, 88);
+  }
+</style>

@@ -27,11 +27,21 @@
         </button>
     {:else}
         {#if hasBeenModified}
-            <button class="btn btn-warning text-light" type="button" on:click={updateContent}>
+            <button 
+                id='button-save'
+                class="btn" 
+                type="button" 
+                on:click={updateContent}
+            >
                 Save changes
             </button>
         {:else}
-            <button class="btn btn-primary text-dark" type="button" on:click={updateContent}>
+            <button 
+                id='button-up-to-date'
+                class="btn" 
+                type="button" 
+                on:click={updateContent}
+            >
                 Up to date
             </button>
         {/if}
@@ -74,3 +84,14 @@
     copyType={null}
     modalId={modalId}
 />
+
+<style>
+    #button-save {
+        background-color: rgb(255, 166, 1);
+        color: white;
+    }
+    #button-up-to-date {
+        background-color: rgb(0, 192, 26);
+        color: white;
+    }
+</style>

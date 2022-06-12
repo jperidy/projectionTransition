@@ -122,7 +122,10 @@
         <div class="row">
             <!-- zone to list and select a page -->
             {#if showMenuPage}
-                <div class="col-2 menu-page bg-dark shadow-lg overflow-auto">
+                <div 
+                    class="col-2 menu-page shadow-lg overflow-auto"
+                    id='admin-nav'
+                >
                     <div class="px-1 py-2">
                         <MenuParamGlobal 
                             bind:showNavigationBar={showNavigationBar}
@@ -139,7 +142,10 @@
             {/if}
         
             <!-- zone to edit components of selected page -->
-            <div class={`${showMenuPage ? "col-4" : "col-6"} bg-light shadow-lg text-dark position-relative px-0`}>
+            <div 
+                class={`${showMenuPage ? "col-4" : "col-6"} shadow-lg position-relative px-0`}
+                id='admin-edit-panel'
+            >
                 <div class="overflow-auto menu-edition">
                     <div class="py-1">
                         <MenuEdit 
@@ -167,7 +173,10 @@
             <!-- zone to preview your page -->
             <div class="col-6 p-0 preview ">
                 <!-- select the screen size -->
-                <div class="bandeau bg-dark border-light shadow px-3 py-auto d-flex align-items-center justify-content-center">
+                <div 
+                    class="shadow px-3 py-auto d-flex align-items-center justify-content-center"
+                    id="bandeau"
+                >
                     <h3 class="my-0 mx-2">Previews </h3>
                     <button
                             class='btn btn-light'
@@ -238,7 +247,16 @@
     .display-preview {
         height: 80vh;
     }
-    .bandeau {
+    #bandeau {
         height: 10vh;
+        background-color: rgb(88, 88, 88);
+    }
+    #admin-nav {
+        background-color: rgb(88, 88, 88);
+        color:white;
+    }
+    #admin-edit-panel {
+        background-color: rgb(190, 190, 190);
+        color:rgb(88, 88, 88);
     }
 </style>

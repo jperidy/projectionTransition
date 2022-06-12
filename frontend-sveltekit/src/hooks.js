@@ -1,5 +1,6 @@
 import connectDB from './database/db';
 import { verifyAuthentication } from './services/api/authentication';
+import config from './config.json';
 
 const admins = [
     { methods: ['POST'], uri: /^\/api\/seo$/ },
@@ -30,7 +31,9 @@ const authentication = async (event) => {
 
 /** @type {import('@sveltejs/kit').Handle} */
 export async function handle({ event, resolve }) {
-    console.log('hook', event.request.method, event.url.pathname);
+    if (!config.NODE_ENV === 'production') {
+        console.log('DEBUG:', event.request.method, event.url.pathname);
+    }
 
     try {
         await connectDB();
