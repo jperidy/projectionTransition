@@ -14,3 +14,11 @@ export const videosFormats = [
     'video/x-ms-wmv',
     'video/quicktime',
 ];
+
+export const filesFormats = [
+    'application/zip',
+    'application/x-7z-compressed',
+    'application/x-bzip',
+    'application/x-bzip2',
+
+];

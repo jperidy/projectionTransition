@@ -1,9 +1,15 @@
 <script>
+    import { uploadFile } from "../../actions/uploadActions";
+    import { filesFormats } from "../../constants/files";
     import { updateStyle } from "../../utils/styleFunctions";
-    import { uploadCompress } from "../../actions/compressActions";
+import Loading from "../Loading.svelte";
+import Message from "../Message.svelte";
 
     export let values;
     export let styles;
+
+    let loadingFile = null;
+    let messageUploadFile = null;
 
     const colors = ['primary', 'secondary', 'pomme', 'outremer', 'lavande', 'caraibe', 'tangerine', 'ambre', 'light', 'white', 'dark', 'black'];
 
@@ -12,20 +18,23 @@
 
     
     const onChangeHandler = async(index, e) => {
-        const data = new FormData();
+        loadingFile = true;
+        const file = e.target.files[0];
+        const fileName = Date.now() + '_' + file.name;
 
-        data.append('compress', e.target.files[0]);
-
-        const fileCompressToReplace = values[index].url;
-        
-        const result = await uploadCompress(data, fileCompressToReplace);
-
-        if (result.status === 'Ok') {
+        const result = await uploadFile(file, fileName, values[index].url, filesFormats);
+      
+        if (result.map(x => x.status).find(y => y === 'Error')) {
+            messageUploadFile = result
+                .filter(x => x.status === 'Error')
+                .map(x => x.data)
+                .join(', ');
+        } else {
+            messageUploadFile = null;
             values[index].url = result.data;
             values = values;
-        } else {
-            console.log('error', result.data);
         }
+        loadingFile = false;
     };
 
 </script>
@@ -33,7 +42,13 @@
 <div class='row'>
     <div class='col'>
         <div class="mb-3">
+            {#if messageUploadFile}
+                <Message color='danger'>{messageUploadFile}</Message>
+            {/if}
             <label for="formFile" class="form-label">Select compress file to upload (.zip .7z .tar)</label>
+            {#if loadingFile}
+                <Loading />
+            {/if}
             <input class="form-control" type="file" id="formFile" on:change={(e) => onChangeHandler (0, e)} >
         </div>
         <div class='row py-1'>
