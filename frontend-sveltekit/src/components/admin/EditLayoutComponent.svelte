@@ -10,6 +10,7 @@
     import Loading from '../Loading.svelte';
     import { uploadFile } from '../../actions/uploadActions';
     import { imagesFormats } from '../../constants/files';
+    import { watchStyle } from './helpers/watchStyles';
     
     let positionToCreate = 0;
 
@@ -17,6 +18,11 @@
     let messageUploadImage = null;
 
     let layoutWidthOpen = false;
+    let layoutAlignOpen = false;
+    let layoutBorderOpen = false;
+    let layoutBackgroundOpen = false;
+    let layoutSpacesOpen = false;
+    let layoutColumnsOpen = false;
 
     const modalId = 'editLayoutComponentModal';
 
@@ -59,10 +65,6 @@
     };
 
     const colors = ['primary', 'secondary', 'pomme', 'outremer', 'lavande', 'caraibe', 'tangerine', 'ambre', 'light', 'white', 'dark', 'black'];
-    
-    const watchStyle = (styles, watched, defaultValue) => {
-        return styles.filter(x => x.name === watched)[0] && styles.filter(x => x.name === watched)[0].value || defaultValue;
-    };
 
     $: xsSize = watchStyle(styles, 'xsSize', 12);
     $: smSize = watchStyle(styles, 'smSize', 12);
@@ -90,7 +92,7 @@
 <div class="row align-items-center">
     <div class='row ms-2'>
         <button 
-            class="btn btn-transparent layout-width text-start my-0"
+            class="btn btn-transparent drop-down-button text-start my-0"
             on:click={() => layoutWidthOpen = !layoutWidthOpen}
         >
             {#if layoutWidthOpen}
@@ -98,7 +100,7 @@
             {:else}
                 <i class="bi bi-chevron-down"></i>
             {/if}
-            Frame width (max 12 column)
+            Size
         </button>
         {#if layoutWidthOpen}
             <div class="d-flex align-items-center my-1">
@@ -163,97 +165,180 @@
             </div>
         {/if}
     </div>
-    <div class='my-1'>
-        <div class='col'>
-            <button class={`px-2 border btn ${alignContent === "start" ? "btn-primary border border-secondary" : "btn-light"}`} on:click={() => styles = updateStyle(styles, {name:'align-items', value:'start'})}><i class='bi bi-align-top' /></button>
-            <button class={`px-2 border btn ${alignContent === "center" ? "btn-primary border border-secondary" : "btn-light"}`} on:click={() => styles = updateStyle(styles, {name:'align-items', value:'center'})}><i class='bi bi-align-middle' /></button>
-            <button class={`px-2 border btn ${alignContent === "end" ? "btn-primary border border-secondary" : "btn-light"}`} on:click={() => styles = updateStyle(styles, {name:'align-items', value:'end'})}><i class='bi bi-align-bottom' /></button>
-            <button class={`btn px-2 border rounded-0 ${rounded === "rounded-0" ? "btn-primary border border-secondary" : "btn-light"}`} on:click={() => styles = updateStyle(styles, {name:'rounded', value:'rounded-0'})}><span>r-0</span></button>
-            <button class={`btn px-2 border rounded-1 ${rounded === "rounded-1" ? "btn-primary border border-secondary" : "btn-light"}`} on:click={() => styles = updateStyle(styles, {name:'rounded', value:'rounded-1'})}><span>r-1</span></button>
-            <button class={`btn px-2 border rounded-2 ${rounded === "rounded-2" ? "btn-primary border border-secondary" : "btn-light"}`} on:click={() => styles = updateStyle(styles, {name:'rounded', value:'rounded-2'})}><span>r-2</span></button>
-            <button class={`btn px-2 border rounded-3 ${rounded === "rounded-3" ? "btn-primary border border-secondary" : "btn-light"}`} on:click={() => styles = updateStyle(styles, {name:'rounded', value:'rounded-3'})}><span>r-3</span></button>
-        </div>
-    </div>
-    <label for="border-color">Border color</label>
-    <div class='my-1 d-flex'>
-        <select name="border-color" id="border-color" class="form-control" on:change={(e) => {
-            styles = updateStyle(styles, {name:'border-color', value:`border-${e.target.value}`});
-            styles = updateStyle(styles, {name:'border', value:`border`});
-        }}>
-            {#each colors as color}
-                <option value={color}>{color}</option>                         
-            {/each}
-        </select>
-        <button class={`px-1 btn ${border ? "btn-light" : "btn-primary"} border`} on:click={() => styles = updateStyle(styles, {name:'border', value:''})}>Transparent</button>
-    </div>
-    <div class='my-1'>
-        <div class='col-8'>
-            <label for="backgroud-color">Background color</label>
-            <select name="backgroud-color" id="backgroud-color" class="form-control" on:change={(e) => styles = updateStyle(styles, {name:'backgroud-color', value:`bg-${e.target.value}`})}>
-                <option value="transparent">Background Transparent (default)</option>
-                {#each colors as color}
-                    <option value={color}>{color}</option>
-                {/each}
-            </select>
-        </div>
-        <div class="col-4">
-            <label for="color-html">HTML color</label>
-            <input class='form-control' id="color-html" type='text' placeholder="#FFFFFF" value={backgroundHTML} on:change={(e) => styles = updateStyle(styles, {name:'backgroundHTML', value:e.target.value})} />
-        </div>
-    </div>
-    <div class="my-1">
-        <div class="col">
-            <span>Image de fond : </span>
-            <input type="file" class="form-control" on:change={(e) => onChangeFileHandler(0, e)}/>
-            {#if messageUploadImage}
-                <Message color='danger'>{messageUploadImage}</Message>
+    <div class='row ms-2'>
+        <button 
+            class="btn btn-transparent drop-down-button text-start my-0"
+            on:click={() => layoutAlignOpen = !layoutAlignOpen}
+        >
+            {#if layoutAlignOpen}
+                <i class="bi bi-chevron-up"></i>
+            {:else}
+                <i class="bi bi-chevron-down"></i>
             {/if}
-            {#if loadingImage}
-                <Loading />
+            Align
+        </button>
+        {#if layoutAlignOpen}
+            <div class='col text-center p-3'>
+                <button class={`px-2 btn ${alignContent === "start" ? "btn-selected" : "btn-light"}`} on:click={() => styles = updateStyle(styles, {name:'align-items', value:'start'})}><i class='bi bi-align-top' /></button>
+                <button class={`px-2 btn ${alignContent === "center" ? "btn-selected" : "btn-light"}`} on:click={() => styles = updateStyle(styles, {name:'align-items', value:'center'})}><i class='bi bi-align-middle' /></button>
+                <button class={`px-2 btn ${alignContent === "end" ? "btn-selected" : "btn-light"}`} on:click={() => styles = updateStyle(styles, {name:'align-items', value:'end'})}><i class='bi bi-align-bottom' /></button>
+            </div>
+        {/if}
+    </div>
+    <div class="row ms-2">
+        <button 
+            class="btn btn-transparent drop-down-button text-start my-0"
+            on:click={() => layoutBorderOpen = !layoutBorderOpen}
+        >
+            {#if layoutBorderOpen}
+                <i class="bi bi-chevron-up"></i>
+            {:else}
+                <i class="bi bi-chevron-down"></i>
             {/if}
-        </div>
+            Border
+        </button>
+        {#if layoutBorderOpen}
+            <div class='col text-center p-3'>
+                <div class='my-1 row align-items-center'>
+                    <div class="col-2">Color: </div>
+                    <div class='col-10 d-flex'>
+                        <select name="border-color" id="border-color" class="form-control" on:change={(e) => {
+                            styles = updateStyle(styles, {name:'border-color', value:`border-${e.target.value}`});
+                            styles = updateStyle(styles, {name:'border', value:`border`});
+                        }}>
+                            {#each colors as color}
+                                <option value={color}>{color}</option>                         
+                            {/each}
+                        </select>
+                        <button class={`px-1 btn ${border ? "btn-light" : "btn-primary"} border`} on:click={() => styles = updateStyle(styles, {name:'border', value:''})}>Transparent</button>
+                    </div>
+                </div>
+                <div class='my-1 row align-items-center'>
+                    <div class="col-2">Rounded: </div>
+                    <div class="col-10">
+                        <button class={`btn px-2 rounded-0 ${rounded === "rounded-0" ? "btn-selected" : "btn-light"}`} on:click={() => styles = updateStyle(styles, {name:'rounded', value:'rounded-0'})}><span>r-0</span></button>
+                        <button class={`btn px-2 rounded-1 ${rounded === "rounded-1" ? "btn-selected" : "btn-light"}`} on:click={() => styles = updateStyle(styles, {name:'rounded', value:'rounded-1'})}><span>r-1</span></button>
+                        <button class={`btn px-2 rounded-2 ${rounded === "rounded-2" ? "btn-selected" : "btn-light"}`} on:click={() => styles = updateStyle(styles, {name:'rounded', value:'rounded-2'})}><span>r-2</span></button>
+                        <button class={`btn px-2 rounded-3 ${rounded === "rounded-3" ? "btn-selected" : "btn-light"}`} on:click={() => styles = updateStyle(styles, {name:'rounded', value:'rounded-3'})}><span>r-3</span></button>
+                    </div>
+                </div>
+            </div>
+        {/if}
     </div>
-    <div class="row my-1">
-        <div class='col'>
-            <span>Margin X : </span>
-            <input type='number' step={1} min={0} class='form-control' value={marginX} on:change={(e) => styles = updateStyle(styles, {name:'marginX', value:e.target.value})} />
-        </div>
-        <div class='col'>
-            <span>Margin Y : </span>
-            <input type='number' step={1} min={0} class='form-control' value={marginY} on:change={(e) => styles = updateStyle(styles, {name:'marginY', value:e.target.value})} />
-        </div>
+    <div class='my-1 ms-2'>
+        <button 
+            class="btn btn-transparent drop-down-button text-start my-0"
+            on:click={() => layoutBackgroundOpen = !layoutBackgroundOpen}
+        >
+            {#if layoutBackgroundOpen}
+                <i class="bi bi-chevron-up"></i>
+            {:else}
+                <i class="bi bi-chevron-down"></i>
+            {/if}
+            Background
+        </button>
+        {#if layoutBackgroundOpen}
+            <div class='d-flex row gx-3 p-3 align-items-end'>
+                <div class='col-6 d-block'>
+                    <label for="backgroud-color">Color from template</label>
+                    <select name="backgroud-color" id="backgroud-color" class="form-control" on:change={(e) => styles = updateStyle(styles, {name:'backgroud-color', value:`bg-${e.target.value}`})}>
+                        <option value="transparent">Background Transparent (default)</option>
+                        {#each colors as color}
+                            <option value={color}>{color}</option>
+                        {/each}
+                    </select>
+                </div>
+                <div class="col-6 d-block">
+                    <label for="color-html">Color from HTML</label>
+                    <input class='form-control' id="color-html" type='text' placeholder="#FFFFFF" value={backgroundHTML} on:change={(e) => styles = updateStyle(styles, {name:'backgroundHTML', value:e.target.value})} />
+                </div>
+                <div class="my-1">
+                    <div class="col">
+                        <span>Background image : </span>
+                        <input type="file" class="form-control" on:change={(e) => onChangeFileHandler(0, e)}/>
+                        {#if messageUploadImage}
+                            <Message color='danger'>{messageUploadImage}</Message>
+                        {/if}
+                        {#if loadingImage}
+                            <Loading />
+                        {/if}
+                    </div>
+                </div>
+            </div>
+        {/if}
     </div>
-    <div class="row my-1">
-        <div class='col'>
-            <span>Padding X : </span>
-            <input type='number' step={1} min={0} class='form-control' value={paddingX} on:change={(e) => styles = updateStyle(styles, {name:'paddingX', value:e.target.value})} />
-        </div>
-        <div class='col'>
-            <span>Padding Y : </span>
-            <input type='number' step={1} min={0} class='form-control' value={paddingY} on:change={(e) => styles = updateStyle(styles, {name:'paddingY', value:e.target.value})} />
-        </div>
+    <div class="my-1 ms-2">
+        <button 
+            class="btn btn-transparent drop-down-button text-start my-0"
+            on:click={() => layoutSpacesOpen = !layoutSpacesOpen}
+        >
+            {#if layoutSpacesOpen}
+                <i class="bi bi-chevron-up"></i>
+            {:else}
+                <i class="bi bi-chevron-down"></i>
+            {/if}
+            Margin (out), Padding (in), gutter (spaces)
+        </button>
+        {#if layoutSpacesOpen}
+            <div class='p-3'>
+                <div class="row my-1">
+                    <div class='col'>
+                        <span>Margin X : </span>
+                        <input type='number' step={1} min={0} class='form-control' value={marginX} on:change={(e) => styles = updateStyle(styles, {name:'marginX', value:e.target.value})} />
+                    </div>
+                    <div class='col'>
+                        <span>Margin Y : </span>
+                        <input type='number' step={1} min={0} class='form-control' value={marginY} on:change={(e) => styles = updateStyle(styles, {name:'marginY', value:e.target.value})} />
+                    </div>
+                </div>
+                <div class="row my-1">
+                    <div class='col'>
+                        <span>Padding X : </span>
+                        <input type='number' step={1} min={0} class='form-control' value={paddingX} on:change={(e) => styles = updateStyle(styles, {name:'paddingX', value:e.target.value})} />
+                    </div>
+                    <div class='col'>
+                        <span>Padding Y : </span>
+                        <input type='number' step={1} min={0} class='form-control' value={paddingY} on:change={(e) => styles = updateStyle(styles, {name:'paddingY', value:e.target.value})} />
+                    </div>
+                </div>
+                <div class="row my-1">
+                    <div class='col'>
+                        <span>Gutter X : </span>
+                        <input type='number' step={1} min={0} max={5} class='form-control' value={gutterX} on:change={(e) => styles = updateStyle(styles, {name:'gutterX', value:e.target.value})} />
+                    </div>
+                    <div class='col'>
+                        <span>Gutter Y : </span>
+                        <input type='number' step={1} min={0} max={5} class='form-control' value={gutterY} on:change={(e) => styles = updateStyle(styles, {name:'gutterY', value:e.target.value})} />
+                    </div>
+                </div>
+            </div>
+        {/if}
     </div>
-    <div class="row my-1">
-        <div class='col'>
-            <span>Gutter X : </span>
-            <input type='number' step={1} min={0} max={5} class='form-control' value={gutterX} on:change={(e) => styles = updateStyle(styles, {name:'gutterX', value:e.target.value})} />
-        </div>
-        <div class='col'>
-            <span>Gutter Y : </span>
-            <input type='number' step={1} min={0} max={5} class='form-control' value={gutterY} on:change={(e) => styles = updateStyle(styles, {name:'gutterY', value:e.target.value})} />
-        </div>
-    </div>
-
-    <div class='my-1'>
-        <label for="input-columns" class="form-label"><strong>Number of column in the frame</strong></label>
-        <input type="number" class="form-control" id="input-columns" 
-            aria-describedby="nombre de colonnes" 
-            placeholder="Nombre de colonnes"
-            min={1}
-            required
-            value={values.length}
-            on:change={(e) => columnChangeHandler(e.target.value)}
-        />
+    <div class="my-1 ms-2">
+        <button 
+            class="btn btn-transparent drop-down-button text-start my-0"
+            on:click={() => layoutColumnsOpen = !layoutColumnsOpen}
+        >
+            {#if layoutColumnsOpen}
+                <i class="bi bi-chevron-up"></i>
+            {:else}
+                <i class="bi bi-chevron-down"></i>
+            {/if}
+            Number of columns
+        </button>
+        {#if layoutColumnsOpen}
+            <div class='p-3'>
+                <label for="input-columns" class="form-label"><strong>Number of column in the frame</strong></label>
+                <input type="number" class="form-control" id="input-columns" 
+                    aria-describedby="nombre de colonnes" 
+                    placeholder="Nombre de colonnes"
+                    min={1}
+                    required
+                    value={values.length}
+                    on:change={(e) => columnChangeHandler(e.target.value)}
+                />
+            </div>
+        {/if}
     </div>
     
     <div class="mt-1">
@@ -315,10 +400,14 @@
         width: 1.6rem;
         height: 1.6rem;
     }
-    .layout-width {
+    .drop-down-button {
         color: rgb(88, 88, 88);
     }
-    .layout-width:hover {
+    .drop-down-button:hover {
         font-weight: bold;
+    }
+    .btn-selected {
+        background-color: rgb(190, 190, 190);
+        border: 2px solid rgb(88, 88, 88);
     }
 </style>
