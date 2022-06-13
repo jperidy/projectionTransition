@@ -45,7 +45,6 @@
         if (!displayInFrame) {
             pageContent.splice(position, 0, component);
         } else {
-            // Modelisation of frame to optimize >> major impact on already production website
             pageContent.splice(position, 0, {
                 type:'layout', 
                 size: 4, 
@@ -62,23 +61,18 @@
             const values = pageContent[position];
             const copyValue = JSON.parse(JSON.stringify(values));
 
-            // Delete any image tied to object
             await recursiveDeleteAction(values);
     
-            // Delete any film tied to object
             await recursiveFilmDelete(values);
 
-            // Delte any image tied to style
             await recursiveDeleteStyle(copyValue);
     
             pageContent.splice(position, 1);
             pageContent = pageContent;
-            //updateMovedArray(array);
         }
     };
 
     const copyAction = () => {
-        //localStorage.setItem('copyComponent', JSON.stringify({type, values, styles}));
         copyComponent.set({type, values, styles});
     };
 
@@ -105,11 +99,11 @@
 
 <div class="my-2 p-1 shadow-sm item rounded">
     <div class="d-flex justify-content-between">
-        <button class="edit-component btn btn-md btn-transparent px-0 text-start text-dark" on:click={() => visible = !visible}>
+        <button class="edit-component btn btn-md btn-transparent px-0 text-start flex-grow-1" on:click={() => visible = !visible}>
             {#if visible}
-                <i class="bi bi-dash-square me-3 ms-2"></i>
+                <i class="bi bi-chevron-up"></i>
             {:else}
-                <i class="bi bi-plus-square me-3 ms-2"></i>
+                <i class="bi bi-chevron-down"></i>
             {/if}
             {type.toUpperCase()}
         </button>
@@ -215,6 +209,9 @@
 </div>
 
 <style>
+    .edit-component {
+        color: rgb(88, 88, 88)
+    }
     .edit-component:hover {
         font-weight: bold;
     }

@@ -5,7 +5,6 @@
 
     export let selectPageHandler;
     export let currentPage;
-
     export let pagesList = [];
     export let getPages;
     
@@ -95,9 +94,9 @@
 {#if pagesList && pagesList.length}
     <div class='page-list d-grid gap-2'>
         {#each pagesList as page}
-            <div class="page-item d-flex justify-content-between">
+            <div class={`page-item d-flex justify-content-between rounded ${page.name === currentPage ? "btn-selected" : "btn-transparent"}`}>
                 <button 
-                    class={`btn ${page.name === currentPage ? "btn-primary" : "btn-transparent"} text-start text-break overflow-hidden shadow-sm p-2 w-100`} 
+                    class={`btn text-start text-break overflow-hidden shadow-sm p-2 w-100`} 
                     type="button" 
                     on:click={() => selectPageHandler(page.name)}
                     data-bs-toggle="tooltip" 
@@ -138,7 +137,10 @@
         transition: 0.5s;
     }
     .page-item:hover {
-        background-color: rgba(255, 255, 255, .5);
+        background-color: rgb(150, 150, 150);
         transition: 0.5s;
+    }
+    .btn-selected {
+        background-color: rgb(150, 150, 150);
     }
 </style>

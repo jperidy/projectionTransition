@@ -16,6 +16,8 @@
     let loadingImage = false;
     let messageUploadImage = null;
 
+    let layoutWidthOpen = false;
+
     const modalId = 'editLayoutComponentModal';
 
     const addToLayout = (column, position) => {
@@ -57,53 +59,109 @@
     };
 
     const colors = ['primary', 'secondary', 'pomme', 'outremer', 'lavande', 'caraibe', 'tangerine', 'ambre', 'light', 'white', 'dark', 'black'];
-
-    $: xsSize = styles.filter(x => x.name === 'xsSize')[0] && styles.filter(x => x.name === 'xsSize')[0].value || 12;
-    $: smSize = styles.filter(x => x.name === 'smSize')[0] && styles.filter(x => x.name === 'smSize')[0].value || 12;
-    $: mdSize = styles.filter(x => x.name === 'mdSize')[0] && styles.filter(x => x.name === 'mdSize')[0].value || 12;
-    $: lgSize = styles.filter(x => x.name === 'lgSize')[0] && styles.filter(x => x.name === 'lgSize')[0].value || 10;
-    $: xlSize = styles.filter(x => x.name === 'xlSize')[0] && styles.filter(x => x.name === 'xlSize')[0].value || 10;
     
-    $: alignContent = styles.filter(x => x.name === 'align-items')[0] && styles.filter(x => x.name === 'align-items')[0].value;
-    $: backgroundHTML = styles.filter(x => x.name === 'backgroundHTML')[0] && styles.filter(x => x.name === 'backgroundHTML')[0].value || '';
-    $: backgroundImage = styles.filter(x => x.name === 'backgroundImage')[0] && styles.filter(x => x.name === 'backgroundImage')[0].value || '';
+    const watchStyle = (styles, watched, defaultValue) => {
+        return styles.filter(x => x.name === watched)[0] && styles.filter(x => x.name === watched)[0].value || defaultValue;
+    };
 
-    $: marginX = styles.filter(x => x.name === 'marginX')[0] && styles.filter(x => x.name === 'marginX')[0].value || 0;
-    $: marginY = styles.filter(x => x.name === 'marginY')[0] && styles.filter(x => x.name === 'marginY')[0].value || 0;
-    $: paddingX = styles.filter(x => x.name === 'paddingX')[0] && styles.filter(x => x.name === 'paddingX')[0].value || 1;
-    $: paddingY = styles.filter(x => x.name === 'paddingY')[0] && styles.filter(x => x.name === 'paddingY')[0].value || 1;
-    $: rounded = styles.filter(x => x.name === 'rounded')[0] && styles.filter(x => x.name === 'rounded')[0].value || 0;
+    $: xsSize = watchStyle(styles, 'xsSize', 12);
+    $: smSize = watchStyle(styles, 'smSize', 12);
+    $: mdSize = watchStyle(styles, 'mdSize', 12);
+    $: lgSize = watchStyle(styles, 'lgSize', 10);
+    $: xlSize = watchStyle(styles, 'xlSize', 10);
     
-    $: gutterX = styles.filter(x => x.name === 'gutterX')[0] && styles.filter(x => x.name === 'gutterX')[0].value || 2;
-    $: gutterY = styles.filter(x => x.name === 'gutterY')[0] && styles.filter(x => x.name === 'gutterY')[0].value || 2;
-
-    $: border = styles.filter(x => x.name === 'border')[0] && styles.filter(x => x.name === 'border')[0].value;
+    $: alignContent = watchStyle(styles, 'align-items', 'start');
+    $: backgroundHTML = watchStyle(styles, 'backgroundHTML', '');
+    $: backgroundImage = watchStyle(styles, 'backgroundImage', '');
+    
+    $: marginX = watchStyle(styles, 'marginX', 0);
+    $: marginY = watchStyle(styles, 'marginY', 0);
+    $: paddingX = watchStyle(styles, 'paddingX', 1);
+    $: paddingY = watchStyle(styles, 'paddingY', 1);
+    $: rounded = watchStyle(styles, 'rounded', 0);
+    
+    $: gutterX = watchStyle(styles, 'gutterX', 2);
+    $: gutterY = watchStyle(styles, 'gutterY', 2);
+    
+    $: border = watchStyle(styles, 'border', 'btn-primary');
     
 </script>
 
 <div class="row align-items-center">
-    <div class='row my-0'>
-        <p class="my-0"><strong>Frame covering on screen (max cover is 12)</strong></p>
-        <div class="d-flex justify-content-end my-1">
-            <label for="xs-size" class="w-75">On Mobile</label>
-            <input type="number" class="form-control" id="xs-size" min={1} max={12} value={xsSize} on:change={(e) => styles = updateStyle(styles, {name:'xsSize', value:e.target.value})}/>
-        </div>
-        <div class="d-flex justify-content-end my-1">
-            <label for="sm-size" class="w-75">On small tablet</label>
-            <input type="number" class="form-control" id="sm-size" min={1} max={12} value={smSize} on:change={(e) => styles = updateStyle(styles, {name:'smSize', value:e.target.value})}/>
-        </div>
-        <div class="d-flex justify-content-end my-1">
-            <label for="md-size" class="w-75">On large tablet</label>
-            <input type="number" class="form-control" id="md-size" min={1} max={12} value={mdSize} on:change={(e) => styles = updateStyle(styles, {name:'mdSize', value:e.target.value})}/>
-        </div>
-        <div class="d-flex justify-content-end my-1">
-            <label for="lg-size" class="w-75">On regular desktop</label>
-            <input type="number" class="form-control" id="lg-size" min={1} max={12} value={lgSize} on:change={(e) => styles = updateStyle(styles, {name:'lgSize', value:e.target.value})}/>
-        </div>
-        <div class="d-flex justify-content-end my-1">
-            <label for="xl-size" class="w-75">On large desktop</label>
-            <input type="number" class="form-control" id="xl-size" min={1} max={12} value={xlSize} on:change={(e) => styles = updateStyle(styles, {name:'xlSize', value:e.target.value})}/>
-        </div>
+    <div class='row ms-2'>
+        <button 
+            class="btn btn-transparent layout-width text-start my-0"
+            on:click={() => layoutWidthOpen = !layoutWidthOpen}
+        >
+            {#if layoutWidthOpen}
+                <i class="bi bi-chevron-up"></i>
+            {:else}
+                <i class="bi bi-chevron-down"></i>
+            {/if}
+            Frame width (max 12 column)
+        </button>
+        {#if layoutWidthOpen}
+            <div class="d-flex align-items-center my-1">
+                <label for="xs-size" class="w-100">On Mobile</label>
+                <input 
+                    type="number" 
+                    class="form-control" 
+                    id="xs-size" 
+                    min={1} 
+                    max={12} 
+                    value={xsSize} 
+                    on:change={(e) => styles = updateStyle(styles, {name:'xsSize', value:e.target.value})}
+                />
+            </div>
+            <div class="d-flex align-items-center my-1">
+                <label for="sm-size" class="w-100">On small tablet</label>
+                <input 
+                    type="number" 
+                    class="form-control" 
+                    id="sm-size" 
+                    min={1} 
+                    max={12} 
+                    value={smSize} 
+                    on:change={(e) => styles = updateStyle(styles, {name:'smSize', value:e.target.value})}
+                />
+            </div>
+            <div class="d-flex align-items-center my-1">
+                <label for="md-size" class="w-100">On large tablet</label>
+                <input 
+                    type="number" 
+                    class="form-control" 
+                    id="md-size" 
+                    min={1} 
+                    max={12} 
+                    value={mdSize} 
+                    on:change={(e) => styles = updateStyle(styles, {name:'mdSize', value:e.target.value})}
+                />
+            </div>
+            <div class="d-flex align-items-center my-1">
+                <label for="lg-size" class="w-100">On regular desktop</label>
+                <input 
+                    type="number" 
+                    class="form-control" 
+                    id="lg-size" 
+                    min={1} 
+                    max={12} 
+                    value={lgSize} 
+                    on:change={(e) => styles = updateStyle(styles, {name:'lgSize', value:e.target.value})}
+                />
+            </div>
+            <div class="d-flex align-items-center my-1">
+                <label for="xl-size" class="w-100">On large desktop</label>
+                <input 
+                    type="number" 
+                    class="form-control" 
+                    id="xl-size" 
+                    min={1} 
+                    max={12} 
+                    value={xlSize} 
+                    on:change={(e) => styles = updateStyle(styles, {name:'xlSize', value:e.target.value})}
+                />
+            </div>
+        {/if}
     </div>
     <div class='my-1'>
         <div class='col'>
@@ -256,5 +314,11 @@
         left:-0.8rem;
         width: 1.6rem;
         height: 1.6rem;
+    }
+    .layout-width {
+        color: rgb(88, 88, 88);
+    }
+    .layout-width:hover {
+        font-weight: bold;
     }
 </style>

@@ -3,19 +3,34 @@
     import { getFonts } from '../actions/fontsActions';
     import { getNavBar } from '../actions/navActions';
     import { getFooter } from '../actions/footerActions';
-    
+    import { getAllPagesList, getContent, updateOrCreateContent } from "../actions/pagesActions";
+
     export async function load({url}) {
+        const currentPage = '/pages/homeContent'
         const { navBar } = await getNavBar();
         const { footer } = await getFooter();
         const { seo } = await getSeo();
         const { fonts } = await getFonts();
-        return {status:200, props: {defaultSeo: seo, navBar, footer, fonts, url}};
+        const { list: pagesList} = await getAllPagesList();
+        const pageRequest = await getContent(currentPage.split('/pages/')[1]);
+
+        return {
+            status:200, 
+            props: {
+                defaultSeo: seo, 
+                navBar, 
+                footer, 
+                fonts, 
+                url,
+                pagesList,
+                pageRequest,
+                currentPage: currentPage
+            }
+        };
     };
 </script>
 
 <script>
-    import { getAllPagesList, getContent, updateOrCreateContent } from "../actions/pagesActions";
-    import { onMount } from "svelte";
     import DisplayCustomComponent from "../components/DisplayCustomComponent.svelte";
     import MenuPage from "../components/admin/MenuPage.svelte";
     import MenuEdit from "../components/admin/MenuEdit.svelte";
@@ -41,12 +56,13 @@
     export let url;
     export let navBar;
     export let footer;
+    export let pagesList;
+    export let pageRequest;
+    export let currentPage;
 
     const API_URL = config.API_URL;
 
-    let pageRequest = { content: { content: [], name: '' }, loading: true, message: '' };
     let selectedComponent = {id:"", position:null};
-    let currentPage = "";
     let showMenuPage = true;
     let showNavigationBar = false;
     let showFooter = false;
@@ -60,17 +76,9 @@
         if (browser && !isAuthenticate) { goto('/login'); }
     };
 
-    let pagesList = [];
     const getPages = async () => {
-        const pagesListRequest = await getAllPagesList();
-        pagesList = pagesListRequest.list;
+        pagesList = (await getAllPagesList()).list;
     };
-
-    onMount(async() => {
-        getPages();
-        currentPage = 'homeContent'
-        pageRequest = await getContent(currentPage.split('/pages/')[1]);
-    });
 
     const selectPageHandler = async (pageName) => {
         currentPage = pageName
@@ -135,7 +143,12 @@
                             bind:showFavicon={showFavicon}
                         />
                         <div on:click={showPageHandler}>
-                            <MenuPage pagesList={pagesList} getPages={getPages} currentPage={currentPage} selectPageHandler={selectPageHandler} />
+                            <MenuPage 
+                                pagesList={pagesList} 
+                                getPages={getPages} 
+                                currentPage={currentPage} 
+                                selectPageHandler={selectPageHandler} 
+                            />
                         </div>
                     </div>
                 </div>
