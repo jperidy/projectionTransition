@@ -9,7 +9,7 @@
 
     $:hasBeenModified = !(JSON.stringify(page) === JSON.stringify($pageRequest.content));
 
-    const modalId = 'menuEditModal'
+    const modalId = 'menuEditModal' + crypto.randomUUID();
 
     const addContent = (component, position) => {
         page.content.splice(position, 0, component);

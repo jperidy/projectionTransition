@@ -25,8 +25,8 @@
 
     let visible = false;
 
-    const modalIdUp = 'displayEditMenuModalUp';
-    const modalIdDown = 'displayEditMenuModalDown';
+    const modalIdUp = 'displayEditMenuModalUp' + crypto.randomUUID();
+    const modalIdDown = 'displayEditMenuModalDown' + crypto.randomUUID();
 
     const upAction = () => {
         if (position > 0) {

@@ -23,12 +23,10 @@
             pageRequest = await getContent(pageName);
             
             if (pageRequest.content.content.length === 0) {
-                console.log('here1');
                 return { status: 308, redirect: `/page-not-found` }
             }
 
             if (!pageRequest.content.display) {
-                console.log('here2');
                 return { status: 308, redirect: `/page-not-found` }
             }
             

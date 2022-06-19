@@ -12,8 +12,8 @@
     export let updateMovedArray;
     export let addContent;
 
-    const modalIdUp = 'movingContentModalUp';
-    const modalIdDown = 'movingContentModalDown';
+    const modalIdUp = 'movingContentModalUp' + crypto.randomUUID();
+    const modalIdDown = 'movingContentModalDown' + crypto.randomUUID();
 
     let addUp = false;
     let addDown = false;

@@ -6,7 +6,7 @@
     export let styles=[]; styles;
     export let selectedComponentPosition;
 
-    const modalId = 'editMultiLayerComponentModal';
+    const modalId = 'editMultiLayerComponentModal' + crypto.randomUUID();
 
     const addALayer = async(item) => {
         values = [...values, {...item, top:0, left:0, width: ""}];
