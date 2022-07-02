@@ -43,17 +43,11 @@ import DropDown from './DropDown.svelte';
         const file = e.target.files[0];
         const fileName = Date.now() + '_' + file.name;
         
-        const res = await uploadFile(file, fileName, backgroundImage, imagesFormats);
+        const { error, path } = await uploadFile(file, fileName, backgroundImage, imagesFormats);
 
-        if (res.map(x => x.status).find(y => y === 'Error')) {
-            messageUploadImage = res
-                .filter(x => x.status === 'Error')
-                .map(x => x.data)
-                .join(', ');
-        } else {
-            styles = updateStyle(styles, { name:'backgroundImage', value: `/uploads/${fileName}` });
-            messageUploadImage = null;            
-        }
+        messageUploadImage = error;
+        styles = updateStyle(styles, { name:'backgroundImage', value: `/uploads/${fileName}` });
+
         loadingImage = false;
     };
 

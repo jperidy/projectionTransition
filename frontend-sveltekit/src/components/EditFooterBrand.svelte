@@ -19,18 +19,12 @@
         const file = e.target.files[0];
         const fileName = Date.now() + '_' + file.name;
 
-        const result = await uploadFile(file, fileName, footer.BRAND.LOGO.path, imagesFormats);
+        const { error, path } = await uploadFile(file, fileName, footer.BRAND.LOGO.path, imagesFormats);
       
-        if (result.map(x => x.status).find(y => y === 'Error')) {
-            messageUpdateBrand = result
-                .filter(x => x.status === 'Error')
-                .map(x => x.data)
-                .join(', ');
-        } else {
-            messageUpdateBrand = null;
-            footer.BRAND.LOGO.path = `/uploads/${fileName}`;
-            footer = footer;
-        }
+        messageUpdateBrand = error;
+        footer.BRAND.LOGO.path = `/uploads/${fileName}`;
+        footer = footer;
+
         loadingImage = false;
     };
 </script>

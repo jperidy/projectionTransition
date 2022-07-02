@@ -32,18 +32,12 @@
         const file = e.target.files[0];
         const fileName = Date.now() + '_' + file.name;
         
-        const res = await uploadFile(file, fileName, values[index].url, imagesFormats);
+        const { error, path } = await uploadFile(file, fileName, values[index].url, imagesFormats);
 
-        if (res.map(x => x.status).find(y => y === 'Error')) {
-            messageUploadImage = res
-                .filter(x => x.status === 'Error')
-                .map(x => x.data)
-                .join(', ');
-        } else {
-            messageUploadImage = null;
-            values[index].url = `/uploads/${fileName}`;
-            values = values;
-        }
+        messageUploadImage = error;
+        values[index].url = `/uploads/${fileName}`;
+        values = values;
+
         loadingImage = false;
     };
 

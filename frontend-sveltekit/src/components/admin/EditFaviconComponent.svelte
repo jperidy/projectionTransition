@@ -42,20 +42,15 @@
     const file = e.target.files[0];
     const fileName = Date.now() + '_' + file.name;
     
-    const res = await uploadFile(file, fileName, seo[name], imagesFormats);
-    if (res.map(x => x.status).find(y => y === 'Error')) {
-      messageUpdateFavicon = res
-        .filter(x => x.status === 'Error')
-        .map(x => x.data)
-        .join(', ');
-    } else {
-      messageUpdateFavicon = null;
-      seo[name] = `/uploads/${fileName}`;
-      seo = seo;
-      updateOrCreateSeo(seo)
-        .then((result) => seo = result.seo)
-        .catch((error) => messageUpdateSeo = error);
-    }
+    const { error, path } = await uploadFile(file, fileName, seo[name], imagesFormats);
+
+    messageUpdateFavicon = error;
+    seo[name] = `/uploads/${fileName}`;
+    seo = seo;
+    updateOrCreateSeo(seo)
+      .then((result) => seo = result.seo)
+      .catch((error) => messageUpdateSeo = error);
+
     loadingImage = false;
   };
 

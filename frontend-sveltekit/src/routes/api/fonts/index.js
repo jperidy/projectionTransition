@@ -16,21 +16,21 @@ export async function get() {
 }
 
 /** @type {import('./__types/[id]').RequestHandler} */
-export async function put({request: req}) {
-    const fontToUpdate = await req.json();
+export async function post({request: req}) {
+    const fontToUpdateOrCreate = await req.json();
 
-    const font = await Font.findById(fontToUpdate._id);
+    const font = await Font.findById(fontToUpdateOrCreate._id);
 
     if (!font) {
-        const fontCreated = await Font.create(fontToUpdate);
+        const fontCreated = await Font.create(fontToUpdateOrCreate);
         return {
             status: 200,
             body: { message: 'fontCreated', value: fontCreated}
         }
     }
 
-    for (let key in fontToUpdate) {
-        font[key] = fontToUpdate[key]
+    for (let key in fontToUpdateOrCreate) {
+        font[key] = fontToUpdateOrCreate[key]
     }
     const fontUpdated = await font.save();
     return {

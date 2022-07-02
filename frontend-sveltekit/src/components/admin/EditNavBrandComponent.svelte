@@ -18,18 +18,12 @@
     const file = e.target.files[0];
     const fileName = Date.now() + '_' + file.name;
       
-    const res = await uploadFile(file, fileName, navBar.BRAND.LOGO.path, imagesFormats);
+    const { error, path } = await uploadFile(file, fileName, navBar.BRAND.LOGO.path, imagesFormats);
 
-    if (res.map(x => x.status).find(y => y === 'Error')) {
-      messageUploadImage = res
-        .filter(x => x.status === 'Error')
-        .map(x => x.data)
-        .join(', ');
-    } else {
-      messageUploadImage = null;
-      navBar.BRAND.LOGO.path = `/uploads/${fileName}`;
-      navBar = navBar;
-    }
+    messageUploadImage = error;
+    navBar.BRAND.LOGO.path = `/uploads/${fileName}`;
+    navBar = navBar;
+
     loadingImage = false;
   };
 </script>

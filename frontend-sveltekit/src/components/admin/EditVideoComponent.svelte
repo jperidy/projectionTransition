@@ -37,18 +37,12 @@ import { uploadFile } from "../../actions/uploadActions";
         const file = e.target.files[0];
         const fileName = Date.now() + '_' + file.name;
         
-        const res = await uploadFile(file, fileName, values[index].url, videosFormats);
+        const { error, path } = await uploadFile(file, fileName, values[index].url, videosFormats);
 
-        if (res.map(x => x.status).find(y => y === 'Error')) {
-            messageUploadVideo = res
-                .filter(x => x.status === 'Error')
-                .map(x => x.data)
-                .join(', ');
-        } else {
-            messageUploadVideo = null;
-            values[index].url = `/uploads/${fileName}`;
-            values = values;
-        }
+        messageUploadVideo = error;
+        values[index].url = `/uploads/${fileName}`;
+        values = values;
+
         loadingVideo = false;
     };
 

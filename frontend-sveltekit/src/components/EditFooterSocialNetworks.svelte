@@ -55,27 +55,22 @@ import { imagesFormats } from "../constants/files";
         const file = e.target.files[0];
         const fileName = Date.now() + '_' + file.name;
         
-        const res = await uploadFile(
+        const { error } = await uploadFile(
             file, 
             fileName, 
             index === -1 ? '' : footer.SOCIAL_NETWORKS[index].icon, 
             imagesFormats
         );
 
-        if (res.map(x => x.status).find(y => y === 'Error')) {
-            messageUpdateBrand = res
-            .filter(x => x.status === 'Error')
-            .map(x => x.data)
-            .join(', ');
-        } else {
-            if (index === -1) { 
-                snIcon = `/uploads/${fileName}`;
-            } else { 
-                footer.SOCIAL_NETWORKS[index].icon = `/uploads/${fileName}`;
-                footer = footer;
-            }
-            messageUpdateBrand = null;
+        messageUpdateFooter = error;
+        
+        if (index === -1) { 
+            snIcon = `/uploads/${fileName}`;
+        } else { 
+            footer.SOCIAL_NETWORKS[index].icon = `/uploads/${fileName}`;
+            footer = footer;
         }
+        
         loadingImage = false;
     };
 

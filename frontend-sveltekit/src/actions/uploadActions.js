@@ -54,7 +54,17 @@ export const uploadFile = async (file, fileName, fileToDelete, types) => {
             const result = await upload(fileName, CHUNK, fileToDelete);
             results.push(result);
         }
-        resolve(results);
+
+        const errors = results.filter(result => result.status === 'Error');
+        if (errors.length) {
+            resolve({
+                error: errors.map(x => x.data).join(', ')
+            })
+        } else {
+            resolve({
+                path: results[0].data
+            });
+        }
       }
     }) 
 }

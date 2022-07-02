@@ -2,8 +2,8 @@
     import { uploadFile } from "../../actions/uploadActions";
     import { filesFormats } from "../../constants/files";
     import { updateStyle } from "../../utils/styleFunctions";
-import Loading from "../Loading.svelte";
-import Message from "../Message.svelte";
+    import Loading from "../Loading.svelte";
+    import Message from "../Message.svelte";
 
     export let values;
     export let styles;
@@ -22,18 +22,11 @@ import Message from "../Message.svelte";
         const file = e.target.files[0];
         const fileName = Date.now() + '_' + file.name;
 
-        const result = await uploadFile(file, fileName, values[index].url, filesFormats);
-      
-        if (result.map(x => x.status).find(y => y === 'Error')) {
-            messageUploadFile = result
-                .filter(x => x.status === 'Error')
-                .map(x => x.data)
-                .join(', ');
-        } else {
-            messageUploadFile = null;
-            values[index].url = result.data;
-            values = values;
-        }
+        const { error, path } = await uploadFile(file, fileName, values[index].url, filesFormats);
+
+        messageUploadFile = error;
+        values[index].url = `uploads/${fileName}`;
+        values = values;
         loadingFile = false;
     };
 

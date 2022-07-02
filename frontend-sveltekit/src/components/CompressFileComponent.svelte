@@ -44,7 +44,10 @@
                 <button class={`btn ${btnColor}`} on:click={downloadHandler}>Télécharger</button>
             </div>
         {:else}
-            <div class="bg-secondary d-flex align-items-center justify-content-center text-dark" style="min-height:5vh;">Add a compress file</div>
+            <div 
+                class="bg-secondary d-flex align-items-center justify-content-center text-dark" 
+                style="min-height:5vh;"
+            >Add a compress file</div>
         {/if}
     </div>
 </div>

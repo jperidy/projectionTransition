@@ -59,27 +59,22 @@
     const file = e.target.files[0];
     const fileName = Date.now() + '_' + file.name;
     
-    const res = await uploadFile(
+    const { error, path } = await uploadFile(
       file, 
       fileName, 
       index === -1 ? '' : navBar.SOCIAL_NETWORKS[index].icon, 
       imagesFormats
     );
-    if (res.map(x => x.status).find(y => y === 'Error')) {
-      messageUploadImage = res
-        .filter(x => x.status === 'Error')
-        .map(x => x.data)
-        .join(', ');
-    } else {
-      if (index === -1) { 
-          snIcon = `/uploads/${fileName}`;
-      } else { 
-          navBar.SOCIAL_NETWORKS[index].icon = `/uploads/${fileName}`;
-          navBar = navBar;
-      }
-      messageUploadImage = null;
 
+    messageUploadImage = error;
+
+    if (index === -1) { 
+        snIcon = `/uploads/${fileName}`;
+    } else { 
+        navBar.SOCIAL_NETWORKS[index].icon = `/uploads/${fileName}`;
+        navBar = navBar;
     }
+
     loadingImage = false;
   };
 </script>

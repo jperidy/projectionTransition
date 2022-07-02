@@ -39,12 +39,12 @@ export const updateOrCreateFooter = async (footer) => {
             }
         };
 
-        const { data } = await axios.post(`${API_URL}/api/footers`, footer, config);
+        const { data } = await axios.put(`${API_URL}/api/footers`, footer, config);
 
         return { footer: data.value, loading: false, message: data.message };
 
     } catch (error) {
 
-        return { footer: {}, loading: false, message: 'Error updating footer ' + error };
+        return { loading: false, message: 'Error updating footer ' };
     }
 };

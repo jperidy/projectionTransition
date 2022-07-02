@@ -65,7 +65,7 @@
         loadingUpdate = true;
         updateOrCreateFooter(footer)
             .then((result) => {footer = result.footer; loadingUpdate = false;})
-            .catch((error) => {messageUpdateFooter = error; loadingUpdate = false;});
+            .catch((error) => {messageUpdateFooter = error.message; loadingUpdate = false;});
     }
 
 </script>

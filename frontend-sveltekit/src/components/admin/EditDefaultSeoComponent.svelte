@@ -53,19 +53,13 @@
         const file = e.target.files[0];
         const fileName = Date.now() + '_' + file.name;
         
-        const res = await uploadFile(file, fileName, seo.DEFAULT_OG_IMAGE, imagesFormats);
+        const { error, path } = await uploadFile(file, fileName, seo.DEFAULT_OG_IMAGE, imagesFormats);
+        
+        messageUploadImage = error;
+        seo.DEFAULT_OG_IMAGE = `/uploads/${fileName}`;
+        seo = seo;
+        updateOrCreateHandler();
 
-        if (res.map(x => x.status).find(y => y === 'Error')) {
-            messageUploadImage = res
-            .filter(x => x.status === 'Error')
-            .map(x => x.data)
-            .join(', ');
-        } else {
-            messageUploadImage = null;
-            seo.DEFAULT_OG_IMAGE = `/uploads/${fileName}`;
-            seo = seo;
-            updateOrCreateHandler();
-        }
         loadingImage = false;
     };
 
