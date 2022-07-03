@@ -2,7 +2,7 @@
     
     export async function load() {
         return { 
-            status: 308, 
+            status: 307, 
             redirect: '/pages/homeContent'
         };
     };

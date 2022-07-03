@@ -4,7 +4,6 @@
     import { getSeo } from '../../actions/seoActions';
     
     export async function load({ url, params }) {
-        
         let [name, city] = params.data.split('/');
 
         name = name ? name : 'homeContent' ;
@@ -23,11 +22,11 @@
             pageRequest = await getContent(pageName);
             
             if (pageRequest.content.content.length === 0) {
-                return { status: 308, redirect: `/page-not-found` }
+                return { status: 307, redirect: `/page-not-found` }
             }
 
             if (!pageRequest.content.display) {
-                return { status: 308, redirect: `/page-not-found` }
+                return { status: 307, redirect: `/page-not-found` }
             }
             
             return { status:200, props: {pageRequest, city, url, defaultSeo: seo} };

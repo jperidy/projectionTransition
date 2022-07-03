@@ -13,10 +13,10 @@
             <i class="bi bi-chevron-down"></i>
         {/if}
         {title}
-        {#if open}
-            <slot></slot>
-        {/if}
     </button>
+    {#if open}
+        <slot></slot>
+    {/if}
 </div>
 <style>
     .drop-down-button {
