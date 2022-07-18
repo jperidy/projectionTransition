@@ -1,11 +1,11 @@
 #! /bin/bash
-echo Release version: 
+
+echo Release version:
 read version
 
 echo Enter repository
 read repository
 
-sudo docker login
 sudo docker build -t $repository:RELEASE-$version .
 sudo docker push $repository:RELEASE-$version
 sudo docker build -t $repository:LATEST .

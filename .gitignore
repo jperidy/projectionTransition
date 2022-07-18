@@ -6,8 +6,8 @@ _sources
 backup
 design
 frontend
-frontend-sveltekit/sass/mains.min.scss
-frontend-sveltekit/static/images/*
+sass/mains.min.scss
+static/images/*
 mains.min.css
 favicon_*.png
 node_modules
@@ -16,7 +16,10 @@ uploads
 adminAccount
 config.json
 docker-copy-backup.bash
-frontend-sveltekit/build
+build
 test.bash
 frontend-sveltekit/.svelte-kit/
 _manuel_utilisateur
+.svelte-kit
+mongo-volume
+init-mongo.js

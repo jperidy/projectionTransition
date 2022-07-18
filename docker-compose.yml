@@ -1,24 +1,8 @@
 version: '3.7'
 services:
-  projection-transition-backend:
-    image: jbperidy/projection-transition-backend:LATEST
-    container_name: projection-transition-backend
-    ports:
-      - "5004:5000"
-    deploy:
-      resources:
-        limits:
-          cpus: '0.3'
-          memory: 250M
-    restart: always
-    networks:
-      - projection-transition-network
-    volumes:
-       - projection-transition-data:/app/uploads
-
-  projection-transition-frontend-sveltekit:
-    image: jbperidy/projection-transition-frontend-sveltekit:LATEST
-    container_name: projection-transition-frontend-sveltekit
+  projection-transition-web:
+    build: .
+    container_name: projection-transition-web
     ports:
       - "5006:3000"
     deploy:
@@ -29,7 +13,20 @@ services:
     restart: always
     networks:
       - projection-transition-network
-    
+    volumes:
+      - projection-transition-data:/app/static
+  projection-transition-db:
+    image: 'mongo'
+    container_name: projection-transition-db
+    environment:
+      - MONGO_INITDB_DATABASE=projection-transition-db
+      - MONGO_INITDB_ROOT_USERNAME=my-container-root-MONGO_INITDB_ROOT_USERNAME
+      - MONGO_INIT_ROOT_PASSWORD=my-root-password
+    volumes:
+      - ./init-mongo.js:/docker-entrypoint-initdb.d/init-mongo.js:ro
+      - ./mongo-volume:/data/db
+    ports:
+      - "27017-27019:27017-27019"
 networks:
   projection-transition-network:
     name: projection-transition-network

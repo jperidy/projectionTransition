@@ -1,22 +1,37 @@
-const { getDatabaseUri } = require('./backend/config/db');
-const config = require('./config/config.json');
+// In this file you can configure migrate-mongo
+import { createRequire } from "module"; // Bring in the ability to create the 'require' method
+const require = createRequire(import.meta.url); // construct the require method
+const globalConfig = require("./src/config.json") // use the require method
 
+const config = {
+    mongodb: {
+        // TODO Change (or review) the url to your MongoDB:
+        // url: "mongodb://localhost:27017",
+        url: globalConfig.MONGO_URI,
 
-module.exports = {
-  mongodb: {
-    url: getDatabaseUri(),
+        options: {
+            useNewUrlParser: true, // removes a deprecation warning when connecting
+            useUnifiedTopology: true, // removes a deprecating warning when connecting
+            //   connectTimeoutMS: 3600000, // increase connection timeout to 1 hour
+            //   socketTimeoutMS: 3600000, // increase socket timeout to 1 hour
+        }
+    },
 
-    options: {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-    }
-  },
+    // The migrations dir, can be an relative or absolute path. Only edit this when really necessary.
+    migrationsDir: "migrations",
 
-  migrationsDir: "backend/migrations",
+    // The mongodb collection where the applied changes are stored. Only edit this when really necessary.
+    changelogCollectionName: "changelog",
 
-  changelogCollectionName: "changelog",
+    // The file extension to create migrations and search for in migration dir
+    migrationFileExtension: ".js",
 
-  migrationFileExtension: ".js",
+    // Enable the algorithm to create a checksum of the file contents and use that in the comparison to determin
+    // if the file should be run.  Requires that scripts are coded to be run multiple times.
+    useFileHash: false,
 
-  useFileHash: false
+    // Don't change this, unless you know what you're doing
+    moduleSystem: 'esm',
 };
+
+export default config;
