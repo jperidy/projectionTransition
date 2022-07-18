@@ -1,6 +1,9 @@
-module.exports = {
-  async up(db, client) {
-    const pages = await db.collection('pages').find({}).toArray();
+export const up = async (db) => {
+  // TODO write your migration here.
+  // See https://github.com/seppevs/migrate-mongo/#creating-a-new-migration-script
+  // Example:
+  // await db.collection('albums').updateOne({artist: 'The Beatles'}, {$set: {blacklisted: true}});
+  const pages = await db.collection('pages').find({}).toArray();
 
     const pagesActions = pages.map((page) => db.collection('pages').updateOne(
           { _id: page._id },
@@ -22,12 +25,14 @@ module.exports = {
     );
 
 
-    return Promise.all(pagesActions, navsActions, footersActions);
-    
-  },
+    await Promise.all(pagesActions, navsActions, footersActions);
+};
 
-  async down(db, client) {
-    const pages = await db.collection('pages').find({}).toArray();
+export const down = async (db) => {
+  // TODO write the statements to rollback your migration (if possible)
+  // Example:
+  // await db.collection('albums').updateOne({artist: 'The Beatles'}, {$set: {blacklisted: false}});
+  const pages = await db.collection('pages').find({}).toArray();
 
     const pagesActions = pages.map((page) => db.collection('pages').updateOne(
           { _id: page._id },
@@ -49,5 +54,4 @@ module.exports = {
     );
     
     return Promise.all(pagesActions, navsActions, footersActions);
-  }
 };

@@ -8,7 +8,7 @@ const connectDB = async () => {
             useUnifiedTopology: true,
         });
     } catch (error) {
-        console.log(`ERROR DB CONNECTION: ${error.message} \nNODE_ENV:${config.NODE_ENV}\nuri: ${config.MONGO_URI}`);
+        console.log(`ERROR DB CONNECTION: ${error.message} \nSVELTE_ENV:${config.SVELTE_ENV}\nuri: ${config.MONGO_URI}`);
     }
 }
 

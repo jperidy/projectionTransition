@@ -31,7 +31,7 @@ const authentication = async (event) => {
 
 /** @type {import('@sveltejs/kit').Handle} */
 export async function handle({ event, resolve }) {
-    if (!config.NODE_ENV === 'production') {
+    if (!config.SVELTE_ENV === 'production') {
         console.log('DEBUG:', event.request.method, event.url.pathname);
     }
 
