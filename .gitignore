@@ -12,7 +12,9 @@ mains.min.css
 favicon_*.png
 node_modules
 .env
-uploads
+static/uploads/*.jpg
+static/uploads/*.png
+static/uploads/*.zip
 adminAccount
 config.json
 docker-copy-backup.bash
